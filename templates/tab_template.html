@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Cloudflare CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Degree Planer</title>
+</head>
+
+<body>
+    <template>
+        <b-card no-body>
+            <b-tabs card>
+                <!-- Render Tabs, supply a unique `key` to each tab -->
+                <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="'Semester ' + (i+1)">
+                    <div class="col-10">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Course Num</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Points</th>
+                                    <th scope="col">Grade</th>
+                                    <th scope="col" style="width:30px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control">
+                                            <option value="Mandatory">Mandatory</option>
+                                            <option value="A' List">A' List</option>
+                                            <option value="B' List">B' List</option>
+                                            <option value="Humanistic">Humanistic</option>
+                                            <option value="Free Choice">Free Choice</option>
+                                            <option value="Project">Project</option>
+                                            <option value="Sport">Sport</option>
+                                            <option value="Exemption">Exemption</option>
+                                        </select>
+                                    </td>
+                                    <td><input class="form-control" type="number" step="1" min="0" max="9999999"></td>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="number" step="0.5" min="0" max="25"
+                                            value="0.0"></td>
+                                    <td><input class="form-control" type="number" step="1" min="0" max="100" value="0">
+                                    </td>
+                                    <td>
+                                        <b-button squared variant="outline-danger" v-b-tooltip.hover
+                                            title="Remove Line">x</b-button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select class="form-control">
+                                            <option value="Mandatory">Mandatory</option>
+                                            <option value="A' List">A' List</option>
+                                            <option value="B' List">B' List</option>
+                                            <option value="Humanistic">Humanistic</option>
+                                            <option value="Free Choice">Free Choice</option>
+                                            <option value="Project">Project</option>
+                                            <option value="Sport">Sport</option>
+                                            <option value="Exemption">Exemption</option>
+                                        </select>
+                                    </td>
+                                    <td><input class="form-control" type="number" step="1" min="0" max="9999999"></td>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="number" step="0.5" min="0" max="25"
+                                            value="0.0"></td>
+                                    <td><input class="form-control" type="number" step="1" min="0" max="100" value="0">
+                                    </td>
+                                    <td>
+                                        <b-button squared variant="outline-danger" v-b-tooltip.hover
+                                            title="Remove Line">x</b-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-md-center">
+                            <b-button-group class="mx-1">
+                                <b-button squared variant="outline-primary">Add Row</b-button>
+                                <b-button squared variant="outline-danger">Remove Row</b-button>
+                            </b-button-group>
+                        </div>
+                        <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)"
+                            style="margin-bottom:10px">
+                            Delete Semester
+                        </b-button>
+                    </div>
+                    <div class="col-3">
+                        <table class="table table-sm table-light">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="2">Semester summary:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label>Average:</label>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" max="100" min="0" value="0" readonly
+                                            style="width:40px">
+                                    </td class="w-25">
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Points:</label>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" aria-describedby="basic-addon1"
+                                            max="300" min="0" value="0" readonly style="width:40px">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </b-tab>
+
+                <!-- New Tab Button (Using tabs slot) -->
+                <template slot="tabs-end">
+                    <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+                </template>
+
+                <!-- Render this if no tabs -->
+                <div slot="empty" class="text-center text-muted">
+                    There are no open tabs<br>
+                    Open a new tab using the <b>+</b> button above.
+                </div>
+            </b-tabs>
+        </b-card>
+    </template>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    tabs: [],
+                    tabCounter: 0
+                }
+            },
+            methods: {
+                closeTab(x) {
+                    for (let i = 0; i < this.tabs.length; i++) {
+                        if (this.tabs[i] === x) {
+                            this.tabs.splice(i, 1)
+                        }
+                    }
+                },
+                newTab() {
+                    this.tabs.push(this.tabCounter++)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
