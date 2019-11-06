@@ -18,7 +18,7 @@
 </script>
 
 <style scoped>
-    th{
+    th {
         text-align: center;
     }
 </style>

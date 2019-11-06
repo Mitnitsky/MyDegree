@@ -1,115 +1,118 @@
 <template>
-    <div class="container justify-content-md-center alert alert-secondary text-center text-muted" style="margin-bottom: 60px">
+    <div class="container justify-content-md-center alert alert-secondary text-center text-muted"
+         style="margin-bottom: 60px">
 
         <div class="row">
-        <div class="col-sm-6">
-            <h3 style="text-decoration: underline; ">Degree summary</h3>
-            <div class="input-group mb-3" style="margin-top: 62px">
-                <div class="input-group-prepend categoryName">
-                    <span class="input-group-text categoryNameSpan"  >Degree's points</span>
+            <div class="col-sm-6">
+                <h3 style="text-decoration: underline; ">Degree summary</h3>
+                <div class="input-group mb-3" style="margin-top: 62px">
+                    <div class="input-group-prepend categoryName">
+                        <span class="input-group-text categoryNameSpan">Degree's points</span>
+                    </div>
+                    <input class="form-control degree-summary" max="9999999" min="0" step="1" style="text-align: center"
+                           type="number">
                 </div>
-                <input type="number" class="form-control degree-summary" max="9999999" min="0" step="1" style="text-align: center" >
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend categoryName">
-                    <span class="input-group-text categoryNameSpan" >Average</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend categoryName">
+                        <span class="input-group-text categoryNameSpan">Average</span>
+                    </div>
+                    <input class="form-control degree-summary" disabled="disabled" readonly type="text">
                 </div>
-                <input type="text" class="form-control degree-summary" readonly disabled="disabled">
-            </div>
-            <div class="input-group mb-3" >
-                <div class="input-group-prepend categoryName">
-                    <span class="input-group-text categoryNameSpan" >Points done</span>
-                </div>
-                <input type="text" class="form-control"  disabled="disabled"  readonly>
-                <div class="input-group-append degree-summary degree-summary">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend categoryName">
+                        <span class="input-group-text categoryNameSpan">Points done</span>
+                    </div>
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <div class="input-group-append degree-summary degree-summary">
 
+                    </div>
                 </div>
-            </div>
-            <div class="input-group mb-3" >
-                <div class="input-group-prepend categoryName">
-                    <span class="input-group-text categoryNameSpan" >Points left</span>
-                </div>
-                <input type="text" class="form-control"  disabled="disabled"  readonly>
-                <div class="input-group-append degree-summary degree-summary">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend categoryName">
+                        <span class="input-group-text categoryNameSpan">Points left</span>
+                    </div>
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <div class="input-group-append degree-summary degree-summary">
 
+                    </div>
                 </div>
-            </div>
-            <div class="input-group mb-3" >
-                <div class="input-group-prepend categoryName">
-                    <span class="input-group-text categoryNameSpan" >Not chosen</span>
-                </div>
-                <input type="text" class="form-control"  disabled="disabled"  readonly>
-                <div class="input-group-append degree-summary degree-summary">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend categoryName">
+                        <span class="input-group-text categoryNameSpan">Not chosen</span>
+                    </div>
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <div class="input-group-append degree-summary degree-summary">
 
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
             <div class="col-sm-6">
                 <h3 style="text-decoration: underline; ">Courses summary</h3>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
 
                     </div>
-                    <input type="text" class="form-control" style="background-color: aliceblue"  readonly value="Left:">
-                    <input type="text" class="form-control" style="background-color: aliceblue"  readonly value="Required:">
+                    <input class="form-control" readonly style="background-color: aliceblue" type="text" value="Left:">
+                    <input class="form-control" readonly style="background-color: aliceblue" type="text"
+                           value="Required:">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">Mandatory: </span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">A' List</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">B' List</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">Humanities</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">Free choice:</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
 
                     <div class="input-group-prepend courseName">
                         <span class="input-group-text courseNameSpan">Projects:</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
 
                     <div class="input-group-prepend courseName">
-                        <span class="input-group-text courseNameSpan" >Sport:</span>
+                        <span class="input-group-text courseNameSpan">Sport:</span>
                     </div>
-                    <input type="text" class="form-control"  disabled="disabled"  readonly>
-                    <input type="number" class="form-control"  max="9999999" min="0" step="1" style="text-align: center">
+                    <input class="form-control" disabled="disabled" readonly type="text">
+                    <input class="form-control" max="9999999" min="0" step="1" style="text-align: center" type="number">
                 </div>
                 <div class="input-group mb-3">
                     <b-form-checkbox
                             id="checkbox-1"
-                            v-model="englishExemption"
                             name="checkbox-1"
+                            v-model="englishExemption"
                     >
                         English's Exemption
                     </b-form-checkbox>
@@ -121,7 +124,7 @@
 <script>
     export default {
         name: 'degree-summary',
-        data () {
+        data() {
             return {
                 englishExemption: false
             }
@@ -135,26 +138,33 @@
         -webkit-appearance: none;
         margin: 0;
     }
-    .courseName{
+
+    .courseName {
         width: 30%;
     }
-    .courseNameSpan{
+
+    .courseNameSpan {
         width: 100%;
         background-color: aliceblue;
     }
-    .left{
+
+    .left {
 
     }
-    .toDo{
+
+    .toDo {
 
     }
-    .degree-summary{
+
+    .degree-summary {
         margin-right: 50px;
     }
-    .categoryName{
+
+    .categoryName {
         width: 40%;
     }
-    .categoryNameSpan{
+
+    .categoryNameSpan {
         width: 100%;
         background-color: aliceblue;
     }

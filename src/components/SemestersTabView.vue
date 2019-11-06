@@ -12,7 +12,8 @@
                 </div>
                 <div class="row align-self-end">
                     <div class="col align-self-end">
-                        <b-button @click="closeTab(semester.name)" class="float-right" size="sm" style="margin-bottom:10px"
+                        <b-button @click="closeTab(semester.name)" class="float-right" size="sm"
+                                  style="margin-bottom:10px"
                                   variant="danger">
                             Delete Semester
                         </b-button>

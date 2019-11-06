@@ -17,11 +17,11 @@
         </td>
         <td class="courseName"><input class="form-control" style="text-align: center" type="text"></td>
         <td class="coursePoints"><input class="form-control" max="25" min="0" step="0.5" style="text-align: center"
-                                      type="number" value="0.0"></td>
+                                        type="number" value="0.0"></td>
         <td class="courseGrade"><input class="form-control" max="100" min="0" step="1" style="text-align: center"
-                                      type="number" value="0"></td>
+                                       type="number" value="0"></td>
         <td class="clearButton text-center">
-            <b-button  squared title="Remove Row" v-b-tooltip.hover
+            <b-button squared title="Remove Row" v-b-tooltip.hover
                       variant="outline-danger">x
             </b-button>
         </td>
@@ -39,22 +39,28 @@
         -webkit-appearance: none;
         margin: 0;
     }
-    .courseType{
+
+    .courseType {
 
     }
-    .courseNumber{
+
+    .courseNumber {
 
     }
-    .courseName{
+
+    .courseName {
 
     }
-    .courseGrade{
+
+    .courseGrade {
 
     }
-    .coursePoints{
+
+    .coursePoints {
 
     }
-    .clearButton{
+
+    .clearButton {
 
     }
 </style>
