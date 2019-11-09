@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640"><defs><path d="M320 349.25L600 209.25L600 549.25L640 549.25L640 189.25L320 29.25L0 189.25L320 349.25Z" id="a1bzwAoLOf"></path><path d="M120 460L320 560L520 460L520 282.36L320 382.36L120 282.36L120 460Z" id="l2z9k8my3Q"></path></defs><g><g><g><use xlink:href="#a1bzwAoLOf" opacity="1" fill="#ffffff" fill-opacity="1"></use><g><use xlink:href="#a1bzwAoLOf" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="0"></use></g></g><g><use xlink:href="#l2z9k8my3Q" opacity="1" fill="#ffffff" fill-opacity="1"></use><g><use xlink:href="#l2z9k8my3Q" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="0"></use></g></g></g></g></svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640">
+    <defs>
+        <path d="M320 349.25L600 209.25L600 549.25L640 549.25L640 189.25L320 29.25L0 189.25L320 349.25Z"
+              id="a1bzwAoLOf"></path>
+        <path d="M120 460L320 560L520 460L520 282.36L320 382.36L120 282.36L120 460Z" id="l2z9k8my3Q"></path>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <use xlink:href="#a1bzwAoLOf" opacity="1" fill="#ffffff" fill-opacity="1"></use>
+                <g>
+                    <use xlink:href="#a1bzwAoLOf" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                         stroke-opacity="0"></use>
+                </g>
+            </g>
+            <g>
+                <use xlink:href="#l2z9k8my3Q" opacity="1" fill="#ffffff" fill-opacity="1"></use>
+                <g>
+                    <use xlink:href="#l2z9k8my3Q" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                         stroke-opacity="0"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

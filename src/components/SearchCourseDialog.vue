@@ -1,36 +1,40 @@
 <template>
-    <div class="justify-content-md-center">
-        <autocomplete
-                :get-result-value="getResultValue"
-                :search="search"
-                aria-label="חיפוש קורסים"
-                autoselect
-                placeholder="חיפוש קורסים"
-                @submit="courseChosen"
-                style="direction: rtl"
-        ></autocomplete>
-        <b-card
-                bg-variant="primary" text-variant="white"  class="text-center"
-                style="direction: rtl; text-align: right"
-                :title="course_name"
-                v-if="selected.show"
-                :sub-title="course_number"
-                v-model="selected.course_name"
-               >
-                <b-card-header v-model="selected.course_number" style="direction: rtl">
-                    {{selected.course_number}}-{{selected.course_name}}
-                </b-card-header>
-                <b-card-text v-model="selected.course_points" style="direction: rtl">
-                    נקודות: {{selected.course_points}}
-                </b-card-text>
-        </b-card>
-    </div>
+  <div class="justify-content-md-center">
+    <autocomplete
+        :get-result-value="getResultValue"
+        :search="search"
+        @submit="courseChosen"
+        aria-label="חיפוש קורסים"
+        autoselect
+        placeholder="חיפוש קורסים"
+
+    ></autocomplete>
+    <b-card
+        :sub-title="course_number"
+        :title="course_name"
+        bg-variant="primary"
+        class="text-center"
+        style="text-align: right"
+        text-variant="white"
+        v-if="selected.show"
+        v-model="selected.course_name"
+    >
+      <b-card-header
+          v-model="selected.course_number">
+        {{selected.course_number}}-{{selected.course_name}}
+      </b-card-header>
+      <b-card-text
+          v-model="selected.course_points">
+        נקודות: {{selected.course_points}}
+      </b-card-text>
+    </b-card>
+  </div>
 </template>
 
 <script>
     import Autocomplete from '@trevoreyre/autocomplete-vue'
 
-    const json_courses = require("@/data/courses_2.json");
+    const json_courses = require("@/data/courses.json");
     export default {
         name: "SearchCourseDialog",
 
@@ -51,7 +55,7 @@
         },
         methods: {
             search(input) {
-                this.selected.show = false
+                this.selected.show = false;
                 if (input.length < 1) {
                     return []
                 }

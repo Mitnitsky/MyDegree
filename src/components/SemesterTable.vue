@@ -1,30 +1,40 @@
 <template>
-    <div class="container">
-        <table class="table table-bordered" style="margin-right: 5px">
-            <semester-header/>
-            <tbody>
-            <semester-table-course-row :key="i" v-for="i in semester.coursesNumber"/>
-            </tbody>
-        </table>
-        <div class="row justify-content-md-center">
-            <b-button-group class="mx-1" >
-                <b-button v-b-modal.modal-center squared variant="outline-info">Find Course</b-button>
-                <b-modal
-                        size="xl"
-                        id="modal-center"
-                        hide-backdrop
-                        centered
-                        title="חיפוש קורסים"
-                        ok-title="הוסף קורס"
-                        cancel-title="סגור">
-                    <search-course-dialog></search-course-dialog>
-                </b-modal>
-                <b-button @click="semester.coursesNumber += 1" squared variant="outline-primary">Add Empty Row
-                </b-button>
-                <b-button @click="semester.coursesNumber -= 1" squared variant="outline-danger">Remove Row</b-button>
-            </b-button-group>
-        </div>
+  <div class="container">
+    <table class="table table-bordered"
+           style="margin-right: 5px">
+      <semester-header/>
+      <tbody>
+        <semester-table-course-row :key="index"
+                                   v-for="(course,index) in semester.courses"
+                                   :course="course"
+                                   :index="index"/>
+      </tbody>
+    </table>
+    <div class="row justify-content-md-center">
+      <b-button-group class="mx-1"
+                      style="direction: ltr">
+        <b-button v-b-modal.modal-center
+                  variant="outline-info">חפש קורסים
+        </b-button>
+        <b-modal
+            cancel-title="סגור"
+            centered
+            hide-backdrop
+            id="modal-center"
+            ok-title="הוסף קורס"
+            size="xl"
+            title="חיפוש קורסים">
+          <search-course-dialog></search-course-dialog>
+        </b-modal>
+        <b-button @click="addRow"
+                  variant="outline-primary">הוסף שורה
+        </b-button>
+        <b-button @click="removeLastRow"
+                  variant="outline-danger">הסר שורה
+        </b-button>
+      </b-button-group>
     </div>
+  </div>
 </template>
 
 <script>
@@ -36,9 +46,15 @@
         name: 'semester-table',
         components: {SemesterTableCourseRow, SemesterHeader, SearchCourseDialog},
         props: {
-            semester: {}
+            semester: null
         },
         methods: {
+            addRow(){
+              this.$store.commit('addCourse');
+            },
+            removeLastRow(){
+                this.$store.commit('removeLastRow');
+            }
         }
     }
 </script>

@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-tabs card>
             <!-- Render Tabs, supply a unique `key` to each tab -->
-            <b-tab v-for="i in 2" :key="'dyn-tab-' + i" :title="'Semester ' + (i+1)">
+            <b-tab :key="'dyn-tab-' + i" :title="'Semester ' + (i+1)" v-for="i in 2">
                 <div class="col-10">
                     <table class="table table-bordered">
                         <thead>
@@ -29,15 +29,16 @@
                                     <option value="Exemption">Exemption</option>
                                 </select>
                             </td>
-                            <td><input class="form-control" type="number" step="1" min="0" max="9999999"></td>
+                            <td><input class="form-control" max="9999999" min="0" step="1" type="number"></td>
                             <td><input class="form-control" type="text"></td>
-                            <td><input class="form-control" type="number" step="0.5" min="0" max="25"
+                            <td><input class="form-control" max="25" min="0" step="0.5" type="number"
                                        value="0.0"></td>
-                            <td><input class="form-control" type="number" step="1" min="0" max="100" value="0">
+                            <td><input class="form-control" max="100" min="0" step="1" type="number" value="0">
                             </td>
                             <td>
-                                <b-button squared variant="outline-danger" v-b-tooltip.hover
-                                          title="Remove Line">x</b-button>
+                                <b-button squared title="Remove Line" v-b-tooltip.hover
+                                          variant="outline-danger">x
+                                </b-button>
                             </td>
                         </tr>
                         <tr>
@@ -53,15 +54,16 @@
                                     <option value="Exemption">Exemption</option>
                                 </select>
                             </td>
-                            <td><input class="form-control" type="number" step="1" min="0" max="9999999"></td>
+                            <td><input class="form-control" max="9999999" min="0" step="1" type="number"></td>
                             <td><input class="form-control" type="text"></td>
-                            <td><input class="form-control" type="number" step="0.5" min="0" max="25"
+                            <td><input class="form-control" max="25" min="0" step="0.5" type="number"
                                        value="0.0"></td>
-                            <td><input class="form-control" type="number" step="1" min="0" max="100" value="0">
+                            <td><input class="form-control" max="100" min="0" step="1" type="number" value="0">
                             </td>
                             <td>
-                                <b-button squared variant="outline-danger" v-b-tooltip.hover
-                                          title="Remove Line">x</b-button>
+                                <b-button squared title="Remove Line" v-b-tooltip.hover
+                                          variant="outline-danger">x
+                                </b-button>
                             </td>
                         </tr>
                         </tbody>
@@ -72,8 +74,8 @@
                             <b-button squared variant="outline-danger">Remove Row</b-button>
                         </b-button-group>
                     </div>
-                    <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)"
-                              style="margin-bottom:10px">
+                    <b-button @click="closeTab(i)" class="float-right" size="sm" style="margin-bottom:10px"
+                              variant="danger">
                         Delete Semester
                     </b-button>
                 </div>
@@ -81,7 +83,7 @@
                     <table class="table table-sm table-light">
                         <thead>
                         <tr>
-                            <th scope="col" colspan="2">Semester summary:</th>
+                            <th colspan="2" scope="col">Semester summary:</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -90,8 +92,8 @@
                                 <label>Average:</label>
                             </td>
                             <td>
-                                <input type="number" class="form-control" max="100" min="0" value="0" readonly
-                                       style="width:40px">
+                                <input class="form-control" max="100" min="0" readonly style="width:40px" type="number"
+                                       value="0">
                             </td class="w-25">
                         </tr>
                         <tr>
@@ -99,8 +101,8 @@
                                 <label>Points:</label>
                             </td>
                             <td>
-                                <input type="number" class="form-control" aria-describedby="basic-addon1"
-                                       max="300" min="0" value="0" readonly style="width:40px">
+                                <input aria-describedby="basic-addon1" class="form-control" max="300"
+                                       min="0" readonly style="width:40px" type="number" value="0">
                             </td>
                         </tr>
                         </tbody>
@@ -114,7 +116,7 @@
             </template>
 
             <!-- Render this if no tabs -->
-            <div slot="empty" class="text-center text-muted">
+            <div class="text-center text-muted" slot="empty">
                 There are no open tabs<br>
                 Open a new tab using the <b>+</b> button above.
             </div>
