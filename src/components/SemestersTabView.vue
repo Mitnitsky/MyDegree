@@ -1,11 +1,11 @@
 <template>
   <b-card no-body
           style="margin: 10px 20px">
-    <b-tabs card
-            pill
-            @input="updateActiveSemester">
-      <b-tab :title="'סמסטר '+ semester.name"
-             :key="semester.name"
+    <b-tabs @input="updateActiveSemester"
+            card
+            pill>
+      <b-tab :key="semester.name"
+             :title="'סמסטר '+ semester.name"
              v-for="semester in this.$store.state.user.semesters">
         <div class="row justify-content-md-center">
           <div class="col-lg-8">
@@ -71,7 +71,7 @@
             newTab() {
                 this.$store.commit('addSemester', 5);
             },
-            updateActiveSemester(tab_index){
+            updateActiveSemester(tab_index) {
                 this.$store.state.user.active_semester = tab_index;
             }
         }

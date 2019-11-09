@@ -22,8 +22,8 @@
           <b-nav-item>
             <em DIR="ltr"
                 v-b-modal.modal-1>כניסה</em>
-            <b-modal id="modal-1"
-                     cancel-disabled
+            <b-modal cancel-disabled
+                     id="modal-1"
                      ok-title="סגור"
                      title="כניסה">
               <authentication></authentication>
@@ -41,7 +41,7 @@
 
 <script>
     import firebase from "firebase"
-    import Authentication from "./Authentication";
+    import Authentication from "./HeaderAuthentication";
 
     export default {
         components: {Authentication},

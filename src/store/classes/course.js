@@ -11,10 +11,12 @@ export default class Course {
     jsonify() {
         return JSON.stringify(this);
     }
+
     isEmpty() {
         return this.name == '' && this.number == '';
     }
-    clear(){
+
+    clear() {
         this.existsInDB = false;
         this.name = '';
         this.number = '';

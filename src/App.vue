@@ -12,8 +12,8 @@
 
 <script>
     import SemestersTabView from "@/components/SemestersTabView";
-    import HeaderNavBar from "@/components/HeaderNavBar";
-    import DpFooter from "@/components/DpFooter";
+    import HeaderNavBar from "@/components/Header";
+    import DpFooter from "@/components/Footer";
     import DegreeSummary from "@/components/DegreeSummary";
 
     export default {

@@ -17,13 +17,13 @@
               <label style="margin: 8px 8px 0px 0px">ממוצע:</label>
             </td>
             <td style="width:  70%">
-              <input class="form-control"
+              <input :value="this.$store.state.user.semesters[this.$store.state.user.active_semester].average"
+                     class="form-control"
                      max="100"
                      min="0"
                      readonly
                      style="text-align: center;width: 100%"
-                     type="number"
-                     :value="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
+                     type="number">
             </td>
           </tr>
           <tr>
@@ -31,13 +31,13 @@
               <label>נקודות:</label>
             </td>
             <td style="width:  70%">
-              <input class="form-control"
+              <input :value="this.$store.state.user.semesters[this.$store.state.user.active_semester].points"
+                     class="form-control"
                      max="300"
                      min="0"
                      readonly
                      style="text-align: center;width: 100%"
-                     type="number"
-                     :value="this.$store.state.user.semesters[this.$store.state.user.active_semester].points">
+                     type="number">
             </td>
           </tr>
         </tbody>

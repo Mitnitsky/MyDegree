@@ -6,7 +6,7 @@ export class Semester {
         this.average = 0;
         this.points = 0;
         this.courses = [];
-        for(let i = 0; i < courses_initially; i++) {
+        for (let i = 0; i < courses_initially; i++) {
             this.courses.push(new Course());
         }
     }
@@ -14,6 +14,7 @@ export class Semester {
     addCourse() {
         this.courses.push(new Course);
     }
+
     addExistingCourse(course) {
         this.courses.push(course);
     }
@@ -33,9 +34,9 @@ export class Semester {
                 total_grade += course.grade * course.points;
             }
         }
-        if(points != 0) {
+        if (points != 0) {
             this.average = total_grade / points;
-        }else{
+        } else {
             this.average = 0;
         }
     }

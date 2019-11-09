@@ -1,9 +1,9 @@
 <template>
   <tr>
     <td class="courseType">
-      <select class="form-control"
-              :select-on-tab="true"
+      <select :select-on-tab="true"
               :value="course.type"
+              class="form-control"
               style="text-align-last: center;">
         <option value="0">חובה</option>
         <option value="1">רשימה א'</option>
@@ -16,42 +16,42 @@
       </select>
     </td>
     <td class="courseNumber">
-      <input class="form-control"
+      <input :value="course.number"
+             class="form-control"
              max="9999999"
              min="0"
              step="1"
              style="text-align: center"
-             type="number"
-             :value="course.number">
+             type="number">
     </td>
     <td class="courseName">
-      <input class="form-control"
+      <input :value="course.name"
+             class="form-control"
              style="text-align: center"
-             type="text"
-             :value="course.name">
+             type="text">
     </td>
     <td class="coursePoints">
-      <input class="form-control"
+      <input :value="course.points"
+             class="form-control"
              max="500"
              min="0"
              step="0.5"
              style="text-align: center"
-             type="number"
-             :value="course.points">
+             type="number">
     </td>
     <td class="courseGrade">
-      <input class="form-control"
+      <input :value="course.grade"
+             class="form-control"
              max="100"
              min="0"
              step="1"
              style="text-align: center"
-             type="number"
-             :value="course.grade">
+             type="number">
     </td>
     <td class="clearButton text-center">
-      <b-button title="נקה/הסר שורה"
+      <b-button @click="clearRow"
+                title="נקה/הסר שורה"
                 v-b-tooltip.hover
-                @click="clearRow"
                 variant="outline-secondary">x
       </b-button>
     </td>
@@ -61,12 +61,12 @@
     //TODO: handle two-way binding
     export default {
         name: 'semester-table-course-row',
-        props: ['course','index'],
+        props: ['course', 'index'],
         methods: {
             clearRow() {
-                if (this.course.isEmpty()){
+                if (this.course.isEmpty()) {
                     this.$store.commit('removeCourse', this.index);
-                }else{
+                } else {
                     this.course.clear();
                 }
             }

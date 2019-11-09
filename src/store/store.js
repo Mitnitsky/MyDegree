@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Semester} from '../semester'
+import {Semester} from './classes/semester'
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -10,8 +11,7 @@ export const store = new Vuex.Store({
             token: '',
             name: '',
             active_semester: 0,
-            semesters: [
-            ],
+            semesters: [],
         }
     },
     getters: {
@@ -46,24 +46,24 @@ export const store = new Vuex.Store({
             state.user.picture = '';
             state.user.token = '';
         },
-        addSemester: (state,initial_courses) => {
-            state.user.semesters.push(new Semester(state.user.semesters.length+1, initial_courses));
+        addSemester: (state, initial_courses) => {
+            state.user.semesters.push(new Semester(state.user.semesters.length + 1, initial_courses));
         },
         addCourse: (state) => {
-          state.user.semesters[state.user.active_semester].addCourse();
+            state.user.semesters[state.user.active_semester].addCourse();
         },
-        removeCourse: (state,index) => {
-          state.user.semesters[state.user.active_semester].removeCourse(index);
+        removeCourse: (state, index) => {
+            state.user.semesters[state.user.active_semester].removeCourse(index);
         },
         removeLastRow: (state) => {
-          state.user.semesters[state.user.active_semester].removeCourse(state.user.semesters.length-1);
+            state.user.semesters[state.user.active_semester].removeCourse(state.user.semesters.length - 1);
         },
         removeSemester: (state) => {
             if (confirm("Delete the semester?")) {
                 state.user.semesters.splice(state.user.active_semester, 1);
             }
             let i = 1;
-            for(let semester of state.user.semesters){
+            for (let semester of state.user.semesters) {
                 semester.name = i.toString();
                 i++;
             }

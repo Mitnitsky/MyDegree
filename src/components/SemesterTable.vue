@@ -4,10 +4,10 @@
            style="margin-right: 5px">
       <semester-header/>
       <tbody>
-        <semester-table-course-row :key="index"
-                                   v-for="(course,index) in semester.courses"
-                                   :course="course"
-                                   :index="index"/>
+        <semester-table-row :course="course"
+                            :index="index"
+                            :key="index"
+                            v-for="(course,index) in semester.courses"/>
       </tbody>
     </table>
     <div class="row justify-content-md-center">
@@ -38,21 +38,21 @@
 </template>
 
 <script>
-    import SemesterTableCourseRow from "@/components/SemesterTableCourseRow";
-    import SemesterHeader from "@/components/SemesterHeader"
+    import SemesterTableRow from "@/components/SemesterTableRow";
+    import SemesterHeader from "@/components/SemesterTableHeader"
     import SearchCourseDialog from "./SearchCourseDialog";
 
     export default {
         name: 'semester-table',
-        components: {SemesterTableCourseRow, SemesterHeader, SearchCourseDialog},
+        components: {SemesterTableRow, SemesterHeader, SearchCourseDialog},
         props: {
             semester: null
         },
         methods: {
-            addRow(){
-              this.$store.commit('addCourse');
+            addRow() {
+                this.$store.commit('addCourse');
             },
-            removeLastRow(){
+            removeLastRow() {
                 this.$store.commit('removeLastRow');
             }
         }
