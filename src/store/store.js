@@ -45,6 +45,8 @@ export const store = new Vuex.Store({
             state.user.name = '';
             state.user.picture = '';
             state.user.token = '';
+            state.user.semesters = [];
+            state.user.active_semester = 0;
         },
         addSemester: (state, initial_courses) => {
             state.user.semesters.push(new Semester(state.user.semesters.length + 1, initial_courses));

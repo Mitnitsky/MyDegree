@@ -34,14 +34,16 @@
                     this.$store.commit('setLoginStatusTrue');
                     this.$root.$emit('bv::hide::modal', 'modal-1');
                     this.$store.commit('setUser', user);
-                    firebase.firestore().collection('users').doc(user.uid).set({
-                        name: "test_user",
-                        semesters: JSON.stringify(this.$store.state.user.semesters)
+                    firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
+                        if (doc.exists) {
+                            this.$store.state.user.semesters = JSON.parse(doc.data().semesters);
+                        }else{
+                            firebase.firestore().collection('users').doc(user.uid).set({
+                                name: "test_user",
+                                semesters: JSON.stringify(this.$store.state.user.semesters)
+                            })
+                        }
                     });
-                    //checkIf
-                    window.console.log(JSON.stringify(this.$store.state.user.semesters).length);
-                    window.console.log(JSON.parse(JSON.stringify(this.$store.state.user.semesters)));
-                    //Test
                 }
             });
         },

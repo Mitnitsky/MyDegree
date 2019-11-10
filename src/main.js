@@ -23,6 +23,11 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
+// git checkout master
+// git pull               # to update the state to the latest remote master state
+// git merge develop      # to bring changes to local master from your develop branch
+// git push origin master # push current HEAD to remote master branch
+
 firebase.initializeApp(firebaseConfig)
 const firestore = firebase.firestore();
 new Vue({
