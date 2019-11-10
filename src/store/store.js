@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
         setUser: (state, user) => {
             if (user) {
                 state.user.name = user.displayName;
-                state.user.token = user.refreshToken;
+                state.user.token = user.uid;
             }
         },
         clearUserData: (state) => {

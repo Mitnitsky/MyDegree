@@ -23,12 +23,16 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
-
+firebase.initializeApp(firebaseConfig)
+const firestore = firebase.firestore();
 new Vue({
     created() {
-        firebase.initializeApp(firebaseConfig)
-        const firestore = firebase.firestore();
-
+        window.console.log(this.$firestore.users);
+    },
+    firestore: function() {
+      return {
+          users: firestore.collection('users')
+      }
     },
     store,
     render: h => h(App),
