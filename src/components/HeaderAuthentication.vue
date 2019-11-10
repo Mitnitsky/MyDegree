@@ -41,6 +41,7 @@
                     //checkIf
                     window.console.log(JSON.stringify(this.$store.state.user.semesters).length);
                     window.console.log(JSON.parse(JSON.stringify(this.$store.state.user.semesters)));
+                    //Test
                 }
             });
         },
