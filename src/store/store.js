@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Semester} from './classes/semester'
+import * as Semester from './classes/semester'
+import firebase from "firebase";
 
 Vue.use(Vuex);
 
@@ -41,26 +42,24 @@ export const store = new Vuex.Store({
         },
         clearUserData: (state) => {
             state.user.name = '';
-            state.user.picture = '';
             state.user.token = '';
-        },
-        createSemester: (state) =>{ //TODO: maybe change to simple arrays
-            window.console.log(state);
+            state.user.active_semester = 0;
+            state.user.semesters = [];
         },
         addSemester: (state, initial_courses) =>   {
-            state.user.semesters.push(new Semester(state.user.semesters.length + 1, initial_courses));
+            state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
         },
         addCourse: (state) => {
-            state.user.semesters[state.user.active_semester].addCourse();
+            Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
         },
         updateCourse: (state, {field, value, index}) => {
             Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]:value});
         },
         removeCourse: (state, index) => {
-            state.user.semesters[state.user.active_semester].removeCourse(index);
+            Semester.removeCourse(state.user.semesters[state.user.active_semester],index);
         },
         removeLastRow: (state) => {
-            state.user.semesters[state.user.active_semester].removeCourse(state.user.semesters.length - 1);
+            Semester.removeCourse(state.user.semesters[state.user.active_semester],state.user.semesters.length - 1);
         },
         removeSemester: (state) => {
             if (confirm("Delete the semester?")) {
@@ -78,9 +77,22 @@ export const store = new Vuex.Store({
         reCalcCurrentSemester: (state) => {
             window.console.log('Im calculating semeseter!');
             let  semester = state.user.semesters[state.user.active_semester]
-            semester.calculateAverage();
-            semester.calculatePoints();
+            Semester.calculateAverage(semester);
+            Semester.calculatePoints(semester);
+        },
+        updateSemester(state){
+            const user = firebase.auth().currentUser;
+            firebase.firestore().collection('users').doc(user.uid).update({
+                        semesters: state.user.semesters
+                    })
         }
     },
-    actions: {}
+    actions: {
+        updateSemesterAsync(context){
+            const user = firebase.auth().currentUser;
+            if(user) {
+                context.commit('updateSemester');
+            }
+        }
+    }
 });

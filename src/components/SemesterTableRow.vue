@@ -63,6 +63,7 @@
   </tr>
 </template>
 <script>
+    import {courseIsEmpty, clearCourse} from "@/store/classes/course";
     //TODO: handle two-way binding
     export default {
         name: 'semester-table-course-row',
@@ -74,16 +75,17 @@
         },
         methods: {
             clearRow() {
-                if (this.course.isEmpty()) {
+                if (courseIsEmpty(this.course)) {
                     this.$store.commit('removeCourse', this.index);
                 } else {
-                    this.course.clear();
+                    clearCourse(this.course);
                     this.$store.commit('reCalcCurrentSemester');
                 }
             },
             updateField(field, value) {
                 this.$store.commit('updateCourse', {field, value, index: this.index});
                 this.$store.commit('reCalcCurrentSemester');
+                this.$store.dispatch('updateSemesterAsync');
             },
         },
     }

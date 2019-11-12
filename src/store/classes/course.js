@@ -1,27 +1,25 @@
-export default class Course {
-    constructor() {
-        this.existsInDB = false;
-        this.name = 'OS';
-        this.number = '234123';
-        this.points = 3;
-        this.grade = 100;
-        this.type = '1';
-    }
 
-    jsonify() {
-        return JSON.stringify(this);
-    }
-
-    isEmpty() {
-        return this.name == '' && this.number == '';
-    }
-
-    clear() {
-        this.existsInDB = false;
-        this.name = '';
-        this.number = '';
-        this.points = '';
-        this.grade = '';
-        this.type = '0';
-    }
+export function createNewCourse() {
+        let course = {};
+        course.existsInDB = false;
+        course.name = 'OS';
+        course.number = '234123';
+        course.points = 3;
+        course.grade = 100;
+        course.type = '1';
+        return course;
 }
+
+export function courseIsEmpty(course) {
+        return course.name !== '' && course.number !== '';
+    }
+
+export function clearCourse(course) {
+        course.existsInDB = false;
+        course.name = '';
+        course.number = '';
+        course.points = '';
+        course.grade = '';
+        course.type = '0';
+    }
+

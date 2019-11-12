@@ -35,11 +35,14 @@
                     this.$store.commit('setUser', user);
                     firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
                         if (doc.exists) {
-                            this.$store.state.user.semesters = JSON.parse(doc.data().semesters);
+                            this.$store.state.user.semesters = doc.data().semesters;
+                            this.$store.state.user.active_semester = doc.data().active_semester;
+                            // window.console.log(size(this.$store.state.user));
                         }else{
                             firebase.firestore().collection('users').doc(user.uid).set({
-                                name: "test_user",
-                                semesters: JSON.stringify(this.$store.state.user.semesters)
+                                name: user.displayName,
+                                semesters: this.$store.state.user.semesters,
+                                active_semester: this.$store.state.user.active_semester
                             })
                         }
                     });

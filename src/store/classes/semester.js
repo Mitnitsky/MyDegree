@@ -1,57 +1,65 @@
-import Course from './course.js'
+import {createNewCourse} from "@/store/classes/course";
 
-export class Semester {
-    constructor(name, courses_initially) {
-        this.name = name.toString();
-        this.average = 0;
-        this.points = 0;
-        this.courses = [];
-        for (let i = 0; i < courses_initially; i++) {
-            this.courses.push(new Course());
+
+
+export function createNewSemester(name, courses_initially)
+{
+    let semester = {};
+    semester.name = name.toString();
+    semester.average = 0;
+    semester.points = 0;
+    semester.courses = [];
+    for (let i = 0; i < courses_initially; i++) {
+        semester.courses.push(createNewCourse());
+    }
+    return semester;
+}
+
+export function addCourseToSemester(semester)
+{
+    semester.courses.push(createNewCourse());
+}
+
+export function addExistingCourse(semester, course)
+{
+    semester.courses.push(course);
+}
+
+export function removeCourse(semester, index)
+{
+    if (index < semester.courses.length && index >= 0) {
+        semester.semester.splice(index, 1);
+    }
+}
+
+export function calculateAverage(semester)
+{
+    let points = 0;
+    let total_grade = 0;
+    for (const course of semester.courses) {
+        if (course.points !== '' && course.grade !== '') {
+            points += parseFloat(course.points);
+            total_grade += parseFloat(course.grade) * parseFloat(course.points);
         }
     }
-
-    addCourse() {
-        this.courses.push(new Course);
-    }
-
-    addExistingCourse(course) {
-        this.courses.push(course);
-    }
-
-    removeCourse(index) {
-        if (index < this.courses.length && index >= 0) {
-            this.courses.splice(index, 1);
-        }
-    }
-
-    calculateAverage() {
-        let points = 0;
-        let total_grade = 0;
-        for (const course of this.courses) {
-            if (course.points !== '' && course.grade !== '') {
-                points += parseFloat(course.points);
-                total_grade += parseFloat(course.grade) * parseFloat(course.points);
-            }
-        }
-        if (points !== 0) {
-            if(parseInt((total_grade / points)) == (total_grade / points)){
-                this.average = parseInt(total_grade / points);
-            }else{
-                this.average = (total_grade / points).toFixed(2);
-            }
+    if (points !== 0) {
+        if (parseInt((total_grade / points)) == (total_grade / points)) {
+            semester.average = parseInt(total_grade / points);
         } else {
-            this.average = 0;
+            semester.average = (total_grade / points).toFixed(2);
         }
+    } else {
+        semester.average = 0;
     }
+}
 
-    calculatePoints() {
-        this.points = 0;
-        for (const course of this.courses) {
-            if (course.points !== '') {
-                this.points += parseFloat(course.points);
-            }
+export function calculatePoints(semester)
+{
+    semester.points = 0;
+    for (const course of semester.courses) {
+        if (course.points !== '') {
+            semester.points += parseFloat(course.points);
         }
-        this.points.toFixed(1);
     }
+    semester.points.toFixed(1);
 }
