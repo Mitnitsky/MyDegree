@@ -13,7 +13,27 @@ export const store = new Vuex.Store({
             token: '',
             name: '',
             active_semester: 0,
-            
+            degree_average: 0,
+            degree_points: 118.5,
+            degree_points_done: 0,
+            degree_points_left: 0,
+            degree_points_to_choose: 0,
+            must_points: 0,
+            must_points_left: 0,
+            a_list_points: 0,
+            a_list_points_left: 0,
+            b_list_points: 0,
+            b_list_points_left: 0,
+            humanistic_points: 0,
+            humanistic_points_left: 0,
+            free_points: 0,
+            free_points_left: 0,
+            projects_points: 0,
+            projects_points_left: 0,
+            sport: 0,
+            sport_left: 0,
+            exemption_points: 0,
+            english_exemption: false,
             semesters: [],
         }
     },
@@ -32,6 +52,9 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
+        updateDegreePoints(state, points) {
+            state.user.degree_points = points;
+        },
         setLoginStatus: (state, status) => {
             state.logged = status;
         },
@@ -47,20 +70,23 @@ export const store = new Vuex.Store({
             state.user.active_semester = 0;
             state.user.semesters = [];
         },
-        addSemester: (state, initial_courses) =>   {
+        addSemester: (state, initial_courses) => {
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
         },
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
         },
         updateCourse: (state, {field, value, index}) => {
-            Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]:value});
+            Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]: value});
+        },
+        updateInfo: (state, {field, value}) => {
+            Object.assign(state.user, {[field]: value});
         },
         removeCourse: (state, index) => {
-            Semester.removeCourse(state.user.semesters[state.user.active_semester],index);
+            Semester.removeCourse(state.user.semesters[state.user.active_semester], index);
         },
         removeLastRow: (state) => {
-            Semester.removeCourse(state.user.semesters[state.user.active_semester],state.user.semesters[state.user.active_semester].courses.length - 1);
+            Semester.removeCourse(state.user.semesters[state.user.active_semester], state.user.semesters[state.user.active_semester].courses.length - 1);
         },
         removeSemester: (state) => {
             if (confirm("Delete the semester?")) {
@@ -72,26 +98,59 @@ export const store = new Vuex.Store({
                 i++;
             }
         },
-        changeSemesterTo: (state,index) => {
+        changeSemesterTo: (state, index) => {
             state.user.active_semester = index;
+        },
+        clearPointsInfo: function (state) {
+            if (state.user.english_exemption) {
+                state.user.degree_points_done = 3;
+                state.must_points = 0;
+            } else {
+                state.user.degree_points_done = 0;
+            }
+            state.user.must_points = 0;
+            state.user.must_points_left = 0;
+            state.user.a_list_points = 0;
+            state.user.a_list_points_left = 0;
+            state.user.b_list_points = 0;
+            state.user.b_list_points_left = 0;
+            state.user.humanistic_points = 0;
+            state.user.humanistic_points_left = 0;
+            state.user.free_points = 0;
+            state.user.free_points_left = 0;
+            state.user.projects_points = 0;
+            state.user.projects_points_left = 0;
+            state.user.sport = 0;
+            state.user.sport_left = 0;
+            state.user.exemption_points = 0;
+            state.user.degree_average = 0;
+            state.user.degree_points_to_choose = state.user.degree_points;
         },
         reCalcCurrentSemester: (state) => {
             window.console.log('Im calculating semeseter!');
-            let  semester = state.user.semesters[state.user.active_semester]
+            let semester = state.user.semesters[state.user.active_semester];
             Semester.calculateAverage(semester);
+            state.commit('clearPointsInfo');
             Semester.calculatePoints(semester);
+            this.clearPointsInfo(state);
+            for (semester of state.user.semesters) {
+                state.user.degree_average = semester.points_done * semester.average;
+                state.user.degree_points_done += semester.points_done;
+                state.user.degree_points_to_choose -= semester.points;
+            }
+            state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
         },
-        updateSemester(state){
+        updateSemester(state) {
             const user = firebase.auth().currentUser;
             firebase.firestore().collection('users').doc(user.uid).update({
-                        semesters: state.user.semesters
-                    })
+                semesters: state.user.semesters
+            })
         }
     },
     actions: {
-        updateSemesterAsync(context){
+        updateSemesterAsync(context) {
             const user = firebase.auth().currentUser;
-            if(user) {
+            if (user) {
                 context.commit('updateSemester');
             }
         }
