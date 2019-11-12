@@ -38,7 +38,7 @@ new Vue({
       return {
           users: firestore.collection('users')
       }
-    },cd 
+    },
     store,
     render: h => h(App),
 }).$mount('#app');

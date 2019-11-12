@@ -23,13 +23,17 @@ export function addCourseToSemester(semester)
 export function addExistingCourse(semester, course)
 {
     semester.courses.push(course);
+    calculateAverage(semester);
+    calculatePoints(semester);
 }
 
 export function removeCourse(semester, index)
 {
     if (index < semester.courses.length && index >= 0) {
-        semester.semester.splice(index, 1);
+        semester.courses.splice(index, 1);
     }
+    calculateAverage(semester);
+    calculatePoints(semester);
 }
 
 export function calculateAverage(semester)

@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
             token: '',
             name: '',
             active_semester: 0,
+            
             semesters: [],
         }
     },
@@ -59,7 +60,7 @@ export const store = new Vuex.Store({
             Semester.removeCourse(state.user.semesters[state.user.active_semester],index);
         },
         removeLastRow: (state) => {
-            Semester.removeCourse(state.user.semesters[state.user.active_semester],state.user.semesters.length - 1);
+            Semester.removeCourse(state.user.semesters[state.user.active_semester],state.user.semesters[state.user.active_semester].courses.length - 1);
         },
         removeSemester: (state) => {
             if (confirm("Delete the semester?")) {

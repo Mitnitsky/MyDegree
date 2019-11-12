@@ -17,12 +17,13 @@
                   variant="outline-info">חפש קורסים
         </b-button>
         <b-modal
-            cancel-title="סגור"
+            hide-header-close
             centered
             hide-backdrop
             id="modal-center"
+            hide-footer
             ok-title="הוסף קורס"
-            size="xl"
+            size="md"
             title="חיפוש קורסים">
           <search-course-dialog></search-course-dialog>
         </b-modal>

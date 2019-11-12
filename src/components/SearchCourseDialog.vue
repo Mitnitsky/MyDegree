@@ -5,28 +5,59 @@
         :search="search"
         @submit="courseChosen"
         aria-label="חיפוש קורסים"
-        autoselect
+        autoselect="true"
         placeholder="חיפוש קורסים"
 
     ></autocomplete>
     <b-card
         :sub-title="course_number"
         :title="course_name"
-        bg-variant="primary"
+
         class="text-center"
-        style="text-align: right"
+        style="text-align: right;color: black;margin-top: 5px;  "
         text-variant="white"
         v-if="selected.show"
         v-model="selected.course_name"
     >
       <b-card-header
+          style="color: black"
           v-model="selected.course_number">
         {{selected.course_number}}-{{selected.course_name}}
       </b-card-header>
       <b-card-text
-          v-model="selected.course_points">
-        נקודות: {{selected.course_points}}
-      </b-card-text>
+        style="color: black"
+        v-model="selected.course_points">
+      נקודות: {{selected.course_points}}
+    </b-card-text>
+      <b-card-text
+        style="color: black"
+        v-model="selected.course_dependencies"
+        v-if="selected.course_dependencies != null">
+        קורסי קדם: {{selected.course_dependencies}}
+    </b-card-text>
+      <b-card-text
+        style="color: black"
+        v-model="selected.parallel"
+        v-if="selected.parallel != null">
+        קורסים צמודים: {{selected.parallel}}
+    </b-card-text>
+      <b-card-text
+        style="color: black"
+        v-model="selected.similarities"
+        v-if="selected.similarities != null">
+        קורסים זהים: {{selected.similarities}}
+    </b-card-text>
+      <b-card-text
+        style="color: black"
+        v-model="selected.inclusive"
+        v-if="selected.inclusive != null">
+        קורסים כלולים: {{selected.inclusive}}
+    </b-card-text>
+
+      <b-button type="primary"
+                v-if="selected.show">
+      הוסף קורס
+      </b-button>
     </b-card>
   </div>
 </template>
@@ -45,6 +76,10 @@
                     course_name: "",
                     course_number: "",
                     course_points: "",
+                    course_inclusive: "",
+                    course_dependencies: "",
+                    course_parallel: "",
+                    course_similar: ""
                 },
                 remove: json_courses,
                 options: json_courses.courses
@@ -72,6 +107,10 @@
                 this.selected.course_name = course.course_name;
                 this.selected.course_number = course.course_number;
                 this.selected.course_points = course.points;
+                this.selected.course_similar = course.similarities ? course.similarities : null;
+                this.selected.course_dependencies = course.dependencies;
+                this.selected.course_parallel = course.parallel;
+                this.selected.course_inclusive = course.inclusive ? course.inclusive : null;
             }
         }
     }
