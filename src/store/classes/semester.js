@@ -7,14 +7,14 @@ export function createNewSemester(name, courses_initially) {
     semester.average = 0;
     semester.points = 0;
     semester.points_done = 0;
-    semester.user.must_points = 0;
-    semester.user.a_list_points = 0;
-    semester.user.b_list_points = 0;
-    semester.user.humanistic_points = 0;
-    semester.user.free_points = 0;
-    semester.user.projects_points = 0;
-    semester.user.sport = 0;
-    semester.user.exemption_points = 0;
+    semester.must_points = 0;
+    semester.a_list_points = 0;
+    semester.b_list_points = 0;
+    semester.humanistic_points = 0;
+    semester.free_points = 0;
+    semester.projects_points = 0;
+    semester.sport = 0;
+    semester.exemption_points = 0;
     semester.courses = [];
     for (let i = 0; i < courses_initially; i++) {
         semester.courses.push(createNewCourse());
@@ -65,28 +65,28 @@ export function calculatePoints(semester) {
     semester.points_done = 0;
     course_traverse: for (const course of semester.courses) {
         if (course.points !== '') {
-            switch (course.type) {
+            type_add: switch (course.type) {
                 case '0':
                     semester.must_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '1':
                     semester.a_list_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '2':
                     semester.b_list_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '3':
                     semester.humanistic_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '4':
                     semester.free_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '5':
                     semester.projects_points += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '6':
                     semester.sport += parseFloat(course.points);
-                    break;
+                    break type_add;
                 case '7':
                     semester.exemption_points += parseFloat(course.points);
                     semester.points_done += parseFloat(course.points);

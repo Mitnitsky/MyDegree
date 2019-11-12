@@ -55,6 +55,7 @@
             },
             removeLastRow() {
                 this.$store.commit('removeLastRow');
+                this.$store.commit('reCalcCurrentSemester');
             }
         }
     }

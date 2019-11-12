@@ -67,9 +67,10 @@
         methods: {
             closeTab() {
                 this.$store.commit('removeSemester');
+                this.$store.commit('reCalcCurrentSemester');
             },
             newTab() {
-                this.$store.commit('addSemester', 5);
+                this.$store.commit('addSemester', 3);
             },
             updateActiveSemester(tab_index) {
                 this.$store.commit('changeSemesterTo',tab_index);

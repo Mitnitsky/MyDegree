@@ -32,7 +32,6 @@ firebase.initializeApp(firebaseConfig)
 const firestore = firebase.firestore();
 new Vue({
     created() {
-        window.console.log(this.$firestore.users);
     },
     firestore: function() {
       return {

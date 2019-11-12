@@ -21,7 +21,7 @@
                    min="0"
                    step="1"
                    type="number"
-                   v-model="this.degreePoints"
+                   v-model="degreePoints"
                    >
           </div>
           <div class="input-group mb-2">
@@ -32,7 +32,7 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.degree_average">
+                   v-model="degree_average">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
@@ -42,7 +42,7 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.degree_points_done">
+                   v-model="degree_points_done">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
@@ -52,7 +52,7 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.degree_points_left">
+                   v-model="degree_points_left">
             <div class="input-group degree-summary degree-summary">
 
             </div>
@@ -65,9 +65,8 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.degree_points_to_choose">
+                   v-model="degree_points_to_choose">
             <div class="input-group degree-summary degree-summary">
-
             </div>
           </div>
 
@@ -100,14 +99,14 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.must_points_left">
+                   v-model="must_points_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.must_points">
+                   v-model="must_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
@@ -117,14 +116,14 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.a_list_points_left">
+                   v-model="a_list_points_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.a_list_points">
+                   v-model="a_list_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
@@ -134,14 +133,14 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.b_list_points_left">
+                   v-model="b_list_points_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.b_list_points">
+                   v-model="b_list_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
@@ -151,14 +150,14 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.humanistic_points_left">
+                   v-model="humanistic_points_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.humanistic_points">
+                   v-model="humanistic_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
@@ -168,7 +167,7 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.free_points_left"
+                   v-model="free_points_left"
             >
             <input class="form-control degree-summary"
                    max="9999999"
@@ -176,7 +175,7 @@
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.free_points">
+                   v-model="free_points">
           </div>
           <div class="input-group mb-2">
 
@@ -187,14 +186,14 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.projects_points_left">
+                   v-model="projects_points_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.projects_points">
+                   v-model="projects_points">
           </div>
           <div class="input-group mb-2">
 
@@ -205,20 +204,20 @@
                    disabled="disabled"
                    readonly
                    type="text"
-                   v-model="this.sport_left">
+                   v-model="sport_left">
             <input class="form-control degree-summary"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="this.sport">
+                   v-model="sport">
           </div>
           <div class="input-group mb-2">
             <b-form-checkbox
                 id="checkbox-1"
                 name="checkbox-1"
-                v-model="this.english_exemption"
+                v-model="english_exemption"
             >
               פטור מאנגלית
             </b-form-checkbox>
@@ -282,7 +281,8 @@
                     return this.$store.state.user.must_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'must_points',value})
+                    this.$store.commit('updateInfo', {field: 'must_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             must_points_left: {
@@ -295,7 +295,8 @@
                     return this.$store.state.user.a_list_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'a_list_points',value})
+                    this.$store.commit('updateInfo', {field: 'a_list_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             a_list_points_left: {
@@ -308,7 +309,8 @@
                     return this.$store.state.user.b_list_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'b_list_points',value})
+                    this.$store.commit('updateInfo', {field: 'b_list_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             b_list_points_left: {
@@ -321,7 +323,8 @@
                     return this.$store.state.user.humanistic_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'humanistic_points',value})
+                    this.$store.commit('updateInfo', {field: 'humanistic_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             humanistic_points_left: {
@@ -334,7 +337,8 @@
                     return this.$store.state.user.free_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'free_points',value})
+                    this.$store.commit('updateInfo', {field: 'free_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             free_points_left: {
@@ -347,7 +351,8 @@
                     return this.$store.state.user.projects_points;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'projects_points',value})
+                    this.$store.commit('updateInfo', {field: 'projects_points',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             projects_points_left: {
@@ -360,7 +365,8 @@
                     return this.$store.state.user.sport;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'sport',value})
+                    this.$store.commit('updateInfo', {field: 'sport',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             },
             sport_left: {
@@ -373,7 +379,8 @@
                     return this.$store.state.user.english_exemption;
                 },
                 set(value){
-                    this.$store.state.commit('updateInfo', {field: 'english_exemption',value})
+                    this.$store.commit('updateInfo', {field: 'english_exemption',value})
+                    this.$store.commit('reCalcCurrentSemester')
                 }
             }
         },

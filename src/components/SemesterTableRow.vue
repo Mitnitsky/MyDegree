@@ -77,10 +77,11 @@
             clearRow() {
                 if (courseIsEmpty(this.course)) {
                     this.$store.commit('removeCourse', this.index);
+
                 } else {
                     clearCourse(this.course);
-                    this.$store.commit('reCalcCurrentSemester');
                 }
+                this.$store.commit('reCalcCurrentSemester');
             },
             updateField(field, value) {
                 this.$store.commit('updateCourse', {field, value, index: this.index});
