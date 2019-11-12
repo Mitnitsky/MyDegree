@@ -30,8 +30,7 @@
             ui.start("#firebaseui-auth-container", uiConfig);
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-                    window.console.log(user);
-                    this.$store.commit('setLoginStatusTrue');
+                    this.$store.commit('setLoginStatus', true);
                     this.$root.$emit('bv::hide::modal', 'modal-1');
                     this.$store.commit('setUser', user);
                     firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {

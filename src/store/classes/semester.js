@@ -29,13 +29,17 @@ export class Semester {
         let points = 0;
         let total_grade = 0;
         for (const course of this.courses) {
-            if (course.points != '' && course.grade != '') {
-                points += course.points;
-                total_grade += course.grade * course.points;
+            if (course.points !== '' && course.grade !== '') {
+                points += parseFloat(course.points);
+                total_grade += parseFloat(course.grade) * parseFloat(course.points);
             }
         }
-        if (points != 0) {
-            this.average = total_grade / points;
+        if (points !== 0) {
+            if(parseInt((total_grade / points)) == (total_grade / points)){
+                this.average = parseInt(total_grade / points);
+            }else{
+                this.average = (total_grade / points).toFixed(2);
+            }
         } else {
             this.average = 0;
         }
@@ -44,9 +48,10 @@ export class Semester {
     calculatePoints() {
         this.points = 0;
         for (const course of this.courses) {
-            if (course.points != '') {
-                this.points += course.points;
+            if (course.points !== '') {
+                this.points += parseFloat(course.points);
             }
         }
+        this.points.toFixed(1);
     }
 }

@@ -3,9 +3,9 @@ export default class Course {
         this.existsInDB = false;
         this.name = 'OS';
         this.number = '234123';
-        this.points = '3';
-        this.grade = '100';
-        this.type = '0';
+        this.points = 3;
+        this.grade = 100;
+        this.type = '1';
     }
 
     jsonify() {

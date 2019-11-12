@@ -57,7 +57,7 @@
         methods: {
             signOut() {
                 firebase.auth().signOut();
-                this.$store.commit('setLoginStatusFalse');
+                this.$store.commit('setLoginStatus', false);
                 this.$store.commit('clearUserData');
             }
         },
