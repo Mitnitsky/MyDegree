@@ -25,38 +25,38 @@
         {{selected.course_number}}-{{selected.course_name}}
       </b-card-header>
       <b-card-text
-        style="color: black"
-        v-model="selected.course_points">
-      נקודות: {{selected.course_points}}
-    </b-card-text>
+          style="color: black"
+          v-model="selected.course_points">
+        נקודות: {{selected.course_points}}
+      </b-card-text>
       <b-card-text
-        style="color: black"
-        v-model="selected.course_dependencies"
-        v-if="selected.course_dependencies != null">
+          style="color: black"
+          v-if="selected.course_dependencies != null"
+          v-model="selected.course_dependencies">
         קורסי קדם: {{selected.course_dependencies}}
-    </b-card-text>
+      </b-card-text>
       <b-card-text
-        style="color: black"
-        v-model="selected.parallel"
-        v-if="selected.parallel != null">
+          style="color: black"
+          v-if="selected.parallel != null"
+          v-model="selected.parallel">
         קורסים צמודים: {{selected.parallel}}
-    </b-card-text>
+      </b-card-text>
       <b-card-text
-        style="color: black"
-        v-model="selected.similarities"
-        v-if="selected.similarities != null">
+          style="color: black"
+          v-if="selected.similarities != null"
+          v-model="selected.similarities">
         קורסים זהים: {{selected.similarities}}
-    </b-card-text>
+      </b-card-text>
       <b-card-text
-        style="color: black"
-        v-model="selected.inclusive"
-        v-if="selected.inclusive != null">
+          style="color: black"
+          v-if="selected.inclusive != null"
+          v-model="selected.inclusive">
         קורסים כלולים: {{selected.inclusive}}
-    </b-card-text>
+      </b-card-text>
 
       <b-button type="primary"
                 v-if="selected.show">
-      הוסף קורס
+        הוסף קורס
       </b-button>
     </b-card>
   </div>

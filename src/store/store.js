@@ -64,30 +64,30 @@ export const store = new Vuex.Store({
             }
         },
         clearUserData: (state) => {
-                state.user.token =  '';
-                state.user.active_semester = 0;
-                state.user.degree_average = 0;
-                state.user.degree_points = 0;
-                state.user.degree_points_done = 0;
-                state.user.degree_points_left = 0;
-                state.user.degree_points_to_choose = 0;
-                state.user.must_points = 0;
-                state.user.must_points_left = 0;
-                state.user.a_list_points = 0;
-                state.user.a_list_points_left = 0;
-                state.user.b_list_points = 0;
-                state.user.b_list_points_left = 0;
-                state.user.humanistic_points = 0;
-                state.user.humanistic_points_left = 0;
-                state.user.free_points = 0;
-                state.user.free_points_left = 0;
-                state.user.projects_points = 0;
-                state.user.projects_points_left = 0;
-                state.user.sport = 0;
-                state.user.sport_left = 0;
-                state.user.exemption_points = 0;
-                state.user.english_exemption = false;
-                state.user.semesters = [];
+            state.user.token = '';
+            state.user.active_semester = 0;
+            state.user.degree_average = 0;
+            state.user.degree_points = 0;
+            state.user.degree_points_done = 0;
+            state.user.degree_points_left = 0;
+            state.user.degree_points_to_choose = 0;
+            state.user.must_points = 0;
+            state.user.must_points_left = 0;
+            state.user.a_list_points = 0;
+            state.user.a_list_points_left = 0;
+            state.user.b_list_points = 0;
+            state.user.b_list_points_left = 0;
+            state.user.humanistic_points = 0;
+            state.user.humanistic_points_left = 0;
+            state.user.free_points = 0;
+            state.user.free_points_left = 0;
+            state.user.projects_points = 0;
+            state.user.projects_points_left = 0;
+            state.user.sport = 0;
+            state.user.sport_left = 0;
+            state.user.exemption_points = 0;
+            state.user.english_exemption = false;
+            state.user.semesters = [];
         },
         addSemester: (state, initial_courses) => {
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
@@ -165,7 +165,7 @@ export const store = new Vuex.Store({
                 state.user.humanistic_points_left -= semester.humanistic_points;
                 state.user.free_points_left -= semester.free_points;
                 state.user.projects_points_left -= semester.projects_points;
-                state.user.sport_left -=  semester.sport;
+                state.user.sport_left -= semester.sport;
             }
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
         },

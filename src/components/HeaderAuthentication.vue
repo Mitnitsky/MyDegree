@@ -16,6 +16,7 @@
                     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ],
+
                 callbacks: {
                     signInSuccessWithAuthResult() {
                         localStorage.setItem('authenticated', true);
@@ -30,6 +31,7 @@
             ui.start("#firebaseui-auth-container", uiConfig);
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
+                    localStorage.setItem("user_token", user.refreshToken)
                     this.$store.commit('setLoginStatus', true);
                     this.$root.$emit('bv::hide::modal', 'modal-1');
                     this.$store.commit('setUser', user);
@@ -37,7 +39,7 @@
                         if (doc.exists) {
                             this.$store.commit('fetchUserInfo', doc.data());
                             this.$store.commit('reCalcCurrentSemester');
-                        }else{
+                        } else {
                             firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user)
                         }
                     });

@@ -63,35 +63,35 @@ export function calculateAverage(semester) {
 export function calculatePoints(semester) {
     semester.points = 0;
     semester.points_done = 0;
-    course_traverse: for (const course of semester.courses) {
+    for (const course of semester.courses) {
         if (course.points !== '') {
-            type_add: switch (course.type) {
+            switch (course.type) {
                 case '0':
                     semester.must_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '1':
                     semester.a_list_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '2':
                     semester.b_list_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '3':
                     semester.humanistic_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '4':
                     semester.free_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '5':
                     semester.projects_points += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '6':
                     semester.sport += parseFloat(course.points);
-                    break type_add;
+                    break;
                 case '7':
                     semester.exemption_points += parseFloat(course.points);
                     semester.points_done += parseFloat(course.points);
                     semester.points += parseFloat(course.points);
-                    continue course_traverse;
+                    continue;
             }
             semester.points += parseFloat(course.points);
             if (course.grade !== '' && parseFloat(course.grade) !== 0) {

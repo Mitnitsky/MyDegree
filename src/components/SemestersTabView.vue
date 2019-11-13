@@ -73,7 +73,7 @@
                 this.$store.commit('addSemester', 3);
             },
             updateActiveSemester(tab_index) {
-                this.$store.commit('changeSemesterTo',tab_index);
+                this.$store.commit('changeSemesterTo', tab_index);
                 this.$store.commit('reCalcCurrentSemester');
             }
         }

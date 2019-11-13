@@ -3,9 +3,9 @@
     <td class="courseType">
       <select :select-on-tab="true"
               :value="course.type"
+              @change.stop="updateField('type', $event.target.value)"
               class="form-control"
-              style="text-align-last: center;"
-              @change.stop="updateField('type', $event.target.value)">
+              style="text-align-last: center;">
         <option value="0">חובה</option>
         <option value="1">רשימה א'</option>
         <option value="2">רשימה ב'</option>
@@ -18,40 +18,40 @@
     </td>
     <td class="courseNumber">
       <input :value="course.number"
+             @change.stop="updateField('number', $event.target.value)"
              class="form-control"
              max="9999999"
              min="0"
              step="1"
              style="text-align: center"
-             type="number"
-             @change.stop="updateField('number', $event.target.value)">
+             type="number">
     </td>
     <td class="courseName">
       <input :value="course.name"
+             @change.stop="updateField('name', $event.target.value)"
              class="form-control"
              style="text-align: center"
-             type="text"
-             @change.stop="updateField('name', $event.target.value)">
+             type="text">
     </td>
     <td class="coursePoints">
       <input :value="course.points"
+             @change.stop="updateField('points', $event.target.value)"
              class="form-control"
              max="500"
              min="0"
              step="0.5"
              style="text-align: center"
-             type="number"
-             @change.stop="updateField('points', $event.target.value)">
+             type="number">
     </td>
     <td class="courseGrade">
       <input :value="course.grade"
+             @change.stop="updateField('grade', $event.target.value)"
              class="form-control"
              max="100"
              min="0"
              step="1"
              style="text-align: center"
-             type="number"
-             @change.stop="updateField('grade', $event.target.value)">
+             type="number">
     </td>
     <td class="clearButton text-center">
       <b-button @click="clearRow"
@@ -63,7 +63,7 @@
   </tr>
 </template>
 <script>
-    import {courseIsEmpty, clearCourse} from "@/store/classes/course";
+    import {clearCourse, courseIsEmpty} from "@/store/classes/course";
     //TODO: handle two-way binding
     export default {
         name: 'semester-table-course-row',

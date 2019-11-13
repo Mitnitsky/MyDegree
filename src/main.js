@@ -15,7 +15,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {store} from "./store/store";
 //firestore
 require('firebase/firestore');
+import vueDebounce from 'vue-debounce'
 
+
+Vue.use(vueDebounce);
 Vue.use(VueFirestore);
 Vue.use(Autocomplete);
 Vue.use(VModal);
@@ -28,15 +31,16 @@ Vue.config.productionTip = false;
 // git merge develop      # to bring changes to local master from your develop branch
 // git push origin master # push current HEAD to remote master branch
 
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig);
+
 const firestore = firebase.firestore();
 new Vue({
     created() {
     },
-    firestore: function() {
-      return {
-          users: firestore.collection('users')
-      }
+    firestore: function () {
+        return {
+            users: firestore.collection('users')
+        }
     },
     store,
     render: h => h(App),

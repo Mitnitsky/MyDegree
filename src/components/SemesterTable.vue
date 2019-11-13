@@ -17,11 +17,11 @@
                   variant="outline-info">חפש קורסים
         </b-button>
         <b-modal
-            hide-header-close
             centered
             hide-backdrop
-            id="modal-center"
             hide-footer
+            hide-header-close
+            id="modal-center"
             ok-title="הוסף קורס"
             size="md"
             title="חיפוש קורסים">

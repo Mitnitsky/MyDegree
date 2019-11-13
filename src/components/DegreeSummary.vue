@@ -21,8 +21,7 @@
                    min="0"
                    step="1"
                    type="number"
-                   v-model="degreePoints"
-                   >
+                   v-model="degreePoints">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
@@ -84,7 +83,7 @@
                    style="background-color: aliceblue;align-content: center;"
                    type="text"
                    value="נותרו"
-                    >
+            >
             <input class="input-group form-control"
                    readonly
                    style="background-color: aliceblue"
@@ -244,149 +243,147 @@
         },
         computed: {
             degreePoints: {
-                get(){
+                get() {
                     return this.$store.state.user.degree_points
                 },
-                set(points){
+                set(points) {
                     this.$store.commit('updateDegreePoints', points);
                     this.$store.commit('reCalcCurrentSemester');
                 }
             },
             degree_average: {
-                get(){
-                    if(this.$store.state.user.degree_average === 0){
+                get() {
+                    if (this.$store.state.user.degree_average === 0) {
                         return ''
-                    }else {
+                    } else {
                         return this.$store.state.user.degree_average;
                     }
                 }
             },
             degree_points_done: {
-                get(){
+                get() {
                     return this.$store.state.user.degree_points_done;
                 }
             },
             degree_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.degree_points_left;
                 }
             },
             degree_points_to_choose: {
-                get(){
+                get() {
                     return this.$store.state.user.degree_points_to_choose;
                 }
             },
             must_points: {
-                get(){
+                get() {
                     return this.$store.state.user.must_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'must_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'must_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             must_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.must_points_left;
                 }
             },
             a_list_points: {
-                get(){
+                get() {
                     return this.$store.state.user.a_list_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'a_list_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'a_list_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             a_list_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.a_list_points_left;
                 }
             },
             b_list_points: {
-                get(){
+                get() {
                     return this.$store.state.user.b_list_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'b_list_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'b_list_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             b_list_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.b_list_points_left;
                 }
             },
             humanistic_points: {
-                get(){
+                get() {
                     return this.$store.state.user.humanistic_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'humanistic_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'humanistic_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             humanistic_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.humanistic_points_left;
                 }
             },
             free_points: {
-                get(){
+                get() {
                     return this.$store.state.user.free_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'free_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'free_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             free_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.free_points_left;
                 }
             },
             projects_points: {
-                get(){
+                get() {
                     return this.$store.state.user.projects_points;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'projects_points',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'projects_points', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             projects_points_left: {
-                get(){
+                get() {
                     return this.$store.state.user.projects_points_left;
                 }
             },
             sport: {
-                get(){
+                get() {
                     return this.$store.state.user.sport;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'sport',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'sport', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             },
             sport_left: {
-                get(){
+                get() {
                     return this.$store.state.user.sport_left;
                 }
             },
             english_exemption: {
-                get(){
+                get() {
                     return this.$store.state.user.english_exemption;
                 },
-                set(value){
-                    this.$store.commit('updateInfo', {field: 'english_exemption',value})
+                set(value) {
+                    this.$store.commit('updateInfo', {field: 'english_exemption', value});
                     this.$store.commit('reCalcCurrentSemester')
                 }
             }
         },
-        methods: {
-
-        },
+        methods: {},
     }
 </script>
 

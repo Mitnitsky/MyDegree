@@ -15,9 +15,18 @@
     import HeaderNavBar from "@/components/Header";
     import DpFooter from "@/components/Footer";
     import DegreeSummary from "@/components/DegreeSummary";
+    import firebase from 'firebase'
 
     export default {
         name: 'app',
+        mounted(){
+
+            let saved_token = localStorage.getItem("user_token");
+            if(saved_token){
+                firebase.auth();
+            }
+
+        },
         data() {
             return {}
         },
