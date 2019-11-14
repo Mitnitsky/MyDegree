@@ -5,10 +5,12 @@ import firebase from "firebase";
 
 Vue.use(Vuex);
 
+import { getField, updateField } from 'vuex-map-fields';
+
 export const store = new Vuex.Store({
-    strict: true,
     state: {
         logged: false,
+        user_name: '',
         user: {
             token: '',
             active_semester: 0,
@@ -37,20 +39,10 @@ export const store = new Vuex.Store({
         }
     },
     getters: {
-        getLoginStatus: state => {
-            return state.logged;
-        },
-        getUserName: state => {
-            return state.user.name;
-        },
-        getUserToken: state => {
-            return state.user.token;
-        },
-        getUserSemesters: state => {
-            return state.user.semesters;
-        }
+        getField,
     },
     mutations: {
+        updateField,
         updateDegreePoints(state, points) {
             state.user.degree_points = points;
         },
@@ -59,7 +51,7 @@ export const store = new Vuex.Store({
         },
         setUser: (state, user) => {
             if (user) {
-                state.user.name = user.displayName;
+                state.user_name = user.displayName;
                 state.user.token = user.refreshToken;
             }
         },
@@ -98,6 +90,9 @@ export const store = new Vuex.Store({
         updateCourse: (state, {field, value, index}) => {
             Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]: value});
         },
+        updateSemesterSummary: (state, {field,value}) => {
+            Object.assign(state.user.semesters[state.user.active_semester], {[field]: value});
+        },
         updateInfo: (state, {field, value}) => {
             Object.assign(state.user, {[field]: value});
         },
@@ -121,8 +116,8 @@ export const store = new Vuex.Store({
             state.user.active_semester = index;
         },
         reCalcCurrentSemester: (state) => {
-            let semester = state.user.semesters[state.user.active_semester];
-            Semester.calculateAverage(semester);
+            let current_semester = state.user.semesters[state.user.active_semester];
+            Semester.calculateAverage(current_semester);
             if (state.user.english_exemption) {
                 state.user.degree_points_done = 3;
                 state.must_points = 0;
@@ -130,21 +125,6 @@ export const store = new Vuex.Store({
                 state.user.degree_points_done = 0;
             }
             //TODO: refactor to get impacted only by current semester!
-            state.user.must_points = 0;
-            state.user.must_points_left = 0;
-            state.user.a_list_points = 0;
-            state.user.a_list_points_left = 0;
-            state.user.b_list_points = 0;
-            state.user.b_list_points_left = 0;
-            state.user.humanistic_points = 0;
-            state.user.humanistic_points_left = 0;
-            state.user.free_points = 0;
-            state.user.free_points_left = 0;
-            state.user.projects_points = 0;
-            state.user.projects_points_left = 0;
-            state.user.sport = 0;
-            state.user.sport_left = 0;
-            state.user.exemption_points = 0;
             state.user.degree_average = 0;
             state.user.degree_points_to_choose = state.user.degree_points;
             state.user.must_points_left = state.user.must_points;
@@ -154,9 +134,9 @@ export const store = new Vuex.Store({
             state.user.free_points_left = state.user.free_points;
             state.user.projects_points_left = state.user.projects_points;
             state.user.sport_left = state.user.sport;
-            Semester.calculatePoints(semester);
-            for (semester of state.user.semesters) {
-                state.user.degree_average = semester.points_done * semester.average;
+            Semester.calculatePoints(current_semester);
+            for (const semester of state.user.semesters) {
+                state.user.degree_average += semester.points_done * semester.average;
                 state.user.degree_points_done += semester.points_done;
                 state.user.degree_points_to_choose -= semester.points;
                 state.user.must_points_left -= semester.must_points;
@@ -167,6 +147,7 @@ export const store = new Vuex.Store({
                 state.user.projects_points_left -= semester.projects_points;
                 state.user.sport_left -= semester.sport;
             }
+            state.user.degree_average /= state.user.degree_points_done;
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
         },
         updateSemester(state) {

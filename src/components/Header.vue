@@ -6,10 +6,10 @@
     <b-collapse id="nav-collapse"
                 is-nav>
       <b-navbar-nav class="ml-auto">
-        <section v-if="logged">
+        <section v-if="this.logged">
           <div class="row"
                style="margin-top: 5px;margin-bottom: 5px;">
-            <p style="margin: 0;color: lightgray;margin-top: 8px"> שלום {{this.$store.getters.getUserName}} !</p>
+            <p style="margin: 0;color: lightgray;margin-top: 8px"> שלום {{this.user_name}} !</p>
             <b-nav-item @click="signOut"
                         href="#"
                         right
@@ -42,14 +42,16 @@
 <script>
     import firebase from "firebase"
     import Authentication from "./HeaderAuthentication";
-
+    import { mapFields } from 'vuex-map-fields';
     export default {
         components: {Authentication},
         name: "HeaderNavBar",
         computed: {
-            logged() {
-                return this.$store.getters.getLoginStatus;
-            }
+          ...mapFields([
+            'user_name',
+              'logged'
+
+          ])
         },
         data() {
             return {}

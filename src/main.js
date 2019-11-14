@@ -18,7 +18,11 @@ require('firebase/firestore');
 import vueDebounce from 'vue-debounce'
 
 
-Vue.use(vueDebounce);
+
+Vue.use(vueDebounce, {
+    lock: true,
+    listenTo: ['change']
+});
 Vue.use(VueFirestore);
 Vue.use(Autocomplete);
 Vue.use(VModal);

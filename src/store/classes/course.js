@@ -1,3 +1,5 @@
+import {course_types} from "./course_types";
+
 export function createNewCourse() {
     let course = {};
     course.existsInDB = false;
@@ -5,7 +7,7 @@ export function createNewCourse() {
     course.number = '';
     course.points = 0;
     course.grade = 0;
-    course.type = '0';
+    course.type = course_types.MUST;
     return course;
 }
 
@@ -17,8 +19,8 @@ export function clearCourse(course) {
     course.existsInDB = false;
     course.name = '';
     course.number = '';
-    course.points = '';
-    course.grade = '';
-    course.type = '0';
+    course.points = 0;
+    course.grade = 0;
+    course.type = course_types.MUST;
 }
 

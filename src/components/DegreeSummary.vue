@@ -16,42 +16,42 @@
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">נקודות תואר</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    type="number"
-                   v-model="degreePoints">
+                   v-model.number="degree_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">ממוצע תואר</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="degree_average">
+                   type="number"
+                   v-model.number="degree_average">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">נקודות בוצעו</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="degree_points_done">
+                   type="number"
+                   v-model.number="degree_points_done">
           </div>
           <div class="input-group mb-2">
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">נקודות נותרו</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="degree_points_left">
+                   type="number"
+                   v-model.number="degree_points_left">
             <div class="input-group degree-summary degree-summary">
 
             </div>
@@ -60,11 +60,11 @@
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">נותרו לשבץ</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="degree_points_to_choose">
+                   type="number"
+                   v-model.number="degree_points_to_choose">
             <div class="input-group degree-summary degree-summary">
             </div>
           </div>
@@ -82,141 +82,141 @@
                    readonly
                    style="background-color: aliceblue;align-content: center;"
                    type="text"
-                   value="נותרו"
+                   value="נותרו:"
             >
             <input class="input-group form-control"
                    readonly
                    style="background-color: aliceblue"
                    type="text"
-                   value="מתוך">
+                   value="מתוך:">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">חובה: </span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="must_points_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="must_points_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="must_points">
+                   v-model.number="must_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">רשימה א'</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="a_list_points_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="a_list_points_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="a_list_points">
+                   v-model.number="a_list_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">רשימה ב'</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="b_list_points_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="b_list_points_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="b_list_points">
+                   v-model.number="b_list_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">הומניסטיים</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="humanistic_points_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="humanistic_points_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="humanistic_points">
+                   v-model.number="humanistic_points">
           </div>
           <div class="input-group mb-2">
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">בחירה חופשית:</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="free_points_left"
+                   type="number"
+                   v-model.number="free_points_left"
             >
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="free_points">
+                   v-model.number="free_points">
           </div>
           <div class="input-group mb-2">
 
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">פרוייקטים:</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="projects_points_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="projects_points_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="projects_points">
+                   v-model.number="projects_points">
           </div>
           <div class="input-group mb-2">
 
             <div class="input-group courseName">
               <span class="input-group-text courseNameSpan">ספורט:</span>
             </div>
-            <input class="form-control degree-summary"
+            <input class="form-control degree-summary degree-summary-number"
                    disabled="disabled"
                    readonly
-                   type="text"
-                   v-model="sport_left">
-            <input class="form-control degree-summary"
+                   type="number"
+                   v-model.number="sport_left">
+            <input class="form-control degree-summary degree-summary-number"
                    max="9999999"
                    min="0"
                    step="1"
                    style="text-align: center"
                    type="number"
-                   v-model="sport">
+                   v-model.number="sport">
           </div>
           <div class="input-group mb-2">
             <b-form-checkbox
                 id="checkbox-1"
                 name="checkbox-1"
-                v-model="english_exemption"
+                v-model.number="english_exemption"
             >
               פטור מאנגלית
             </b-form-checkbox>
@@ -233,6 +233,7 @@
   </div>
 </template>
 <script>
+    import { mapFields } from 'vuex-map-fields';
     export default {
         name: 'degree-summary',
         data() {
@@ -242,148 +243,41 @@
             }
         },
         computed: {
-            degreePoints: {
-                get() {
-                    return this.$store.state.user.degree_points
-                },
-                set(points) {
-                    this.$store.commit('updateDegreePoints', points);
-                    this.$store.commit('reCalcCurrentSemester');
-                }
-            },
-            degree_average: {
-                get() {
-                    if (this.$store.state.user.degree_average === 0) {
-                        return ''
-                    } else {
-                        return this.$store.state.user.degree_average;
-                    }
-                }
-            },
-            degree_points_done: {
-                get() {
-                    return this.$store.state.user.degree_points_done;
-                }
-            },
-            degree_points_left: {
-                get() {
-                    return this.$store.state.user.degree_points_left;
-                }
-            },
-            degree_points_to_choose: {
-                get() {
-                    return this.$store.state.user.degree_points_to_choose;
-                }
-            },
-            must_points: {
-                get() {
-                    return this.$store.state.user.must_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'must_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            must_points_left: {
-                get() {
-                    return this.$store.state.user.must_points_left;
-                }
-            },
-            a_list_points: {
-                get() {
-                    return this.$store.state.user.a_list_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'a_list_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            a_list_points_left: {
-                get() {
-                    return this.$store.state.user.a_list_points_left;
-                }
-            },
-            b_list_points: {
-                get() {
-                    return this.$store.state.user.b_list_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'b_list_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            b_list_points_left: {
-                get() {
-                    return this.$store.state.user.b_list_points_left;
-                }
-            },
-            humanistic_points: {
-                get() {
-                    return this.$store.state.user.humanistic_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'humanistic_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            humanistic_points_left: {
-                get() {
-                    return this.$store.state.user.humanistic_points_left;
-                }
-            },
-            free_points: {
-                get() {
-                    return this.$store.state.user.free_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'free_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            free_points_left: {
-                get() {
-                    return this.$store.state.user.free_points_left;
-                }
-            },
-            projects_points: {
-                get() {
-                    return this.$store.state.user.projects_points;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'projects_points', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            projects_points_left: {
-                get() {
-                    return this.$store.state.user.projects_points_left;
-                }
-            },
-            sport: {
-                get() {
-                    return this.$store.state.user.sport;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'sport', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            },
-            sport_left: {
-                get() {
-                    return this.$store.state.user.sport_left;
-                }
-            },
-            english_exemption: {
-                get() {
-                    return this.$store.state.user.english_exemption;
-                },
-                set(value) {
-                    this.$store.commit('updateInfo', {field: 'english_exemption', value});
-                    this.$store.commit('reCalcCurrentSemester')
-                }
-            }
+            ...mapFields([
+                'user.token',
+                'user.active_semester',
+                'user.degree_average',
+                'user.degree_points',
+                'user.degree_points_done',
+                'user.degree_points_left',
+                'user.degree_points_to_choose',
+                'user.must_points',
+                'user.must_points_left',
+                'user.a_list_points',
+                'user.a_list_points_left',
+                'user.b_list_points',
+                'user.b_list_points_left',
+                'user.humanistic_points',
+                'user.humanistic_points_left',
+                'user.free_points',
+                'user.free_points_left',
+                'user.projects_points',
+                'user.projects_points_left',
+                'user.sport',
+                'user.sport_left',
+                'user.exemption_points',
+                'user.english_exemption',
+                'user.semesters'
+            ]),
         },
-        methods: {},
+        methods: {
+            updateField(field) {
+                let value = this.course[field];
+                this.$store.commit('updateCourse', {field, value, index: this.index});
+                this.$store.commit('reCalcCurrentSemester');
+                this.$store.dispatch('updateSemesterAsync');
+            },
+        },
     }
 </script>
 
@@ -413,6 +307,9 @@
 
   .degree-summary {
     text-align: center
+  }
+  .degree-summary-number{
+    direction: ltr;
   }
 
   .categoryName {

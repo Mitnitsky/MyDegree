@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <table class="table table-bordered"
            style="margin-right: 5px">
       <semester-header/>

@@ -11,6 +11,7 @@
           <div class="col-lg-8">
             <app-semester-table :semester="semester"/>
           </div>
+          <div class="col-lg-2 contaier-fluid"></div>
           <div class="col-lg-2"
                style="padding: 0 0">
             <app-semester-summary/>
