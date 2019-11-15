@@ -87,6 +87,9 @@ export const store = new Vuex.Store({
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
         },
+        addCourseWithData: (state,course) => {
+            Semester.addExistingCourse(state.user.semesters[state.user.active_semester], course);
+        },
         updateCourse: (state, {field, value, index}) => {
             Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]: value});
         },
@@ -116,6 +119,7 @@ export const store = new Vuex.Store({
             state.user.active_semester = index;
         },
         reCalcCurrentSemester: (state) => {
+            //TODO: refactor to get impacted only by current semester!
             let current_semester = state.user.semesters[state.user.active_semester];
             Semester.calculateAverage(current_semester);
             if (state.user.english_exemption) {
@@ -124,7 +128,6 @@ export const store = new Vuex.Store({
             } else {
                 state.user.degree_points_done = 0;
             }
-            //TODO: refactor to get impacted only by current semester!
             state.user.degree_average = 0;
             state.user.degree_points_to_choose = state.user.degree_points;
             state.user.must_points_left = state.user.must_points;

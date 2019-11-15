@@ -18,12 +18,16 @@
         </b-button>
         <b-modal
             centered
+            :header-bg-variant="headerBgVariant"
+            :header-text-variant="headerTextVariant"
             hide-backdrop
             hide-footer
             hide-header-close
+            content-class="shadow"
             id="modal-center"
             ok-title="הוסף קורס"
             size="md"
+
             title="חיפוש קורסים">
           <search-course-dialog></search-course-dialog>
         </b-modal>
@@ -45,6 +49,12 @@
 
     export default {
         name: 'semester-table',
+        data() {
+            return {
+                headerTextVariant: "light",
+                headerBgVariant: "dark"
+            }
+        },
         components: {SemesterTableRow, SemesterHeader, SearchCourseDialog},
         props: {
             semester: null

@@ -1,4 +1,4 @@
-import {createNewCourse} from "@/store/classes/course";
+import {createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
 import {course_types} from "./course_types";
 
 export function createNewSemester(name, courses_initially) {
@@ -27,7 +27,7 @@ export function addCourseToSemester(semester) {
 }
 
 export function addExistingCourse(semester, course) {
-    semester.courses.push(course);
+    semester.courses.push(createCourseFromDBEntry(course));
     calculateAverage(semester);
     calculatePoints(semester);
 }
