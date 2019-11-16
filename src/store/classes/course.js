@@ -23,7 +23,7 @@ export function createCourseFromDBEntry(course) {
 }
 
 export function courseIsEmpty(course) {
-    return course.name == '' && (course.number === '' || parseInt(course.number) === 0);
+    return course.name === '' && (course.number === '' || parseInt(course.number) === 0);
 }
 
 export function clearCourse(course) {

@@ -2,10 +2,10 @@
   <tr>
     <td class="courseType">
       <select :select-on-tab="true"
-              v-model.number.lazy="course.type"
               @change.stop="updateField('type')"
               class="form-control"
-              style="text-align-last: center;">
+              style="text-align-last: center;"
+              v-model.number.lazy="course.type">
         <option :value="types.MUST">חובה</option>
         <option :value="types.LIST_A">רשימה א'</option>
         <option :value="types.LIST_B">רשימה ב'</option>
@@ -17,41 +17,41 @@
       </select>
     </td>
     <td class="courseNumber">
-      <input v-model.number.lazy="course.number"
-             @change="updateField('number')"
+      <input @change="updateField('number')"
              class="form-control"
              max="9999999"
              min="0"
              step="1"
-             style="text-align: center"
-             type="number">
+             style="text-align: center;direction: ltr"
+             type="number"
+             v-model.number.lazy="course.number">
     </td>
     <td class="courseName">
-      <input v-model.lazy="course.name"
-             @change="updateField('name')"
+      <input @change="updateField('name')"
              class="form-control"
              style="text-align: center"
-             type="text">
+             type="text"
+             v-model.lazy="course.name">
     </td>
     <td class="coursePoints">
-      <input v-model.number.lazy="course.points"
-             @change="updateField('points')"
+      <input @change="updateField('points')"
              class="form-control"
              max="500"
              min="0"
              step="0.5"
-             style="text-align: center"
-             type="number">
+             style="text-align: center;direction: ltr"
+             type="number"
+             v-model.number.lazy="course.points">
     </td>
     <td class="courseGrade">
-      <input v-model.number.lazy="course.grade"
-             @change="updateField('grade')"
+      <input @change="updateField('grade')"
              class="form-control"
              max="100"
              min="0"
              step="1"
-             style="text-align: center"
-             type="number">
+             style="text-align: center;direction: ltr"
+             type="number"
+             v-model.number.lazy="course.grade">
     </td>
     <td class="clearButton text-center">
       <b-button @click="clearRow"
@@ -86,8 +86,8 @@
             },
             updateField(field) {
                 let value = this.course[field];
-                if(field)
-                this.$store.commit('updateCourse', {field, value, index: this.index});
+                if (field)
+                    this.$store.commit('updateCourse', {field, value, index: this.index});
                 this.$store.commit('reCalcCurrentSemester');
                 this.$store.dispatch('updateSemesterAsync');
             },

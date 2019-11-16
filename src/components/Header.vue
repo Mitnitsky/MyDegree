@@ -9,24 +9,29 @@
         <section v-if="this.logged">
           <div class="row"
                style="margin-top: 5px;margin-bottom: 5px;">
-            <p style="margin: 0;color: lightgray;margin-top: 8px"> שלום {{this.user_name}} !</p>
+            <p style="font-size: 20px;margin: 0;color: lightgray;margin-top: 8px"> שלום {{this.user_name}} !</p>
             <b-nav-item @click="signOut"
                         href="#"
                         right
-                        style="margin-top: 0;margin-right: 5px;font-style: italic;text-decoration: underline">
+                        style="font-size: 20px;margin-top: 0;margin-right: 5px;font-style: italic;text-decoration: underline">
               יציאה
             </b-nav-item>
           </div>
         </section>
         <section v-else>
           <b-nav-item>
-            <em DIR="ltr"
-                v-b-modal.modal-1>כניסה</em>
-            <b-modal cancel-disabled
+            <em DIR="ltr" style="font-size: 20px;text-decoration: underline;" v-b-modal.modal-1>כניסה</em>
+            <b-modal ref="auth-modal"
+                     header-bg-variant="primary"
+                     header-text-variant="white"
+                     hide-footer
+                     hide-header-close
+                     size="md"
                      id="modal-1"
                      ok-title="סגור"
                      title="כניסה">
               <authentication></authentication>
+              <b-button class="mt-3" variant="outline-danger" block @click="hideModal">סגור</b-button>
             </b-modal>
           </b-nav-item>
         </section>
@@ -53,14 +58,38 @@
 
           ])
         },
+        mounted() {
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        localStorage.setItem('authenticated', 'true');
+                        this.logged = true;
+                        this.user = user;
+                        this.user_name = user.displayName;
+                        this.$refs['auth-modal'].hide();
+                        firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
+                            if (doc.exists) {
+                                this.$store.commit('fetchUserInfo', doc.data());
+                                this.$store.commit('reCalcCurrentSemester');
+                            } else {
+                                firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user);
+                            }
+                        });
+                    }
+                });
+                // this.$refs['auth-modal'].show();
+        },
         data() {
             return {}
         },
         methods: {
             signOut() {
                 firebase.auth().signOut();
-                this.$store.commit('setLoginStatus', false);
+                localStorage.setItem('authenticated', 'false');
+                this.logged = false;
                 this.$store.commit('clearUserData');
+            },
+            hideModal(){
+                this.$refs['auth-modal'].hide();
             }
         },
     }

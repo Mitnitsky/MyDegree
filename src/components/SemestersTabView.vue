@@ -7,11 +7,11 @@
       <b-tab :key="semester.name"
              :title="'סמסטר '+ semester.name"
              v-for="semester in this.$store.state.user.semesters">
-        <div class="row justify-content-md-center">
-          <div class="col-lg-8">
+        <div class="row justify-content-md-center"
+              >
+          <div class="col-lg-10" style="margin-bottom: 10px">
             <app-semester-table :semester="semester"/>
           </div>
-          <div class="col-lg-2 contaier-fluid"></div>
           <div class="col-lg-2"
                style="padding: 0 0">
             <app-semester-summary/>
@@ -21,11 +21,11 @@
           <div class="col-lg-10">
 
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-2"
+                >
             <b-button @click="closeTab"
-                      class="float-right"
+                      class="align-self-end"
                       size="sm"
-                      style="margin-bottom:10px"
                       variant="outline-danger">
               מחיקת סמסטר
             </b-button>
@@ -59,6 +59,20 @@
     export default {
         name: "semesters-tab-view",
         components: {AppSemesterTable, AppSemesterSummary},
+        mounted(){
+            let authentication_status = localStorage.getItem('authenticated');
+            if (authentication_status === 'false'){
+                let user_data = localStorage.getItem('saved_session_data');
+                if(user_data !== 'undefined' ){
+                    if (typeof user_data === 'object') {
+                        this.$store.state.user = user_data;
+                    }else{
+                        this.$store.state.user  = JSON.parse(localStorage.getItem('saved_session_data'));
+                    }
+                }
+                //TODO: REPAIR ME, NOT WORKING LOAD
+            }
+        },
         data() {
             return {
                 semesters: [],

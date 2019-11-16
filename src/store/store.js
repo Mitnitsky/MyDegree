@@ -1,18 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as Semester from './classes/semester'
+import * as Course from './classes/course'
 import firebase from "firebase";
+import {getField, updateField} from 'vuex-map-fields';
 
 Vue.use(Vuex);
-
-import { getField, updateField } from 'vuex-map-fields';
 
 export const store = new Vuex.Store({
     state: {
         logged: false,
         user_name: '',
         user: {
-            token: '',
             active_semester: 0,
             degree_average: 0,
             degree_points: 0,
@@ -52,11 +51,9 @@ export const store = new Vuex.Store({
         setUser: (state, user) => {
             if (user) {
                 state.user_name = user.displayName;
-                state.user.token = user.refreshToken;
             }
         },
         clearUserData: (state) => {
-            state.user.token = '';
             state.user.active_semester = 0;
             state.user.degree_average = 0;
             state.user.degree_points = 0;
@@ -87,13 +84,13 @@ export const store = new Vuex.Store({
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
         },
-        addCourseWithData: (state,course) => {
+        addCourseWithData: (state, course) => {
             Semester.addExistingCourse(state.user.semesters[state.user.active_semester], course);
         },
         updateCourse: (state, {field, value, index}) => {
             Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]: value});
         },
-        updateSemesterSummary: (state, {field,value}) => {
+        updateSemesterSummary: (state, {field, value}) => {
             Object.assign(state.user.semesters[state.user.active_semester], {[field]: value});
         },
         updateInfo: (state, {field, value}) => {
@@ -103,10 +100,17 @@ export const store = new Vuex.Store({
             Semester.removeCourse(state.user.semesters[state.user.active_semester], index);
         },
         removeLastRow: (state) => {
-            Semester.removeCourse(state.user.semesters[state.user.active_semester], state.user.semesters[state.user.active_semester].courses.length - 1);
+            let current_semester = state.user.semesters[state.user.active_semester];
+            let last_course_index = current_semester.courses.length - 1;
+            if (!Course.courseIsEmpty(current_semester.courses[last_course_index])) {
+                if (confirm("למחוק קורס בעל תוכן?"))
+                    Semester.removeCourse(current_semester, last_course_index);
+            }else{
+                Semester.removeCourse(current_semester, last_course_index);
+            }
         },
         removeSemester: (state) => {
-            if (confirm("Delete the semester?")) {
+            if (confirm("למחוק סמסטר זה?")) {
                 state.user.semesters.splice(state.user.active_semester, 1);
             }
             let i = 1;
@@ -152,6 +156,16 @@ export const store = new Vuex.Store({
             }
             state.user.degree_average /= state.user.degree_points_done;
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+            if (localStorage.getItem('authenticated') === 'true') { //FIXME
+                const user = firebase.auth().currentUser;
+                firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                    return typeof result;
+                }).catch((reason => {
+                    window.console.log('Error uploading user-data (' + reason + ')');
+                }));
+            } else {
+                localStorage.setItem('saved_session_data', JSON.stringify(state.user));
+            }
         },
         updateSemester(state) {
             const user = firebase.auth().currentUser;

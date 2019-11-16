@@ -24,7 +24,7 @@
                      max="100"
                      min="0"
                      readonly
-                     style="text-align: center;width: 100%"
+                     style="text-align: center;width: 100%;direction: ltr"
                      type="number">
             </td>
           </tr>
@@ -39,7 +39,7 @@
                      max="300"
                      min="0"
                      readonly
-                     style="text-align: center;width: 100%"
+                     style="text-align: center;width: 100%;direction: ltr"
                      type="number">
             </td>
           </tr>

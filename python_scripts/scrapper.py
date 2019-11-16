@@ -7,7 +7,7 @@ from datetime import date
 
 import requests
 from bs4 import BeautifulSoup
-
+from parse_graduate_info import get_info_from_graduate
 from course import Course
 
 
@@ -61,10 +61,10 @@ def getData(url, tag, attrs, types):
         try:
             get = session.post(url)
         except (
-            ConnectionAbortedError,
-            ConnectionError,
-            ConnectionRefusedError,
-            ConnectionResetError,
+                ConnectionAbortedError,
+                ConnectionError,
+                ConnectionRefusedError,
+                ConnectionResetError,
         ):
             return []
         soup = BeautifulSoup(get.content, features="html5lib")
@@ -124,83 +124,35 @@ def cutDependencies(dependencies):
 
 # Function which gets a course info from ug website
 # Creates a course class instance and writes all the data into it
-def getCourseInfo(course_number, semester):
-    url = (
-        "https://ug3.technion.ac.il/rishum/course/"
-        + str(course_number)
-        + "/"
-        + str(semester)
-    )
-    tag = "div"
-    attrs = {"class": "property"}
-    types = "course"
-    properties = getData(url, tag, attrs, types)
-    strip = str.maketrans({"\n": None, "\r": None, "\t": None, "\xa0": " "})
-    and_trans = str.maketrans({"ו": None, "-": "&"})
-    or_trans = str.maketrans({"א": "|", "-": None})
+def getCourseInfo(course_number, index, total_number):
     temp_course = Course()
-    for prop in properties:
-        sibling = prop.next_sibling.next_sibling.text.translate(strip)
-        if "שם מקצוע" in prop.text:
-            temp_course.set_name(sibling)
-        if "מספר מקצוע" in prop.text:
-            temp_course.set_number(sibling.strip())
-        if "נקודות" in prop.text:
-            temp_course.set_points(sibling.strip())
-        if "מקצועות קדם" in prop.text:
-            temp_course.add_dependencies(
-                cutDependencies(sibling.translate(and_trans).translate(or_trans))
-            )
-        if "מקצועות צמודים" in prop.text:
-            temp_course.add_parallel(sibling.split())
-        if ":מקצועות ללא זיכוי נוסף" in prop.text:
-            temp_course.add_similarities(sibling.split())
-        if "מקצועות ללא זיכוי נוסף (מוכלים)" in prop.text:
-            temp_course.add_inclusive(sibling.split())
-    if temp_course.points == 0:
-        temp_course.set_points(get_points_from_gradute(course_number))
+    types = get_info_from_graduate(course_number)
+    temp_course.add_prerequisites(types[0])
+    temp_course.add_linked(types[1])
+    temp_course.add_identical(types[2])
+    temp_course.add_overlapping(types[3])
+    temp_course.add_inclusive(types[4])
+    temp_course.add_including(types[5])
+    temp_course.set_points(types[6])
+    temp_course.set_name(types[7])
+    temp_course.set_number(types[8])
+    print('index: ' + str(index) + 'out of ' + str(total_number) + ' course:' + str(course_number))
     return temp_course
 
 
-def get_points_from_gradute(course_number):
-    url = "https://www.graduate.technion.ac.il/Subjects.Heb/?Sub=" + str(course_number)
-    tag = "td"
-    attrs = {"valign": "top"}
-    data = []
-    with requests.Session() as session:
-        get = session.post(url)
-        soup = BeautifulSoup(get.content, features="html5lib")
-        if "valign" in attrs.keys():
-            table = soup.find("table", attrs={"id": "points"})
-            table_body = table.find("tbody")
-            rows = table_body.find_all("tr")
-            for row in rows:
-                cols = row.find_all("td")
-                cols = [ele.text.strip() for ele in cols]
-                data.append([ele for ele in cols if ele])
-    found_points = False
-    for table in data:
-        for row in table:
-            if found_points:
-                try:
-                    return float(row)
-                except (ValueError):
-                    return 0
-            if "זיכוי" in row:
-                found_points = True
-    return 0
-
-
 # Function which updates the Courses data baseS
-def updateDb(
-    MainWindow, value=None, progress_bar_ui=None, stop_flag=None, stand_alone_flag=False
-):
+def updateDb():
     initDB()
-    if not stand_alone_flag:
-        if MainWindow.english_ui:
-            progress_bar_ui.label.setText("Collecting information:")
-        else:
-            progress_bar_ui.label.setText("אוסף מידע:")
+    course_numbers = sorted(getNumberOfCoursesList())
+    index = 0
+    course_numbers_length = len(course_numbers)
+    for number in course_numbers:
+        course = getCourseInfo(number, index, course_numbers_length)
+        index += 1
+        dbAddCourse(course)
+
+
+def getNumberOfCoursesList():
     semester_tag = "input"
     semester_attrs = {"type": "radio", "name": "SEM"}
     faculties_tag = "option"
@@ -216,42 +168,10 @@ def updateDb(
     for combination in product(semesters, faculties):
         packages.append(preparePackage(combination[0], combination[1]))
     course_numbers = set()
-    if not stand_alone_flag:
-        if MainWindow.english_ui:
-            progress_bar_ui.label.setText("(1/2) Collecting course numbers")
-        else:
-            progress_bar_ui.label.setText("(1/2) אוסף מספרי קורסים")
     for package in packages:
         for course in getCourses(search_url, package):
-            if not stand_alone_flag:
-                if MainWindow.progressBar:
-                    progress_bar_ui.progressBar.setValue(
-                        (len(course_numbers) / 600) % 6
-                    )
             course_numbers.add(course)
-            if not stand_alone_flag and stop_flag[0]:
-                return
-    counter = 0
-    if not stand_alone_flag:
-        if MainWindow.english_ui:
-            progress_bar_ui.label.setText("(2/2) Updating courses:")
-        else:
-            progress_bar_ui.label.setText("(2/2) מעדכן קורסים")
-    for course_number in sorted(course_numbers):
-            if not stand_alone_flag and stop_flag[0]:
-                return
-            counter += 1
-            if not stand_alone_flag:
-                if MainWindow.progressBar:
-                    value[0] = 5 + (counter / len(course_numbers)) * 95
-                    progress_bar_ui.progressBar.setValue(value[0])
-            dbAddCourse(getCourseInfo(course_number, semesters[len(semesters) - 1]))
-    with open("settings.json", "r+") as write_file:
-        data_json = json.load(write_file)
-        data_json["updated"] = date.today().strftime("%B %d, %Y")
-        write_file.seek(0)
-        json.dump(data_json, write_file, indent=4)
-        write_file.truncate()
+    return course_numbers
 
 
 # Function which creates possible packages to prompt ug for sport course with the given semester
@@ -267,14 +187,17 @@ def sportPackages(semester):
 def initDB():
     db = sqlite3.connect("./db/courses.db")
     curs = db.cursor()
+    # prerequisites, linked, identical, overlapping, inclusive, including, points
     curs.execute(
         "CREATE TABLE IF NOT EXISTS courses(course_name STR,"
         "course_number TEXT PRIMARY KEY,"
         "points REAL,"
-        "dependencies BIT,"
-        "parallel BIT,"
-        "similarities BIT,"
-        "inclusive BIT)"
+        "prerequisites BIT,"
+        "linked BIT,"
+        "identical BIT,"
+        "overlapping BIT,"
+        "inclusive BIT,"
+        "including BIT)"
     )
     curs.close()
     db.close()
@@ -284,7 +207,7 @@ def initDB():
 def dbAddCourse(course):
     db = sqlite3.connect("./db/courses.db")
     curs = db.cursor()
-    curs.execute("REPLACE INTO courses VALUES(?, ?, ?, ?, ?, ?, ?)", course.to_list())
+    curs.execute("REPLACE INTO courses VALUES(?, ?, ?, ?, ?, ?, ?,?,?)", course.to_list())
     db.commit()
     curs.close()
     db.close()
@@ -296,10 +219,12 @@ def convertDbEnryToCourse(entry):
     temp_course.set_name(entry[0])
     temp_course.set_number(entry[1])
     temp_course.set_points(entry[2])
-    temp_course.add_dependencies(pickle.loads(entry[3]))
-    temp_course.add_parallel(pickle.loads(entry[4]))
-    temp_course.add_similarities(pickle.loads(entry[5]))
-    temp_course.add_inclusive(pickle.loads(entry[6]))
+    temp_course.add_prerequisites(pickle.loads(entry[3]))
+    temp_course.add_linked(pickle.loads(entry[4]))
+    temp_course.add_identical(pickle.loads(entry[5]))
+    temp_course.add_overlapping(pickle.loads(entry[6]))
+    temp_course.add_inclusive(pickle.loads(entry[7]))
+    temp_course.add_including(pickle.loads(entry[8]))
     return temp_course
 
 
@@ -336,8 +261,10 @@ def loadCourseNameNumberPairs():
     db.close()
     return dropdown
 
+
 def main():
-    updateDb(None,stand_alone_flag=True)
+    updateDb()
+
 
 if __name__ == "__main__":
     main()

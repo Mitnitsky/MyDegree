@@ -1,18 +1,21 @@
 <template>
-  <div class="container justify-content-md-center alert alert-secondary text-center text-muted"
-       style="margin-bottom: 60px">
+  <div class=" justify-content-md-center   text-center text-muted"
+       style="margin-bottom: 60px;margin-left: 5px;margin-right: 5px;">
     <b-button @click="collapsed = !collapsed"
               style="margin: 5px;"
+              variant="outline-dark"
               v-b-toggle.collapse-summary
               v-if="collapsed">הראה סיכום תואר &Darr;
     </b-button>
     <b-collapse id="collapse-summary"
-                style="margin: 5px; ">
-      <div class="row">
-        <div class="col-sm-5">
-          <h3 style="text-decoration: underline; ">סיכום תואר</h3>
+    >
+      <b-card-group>
+        <b-card header="סיכום תואר"
+                header-bg-variant="dark"
+                header-text-variant="white"
+                style="margin-left: 5px">
           <div class="input-group mb-2"
-               style="margin-top: 62px">
+               style="margin-top: 46px">
             <div class="input-group categoryName">
               <span class="input-group-text categoryNameSpan">נקודות תואר</span>
             </div>
@@ -69,24 +72,24 @@
             </div>
           </div>
 
-        </div>
-        <div class="col-sm-1">
-        </div>
-        <div class="col-sm-6">
-          <h3 style="text-decoration: underline; ">ניתוח סוגי קורסים</h3>
+        </b-card>
+
+        <b-card header="ניתוח סוגי קורסים"
+                header-bg-variant="dark"
+                header-text-variant="white">
           <div class="input-group mb-2">
             <div class="input-group courseName">
 
             </div>
             <input class="input-group form-control"
                    readonly
-                   style="background-color: aliceblue;align-content: center;"
+                   style="background-color: aliceblue;align-content: center;text-align: center;"
                    type="text"
                    value="נותרו:"
             >
             <input class="input-group form-control"
                    readonly
-                   style="background-color: aliceblue"
+                   style="background-color: aliceblue;text-align: center;"
                    type="text"
                    value="מתוך:">
           </div>
@@ -221,11 +224,12 @@
               פטור מאנגלית
             </b-form-checkbox>
           </div>
-        </div>
-      </div>
+        </b-card>
+      </b-card-group>
     </b-collapse>
     <b-button @click="collapsed = !collapsed"
               style="margin: 5px"
+              variant="outline-dark"
               v-b-toggle.collapse-summary
               v-if="!collapsed">הסתר סיכום תואר &Uarr;
     </b-button>
@@ -233,7 +237,8 @@
   </div>
 </template>
 <script>
-    import { mapFields } from 'vuex-map-fields';
+    import {mapFields} from 'vuex-map-fields';
+
     export default {
         name: 'degree-summary',
         data() {
@@ -308,7 +313,8 @@
   .degree-summary {
     text-align: center
   }
-  .degree-summary-number{
+
+  .degree-summary-number {
     direction: ltr;
   }
 

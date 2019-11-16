@@ -16,11 +16,12 @@
                     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ],
-
                 callbacks: {
-                    signInSuccessWithAuthResult() {
-                        localStorage.setItem('authenticated', true);
-                    },
+                    // Called when the user has been successfully signed in.
+                    // eslint-disable-next-line no-unused-vars
+                    signInSuccessWithAuthResult: function (authResult) {
+                        return false;
+                    }
                 },
                 'credentialHelper': firebaseui.auth.CredentialHelper.NONE
             };
@@ -29,22 +30,6 @@
                 ui = new firebaseui.auth.AuthUI(firebase.auth());
             }
             ui.start("#firebaseui-auth-container", uiConfig);
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    localStorage.setItem("user_token", user.refreshToken)
-                    this.$store.commit('setLoginStatus', true);
-                    this.$root.$emit('bv::hide::modal', 'modal-1');
-                    this.$store.commit('setUser', user);
-                    firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
-                        if (doc.exists) {
-                            this.$store.commit('fetchUserInfo', doc.data());
-                            this.$store.commit('reCalcCurrentSemester');
-                        } else {
-                            firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user)
-                        }
-                    });
-                }
-            });
         },
         methods: {},
     }
