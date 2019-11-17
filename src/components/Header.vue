@@ -31,7 +31,7 @@
                      ok-title="סגור"
                      title="כניסה">
               <authentication></authentication>
-              <b-button class="mt-3" variant="outline-danger" block @click="hideModal">סגור</b-button>
+              <b-button class="mt-3" variant="outline-primary" block @click="hideModal">סגור</b-button>
             </b-modal>
           </b-nav-item>
         </section>
@@ -40,7 +40,7 @@
     <b-navbar-brand href="#">Degree Planer</b-navbar-brand>
     <img alt=""
          src="../assets/main_icon_white.svg"
-         style="width: 2%; height: 2%;margin-right: 5px;"/>
+         style="width: 48px; height: 48px;margin-right: 5px;"/>
   </b-navbar>
 </template>
 
@@ -76,7 +76,6 @@
                         });
                     }
                 });
-                // this.$refs['auth-modal'].show();
         },
         data() {
             return {}
