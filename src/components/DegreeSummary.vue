@@ -7,9 +7,8 @@
               v-b-toggle.collapse-summary
               v-if="collapsed">הראה סיכום תואר &Darr;
     </b-button>
-    <b-collapse id="collapse-summary"
-    >
-      <b-card-group>
+    <b-collapse id="collapse-summary">
+      <b-card-group deck>
         <b-card header="סיכום תואר"
                 header-bg-variant="dark"
                 header-text-variant="white"
@@ -75,6 +74,7 @@
         </b-card>
 
         <b-card header="ניתוח סוגי קורסים"
+                flow
                 header-bg-variant="dark"
                 header-text-variant="white">
           <div class="input-group mb-2">
@@ -233,8 +233,8 @@
               v-b-toggle.collapse-summary
               v-if="!collapsed">הסתר סיכום תואר &Uarr;
     </b-button>
-
   </div>
+
 </template>
 <script>
     import {mapFields} from 'vuex-map-fields';
