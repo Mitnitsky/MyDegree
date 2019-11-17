@@ -113,3 +113,21 @@ export function calculatePoints(semester) {
     }
     semester.points.toFixed(1);
 }
+
+export function hasCourse(semester, course_number){
+    for (const course of semester.courses){
+        if (course.number.toString() === course_number.toString()){
+            return true;
+        }
+    }
+    return false;
+}
+
+export function alreadyAddedCourse(semesters, course_number){
+    for (const semester of semesters){
+        if(hasCourse(semester, course_number)){
+            return semester.name;
+        }
+    }
+    return false;
+}

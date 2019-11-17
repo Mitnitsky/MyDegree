@@ -151,8 +151,19 @@
                 this.selected_course = course;
             },
             addCourse() {
-                this.$store.commit('addCourseWithData', this.selected_course);
-                this.$store.commit('reCalcCurrentSemester');
+                let course_number_and_anwser = {course_number: this.selected_course.number, answer: ''};
+                this.$store.commit('checkIfCourseExists', course_number_and_anwser);
+                window.console.log(course_number_and_anwser);
+                if(course_number_and_anwser.answer !== false){
+                    let message = "הקורס קיים בסמסטר " + course_number_and_anwser.answer + ", להוסיף בכל זאת?";
+                    if (confirm(message)) {
+                        this.$store.commit('addCourseWithData', this.selected_course);
+                        this.$store.commit('reCalcCurrentSemester');
+                    }
+                }else {
+                    this.$store.commit('addCourseWithData', this.selected_course);
+                    this.$store.commit('reCalcCurrentSemester');
+                }
             },
             findPrerequisites(event) {
                 let course_name = event.target.innerText.split(":")[0];

@@ -4,6 +4,7 @@ import * as Semester from './classes/semester'
 import * as Course from './classes/course'
 import firebase from "firebase";
 import {getField, updateField} from 'vuex-map-fields';
+import {alreadyAddedCourse} from "./classes/semester";
 
 Vue.use(Vuex);
 
@@ -175,6 +176,10 @@ export const store = new Vuex.Store({
         },
         fetchUserInfo: (state, user) => {
             state.user = user;
+        },
+        checkIfCourseExists: (state, course_number_and_answer) => {
+            course_number_and_answer['answer'] = alreadyAddedCourse(state.user.semesters, course_number_and_answer.course_number);
+            window.console.log(course_number_and_answer);
         }
     },
     actions: {

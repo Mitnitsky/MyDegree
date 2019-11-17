@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col-lg-10z">
 
           </div>
           <div class="col-lg-2"
