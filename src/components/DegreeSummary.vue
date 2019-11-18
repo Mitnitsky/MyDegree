@@ -7,6 +7,12 @@
               v-if="collapsed"
               variant="outline-dark">הראה סיכום תואר &Darr;
     </b-button>
+    <b-button @click="collapsed = !collapsed"
+              style="margin: 5px"
+              v-b-toggle.collapse-summary
+              v-if="!collapsed"
+              variant="outline-dark">הסתר סיכום תואר &Uarr;
+    </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group deck>
         <b-card header="סיכום תואר"
@@ -227,12 +233,6 @@
         </b-card>
       </b-card-group>
     </b-collapse>
-    <b-button @click="collapsed = !collapsed"
-              style="margin: 5px"
-              v-b-toggle.collapse-summary
-              v-if="!collapsed"
-              variant="outline-dark">הסתר סיכום תואר &Uarr;
-    </b-button>
   </div>
 
 </template>
