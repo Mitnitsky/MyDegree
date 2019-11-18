@@ -4,7 +4,7 @@ import * as Semester from './classes/semester'
 import * as Course from './classes/course'
 import firebase from "firebase";
 import {getField, updateField} from 'vuex-map-fields';
-import {alreadyAddedCourse} from "./classes/semester";
+import {courseExistInSemesters} from "./classes/semester";
 
 Vue.use(Vuex);
 
@@ -40,6 +40,9 @@ export const store = new Vuex.Store({
     },
     getters: {
         getField,
+        getUserField(state) {
+            return getField(state.user);
+        },
     },
     mutations: {
         updateField,
@@ -124,9 +127,9 @@ export const store = new Vuex.Store({
             state.user.active_semester = index;
         },
         reCalcCurrentSemester: (state) => {
-            //TODO: refactor to get impacted only by current semester!
             let current_semester = state.user.semesters[state.user.active_semester];
             Semester.calculateAverage(current_semester);
+            Semester.calculatePoints(current_semester);
             if (state.user.english_exemption) {
                 state.user.degree_points_done = 3;
                 state.must_points = 0;
@@ -142,7 +145,6 @@ export const store = new Vuex.Store({
             state.user.free_points_left = state.user.free_points;
             state.user.projects_points_left = state.user.projects_points;
             state.user.sport_left = state.user.sport;
-            Semester.calculatePoints(current_semester);
             for (const semester of state.user.semesters) {
                 state.user.degree_average += semester.points_done * semester.average;
                 state.user.degree_points_done += semester.points_done;
@@ -157,30 +159,91 @@ export const store = new Vuex.Store({
             }
             state.user.degree_average /= state.user.degree_points_done;
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-            if (localStorage.getItem('authenticated') === 'true') { //FIXME
+            if (localStorage.getItem('authenticated') === 'true') {
                 const user = firebase.auth().currentUser;
-                firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
-                    return typeof result;
-                }).catch((reason => {
-                    window.console.log('Error uploading user-data (' + reason + ')');
-                }));
+                if(user != null){
+                    firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                        return typeof result;
+                    }).catch((reason => {
+                        window.console.log('Error uploading user-data (' + reason + ')');
+                    }));
+                }
             } else {
+
                 localStorage.setItem('saved_session_data', JSON.stringify(state.user));
+                localStorage.setItem('authenticated', 'false');
             }
         },
         updateSemester(state) {
             const user = firebase.auth().currentUser;
-            firebase.firestore().collection('users').doc(user.uid).update({
-                semesters: state.user.semesters
-            })
+            if (user != null) {
+                firebase.firestore().collection('users').doc(user.uid).update({
+                    semesters: state.user.semesters
+                })
+            }
         },
         fetchUserInfo: (state, user) => {
             state.user = user;
         },
         checkIfCourseExists: (state, course_number_and_answer) => {
-            course_number_and_answer['answer'] = alreadyAddedCourse(state.user.semesters, course_number_and_answer.course_number);
-            window.console.log(course_number_and_answer);
-        }
+            course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number);
+        },
+        checkPrerequisites: (state, course_number_and_answer) => {
+            course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number, state.user.active_semester - 1);
+        },
+        checkLinear: (state, course_number_and_answer) => {
+            course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number, state.user.active_semester);
+        },
+        updateUserField(state, field) {
+            updateField(state.user, field);
+            //TODO: handle the copy paste here
+            let current_semester = state.user.semesters[state.user.active_semester];
+            Semester.calculateAverage(current_semester);
+            Semester.calculatePoints(current_semester);
+            if (state.user.english_exemption) {
+                state.user.degree_points_done = 3;
+                state.must_points = 0;
+            } else {
+                state.user.degree_points_done = 0;
+            }
+            state.user.degree_average = 0;
+            state.user.degree_points_to_choose = state.user.degree_points;
+            state.user.must_points_left = state.user.must_points;
+            state.user.a_list_points_left = state.user.a_list_points;
+            state.user.b_list_points_left = state.user.b_list_points;
+            state.user.humanistic_points_left = state.user.humanistic_points;
+            state.user.free_points_left = state.user.free_points;
+            state.user.projects_points_left = state.user.projects_points;
+            state.user.sport_left = state.user.sport;
+            for (const semester of state.user.semesters) {
+                state.user.degree_average += semester.points_done * semester.average;
+                state.user.degree_points_done += semester.points_done;
+                state.user.degree_points_to_choose -= semester.points;
+                state.user.must_points_left -= semester.must_points;
+                state.user.a_list_points_left -= semester.a_list_points;
+                state.user.b_list_points_left -= semester.b_list_points;
+                state.user.humanistic_points_left -= semester.humanistic_points;
+                state.user.free_points_left -= semester.free_points;
+                state.user.projects_points_left -= semester.projects_points;
+                state.user.sport_left -= semester.sport;
+            }
+            state.user.degree_average /= state.user.degree_points_done;
+            state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+            if (localStorage.getItem('authenticated') === 'true') {
+                const user = firebase.auth().currentUser;
+                if(user != null){
+                    firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                        return typeof result;
+                    }).catch((reason => {
+                        window.console.log('Error uploading user-data (' + reason + ')');
+                    }));
+                }
+            } else {
+
+                localStorage.setItem('saved_session_data', JSON.stringify(state.user));
+                localStorage.setItem('authenticated', 'false');
+            }
+        },
     },
     actions: {
         updateSemesterAsync(context) {
@@ -188,6 +251,7 @@ export const store = new Vuex.Store({
             if (user) {
                 context.commit('updateSemester');
             }
+
         }
     }
 });

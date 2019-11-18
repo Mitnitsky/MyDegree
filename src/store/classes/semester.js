@@ -123,10 +123,13 @@ export function hasCourse(semester, course_number){
     return false;
 }
 
-export function alreadyAddedCourse(semesters, course_number){
-    for (const semester of semesters){
-        if(hasCourse(semester, course_number)){
-            return semester.name;
+export function courseExistInSemesters(semesters, course_number, stop_index=null){
+    if (stop_index === null){
+        stop_index = semesters.length -1;
+    }
+    for (let index = 0; index <= stop_index; index++){
+        if(hasCourse(semesters[index], course_number)){
+            return semesters[index].name;
         }
     }
     return false;

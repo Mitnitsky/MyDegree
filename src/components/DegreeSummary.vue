@@ -237,8 +237,15 @@
 
 </template>
 <script>
-    import {mapFields} from 'vuex-map-fields';
+    import { createHelpers } from 'vuex-map-fields';
 
+    // The getter and mutation types we're providing
+    // here, must be the same as the function names we've
+    // used in the store.
+    const { mapFields } = createHelpers({
+        getterType: 'getUserField',
+        mutationType: 'updateUserField',
+    });
     export default {
         name: 'degree-summary',
         data() {
@@ -249,39 +256,34 @@
         },
         computed: {
             ...mapFields([
-                'user.token',
-                'user.active_semester',
-                'user.degree_average',
-                'user.degree_points',
-                'user.degree_points_done',
-                'user.degree_points_left',
-                'user.degree_points_to_choose',
-                'user.must_points',
-                'user.must_points_left',
-                'user.a_list_points',
-                'user.a_list_points_left',
-                'user.b_list_points',
-                'user.b_list_points_left',
-                'user.humanistic_points',
-                'user.humanistic_points_left',
-                'user.free_points',
-                'user.free_points_left',
-                'user.projects_points',
-                'user.projects_points_left',
-                'user.sport',
-                'user.sport_left',
-                'user.exemption_points',
-                'user.english_exemption',
-                'user.semesters'
+                'token',
+                'active_semester',
+                'degree_average',
+                'degree_points',
+                'degree_points_done',
+                'degree_points_left',
+                'degree_points_to_choose',
+                'must_points',
+                'must_points_left',
+                'a_list_points',
+                'a_list_points_left',
+                'b_list_points',
+                'b_list_points_left',
+                'humanistic_points',
+                'humanistic_points_left',
+                'free_points',
+                'free_points_left',
+                'projects_points',
+                'projects_points_left',
+                'sport',
+                'sport_left',
+                'exemption_points',
+                'english_exemption',
+                'semesters'
             ]),
         },
         methods: {
-            updateField(field) {
-                let value = this.course[field];
-                this.$store.commit('updateCourse', {field, value, index: this.index});
-                this.$store.commit('reCalcCurrentSemester');
-                this.$store.dispatch('updateSemesterAsync');
-            },
+
         },
     }
 </script>

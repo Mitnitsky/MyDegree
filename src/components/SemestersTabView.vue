@@ -63,14 +63,13 @@
             let authentication_status = localStorage.getItem('authenticated');
             if (authentication_status === 'false'){
                 let user_data = localStorage.getItem('saved_session_data');
-                if(user_data !== 'undefined' ){
+                if(user_data !== null ){
                     if (typeof user_data === 'object') {
                         this.$store.state.user = user_data;
                     }else{
                         this.$store.state.user  = JSON.parse(localStorage.getItem('saved_session_data'));
                     }
                 }
-                //TODO: REPAIR ME, NOT WORKING LOAD
             }
         },
         data() {
