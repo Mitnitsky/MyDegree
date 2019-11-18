@@ -176,6 +176,7 @@ export const store = new Vuex.Store({
                 state.user.sport_left -= semester.sport;
             }
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+            state.user.degree_average = state.user.degree_average.toFixed(2);
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
             updateUserData(state);
         },
