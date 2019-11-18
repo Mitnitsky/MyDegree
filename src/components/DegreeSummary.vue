@@ -3,9 +3,9 @@
        style="margin-bottom: 60px;margin-left: 5px;margin-right: 5px;">
     <b-button @click="collapsed = !collapsed"
               style="margin: 5px;"
-              variant="outline-dark"
               v-b-toggle.collapse-summary
-              v-if="collapsed">הראה סיכום תואר &Darr;
+              v-if="collapsed"
+              variant="outline-dark">הראה סיכום תואר &Darr;
     </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group deck>
@@ -73,8 +73,8 @@
 
         </b-card>
 
-        <b-card header="ניתוח סוגי קורסים"
-                flow
+        <b-card flow
+                header="ניתוח סוגי קורסים"
                 header-bg-variant="dark"
                 header-text-variant="white">
           <div class="input-group mb-2">
@@ -229,20 +229,20 @@
     </b-collapse>
     <b-button @click="collapsed = !collapsed"
               style="margin: 5px"
-              variant="outline-dark"
               v-b-toggle.collapse-summary
-              v-if="!collapsed">הסתר סיכום תואר &Uarr;
+              v-if="!collapsed"
+              variant="outline-dark">הסתר סיכום תואר &Uarr;
     </b-button>
   </div>
 
 </template>
 <script>
-    import { createHelpers } from 'vuex-map-fields';
+    import {createHelpers} from 'vuex-map-fields';
 
     // The getter and mutation types we're providing
     // here, must be the same as the function names we've
     // used in the store.
-    const { mapFields } = createHelpers({
+    const {mapFields} = createHelpers({
         getterType: 'getUserField',
         mutationType: 'updateUserField',
     });
@@ -282,9 +282,7 @@
                 'semesters'
             ]),
         },
-        methods: {
-
-        },
+        methods: {},
     }
 </script>
 

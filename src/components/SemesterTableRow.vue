@@ -65,6 +65,7 @@
 <script>
     import {clearCourse, courseIsEmpty} from "@/store/classes/course";
     import {course_types} from "../store/classes/course_types";
+
     export default {
         name: 'semester-table-course-row',
         props: ['course', 'index'],

@@ -1,4 +1,4 @@
-import {createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
+import {courseIsEmpty, createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
 import {course_types} from "./course_types";
 
 export function createNewSemester(name, courses_initially) {
@@ -27,6 +27,18 @@ export function addCourseToSemester(semester) {
 }
 
 export function addExistingCourse(semester, course) {
+    for (let i = 0; i < semester.courses.length; i++) {
+        window.console.log(i);
+        if (courseIsEmpty(semester.courses[i])) {
+            semester.courses[i].name = course.name;
+            semester.courses[i].points = course.points;
+            semester.courses[i].number = course.number;
+            calculateAverage(semester);
+            calculatePoints(semester);
+            return;
+        }
+    }
+    //No empty place found.
     semester.courses.push(createCourseFromDBEntry(course));
     calculateAverage(semester);
     calculatePoints(semester);
@@ -44,7 +56,7 @@ export function calculateAverage(semester) {
     let points = 0;
     let total_grade = 0;
     for (const course of semester.courses) {
-        if (   course.points !== ''
+        if (course.points !== ''
             && course.grade !== ''
             && parseFloat(course.grade) !== 0
             && parseFloat(course.points) !== 0
@@ -114,21 +126,21 @@ export function calculatePoints(semester) {
     semester.points.toFixed(1);
 }
 
-export function hasCourse(semester, course_number){
-    for (const course of semester.courses){
-        if (course.number.toString() === course_number.toString()){
+export function hasCourse(semester, course_number) {
+    for (const course of semester.courses) {
+        if (course.number.toString() === course_number.toString()) {
             return true;
         }
     }
     return false;
 }
 
-export function courseExistInSemesters(semesters, course_number, stop_index=null){
-    if (stop_index === null){
-        stop_index = semesters.length -1;
+export function courseExistInSemesters(semesters, course_number, stop_index = null) {
+    if (stop_index === null) {
+        stop_index = semesters.length - 1;
     }
-    for (let index = 0; index <= stop_index; index++){
-        if(hasCourse(semesters[index], course_number)){
+    for (let index = 0; index <= stop_index; index++) {
+        if (hasCourse(semesters[index], course_number)) {
             return semesters[index].name;
         }
     }

@@ -17,13 +17,13 @@
                   variant="outline-info">חפש קורסים
         </b-button>
         <b-modal
-            centered
             :header-bg-variant="headerBgVariant"
             :header-text-variant="headerTextVariant"
+            centered
+            content-class="shadow"
             hide-backdrop
             hide-footer
             hide-header-close
-            content-class="shadow"
             id="modal-center"
             ok-title="הוסף קורס"
             size="md"

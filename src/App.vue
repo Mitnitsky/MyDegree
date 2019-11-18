@@ -17,7 +17,7 @@
 
     export default {
         name: 'app',
-        mounted(){
+        mounted() {
 
         },
         data() {

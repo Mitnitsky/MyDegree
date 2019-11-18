@@ -1,28 +1,28 @@
 <template>
   <div class="justify-content-md-center">
     <autocomplete
-        id="auto-input"
+        :auto-select="true"
         :get-result-value="getResultValue"
         :search="search"
         @submit="courseChosen"
         aria-label="חיפוש קורסים"
-        :auto-select="true"
+        id="auto-input"
         placeholder="חיפוש קורסים"
         style="text-align: right"
 
     ></autocomplete>
     <b-card
-        header-bg-variant="dark"
-        header-text-variant="white"
         :header="selected_course.full_name"
         class="text-center"
+        header-bg-variant="dark"
+        header-text-variant="white"
         style="text-align: right;color: black;margin-top: 7px;  "
         v-if="show"
     >
       <b-card
-            header="נקודות:"
-            no-body
-            style="margin-bottom: 10px; ">
+          header="נקודות:"
+          no-body
+          style="margin-bottom: 10px; ">
         <p style="margin-top: 5px; margin-bottom: 5px">{{selected_course.points}}</p>
       </b-card>
 
@@ -36,28 +36,28 @@
             :key="index"
             v-for="(prerequisites, index) in selected_course.prerequisites">
           <b-list-group-item :key="inner_index"
-                             href="#"
-                             @click="findPrerequisites($event)"
                              :style="{color: checkIfExists(course, 'prerequisite')}"
+                             @click="findPrerequisites($event)"
+                             href="#"
                              v-for="(course,inner_index) in prerequisites">{{course}}
           </b-list-group-item>
-          <p v-if="index < (selected_course.prerequisites.length - 1)"
-             style="margin-bottom: 2px">או-</p>
+          <p style="margin-bottom: 2px"
+             v-if="index < (selected_course.prerequisites.length - 1)">או-</p>
         </b-list-group>
       </b-card>
       <b-card header="קורסים צמודים:"
-              no-body
               header-bg-variant="dark"
               header-text-variant="white"
+              no-body
               style="margin-bottom: 10px"
               v-if="selected_course.linked.length > 0"
               v-model="selected_course.linked">
         <b-list-group style="margin-bottom: 7px;">
           <b-list-group-item :key="linked"
-                             href="#"
                              :style="{color: checkIfExists(linked, 'linked')}"
                              @click="findPrerequisites($event)"
-          v-for="linked in selected_course.linked">{{linked}}
+                             href="#"
+                             v-for="linked in selected_course.linked">{{linked}}
           </b-list-group-item>
         </b-list-group>
       </b-card>
@@ -70,15 +70,15 @@
       </div>
       <b-button @click="collapsed = !collapsed"
                 style="margin: 5px;"
-                variant="outline-secondary"
                 v-b-toggle.collapse-additional-info
-                v-if="collapsed">הראה מידע נוסף &Darr;
+                v-if="collapsed"
+                variant="outline-secondary">הראה מידע נוסף &Darr;
       </b-button>
       <b-button @click="collapsed = !collapsed"
                 style="margin: 5px"
-                variant="outline-secondary"
                 v-b-toggle.collapse-additional-info
-                v-if="!collapsed">הסתר מידע נוסף &Uarr;
+                v-if="!collapsed"
+                variant="outline-secondary">הסתר מידע נוסף &Uarr;
       </b-button>
       <b-collapse id="collapse-additional-info">
         <b-card header="קורסים ללא זיכוי נוסף:"
@@ -88,9 +88,9 @@
                 v-model="selected_course.overlapping">
           <b-list-group style="margin-bottom: 7px;border-color: #005cbf">
             <b-list-group-item :key="overlapping"
-                               href="#"
                                :style="{color: checkIfExists(overlapping, 'other')}"
                                @click="findPrerequisites($event)"
+                               href="#"
                                v-for="overlapping in selected_course.overlapping">{{overlapping}}
             </b-list-group-item>
           </b-list-group>
@@ -102,9 +102,9 @@
                 v-model="selected_course.inclusive">
           <b-list-group style="margin-bottom: 7px; border-color: #005cbf">
             <b-list-group-item :key="inclusive"
-                               href="#"
                                :style="{color: checkIfExists(inclusive, 'other')}"
                                @click="findPrerequisites($event)"
+                               href="#"
                                v-for="inclusive in selected_course.inclusive">{{inclusive}}
             </b-list-group-item>
           </b-list-group>
@@ -116,9 +116,9 @@
                 v-model="selected_course.including">
           <b-list-group style="margin-bottom: 7px; border-color: #005cbf">
             <b-list-group-item :key="including"
-                               href="#"
                                :style="{color: checkIfExists(including, 'other')}"
                                @click="findPrerequisites($event)"
+                               href="#"
                                v-for="including in selected_course.including">{{including}}
             </b-list-group-item>
           </b-list-group>
@@ -201,18 +201,18 @@
                     return course.full_name.includes(course_name)
                 })[0]);
             },
-            checkIfExists(course_full_name, type){
+            checkIfExists(course_full_name, type) {
                 let course_name = course_full_name.split(":")[1];
-                if (course_name.includes('השלמות')){
+                if (course_name.includes('השלמות')) {
                     return 'black';
                 }
                 let course_number = course_full_name.split(":")[0];
                 let course_number_and_answer = {course_number: course_number, answer: ''};
-                if(type === 'prerequisite'){
+                if (type === 'prerequisite') {
                     this.$store.commit('checkPrerequisites', course_number_and_answer)
-                }else if(type === 'linked'){
+                } else if (type === 'linked') {
                     this.$store.commit('checkLinear', course_number_and_answer);
-                }else{
+                } else {
                     this.$store.commit('checkIfCourseExists', course_number_and_answer);
                     //It's bad if one of inclusive/including/similar courses are in the table
                     return course_number_and_answer.answer === true ? 'red' : 'black';
@@ -225,7 +225,7 @@
 
 
 <style>
-  .depenMissingColor{
+  .depenMissingColor {
     color: indianred;
   }
 </style>

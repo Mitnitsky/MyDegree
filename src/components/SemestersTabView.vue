@@ -8,8 +8,9 @@
              :title="'סמסטר '+ semester.name"
              v-for="semester in this.$store.state.user.semesters">
         <div class="row justify-content-md-center"
-              >
-          <div class="col-lg-10" style="margin-bottom: 10px">
+        >
+          <div class="col-lg-10"
+               style="margin-bottom: 10px">
             <app-semester-table :semester="semester"/>
           </div>
           <div class="col-lg-2"
@@ -22,7 +23,7 @@
 
           </div>
           <div class="col-lg-2"
-                >
+          >
             <b-button @click="closeTab"
                       class="align-self-end"
                       size="sm"
@@ -59,15 +60,15 @@
     export default {
         name: "semesters-tab-view",
         components: {AppSemesterTable, AppSemesterSummary},
-        mounted(){
+        mounted() {
             let authentication_status = localStorage.getItem('authenticated');
-            if (authentication_status === 'false'){
+            if (authentication_status === 'false') {
                 let user_data = localStorage.getItem('saved_session_data');
-                if(user_data !== null ){
+                if (user_data !== null) {
                     if (typeof user_data === 'object') {
                         this.$store.state.user = user_data;
-                    }else{
-                        this.$store.state.user  = JSON.parse(localStorage.getItem('saved_session_data'));
+                    } else {
+                        this.$store.state.user = JSON.parse(localStorage.getItem('saved_session_data'));
                     }
                 }
             }

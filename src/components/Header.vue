@@ -20,18 +20,24 @@
         </section>
         <section v-else>
           <b-nav-item>
-            <em DIR="ltr" style="font-size: 20px;text-decoration: underline;" v-b-modal.modal-1>כניסה</em>
-            <b-modal ref="auth-modal"
-                     header-bg-variant="primary"
+            <em DIR="ltr"
+                style="font-size: 20px;text-decoration: underline;"
+                v-b-modal.modal-1>כניסה</em>
+            <b-modal header-bg-variant="primary"
                      header-text-variant="white"
                      hide-footer
                      hide-header-close
-                     size="md"
                      id="modal-1"
                      ok-title="סגור"
+                     ref="auth-modal"
+                     size="md"
                      title="כניסה">
               <authentication></authentication>
-              <b-button class="mt-3" variant="outline-primary" block @click="hideModal">סגור</b-button>
+              <b-button @click="hideModal"
+                        block
+                        class="mt-3"
+                        variant="outline-primary">סגור
+              </b-button>
             </b-modal>
           </b-nav-item>
         </section>
@@ -47,35 +53,36 @@
 <script>
     import firebase from "firebase"
     import Authentication from "./HeaderAuthentication";
-    import { mapFields } from 'vuex-map-fields';
+    import {mapFields} from 'vuex-map-fields';
+
     export default {
         components: {Authentication},
         name: "HeaderNavBar",
         computed: {
-          ...mapFields([
-            'user_name',
-              'logged'
+            ...mapFields([
+                'user_name',
+                'logged'
 
-          ])
+            ])
         },
         mounted() {
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                        localStorage.setItem('authenticated', 'true');
-                        this.logged = true;
-                        this.user = user;
-                        this.user_name = user.displayName;
-                        this.$refs['auth-modal'].hide();
-                        firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
-                            if (doc.exists) {
-                                this.$store.commit('fetchUserInfo', doc.data());
-                                this.$store.commit('reCalcCurrentSemester');
-                            } else {
-                                firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user);
-                            }
-                        });
-                    }
-                });
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    localStorage.setItem('authenticated', 'true');
+                    this.logged = true;
+                    this.user = user;
+                    this.user_name = user.displayName;
+                    this.$refs['auth-modal'].hide();
+                    firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
+                        if (doc.exists) {
+                            this.$store.commit('fetchUserInfo', doc.data());
+                            this.$store.commit('reCalcCurrentSemester');
+                        } else {
+                            firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user);
+                        }
+                    });
+                }
+            });
         },
         data() {
             return {}
@@ -87,7 +94,7 @@
                 this.logged = false;
                 this.$store.commit('clearUserData');
             },
-            hideModal(){
+            hideModal() {
                 this.$refs['auth-modal'].hide();
             }
         },

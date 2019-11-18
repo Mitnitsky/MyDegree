@@ -1,12 +1,29 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as Semester from './classes/semester'
+import {courseExistInSemesters} from './classes/semester'
 import * as Course from './classes/course'
 import firebase from "firebase";
 import {getField, updateField} from 'vuex-map-fields';
-import {courseExistInSemesters} from "./classes/semester";
 
 Vue.use(Vuex);
+
+function updateUserData(state) {
+    if (localStorage.getItem('authenticated') === 'true') {
+        const user = firebase.auth().currentUser;
+        if (user != null) {
+            firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                return typeof result;
+            }).catch((reason => {
+                window.console.log('Error uploading user-data (' + reason + ')');
+            }));
+        }
+    } else {
+
+        localStorage.setItem('saved_session_data', JSON.stringify(state.user));
+        localStorage.setItem('authenticated', 'false');
+    }
+}
 
 export const store = new Vuex.Store({
     state: {
@@ -46,17 +63,6 @@ export const store = new Vuex.Store({
     },
     mutations: {
         updateField,
-        updateDegreePoints(state, points) {
-            state.user.degree_points = points;
-        },
-        setLoginStatus: (state, status) => {
-            state.logged = status;
-        },
-        setUser: (state, user) => {
-            if (user) {
-                state.user_name = user.displayName;
-            }
-        },
         clearUserData: (state) => {
             state.user.active_semester = 0;
             state.user.degree_average = 0;
@@ -81,27 +87,36 @@ export const store = new Vuex.Store({
             state.user.exemption_points = 0;
             state.user.english_exemption = false;
             state.user.semesters = [];
+            updateUserData(state);
         },
         addSemester: (state, initial_courses) => {
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
+            updateUserData(state);
         },
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
+            updateUserData(state);
         },
         addCourseWithData: (state, course) => {
+            window.console.log(state.user.semesters[state.user.active_semester]);
             Semester.addExistingCourse(state.user.semesters[state.user.active_semester], course);
+            updateUserData(state);
         },
         updateCourse: (state, {field, value, index}) => {
             Object.assign(state.user.semesters[state.user.active_semester].courses[index], {[field]: value});
+            updateUserData(state);
         },
         updateSemesterSummary: (state, {field, value}) => {
             Object.assign(state.user.semesters[state.user.active_semester], {[field]: value});
+            updateUserData(state);
         },
         updateInfo: (state, {field, value}) => {
             Object.assign(state.user, {[field]: value});
+            updateUserData(state);
         },
         removeCourse: (state, index) => {
             Semester.removeCourse(state.user.semesters[state.user.active_semester], index);
+            updateUserData(state);
         },
         removeLastRow: (state) => {
             let current_semester = state.user.semesters[state.user.active_semester];
@@ -109,9 +124,10 @@ export const store = new Vuex.Store({
             if (!Course.courseIsEmpty(current_semester.courses[last_course_index])) {
                 if (confirm("למחוק קורס בעל תוכן?"))
                     Semester.removeCourse(current_semester, last_course_index);
-            }else{
+            } else {
                 Semester.removeCourse(current_semester, last_course_index);
             }
+            updateUserData(state);
         },
         removeSemester: (state) => {
             if (confirm("למחוק סמסטר זה?")) {
@@ -122,9 +138,11 @@ export const store = new Vuex.Store({
                 semester.name = i.toString();
                 i++;
             }
+            updateUserData(state);
         },
         changeSemesterTo: (state, index) => {
             state.user.active_semester = index;
+            updateUserData(state);
         },
         reCalcCurrentSemester: (state) => {
             let current_semester = state.user.semesters[state.user.active_semester];
@@ -157,22 +175,9 @@ export const store = new Vuex.Store({
                 state.user.projects_points_left -= semester.projects_points;
                 state.user.sport_left -= semester.sport;
             }
-            state.user.degree_average /= state.user.degree_points_done;
+            state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-            if (localStorage.getItem('authenticated') === 'true') {
-                const user = firebase.auth().currentUser;
-                if(user != null){
-                    firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
-                        return typeof result;
-                    }).catch((reason => {
-                        window.console.log('Error uploading user-data (' + reason + ')');
-                    }));
-                }
-            } else {
-
-                localStorage.setItem('saved_session_data', JSON.stringify(state.user));
-                localStorage.setItem('authenticated', 'false');
-            }
+            updateUserData(state);
         },
         updateSemester(state) {
             const user = firebase.auth().currentUser;
@@ -196,7 +201,7 @@ export const store = new Vuex.Store({
         },
         updateUserField(state, field) {
             updateField(state.user, field);
-            //TODO: handle the copy paste here
+            //TODO: handle the copy paste here, consider moving that duplicated code into an action
             let current_semester = state.user.semesters[state.user.active_semester];
             Semester.calculateAverage(current_semester);
             Semester.calculatePoints(current_semester);
@@ -227,11 +232,11 @@ export const store = new Vuex.Store({
                 state.user.projects_points_left -= semester.projects_points;
                 state.user.sport_left -= semester.sport;
             }
-            state.user.degree_average /= state.user.degree_points_done;
+            state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
             if (localStorage.getItem('authenticated') === 'true') {
                 const user = firebase.auth().currentUser;
-                if(user != null){
+                if (user != null) {
                     firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
                         return typeof result;
                     }).catch((reason => {

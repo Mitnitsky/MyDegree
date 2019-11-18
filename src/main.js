@@ -13,10 +13,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 //vuex
 import {store} from "./store/store";
+import vueDebounce from 'vue-debounce'
 //firestore
 require('firebase/firestore');
-import vueDebounce from 'vue-debounce'
-
 
 
 Vue.use(vueDebounce, {
