@@ -156,7 +156,7 @@ export const store = new Vuex.Store({
             }
             state.user.degree_average = 0;
             state.user.degree_points_to_choose = state.user.degree_points;
-            state.user.must_points_left = state.user.must_points;
+            state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
             state.user.a_list_points_left = state.user.a_list_points;
             state.user.b_list_points_left = state.user.b_list_points;
             state.user.humanistic_points_left = state.user.humanistic_points;
@@ -213,7 +213,7 @@ export const store = new Vuex.Store({
             }
             state.user.degree_average = 0;
             state.user.degree_points_to_choose = state.user.degree_points;
-            state.user.must_points_left = state.user.must_points;
+            state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
             state.user.a_list_points_left = state.user.a_list_points;
             state.user.b_list_points_left = state.user.b_list_points;
             state.user.humanistic_points_left = state.user.humanistic_points;
@@ -233,6 +233,7 @@ export const store = new Vuex.Store({
                 state.user.sport_left -= semester.sport;
             }
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+            state.user.degree_average = state.user.degree_average.toFixed(2);
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
             if (localStorage.getItem('authenticated') === 'true') {
                 const user = firebase.auth().currentUser;
