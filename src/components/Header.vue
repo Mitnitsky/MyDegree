@@ -72,14 +72,24 @@
                     this.logged = true;
                     this.user = user;
                     this.user_name = user.displayName;
-                    this.$refs['auth-modal'].hide();
-                    firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
+                    if (this.$refs['auth-modal']) {
+                        this.$refs['auth-modal'].hide();
+                    }
+                    let uid = firebase.auth().currentUser.uid;
+                    firebase.firestore().collection('users').doc(uid).get().then((doc) => {
                         if (doc.exists) {
                             this.$store.commit('fetchUserInfo', doc.data());
                             this.$store.commit('reCalcCurrentSemester');
                         } else {
-                            firebase.firestore().collection('users').doc(user.uid).set(this.$store.state.user);
+                            firebase.firestore().collection('users').doc(uid).set(this.$store.state.user).catch(error => {
+                                // eslint-disable-next-line no-console
+                               console.log('ErrorHeader - ' + error.message);
+                            });
                         }
+                    }).catch(error => {
+                        window.console.log(uid);
+                        // eslint-disable-next-line no-console
+                        console.log('ErrorHeader2 - ' + error.message);
                     });
                 }
             });

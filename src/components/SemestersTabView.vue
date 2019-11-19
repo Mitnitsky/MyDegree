@@ -55,20 +55,23 @@
 <script>
     import AppSemesterSummary from "@/components/SemesterSummary";
     import AppSemesterTable from "@/components/SemesterTable";
-
+    import firebase from 'firebase'
 
     export default {
         name: "semesters-tab-view",
         components: {AppSemesterTable, AppSemesterSummary},
         mounted() {
             let authentication_status = localStorage.getItem('authenticated');
-            if (authentication_status === 'false') {
-                let user_data = localStorage.getItem('saved_session_data');
-                if (user_data !== null) {
-                    if (typeof user_data === 'object') {
-                        this.$store.state.user = user_data;
-                    } else {
-                        this.$store.state.user = JSON.parse(localStorage.getItem('saved_session_data'));
+            const user = firebase.auth().currentUser;
+            if (user == null) {
+                if (authentication_status === 'false') {
+                    let user_data = localStorage.getItem('saved_session_data');
+                    if (user_data !== null) {
+                        if (typeof user_data === 'object') {
+                            this.$store.state.user = user_data;
+                        } else {
+                            this.$store.state.user = JSON.parse(localStorage.getItem('saved_session_data'));
+                        }
                     }
                 }
             }
@@ -85,7 +88,7 @@
                 this.$store.commit('reCalcCurrentSemester');
             },
             newTab() {
-                this.$store.commit('addSemester', 3);
+                this.$store.commit('addSemester', 1);
             },
             updateActiveSemester(tab_index) {
                 this.$store.commit('changeSemesterTo', tab_index);
