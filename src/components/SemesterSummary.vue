@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="col align-self-start"
          style="padding: 0 0;">
-      <table class="table table-bordered">
-        <thead>
+      <table class="table table-borderless">
+        <thead class="thead-light">
         <tr>
           <th colspan="2"
               scope="col"
-              style="text-align: right">סיכום סמסטר
+              style="text-align: center;padding:.3rem">סיכום סמסטר
           </th>
         </tr>
         </thead>

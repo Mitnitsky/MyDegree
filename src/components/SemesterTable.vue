@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <table class="table table-bordered"
+    <table class="table table-sm table-borderless"
            style="margin-right: 5px">
       <semester-header/>
       <tbody>

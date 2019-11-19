@@ -1,5 +1,5 @@
 <template>
-  <thead>
+  <thead class="thead-light">
   <tr>
     <th scope="col"
         style="width: 15%;">קטגוריה
@@ -30,6 +30,9 @@
 
 <style scoped>
   th {
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
     text-align: center;
   }
 </style>
