@@ -3,8 +3,10 @@ import Vuex from 'vuex';
 import * as Semester from './classes/semester'
 import {courseExistInSemesters} from './classes/semester'
 import * as Course from './classes/course'
-import firebase from "firebase";
+import firebase from "firebase/app";
 import {getField, updateField} from 'vuex-map-fields';
+import 'firebase/auth'
+import 'firebase/firestore'
 
 Vue.use(Vuex);
 

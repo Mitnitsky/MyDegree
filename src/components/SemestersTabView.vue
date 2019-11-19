@@ -55,7 +55,8 @@
 <script>
     import AppSemesterSummary from "@/components/SemesterSummary";
     import AppSemesterTable from "@/components/SemesterTable";
-    import firebase from 'firebase'
+    import firebase from 'firebase/app'
+    import 'firebase/auth'
 
     export default {
         name: "semesters-tab-view",

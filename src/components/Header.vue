@@ -51,9 +51,11 @@
 </template>
 
 <script>
-    import firebase from "firebase"
+    import firebase from "firebase/app"
     import Authentication from "./HeaderAuthentication";
     import {mapFields} from 'vuex-map-fields';
+    import 'firebase/auth'
+    import 'firebase/firestore'
 
     export default {
         components: {Authentication},

@@ -4,7 +4,7 @@ import VModal from 'vue-js-modal'
 import BootstrapVue from 'bootstrap-vue'
 import Autocomplete from '@trevoreyre/autocomplete-vue'
 import '@trevoreyre/autocomplete-vue/dist/style.css'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import VueFirestore from 'vue-firestore'
 
 import {firebaseConfig} from './firebaseconfig'
@@ -15,7 +15,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {store} from "./store/store";
 import vueDebounce from 'vue-debounce'
 //firestore
-require('firebase/firestore');
+import  'firebase/firestore'
 
 
 Vue.use(vueDebounce, {
