@@ -26,14 +26,10 @@
                              size="lg"
                              style="color: lightgray;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
                              v-b-modal.modal-1/>
-          <b-nav-brand href="#"
-                       style="color: lightgray;text-decoration-line: underline">
-            <b-nav-item v-b-modal.modal-1>כניסה</b-nav-item>
-          </b-nav-brand>
-          <!--          <b-nav-item DIR="ltr"-->
-          <!--                      style="font-size: 20px;text-decoration: underline;"-->
-          <!--                      v-b-modal.modal-1>כניסה-->
-          <!--          </b-nav-item>-->
+          <b-nav-item href="#"
+                      style="color: lightgray;text-decoration-line: underline"
+                      v-b-modal.modal-1>כניסה
+          </b-nav-item>
           <b-modal header-bg-variant="primary"
                    header-text-variant="white"
                    hide-footer
