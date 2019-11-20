@@ -100,7 +100,6 @@ export const store = new Vuex.Store({
             updateUserData(state);
         },
         addCourseWithData: (state, course) => {
-            window.console.log(state.user.semesters[state.user.active_semester]);
             Semester.addExistingCourse(state.user.semesters[state.user.active_semester], course);
             updateUserData(state);
         },

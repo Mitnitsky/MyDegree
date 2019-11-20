@@ -1,6 +1,6 @@
 <template>
   <thead class="thead-light">
-  <tr>
+  <tr style="font-family: Alef,serif">
     <th scope="col"
         style="width: 15%;">קטגוריה
     </th>

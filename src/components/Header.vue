@@ -5,48 +5,66 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse"
                 is-nav>
-      <b-navbar-nav class="ml-auto">
-        <section v-if="this.logged">
-          <div class="row"
-               style="margin-top: 5px;margin-bottom: 5px;">
-            <p style="font-size: 20px;margin: 0;color: lightgray;margin-top: 8px"> שלום {{this.user_name}} !</p>
-            <b-nav-item @click="signOut"
-                        href="#"
-                        right
-                        style="font-size: 20px;margin-top: 0;margin-right: 5px;font-style: italic;text-decoration: underline">
-              יציאה
-            </b-nav-item>
-          </div>
-        </section>
-        <section v-else>
-          <b-nav-item>
-            <em DIR="ltr"
-                style="font-size: 20px;text-decoration: underline;"
-                v-b-modal.modal-1>כניסה</em>
-            <b-modal header-bg-variant="primary"
-                     header-text-variant="white"
-                     hide-footer
-                     hide-header-close
-                     id="modal-1"
-                     ok-title="סגור"
-                     ref="auth-modal"
-                     size="md"
-                     title="כניסה">
-              <authentication></authentication>
-              <b-button @click="hideModal"
-                        block
-                        class="mt-3"
-                        variant="outline-primary">סגור
-              </b-button>
-            </b-modal>
+      <b-navbar-nav align="start">
+        <template v-if="this.logged">
+          <b-nav-text href="#"
+                      style="font-size: 18px;color: lightgray;margin-left: 10px;">
+            שלום {{this.user_name}} !
+          </b-nav-text>
+          <font-awesome-icon icon="sign-out-alt"
+                             size="lg"
+                             style="margin-left: 5px;margin-top: 10px;color: lightgray"/>
+          <b-nav-item DIR="ltr"
+                      style="font-size: 18px;text-decoration: underline;color: lightgray"
+                      @click="signOut">יציאה
           </b-nav-item>
-        </section>
+        </template>
+        <template v-else>
+          <font-awesome-icon icon="sign-in-alt"
+                             rotation="180"
+
+                             size="lg"
+                             style="color: lightgray;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             v-b-modal.modal-1/>
+          <b-nav-brand href="#"
+                       style="color: lightgray;text-decoration-line: underline">
+            <b-nav-item v-b-modal.modal-1>כניסה</b-nav-item>
+          </b-nav-brand>
+          <!--          <b-nav-item DIR="ltr"-->
+          <!--                      style="font-size: 20px;text-decoration: underline;"-->
+          <!--                      v-b-modal.modal-1>כניסה-->
+          <!--          </b-nav-item>-->
+          <b-modal header-bg-variant="primary"
+                   header-text-variant="white"
+                   hide-footer
+                   hide-header-close
+                   id="modal-1"
+                   ok-title="סגור"
+                   ref="auth-modal"
+                   size="md"
+                   title="כניסה">
+            <authentication></authentication>
+            <b-button @click="hideModal"
+                      block
+                      class="mt-3"
+                      variant="outline-primary">סגור
+            </b-button>
+          </b-modal>
+
+        </template>
+      </b-navbar-nav>
+      <b-navbar-nav class="mr-auto">
+        <b-navbar-brand href="#"
+                        mar
+                        style='font-family: "Arial", “Helvetica Neue”, Helvetica, Arial, sans-serif;'>
+          Degree Planer
+          <img alt=""
+               src="../assets/main_icon_white.svg"
+               style="width: 48px; height: 48px;margin-right: 5px;"/>
+        </b-navbar-brand>
       </b-navbar-nav>
     </b-collapse>
-    <b-navbar-brand href="#">Degree Planer</b-navbar-brand>
-    <img alt=""
-         src="../assets/main_icon_white.svg"
-         style="width: 48px; height: 48px;margin-right: 5px;"/>
+
   </b-navbar>
 </template>
 
@@ -85,11 +103,10 @@
                         } else {
                             firebase.firestore().collection('users').doc(uid).set(this.$store.state.user).catch(error => {
                                 // eslint-disable-next-line no-console
-                               console.log('ErrorHeader - ' + error.message);
+                                console.log('ErrorHeader - ' + error.message);
                             });
                         }
                     }).catch(error => {
-                        window.console.log(uid);
                         // eslint-disable-next-line no-console
                         console.log('ErrorHeader2 - ' + error.message);
                     });
@@ -112,3 +129,7 @@
         },
     }
 </script>
+
+<style>
+  @import "../fonts/Alef/stylesheet.css";
+</style>

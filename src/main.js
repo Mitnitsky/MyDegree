@@ -13,15 +13,21 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 //vuex
 import {store} from "./store/store";
-import vueDebounce from 'vue-debounce'
+
 //firestore
 import  'firebase/firestore'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {faSignInAlt,faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 
-Vue.use(vueDebounce, {
-    lock: true,
-    listenTo: ['change']
-});
+library.add(faSignInAlt);
+library.add(faSignOutAlt);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.config.productionTip = false;
+
 Vue.use(VueFirestore);
 Vue.use(Autocomplete);
 Vue.use(VModal);

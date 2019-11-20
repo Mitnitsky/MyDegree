@@ -28,7 +28,6 @@ export function addCourseToSemester(semester) {
 
 export function addExistingCourse(semester, course) {
     for (let i = 0; i < semester.courses.length; i++) {
-        window.console.log(i);
         if (courseIsEmpty(semester.courses[i])) {
             semester.courses[i].name = course.name;
             semester.courses[i].points = course.points;

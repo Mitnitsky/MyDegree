@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif">
     <header-nav-bar></header-nav-bar>
     <div class="container-fluid">
       <semesters-tab-view style="margin: 5px"></semesters-tab-view>
@@ -33,4 +33,5 @@
 </script>
 
 <style>
+  @import "./fonts/Alef/stylesheet.css";
 </style>

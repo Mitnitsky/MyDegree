@@ -23,12 +23,22 @@
             content-class="shadow"
             hide-backdrop
             hide-footer
-            hide-header-close
+            v-b-modal.modal-scrollable
             id="modal-center"
             ok-title="הוסף קורס"
-            size="md"
 
             title="חיפוש קורסים">
+          <template v-slot:modal-header="{ close }">
+            <div class="row" style="width: 100%">
+              <div class="col-lg-11" style="text-align: right;">
+                <h5 class="modal-title">חיפוש קורסים</h5>
+              </div>
+              <div class="col-lg-1" style="width: 5%;text-align: left;align-items: flex-end" :style="{alignItems: alignment}">
+               <b-button @click="close()" type="button" aria-label="Close" class="close text-light" style="margin-right: 5px;">×</b-button>
+              </div>
+            </div>
+          </template>
+
           <search-course-dialog></search-course-dialog>
         </b-modal>
         <b-button @click="addRow"
@@ -52,7 +62,8 @@
         data() {
             return {
                 headerTextVariant: "light",
-                headerBgVariant: "dark"
+                headerBgVariant: "dark",
+                alignment: "flex-end"
             }
         },
         components: {SemesterTableRow, SemesterHeader, SearchCourseDialog},
@@ -70,3 +81,7 @@
         }
     }
 </script>
+
+<style>
+
+</style>
