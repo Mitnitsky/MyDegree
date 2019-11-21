@@ -13,7 +13,7 @@
     <div class="row justify-content-md-center">
       <b-button-group class="mx-1"
                       style="direction: ltr">
-        <b-button v-b-modal.modal-center
+        <b-button @click="$bvModal.show('modal-center')
                   variant="outline-info">חפש קורסים
         </b-button>
         <b-modal
@@ -26,7 +26,6 @@
             v-b-modal.modal-scrollable
             id="modal-center"
             ok-title="הוסף קורס"
-
             title="חיפוש קורסים">
           <template v-slot:modal-header="{ close }">
             <div class="row" style="width: 100%">
