@@ -6,7 +6,8 @@
             pill>
       <b-tab :key="semester.name"
              :title="'סמסטר '+ semester.name"
-             v-for="semester in this.$store.state.user.semesters">
+             v-for="semester in this.$store.state.user.semesters"
+             lazy>
         <div class="row justify-content-md-center"
         >
           <div class="col-lg-10"
