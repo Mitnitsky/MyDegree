@@ -13,7 +13,7 @@
     <div class="row justify-content-md-center">
       <b-button-group class="mx-1"
                       style="direction: ltr">
-        <b-button @click="$bvModal.show('modal-center')
+        <b-button @click="$bvModal.show('modal-center')"
                   variant="outline-info">חפש קורסים
         </b-button>
         <b-modal
