@@ -22,6 +22,7 @@
                      max="100"
                      min="0"
                      readonly
+                     step="0.01"
                      style="text-align: center;width: 100%;direction: ltr"
                      type="number"
                      v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
@@ -34,6 +35,7 @@
             <td style="width:  70%">
               <input class="form-control"
                      max="300"
+                     step="0.5"
                      min="0"
                      readonly
                      style="text-align: center;width: 100%;direction: ltr"

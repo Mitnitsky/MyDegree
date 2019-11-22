@@ -19,10 +19,11 @@ import  'firebase/firestore'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {faSignInAlt,faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {faSignInAlt,faSignOutAlt, faFileImport} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faSignInAlt);
 library.add(faSignOutAlt);
+library.add(faFileImport);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

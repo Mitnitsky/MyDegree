@@ -14,10 +14,81 @@
           <font-awesome-icon icon="sign-out-alt"
                              size="lg"
                              style="margin-left: 5px;margin-top: 10px;color: lightgray"/>
-          <b-nav-item DIR="ltr"
-                      style="font-size: 18px;text-decoration: underline;color: lightgray"
-                      @click="signOut">יציאה
+          <b-nav-item @click="signOut"
+                      DIR="ltr"
+                      style="font-size: 18px;text-decoration: underline;color: lightgray">יציאה
           </b-nav-item>
+          <font-awesome-icon icon="file-import"
+                             rotation="180"
+
+                             size="lg"
+                             style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             v-b-modal.modal-1/>
+          <b-nav-item href="#"
+                      style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+                      @click="$bvModal.show('modal-import')"
+                      >יבוא קורסים מ-UG
+          </b-nav-item>
+          <b-modal centered
+                   content-class="shadow"
+                   header-bg-variant="dark"
+                   header-text-variant="white"
+                   hide-backdrop
+                   hide-footer
+                   id="modal-import"
+                   ok-title="הוסף קורסים"
+                   ok-variant="primary"
+                   size="md"
+                   title="יבוא קורסים וציונים מ-UG">
+            <template v-slot:modal-header="{ close }">
+              <div class="row"
+                   style="width: 100%">
+                <div class="col-lg-11"
+                     style="text-align: right;">
+                  <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
+                </div>
+                <div class="col-lg-1"
+                     style="width: 5%;text-align: left;align-items: flex-end">
+                  <b-button @click="close()"
+                            aria-label="Close"
+                            class="close text-light"
+                            style="margin-right: 5px;"
+                            type="button">×
+                  </b-button>
+                </div>
+              </div>
+            </template>
+            <div class="row justify-content-center">
+              <b-button id="popover-button-variant" variant="outline-info">הוראות</b-button>
+              <b-popover target="popover-button-variant" placement="top" variant="info" triggers="hover">
+                <template v-slot:title><h4>הוראות</h4></template>
+                <p>יש לסמן את כל התוכן באמצעות CTRL+A באתר ציונים ולהעתיק אותו לתיבת הטקסט בחלון זה <br>(<b>אפשרי להעתיק
+                                                                                                            בלי הפרטים
+                                                                                                            האישיים האתר
+                                                                                                            לא
+                                                                                                            משתמש
+                                                                                                            בהם</b>)</p>
+              </b-popover>
+
+            </div>
+            <div class="row justify-content-center mb-2">
+              <b-form-text>
+                <a href="https://ug3.technion.ac.il/Tadpis.html">אתר ציונים</a>
+              </b-form-text>
+            </div>
+            <b-form-textarea id="import-text"
+                             placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
+                             v-model="message"
+            >
+            </b-form-textarea>
+            <div class="row justify-content-center mt-2">
+              <b-button @click="importCourses"
+                        variant="outline-primary"
+              >
+                יבוא קורסים
+              </b-button>
+            </div>
+          </b-modal>
         </template>
         <template v-else>
           <font-awesome-icon icon="sign-in-alt"
@@ -70,6 +141,7 @@
     import {mapFields} from 'vuex-map-fields';
     import 'firebase/auth'
     import 'firebase/firestore'
+    import {parseGraduateInformation} from "../store/aux/converter";
 
     export default {
         components: {Authentication},
@@ -110,9 +182,16 @@
             });
         },
         data() {
-            return {}
+            return {
+                message: ''
+            }
         },
         methods: {
+            importCourses() {
+                if(confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')){
+                    this.$store.dispatch('loadUserDataFromUGSite', parseGraduateInformation(this.message))
+                }
+            },
             signOut() {
                 firebase.auth().signOut();
                 localStorage.setItem('authenticated', 'false');

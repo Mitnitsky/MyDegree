@@ -32,6 +32,9 @@ export function addExistingCourse(semester, course) {
             semester.courses[i].name = course.name;
             semester.courses[i].points = course.points;
             semester.courses[i].number = course.number;
+            if(course.grade !== 'undefined'){
+                semester.courses[i].grade = parseInt(course.grade);
+            }
             calculateAverage(semester);
             calculatePoints(semester);
             return;

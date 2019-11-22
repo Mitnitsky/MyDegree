@@ -17,8 +17,13 @@ export function createCourseFromDBEntry(course) {
     course_to_add.name = course.name;
     course_to_add.number = course.number;
     course_to_add.points = course.points;
-    course_to_add.grade = 0;
+    if(course.grade !== 'undefined'){
+        course_to_add.grade = isNaN(parseInt(course.grade))  ? 0 : parseInt(course.grade);
+    }else {
+        course_to_add.grade = 0;
+    }
     course_to_add.type = course_types.MUST;
+
     return course_to_add;
 }
 
