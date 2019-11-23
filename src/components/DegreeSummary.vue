@@ -111,7 +111,7 @@
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">חובה: </span>
+                    <span class="input-group-text courseNameSpan">חובה </span>
                   </div>
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
@@ -182,7 +182,7 @@
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">בחירה חופשית:</span>
+                    <span class="input-group-text courseNameSpan">בחירה חופשית</span>
                   </div>
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
@@ -202,7 +202,7 @@
                 <div class="input-group mb-2">
 
                   <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">פרוייקטים:</span>
+                    <span class="input-group-text courseNameSpan">פרוייקטים</span>
                   </div>
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
@@ -221,7 +221,7 @@
                 <div class="input-group mb-2">
 
                   <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">ספורט:</span>
+                    <span class="input-group-text courseNameSpan">ספורט</span>
                   </div>
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
