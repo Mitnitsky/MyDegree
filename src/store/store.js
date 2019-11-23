@@ -7,6 +7,7 @@ import firebase from "firebase/app";
 import {getField, updateField} from 'vuex-map-fields';
 import 'firebase/auth'
 import 'firebase/firestore'
+import {MathRound10} from "./aux/rounder";
 
 Vue.use(Vuex);
 
@@ -180,7 +181,7 @@ export const store = new Vuex.Store({
                 state.user.sport_left -= semester.sport;
             }
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-            state.user.degree_average = state.user.degree_average.toFixed(2);
+            state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average,-1).toFixed(1);
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
             updateUserData(state);
         },
@@ -238,7 +239,7 @@ export const store = new Vuex.Store({
                 state.user.sport_left -= semester.sport;
             }
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-            state.user.degree_average = state.user.degree_average.toFixed(2);
+            state.user.degree_average = MathRound10(state.user.degree_average,-1).toFixed(1);
             state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
             if (localStorage.getItem('authenticated') === 'true') {
                 const user = firebase.auth().currentUser;

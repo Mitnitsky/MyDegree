@@ -1,5 +1,6 @@
 import {courseIsEmpty, createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
 import {course_types} from "./course_types";
+import {MathRound10} from "../aux/rounder";
 
 export function createNewSemester(name, courses_initially) {
     let semester = {};
@@ -72,7 +73,7 @@ export function calculateAverage(semester) {
             if (parseInt((total_grade / points)) == (total_grade / points)) {
                 semester.average = parseInt(total_grade / points);
             } else {
-                semester.average = (total_grade / points).toFixed(2);
+                semester.average = MathRound10(total_grade / points, -1);
             }
         } else {
             semester.average = 0;

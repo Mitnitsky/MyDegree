@@ -24,10 +24,10 @@
                              size="lg"
                              style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
                              v-b-modal.modal-1/>
-          <b-nav-item href="#"
+          <b-nav-item @click="$bvModal.show('modal-import')"
+                      href="#"
                       style="font-size: 18px;color: lightgray;text-decoration-line: underline"
-                      @click="$bvModal.show('modal-import')"
-                      >יבוא קורסים מ-UG
+          >יבוא קורסים מ-UG
           </b-nav-item>
           <b-modal centered
                    content-class="shadow"
@@ -59,15 +59,18 @@
               </div>
             </template>
             <div class="row justify-content-center">
-              <b-button id="popover-button-variant" variant="outline-info">הוראות</b-button>
-              <b-popover target="popover-button-variant" placement="top" variant="info" triggers="hover">
+              <b-button id="popover-button-variant"
+                        variant="outline-info">הוראות
+              </b-button>
+              <b-popover placement="top"
+                         target="popover-button-variant"
+                         triggers="hover"
+                         variant="info">
                 <template v-slot:title><h4>הוראות</h4></template>
-                <p>יש לסמן את כל התוכן באמצעות CTRL+A באתר ציונים ולהעתיק אותו לתיבת הטקסט בחלון זה <br>(<b>אפשרי להעתיק
-                                                                                                            בלי הפרטים
-                                                                                                            האישיים האתר
-                                                                                                            לא
-                                                                                                            משתמש
-                                                                                                            בהם</b>)</p>
+                <p>יש לסמן את כל התוכן באמצעות CTRL+A באתר ציונים ולהעתיק אותו לתיבת הטקסט בחלון זה
+                  <br>
+                   (<b>אפשרי להעתיק רק את הסמסטרים</b>)
+                </p>
               </b-popover>
 
             </div>
@@ -188,7 +191,7 @@
         },
         methods: {
             importCourses() {
-                if(confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')){
+                if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
                     this.$store.dispatch('loadUserDataFromUGSite', parseGraduateInformation(this.message))
                 }
             },
@@ -207,10 +210,12 @@
 
 <style>
   @import "../fonts/Alef/stylesheet.css";
-  a.nav-link{
+
+  a.nav-link {
     direction: rtl;
     text-align: start;
   }
+
   span.navbar-text {
     text-align: start;
     direction: rtl;
