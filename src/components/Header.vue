@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg"
+  <b-navbar toggleable="sm"
             type="dark"
             variant="dark">
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -207,4 +207,12 @@
 
 <style>
   @import "../fonts/Alef/stylesheet.css";
+  a.nav-link{
+    direction: rtl;
+    text-align: start;
+  }
+  span.navbar-text {
+    text-align: start;
+    direction: rtl;
+  }
 </style>
