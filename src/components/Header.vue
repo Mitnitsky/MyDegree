@@ -124,7 +124,7 @@
         <b-navbar-brand href="#"
                         mar
                         style='font-family: "Arial", “Helvetica Neue”, Helvetica, Arial, sans-serif;'>
-          Degree Planer
+          Degree Planner
           <img alt=""
                src="../assets/main_icon_white.svg"
                style="width: 48px; height: 48px;margin-right: 5px;"/>
