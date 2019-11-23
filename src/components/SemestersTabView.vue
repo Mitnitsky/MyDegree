@@ -45,8 +45,9 @@
       <div class="container justify-content-md-center alert alert-secondary text-center text-muted"
            slot="empty">
         <h2>עוד לא נוספו סמסטרים</h2>
+
         <br>
-        הוסף סמטר באמצעות הכפתור <b>+</b> בצד ימין.
+        <b-button  variant="outline-secondary" @click.prevent="newTab">הוסף סמסטר</b-button>
       </div>
     </b-tabs>
   </b-card>
@@ -100,8 +101,8 @@
     }
 </script>
 
-<style>
-  .nav-link: {
-    background-color: #2c3e50;
+<style >
+  .card-header{
+    font-size: larger;
   }
 </style>

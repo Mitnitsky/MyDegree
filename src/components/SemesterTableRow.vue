@@ -56,7 +56,7 @@
     <td class="clearButton text-center">
       <b-button @click="clearRow"
                 title="נקה/הסר שורה"
-                v-b-tooltip.hover
+                v-b-tooltip.hover.v-secondary
                 variant="outline-secondary">x
       </b-button>
     </td>

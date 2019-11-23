@@ -5,7 +5,6 @@ function arrayRemove(semesters, index, value) {
 
 export function parseGraduateInformation(grades_copy) {
     grades_copy = grades_copy.split('\n');
-
     let lines = [[]];
     let index = 0;
     let found_first_sem = false;

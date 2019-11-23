@@ -15,226 +15,243 @@
     </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group deck>
-        <b-card header="סיכום תואר"
-                header-bg-variant="dark"
-                header-text-variant="white"
-                style="margin-left: 5px">
-          <div class="input-group mb-2"
-               style="margin-top: 46px">
-            <div class="input-group categoryName">
-              <span class="input-group-text categoryNameSpan">נקודות תואר</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   type="number"
-                   v-model.number="degree_points">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group categoryName">
-              <span class="input-group-text categoryNameSpan">ממוצע תואר</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="degree_average">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group categoryName">
-              <span class="input-group-text categoryNameSpan">נקודות בוצעו</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="degree_points_done">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group categoryName">
-              <span class="input-group-text categoryNameSpan">נקודות נותרו</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="degree_points_left">
-            <div class="input-group degree-summary degree-summary">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-4">
+              <b-card header="סיכום תואר"
+                      header-bg-variant="dark"
+                      header-text-variant="white"
+                      style="margin-left: 5px">
+                <div class="input-group mb-2"
+                     style="margin-top: 46px">
+                  <div class="input-group categoryName">
+                    <span class="input-group-text categoryNameSpan">נקודות תואר</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         type="number"
+                         v-model.number="degree_points">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group categoryName">
+                    <span class="input-group-text categoryNameSpan">ממוצע תואר</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.01"
+                         type="number"
+                         v-model.number="degree_average">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group categoryName">
+                    <span class="input-group-text categoryNameSpan">נקודות בוצעו</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="degree_points_done">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group categoryName">
+                    <span class="input-group-text categoryNameSpan">נקודות נותרו</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="degree_points_left">
+                  <div class="input-group degree-summary degree-summary">
 
+                  </div>
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group categoryName">
+                    <span class="input-group-text categoryNameSpan">נותרו לשבץ</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="degree_points_to_choose">
+                  <div class="input-group degree-summary degree-summary">
+                  </div>
+                </div>
+              </b-card>
             </div>
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group categoryName">
-              <span class="input-group-text categoryNameSpan">נותרו לשבץ</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="degree_points_to_choose">
-            <div class="input-group degree-summary degree-summary">
-            </div>
-          </div>
+            <div class="col-xl-4">
+              <b-card flow
+                      header="ניתוח סוגי קורסים"
+                      header-bg-variant="dark"
+                      header-text-variant="white">
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
 
-        </b-card>
+                  </div>
+                  <input class="input-group form-control"
+                         readonly
+                         style="background-color: aliceblue;align-content: center;text-align: center;"
+                         type="text"
+                         value="נותרו:"
+                  >
+                  <input class="input-group form-control"
+                         readonly
+                         style="background-color: aliceblue;text-align: center;"
+                         type="text"
+                         value="מתוך:">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">חובה: </span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         type="number"
+                         step="0.5"
+                         v-model.number="must_points_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="must_points">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">רשימה א'</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         type="number"
+                         step="0.5"
+                         v-model.number="a_list_points_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="a_list_points">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">רשימה ב'</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         type="number"
+                         step="0.5"
+                         v-model.number="b_list_points_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="b_list_points">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">הומניסטיים</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         type="number"
+                         v-model.number="humanistic_points_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="humanistic_points">
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">בחירה חופשית:</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="free_points_left"
+                  >
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="free_points">
+                </div>
+                <div class="input-group mb-2">
 
-        <b-card flow
-                header="ניתוח סוגי קורסים"
-                header-bg-variant="dark"
-                header-text-variant="white">
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">פרוייקטים:</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="projects_points_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="projects_points">
+                </div>
+                <div class="input-group mb-2">
 
+                  <div class="input-group courseName">
+                    <span class="input-group-text courseNameSpan">ספורט:</span>
+                  </div>
+                  <input class="form-control degree-summary degree-summary-number disabled-input"
+                         disabled="disabled"
+                         readonly
+                         step="0.5"
+                         type="number"
+                         v-model.number="sport_left">
+                  <input class="form-control degree-summary degree-summary-number degree-input-field"
+                         max="9999999"
+                         min="0"
+                         step="0.5"
+                         style="text-align: center"
+                         type="number"
+                         v-model.number="sport">
+                </div>
+                <div class="input-group mb-2">
+                  <b-form-checkbox
+                      id="checkbox-1"
+                      name="checkbox-1"
+                      v-model.number="english_exemption"
+                  >
+                    פטור מאנגלית
+                  </b-form-checkbox>
+                </div>
+              </b-card>
             </div>
-            <input class="input-group form-control"
-                   readonly
-                   style="background-color: aliceblue;align-content: center;text-align: center;"
-                   type="text"
-                   value="נותרו:"
-            >
-            <input class="input-group form-control"
-                   readonly
-                   style="background-color: aliceblue;text-align: center;"
-                   type="text"
-                   value="מתוך:">
+            <div class="col-xl-2"></div>
           </div>
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">חובה: </span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="must_points_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="must_points">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">רשימה א'</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="a_list_points_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="a_list_points">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">רשימה ב'</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="b_list_points_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="b_list_points">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">הומניסטיים</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="humanistic_points_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="humanistic_points">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">בחירה חופשית:</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="free_points_left"
-            >
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="free_points">
-          </div>
-          <div class="input-group mb-2">
-
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">פרוייקטים:</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="projects_points_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="projects_points">
-          </div>
-          <div class="input-group mb-2">
-
-            <div class="input-group courseName">
-              <span class="input-group-text courseNameSpan">ספורט:</span>
-            </div>
-            <input class="form-control degree-summary degree-summary-number"
-                   disabled="disabled"
-                   readonly
-                   type="number"
-                   v-model.number="sport_left">
-            <input class="form-control degree-summary degree-summary-number"
-                   max="9999999"
-                   min="0"
-                   step="1"
-                   style="text-align: center"
-                   type="number"
-                   v-model.number="sport">
-          </div>
-          <div class="input-group mb-2">
-            <b-form-checkbox
-                id="checkbox-1"
-                name="checkbox-1"
-                v-model.number="english_exemption"
-            >
-              פטור מאנגלית
-            </b-form-checkbox>
-          </div>
-        </b-card>
+        </div>
       </b-card-group>
     </b-collapse>
   </div>
-
 </template>
 <script>
     import {createHelpers} from 'vuex-map-fields';
@@ -309,9 +326,15 @@
   .toDo {
 
   }
+  .disabled-input{
+    background-color: whitesmoke !important;
+  }
+  .degree-input-field:hover{
+    border-color: royalblue !important;
 
+  }
   .degree-summary {
-    text-align: center
+    text-align: center;
   }
 
   .degree-summary-number {
@@ -319,7 +342,7 @@
   }
 
   .categoryName {
-    width: 40%;
+    width: 130px;
   }
 
   .categoryNameSpan {
