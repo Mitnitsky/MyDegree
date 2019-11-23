@@ -30,12 +30,14 @@
       <input @change="updateField('name')"
              class="form-control"
              style="text-align: center"
+             :style="{}"
              type="text"
              v-model.lazy="course.name">
     </td>
     <td class="coursePoints">
       <input @change="updateField('points')"
              class="form-control"
+             v-bind:class="[course.points >= 0 ? ''  : InputIsWrong]"
              max="500"
              min="0"
              step="0.5"
@@ -46,6 +48,7 @@
     <td class="courseGrade">
       <input @change="updateField('grade')"
              class="form-control"
+             v-bind:class="[course.grade >= 0 && course.grade <= 100 ? ''  : InputIsWrong]"
              max="100"
              min="0"
              step="1"
@@ -71,7 +74,8 @@
         props: ['course', 'index'],
         data() {
             return {
-                types: course_types
+                types: course_types,
+                InputIsWrong: 'inputIsWrong'
             }
         },
         methods: {
@@ -101,7 +105,9 @@
     -webkit-appearance: none;
     margin: 0;
   }
-
+  .inputIsWrong{
+    border-color: red !important;
+  }
   .courseType {
 
   }

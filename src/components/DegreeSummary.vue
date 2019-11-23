@@ -270,7 +270,8 @@
         data() {
             return {
                 collapsed: true,
-                buttonText: "Show summary"
+                buttonText: "Show summary",
+                inputIsWrong: 'inputIsWrong'
             }
         },
         computed: {
@@ -324,7 +325,9 @@
   .left {
 
   }
-
+  .inputIsWrong{
+    border-color: red !important;
+  }
   .toDo {
 
   }
