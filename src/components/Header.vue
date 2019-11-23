@@ -18,6 +18,36 @@
                       DIR="ltr"
                       style="font-size: 18px;text-decoration: underline;color: lightgray">יציאה
           </b-nav-item>
+        </template>
+        <template v-else>
+          <font-awesome-icon icon="sign-in-alt"
+                             rotation="180"
+
+                             size="lg"
+                             style="color: lightgray;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             v-b-modal.modal-1/>
+          <b-nav-item href="#"
+                      style="color: lightgray;text-decoration-line: underline"
+                      v-b-modal.modal-1>כניסה
+          </b-nav-item>
+          <b-modal header-bg-variant="primary"
+                   header-text-variant="white"
+                   hide-footer
+                   hide-header-close
+                   id="modal-1"
+                   ok-title="סגור"
+                   ref="auth-modal"
+                   size="md"
+                   title="כניסה">
+            <authentication></authentication>
+            <b-button @click="hideModal"
+                      block
+                      class="mt-3"
+                      variant="outline-primary">סגור
+            </b-button>
+          </b-modal>
+
+        </template>
           <font-awesome-icon icon="file-import"
                              rotation="180"
 
@@ -92,36 +122,67 @@
               </b-button>
             </div>
           </b-modal>
-        </template>
-        <template v-else>
-          <font-awesome-icon icon="sign-in-alt"
-                             rotation="180"
-
+          <font-awesome-icon icon="download"
                              size="lg"
-                             style="color: lightgray;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
-                             v-b-modal.modal-1/>
-          <b-nav-item href="#"
-                      style="color: lightgray;text-decoration-line: underline"
-                      v-b-modal.modal-1>כניסה
+                             style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             />
+          <b-nav-item @click="saveAsJson"
+                      href="#"
+                      style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+          >יצוא קורסים ל-JSON
           </b-nav-item>
-          <b-modal header-bg-variant="primary"
+          <font-awesome-icon icon="upload"
+                             size="lg"
+                             style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             />
+          <b-nav-item
+                      href="#"
+                      style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+                      v-b-modal.modal-import-from-json
+          >יבוא קורסים מ-JSON
+          </b-nav-item>
+          <b-modal centered
+                   content-class="shadow"
+                   header-bg-variant="dark"
                    header-text-variant="white"
+                   hide-backdrop
                    hide-footer
-                   hide-header-close
-                   id="modal-1"
-                   ok-title="סגור"
-                   ref="auth-modal"
+                   id="modal-import-from-json"
+                   ok-title="הוסף קורסים"
+                   ok-variant="primary"
                    size="md"
-                   title="כניסה">
-            <authentication></authentication>
-            <b-button @click="hideModal"
-                      block
-                      class="mt-3"
-                      variant="outline-primary">סגור
-            </b-button>
+                   title="יבוא נתונים מקובץ JSON">
+            <template v-slot:modal-header="{ close }">
+              <div class="row"
+                   style="width: 100%">
+                <div class="col-lg-11"
+                     style="text-align: right;">
+                  <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
+                </div>
+                <div class="col-lg-1"
+                     style="width: 5%;text-align: left;align-items: flex-end">
+                  <b-button @click="close()"
+                            aria-label="Close"
+                            class="close text-light"
+                            style="margin-right: 5px;"
+                            type="button">×
+                  </b-button>
+                </div>
+              </div>
+            </template>
+            <b-form-textarea id="import-text-json"
+                             placeholder="יש להעתיק את התוכן קובץ ה-JSON"
+                             v-model="json_text"
+            >
+            </b-form-textarea>
+            <div class="row justify-content-center mt-2">
+              <b-button @click="importCoursesFromJSON"
+                        variant="outline-primary"
+              >
+                יבוא קורסים
+              </b-button>
+            </div>
           </b-modal>
-
-        </template>
       </b-navbar-nav>
       <b-navbar-nav class="mr-auto">
         <b-navbar-brand href="#"
@@ -186,13 +247,27 @@
         },
         data() {
             return {
-                message: ''
+                message: '',
+                json_text: ''
             }
         },
         methods: {
+            saveAsJson() {
+              this.$store.commit('exportSemesters')
+            },
             importCourses() {
-                if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
-                    this.$store.dispatch('loadUserDataFromUGSite', parseGraduateInformation(this.message))
+                if (this.message !== '') {
+                    if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
+                        this.$store.dispatch('loadUserDataFromUGSite', parseGraduateInformation(this.message))
+                    }
+                }
+            },
+            importCoursesFromJSON(){
+                if(this.json_text !== '') {
+                    if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
+                        this.$store.commit('importCoursesFromJson', this.json_text);
+                        this.$store.commit('reCalcCurrentSemester');
+                    }
                 }
             },
             signOut() {

@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as Semester from './classes/semester'
-import {courseExistInSemesters} from './classes/semester'
+import {calculateAverage, calculatePoints, courseExistInSemesters} from './classes/semester'
 import * as Course from './classes/course'
 import firebase from "firebase/app";
 import {getField, updateField} from 'vuex-map-fields';
 import 'firebase/auth'
 import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
+import {saveJSON} from "./aux/download";
 
 Vue.use(Vuex);
 
@@ -192,6 +193,23 @@ export const store = new Vuex.Store({
                     semesters: state.user.semesters
                 })
             }
+        },
+        exportSemesters: (state) =>{
+          let copy = JSON.stringify(state.user.semesters);
+          copy = JSON.parse(copy);
+          for(let sem of copy) {
+              for (let course of sem.courses) {
+                  course.grade = 0;
+              }
+              calculatePoints(sem);
+              calculateAverage(sem);
+          }
+            let data = JSON.stringify(copy,undefined,2);
+            saveJSON(data, 'grades.json');
+
+        },
+        importCoursesFromJson: (state, data) => {
+            state.user.semesters = (JSON.parse(data));
         },
         fetchUserInfo: (state, user) => {
             state.user = user;

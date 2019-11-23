@@ -19,10 +19,13 @@ import  'firebase/firestore'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {  faSignInAlt,faSignOutAlt, faFileImport, faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {  faSignInAlt,faSignOutAlt, faFileImport, faEnvelope, faDownload, faUpload} from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin,faGithub } from '@fortawesome/free-brands-svg-icons'
 
+
 library.add(faSignInAlt);
+library.add(faDownload);
+library.add(faUpload);
 library.add(faSignOutAlt);
 library.add(faFileImport);
 library.add(faEnvelope);
