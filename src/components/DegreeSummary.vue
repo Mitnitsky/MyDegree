@@ -1,6 +1,6 @@
 <template>
   <div class=" justify-content-md-center   text-center text-muted"
-       style="margin-bottom: 60px;margin-left: 5px;margin-right: 5px;">
+       style="margin-bottom: 60px;margin-right: 5px;">
     <b-button @click="collapsed = !collapsed"
               style="margin: 5px;"
               v-b-toggle.collapse-summary
@@ -14,15 +14,16 @@
               variant="outline-dark">הסתר סיכום תואר &Uarr;
     </b-button>
     <b-collapse id="collapse-summary">
-      <b-card-group deck>
+      <b-card-group >
         <div class="container-fluid">
           <div class="row">
             <div class="col-xl-2"></div>
             <div class="col-xl-4">
-              <b-card header="סיכום תואר"
+              <b-card flow
+                      header="סיכום תואר"
                       header-bg-variant="dark"
                       header-text-variant="white"
-                      style="margin-left: 5px">
+                     >
                 <div class="input-group mb-2"
                      style="margin-top: 46px">
                   <div class="input-group categoryName">
@@ -86,8 +87,9 @@
                 </div>
               </b-card>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4 ">
               <b-card flow
+                      class="h-100"
                       header="ניתוח סוגי קורסים"
                       header-bg-variant="dark"
                       header-text-variant="white">
@@ -353,5 +355,7 @@
   .rowSpace {
     margin-bottom: 2px
   }
-
+  .card{
+    height: 100%;
+  }
 </style>
