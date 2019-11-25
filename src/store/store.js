@@ -96,6 +96,9 @@ export const store = new Vuex.Store({
         setActiveSemester: (state,index) => {
            state.user.active_semester = index;
         },
+        setExemptionStatus: (state,status) => {
+            state.user.english_exemption = status;
+        },
         addSemester: (state, initial_courses) => {
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
             updateUserData(state);
@@ -283,17 +286,18 @@ export const store = new Vuex.Store({
             }
 
         },
-        loadUserDataFromUGSite: ({commit}, semesters) => {
+        loadUserDataFromUGSite: ({commit}, semesters_exemption) => {
             commit('clearUserData');
             let index = 0;
-            for(let semester in semesters){
+            for(let semester in semesters_exemption['semesters']){
                 commit('addSemester', 0);
                 commit('setActiveSemester', index);
-                for(let course of semesters[semester]){
+                for(let course of semesters_exemption['semesters'][semester]){
                     commit('addCourseWithData', course);
                 }
                 index += 1;
             }
+            commit('setExemptionStatus', (semesters_exemption['exemption']));
             commit('reCalcCurrentSemester');
         },
     }

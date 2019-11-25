@@ -97,7 +97,7 @@
                          triggers="hover"
                          variant="info">
                 <template v-slot:title><h4>הוראות</h4></template>
-                <p>יש לסמן את כל התוכן באמצעות CTRL+A באתר ציונים ולהעתיק אותו לתיבת הטקסט בחלון זה
+                <p>יש לסמן את כל התוכן באמצעות CTRL+A <a href="https://ug3.technion.ac.il/Tadpis.html" target="_blank">באתר ציונים</a> ולהעתיק אותו לתיבת הטקסט בחלון זה
                   <br>
                    (<b>אפשרי להעתיק רק את הסמסטרים</b>)
                 </p>
@@ -106,7 +106,6 @@
             </div>
             <div class="row justify-content-center mb-2">
               <b-form-text>
-                <a href="https://ug3.technion.ac.il/Tadpis.html">אתר ציונים</a>
               </b-form-text>
             </div>
             <b-form-textarea id="import-text"
@@ -258,7 +257,9 @@
             importCourses() {
                 if (this.message !== '') {
                     if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
-                        this.$store.dispatch('loadUserDataFromUGSite', parseGraduateInformation(this.message))
+                        let semesters_exemption = parseGraduateInformation(this.message);
+                        window.console.log(semesters_exemption);
+                        this.$store.dispatch('loadUserDataFromUGSite', {"semesters": semesters_exemption['semesters'], "exemption": semesters_exemption['exemption']})
                     }
                 }
             },

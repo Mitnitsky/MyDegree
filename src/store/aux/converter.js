@@ -8,9 +8,13 @@ export function parseGraduateInformation(grades_copy) {
     let lines = [[]];
     let index = 0;
     let found_first_sem = false;
+    let english_exemption = false;
     let semesters = {};
     for (let line of grades_copy) {
         if (found_first_sem === false) {
+            if(line.includes('אנגלית') && line.includes('פטור')){
+                english_exemption = true;
+            }
             if (line.includes('קיץ') || line.includes('חורף') || line.includes('אביב')) {
                 found_first_sem = true
             }
@@ -40,8 +44,10 @@ export function parseGraduateInformation(grades_copy) {
                 for (let i = 1; i < index; i++) {
                     let to_remove_list = [];
                     for (let cour of semesters[i.toString()]) {
-                        if (cour['name'] === course['name'] && course['grade'] !== '' &&  ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
-                            to_remove_list.push(cour)
+                        if(!cour['name'].includes('ספורט') || !cour['name'].includes('חינוך')) {
+                            if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
+                                to_remove_list.push(cour)
+                            }
                         }
                     }
                     for (let rem of to_remove_list) {
@@ -62,5 +68,5 @@ export function parseGraduateInformation(grades_copy) {
         semesters[index.toString()] = courses;
         index += 1
     }
-    return semesters;
+    return {"semesters":semesters, "exemption":english_exemption};
 }
