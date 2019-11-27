@@ -154,40 +154,42 @@ export const store = new Vuex.Store({
             updateUserData(state);
         },
         reCalcCurrentSemester: (state) => {
-            let current_semester = state.user.semesters[state.user.active_semester];
-            Semester.calculateAverage(current_semester);
-            Semester.calculatePoints(current_semester);
-            if (state.user.english_exemption) {
-                state.user.degree_points_done = 3;
-                state.must_points = 0;
-            } else {
-                state.user.degree_points_done = 0;
+            if (state.user.semesters.length > 0) {
+                let current_semester = state.user.semesters[state.user.active_semester];
+                Semester.calculateAverage(current_semester);
+                Semester.calculatePoints(current_semester);
+                if (state.user.english_exemption) {
+                    state.user.degree_points_done = 3;
+                    state.must_points = 0;
+                } else {
+                    state.user.degree_points_done = 0;
+                }
+                state.user.degree_average = 0;
+                state.user.degree_points_to_choose = state.user.degree_points;
+                state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
+                state.user.a_list_points_left = state.user.a_list_points;
+                state.user.b_list_points_left = state.user.b_list_points;
+                state.user.humanistic_points_left = state.user.humanistic_points;
+                state.user.free_points_left = state.user.free_points;
+                state.user.projects_points_left = state.user.projects_points;
+                state.user.sport_left = state.user.sport;
+                for (const semester of state.user.semesters) {
+                    state.user.degree_average += semester.points_done * semester.average;
+                    state.user.degree_points_done += semester.points_done;
+                    state.user.degree_points_to_choose -= semester.points;
+                    state.user.must_points_left -= semester.must_points;
+                    state.user.a_list_points_left -= semester.a_list_points;
+                    state.user.b_list_points_left -= semester.b_list_points;
+                    state.user.humanistic_points_left -= semester.humanistic_points;
+                    state.user.free_points_left -= semester.free_points;
+                    state.user.projects_points_left -= semester.projects_points;
+                    state.user.sport_left -= semester.sport;
+                }
+                state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+                state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+                state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+                updateUserData(state);
             }
-            state.user.degree_average = 0;
-            state.user.degree_points_to_choose = state.user.degree_points;
-            state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
-            state.user.a_list_points_left = state.user.a_list_points;
-            state.user.b_list_points_left = state.user.b_list_points;
-            state.user.humanistic_points_left = state.user.humanistic_points;
-            state.user.free_points_left = state.user.free_points;
-            state.user.projects_points_left = state.user.projects_points;
-            state.user.sport_left = state.user.sport;
-            for (const semester of state.user.semesters) {
-                state.user.degree_average += semester.points_done * semester.average;
-                state.user.degree_points_done += semester.points_done;
-                state.user.degree_points_to_choose -= semester.points;
-                state.user.must_points_left -= semester.must_points;
-                state.user.a_list_points_left -= semester.a_list_points;
-                state.user.b_list_points_left -= semester.b_list_points;
-                state.user.humanistic_points_left -= semester.humanistic_points;
-                state.user.free_points_left -= semester.free_points;
-                state.user.projects_points_left -= semester.projects_points;
-                state.user.sport_left -= semester.sport;
-            }
-            state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-            state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average,-1).toFixed(1);
-            state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-            updateUserData(state);
         },
         updateSemester(state) {
             const user = firebase.auth().currentUser;
@@ -229,52 +231,54 @@ export const store = new Vuex.Store({
         updateUserField(state, field) {
             updateField(state.user, field);
             //TODO: handle the copy paste here, consider moving that duplicated code into an action
-            let current_semester = state.user.semesters[state.user.active_semester];
-            Semester.calculateAverage(current_semester);
-            Semester.calculatePoints(current_semester);
-            if (state.user.english_exemption) {
-                state.user.degree_points_done = 3;
-                state.must_points = 0;
-            } else {
-                state.user.degree_points_done = 0;
-            }
-            state.user.degree_average = 0;
-            state.user.degree_points_to_choose = state.user.degree_points;
-            state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
-            state.user.a_list_points_left = state.user.a_list_points;
-            state.user.b_list_points_left = state.user.b_list_points;
-            state.user.humanistic_points_left = state.user.humanistic_points;
-            state.user.free_points_left = state.user.free_points;
-            state.user.projects_points_left = state.user.projects_points;
-            state.user.sport_left = state.user.sport;
-            for (const semester of state.user.semesters) {
-                state.user.degree_average += semester.points_done * semester.average;
-                state.user.degree_points_done += semester.points_done;
-                state.user.degree_points_to_choose -= semester.points;
-                state.user.must_points_left -= semester.must_points;
-                state.user.a_list_points_left -= semester.a_list_points;
-                state.user.b_list_points_left -= semester.b_list_points;
-                state.user.humanistic_points_left -= semester.humanistic_points;
-                state.user.free_points_left -= semester.free_points;
-                state.user.projects_points_left -= semester.projects_points;
-                state.user.sport_left -= semester.sport;
-            }
-            state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-            state.user.degree_average = MathRound10(state.user.degree_average,-1).toFixed(1);
-            state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-            if (localStorage.getItem('authenticated') === 'true') {
-                const user = firebase.auth().currentUser;
-                if (user != null) {
-                    firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
-                        return typeof result;
-                    }).catch((reason => {
-                        window.console.log('Error uploading user-data (' + reason + ')');
-                    }));
+            if (state.user.semesters.len > 0) {
+                let current_semester = state.user.semesters[state.user.active_semester];
+                Semester.calculateAverage(current_semester);
+                Semester.calculatePoints(current_semester);
+                if (state.user.english_exemption) {
+                    state.user.degree_points_done = 3;
+                    state.must_points = 0;
+                } else {
+                    state.user.degree_points_done = 0;
                 }
-            } else {
+                state.user.degree_average = 0;
+                state.user.degree_points_to_choose = state.user.degree_points;
+                state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
+                state.user.a_list_points_left = state.user.a_list_points;
+                state.user.b_list_points_left = state.user.b_list_points;
+                state.user.humanistic_points_left = state.user.humanistic_points;
+                state.user.free_points_left = state.user.free_points;
+                state.user.projects_points_left = state.user.projects_points;
+                state.user.sport_left = state.user.sport;
+                for (const semester of state.user.semesters) {
+                    state.user.degree_average += semester.points_done * semester.average;
+                    state.user.degree_points_done += semester.points_done;
+                    state.user.degree_points_to_choose -= semester.points;
+                    state.user.must_points_left -= semester.must_points;
+                    state.user.a_list_points_left -= semester.a_list_points;
+                    state.user.b_list_points_left -= semester.b_list_points;
+                    state.user.humanistic_points_left -= semester.humanistic_points;
+                    state.user.free_points_left -= semester.free_points;
+                    state.user.projects_points_left -= semester.projects_points;
+                    state.user.sport_left -= semester.sport;
+                }
+                state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+                state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+                state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+                if (localStorage.getItem('authenticated') === 'true') {
+                    const user = firebase.auth().currentUser;
+                    if (user != null) {
+                        firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                            return typeof result;
+                        }).catch((reason => {
+                            window.console.log('Error uploading user-data (' + reason + ')');
+                        }));
+                    }
+                } else {
 
-                localStorage.setItem('saved_session_data', JSON.stringify(state.user));
-                localStorage.setItem('authenticated', 'false');
+                    localStorage.setItem('saved_session_data', JSON.stringify(state.user));
+                    localStorage.setItem('authenticated', 'false');
+                }
             }
         },
     },
