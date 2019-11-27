@@ -274,6 +274,7 @@
             signOut() {
                 firebase.auth().signOut();
                 localStorage.setItem('authenticated', 'false');
+                window.localStorage.removeItem('saved_session_data');
                 this.logged = false;
                 this.$store.commit('clearUserData');
             },
