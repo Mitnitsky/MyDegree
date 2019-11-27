@@ -258,7 +258,6 @@
                 if (this.message !== '') {
                     if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
                         let semesters_exemption = parseGraduateInformation(this.message);
-                        window.console.log(semesters_exemption);
                         this.$store.dispatch('loadUserDataFromUGSite', {"semesters": semesters_exemption['semesters'], "exemption": semesters_exemption['exemption']})
                     }
                 }

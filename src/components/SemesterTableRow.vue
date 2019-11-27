@@ -29,7 +29,7 @@
     <td class="courseName">
       <input @change="updateField('name')"
              class="form-control"
-             style="text-align: center"
+             style="text-align: center;direction: rtl;"
              :style="{}"
              type="text"
              v-model.lazy="course.name">
