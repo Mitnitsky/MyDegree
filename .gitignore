@@ -28,3 +28,4 @@ python_scripts/.idea
 python_scripts/db/.idea
 python_scripts/db/.vscode
 python_scripts/db/venv
+./.firebase/
