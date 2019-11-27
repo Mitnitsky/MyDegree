@@ -35,6 +35,11 @@ export function addExistingCourse(semester, course) {
             semester.courses[i].number = course.number;
             if(course.grade !== 'undefined'){
                 semester.courses[i].grade = parseInt(course.grade);
+                if(isNaN(semester.courses[i].grade)){
+                    semester.courses[i].grade = 0;
+                }
+            }else{
+                semester.courses[i].grade = 0;
             }
             calculateAverage(semester);
             calculatePoints(semester);
