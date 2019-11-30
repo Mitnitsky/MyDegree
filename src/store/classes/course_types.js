@@ -7,4 +7,4 @@ export const course_types = {
     PROJECTS: 5,
     SPORT: 6,
     EXEMPTION: 7
-}
+};

@@ -29,6 +29,45 @@ function updateUserData(state) {
     }
 }
 
+function calculateUserInfo(state) {
+    let current_semester = state.user.semesters[state.user.active_semester];
+    if (current_semester != null) {
+        Semester.calculateAverage(current_semester);
+        Semester.calculatePoints(current_semester);
+        if (state.user.english_exemption) {
+            state.user.degree_points_done = 3;
+            state.must_points = 0;
+        } else {
+            state.user.degree_points_done = 0;
+        }
+        state.user.degree_average = 0;
+        state.user.degree_points_to_choose = state.user.degree_points;
+        state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
+        state.user.a_list_points_left = state.user.a_list_points;
+        state.user.b_list_points_left = state.user.b_list_points;
+        state.user.humanistic_points_left = state.user.humanistic_points;
+        state.user.free_points_left = state.user.free_points;
+        state.user.projects_points_left = state.user.projects_points;
+        state.user.sport_left = state.user.sport;
+        for (const semester of state.user.semesters) {
+            state.user.degree_average += semester.points_done * semester.average;
+            state.user.degree_points_done += semester.points_done;
+            state.user.degree_points_to_choose -= semester.points;
+            state.user.must_points_left -= semester.must_points;
+            state.user.a_list_points_left -= semester.a_list_points;
+            state.user.b_list_points_left -= semester.b_list_points;
+            state.user.humanistic_points_left -= semester.humanistic_points;
+            state.user.free_points_left -= semester.free_points;
+            state.user.projects_points_left -= semester.projects_points;
+            state.user.sport_left -= semester.sport;
+        }
+        state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+        state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+        state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+        updateUserData(state);
+    }
+}
+
 export const store = new Vuex.Store({
     state: {
         logged: false,
@@ -93,10 +132,10 @@ export const store = new Vuex.Store({
             state.user.semesters = [];
             updateUserData(state);
         },
-        setActiveSemester: (state,index) => {
-           state.user.active_semester = index;
+        setActiveSemester: (state, index) => {
+            state.user.active_semester = index;
         },
-        setExemptionStatus: (state,status) => {
+        setExemptionStatus: (state, status) => {
             state.user.english_exemption = status;
         },
         addSemester: (state, initial_courses) => {
@@ -155,43 +194,10 @@ export const store = new Vuex.Store({
         },
         reCalcCurrentSemester: (state) => {
             if (state.user.semesters.length > 0) {
-                let current_semester = state.user.semesters[state.user.active_semester];
-                Semester.calculateAverage(current_semester);
-                Semester.calculatePoints(current_semester);
-                if (state.user.english_exemption) {
-                    state.user.degree_points_done = 3;
-                    state.must_points = 0;
-                } else {
-                    state.user.degree_points_done = 0;
-                }
-                state.user.degree_average = 0;
-                state.user.degree_points_to_choose = state.user.degree_points;
-                state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
-                state.user.a_list_points_left = state.user.a_list_points;
-                state.user.b_list_points_left = state.user.b_list_points;
-                state.user.humanistic_points_left = state.user.humanistic_points;
-                state.user.free_points_left = state.user.free_points;
-                state.user.projects_points_left = state.user.projects_points;
-                state.user.sport_left = state.user.sport;
-                for (const semester of state.user.semesters) {
-                    state.user.degree_average += semester.points_done * semester.average;
-                    state.user.degree_points_done += semester.points_done;
-                    state.user.degree_points_to_choose -= semester.points;
-                    state.user.must_points_left -= semester.must_points;
-                    state.user.a_list_points_left -= semester.a_list_points;
-                    state.user.b_list_points_left -= semester.b_list_points;
-                    state.user.humanistic_points_left -= semester.humanistic_points;
-                    state.user.free_points_left -= semester.free_points;
-                    state.user.projects_points_left -= semester.projects_points;
-                    state.user.sport_left -= semester.sport;
-                }
-                state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-                state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
-                state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-                updateUserData(state);
+                calculateUserInfo(state);
             }
         },
-        updateSemester(state) {
+        updateSemester: (state) => {
             const user = firebase.auth().currentUser;
             if (user != null) {
                 firebase.firestore().collection('users').doc(user.uid).update({
@@ -199,17 +205,17 @@ export const store = new Vuex.Store({
                 })
             }
         },
-        exportSemesters: (state) =>{
-          let copy = JSON.stringify(state.user.semesters);
-          copy = JSON.parse(copy);
-          for(let sem of copy) {
-              for (let course of sem.courses) {
-                  course.grade = 0;
-              }
-              calculatePoints(sem);
-              calculateAverage(sem);
-          }
-            let data = JSON.stringify(copy,undefined,2);
+        exportSemesters: (state) => {
+            let copy = JSON.stringify(state.user.semesters);
+            copy = JSON.parse(copy);
+            for (let sem of copy) {
+                for (let course of sem.courses) {
+                    course.grade = 0;
+                }
+                calculatePoints(sem);
+                calculateAverage(sem);
+            }
+            let data = JSON.stringify(copy, undefined, 2);
             saveJSON(data, 'grades.json');
 
         },
@@ -229,46 +235,9 @@ export const store = new Vuex.Store({
             course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number, state.user.active_semester);
         },
         updateUserField(state, field) {
-
             if (state.user) {
                 updateField(state.user, field);
-                //TODO: handle the copy paste here, consider moving that duplicated code into an action
-                let current_semester = state.user.semesters[state.user.active_semester];
-                if (current_semester != null) {
-                    Semester.calculateAverage(current_semester);
-                    Semester.calculatePoints(current_semester);
-                    if (state.user.english_exemption) {
-                        state.user.degree_points_done = 3;
-                        state.must_points = 0;
-                    } else {
-                        state.user.degree_points_done = 0;
-                        state.user.degree_average = 0;
-                        state.user.degree_points_to_choose = state.user.degree_points;
-                        state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
-                        state.user.a_list_points_left = state.user.a_list_points;
-                        state.user.b_list_points_left = state.user.b_list_points;
-                        state.user.humanistic_points_left = state.user.humanistic_points;
-                        state.user.free_points_left = state.user.free_points;
-                        state.user.projects_points_left = state.user.projects_points;
-                        state.user.sport_left = state.user.sport;
-                        for (const semester of state.user.semesters) {
-                            state.user.degree_average += semester.points_done * semester.average;
-                            state.user.degree_points_done += semester.points_done;
-                            state.user.degree_points_to_choose -= semester.points;
-                            state.user.must_points_left -= semester.must_points;
-                            state.user.a_list_points_left -= semester.a_list_points;
-                            state.user.b_list_points_left -= semester.b_list_points;
-                            state.user.humanistic_points_left -= semester.humanistic_points;
-                            state.user.free_points_left -= semester.free_points;
-                            state.user.projects_points_left -= semester.projects_points;
-                            state.user.sport_left -= semester.sport;
-                        }
-                        state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-                        state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
-                        state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-                        updateUserData(state);
-                    }
-                }
+                calculateUserInfo(state);
             }
         },
     },
@@ -283,10 +252,10 @@ export const store = new Vuex.Store({
         loadUserDataFromUGSite: ({commit}, semesters_exemption) => {
             commit('clearUserData');
             let index = 0;
-            for(let semester in semesters_exemption['semesters']){
+            for (let semester in semesters_exemption['semesters']) {
                 commit('addSemester', 0);
                 commit('setActiveSemester', index);
-                for(let course of semesters_exemption['semesters'][semester]){
+                for (let course of semesters_exemption['semesters'][semester]) {
                     commit('addCourseWithData', course);
                 }
                 index += 1;

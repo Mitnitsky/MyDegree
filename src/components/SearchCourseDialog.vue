@@ -10,7 +10,7 @@
         placeholder="חיפוש קורסים"
         style="text-align: right"
 
-    ></autocomplete>
+    />
     <b-card
         :header="selected_course.full_name"
         class="text-center"
@@ -136,7 +136,7 @@
     if (localStorage.getItem('courses')) {
         json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'))
     } else {
-        json_courses = require("@/data/courses.json");
+        json_courses = require("../data/courses.json");
         localStorage.setItem('courses', JSON.stringify(json_courses));
     }
 
@@ -221,10 +221,3 @@
         }
     }
 </script>
-
-
-<style>
-  .depenMissingColor {
-    color: indianred;
-  }
-</style>

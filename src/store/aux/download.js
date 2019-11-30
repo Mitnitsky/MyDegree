@@ -11,7 +11,7 @@ export function saveJSON(data, filename) {
         data = JSON.stringify(data, undefined, 4)
     }
 
-    var blob = new Blob([data], {type: 'text/json'}),
+    let blob = new Blob([data], {type: 'text/json'}),
         e = document.createEvent('MouseEvents'),
         a = document.createElement('a');
 

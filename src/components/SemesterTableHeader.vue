@@ -17,7 +17,7 @@
         style="width: 10%;">ציון
     </th>
     <th scope="col"
-        style="width: 5%;"></th>
+        style="width: 5%;"/>
   </tr>
   </thead>
 </template>

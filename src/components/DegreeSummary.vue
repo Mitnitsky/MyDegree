@@ -14,7 +14,7 @@
               variant="outline-dark">הסתר סיכום תואר &Uarr;
     </b-button>
     <b-collapse id="collapse-summary">
-      <b-card-group >
+      <b-card-group>
         <div class="container-fluid">
           <div class="row">
             <div class="col-xl-2"></div>
@@ -23,7 +23,7 @@
                       header="סיכום תואר"
                       header-bg-variant="dark"
                       header-text-variant="white"
-                     >
+              >
                 <div class="input-group mb-2"
                      style="margin-top: 46px">
                   <div class="input-group categoryName">
@@ -88,8 +88,8 @@
               </b-card>
             </div>
             <div class="col-xl-4 ">
-              <b-card flow
-                      class="h-100"
+              <b-card class="h-100"
+                      flow
                       header="ניתוח סוגי קורסים"
                       header-bg-variant="dark"
                       header-text-variant="white">
@@ -116,8 +116,8 @@
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
                          readonly
-                         type="number"
                          step="0.5"
+                         type="number"
                          v-model.number="must_points_left">
                   <input class="form-control degree-summary degree-summary-number degree-input-field"
                          max="9999999"
@@ -134,8 +134,8 @@
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
                          readonly
-                         type="number"
                          step="0.5"
+                         type="number"
                          v-model.number="a_list_points_left">
                   <input class="form-control degree-summary degree-summary-number degree-input-field"
                          max="9999999"
@@ -152,8 +152,8 @@
                   <input class="form-control degree-summary degree-summary-number disabled-input"
                          disabled="disabled"
                          readonly
-                         type="number"
                          step="0.5"
+                         type="number"
                          v-model.number="b_list_points_left">
                   <input class="form-control degree-summary degree-summary-number degree-input-field"
                          max="9999999"
@@ -258,13 +258,11 @@
 <script>
     import {createHelpers} from 'vuex-map-fields';
 
-    // The getter and mutation types we're providing
-    // here, must be the same as the function names we've
-    // used in the store.
     const {mapFields} = createHelpers({
         getterType: 'getUserField',
         mutationType: 'updateUserField',
     });
+
     export default {
         name: 'degree-summary',
         data() {
@@ -322,22 +320,15 @@
     background-color: aliceblue;
   }
 
-  .left {
-
-  }
-  .inputIsWrong{
-    border-color: red !important;
-  }
-  .toDo {
-
-  }
-  .disabled-input{
+  .disabled-input {
     background-color: whitesmoke !important;
   }
-  .degree-input-field:hover{
+
+  .degree-input-field:hover {
     border-color: royalblue !important;
 
   }
+
   .degree-summary {
     text-align: center;
   }
@@ -355,10 +346,4 @@
     background-color: aliceblue;
   }
 
-  .rowSpace {
-    margin-bottom: 2px
-  }
-  .card{
-    height: 100%;
-  }
 </style>

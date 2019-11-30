@@ -6,8 +6,8 @@
             pill>
       <b-tab :key="semester.name"
              :title="'סמסטר '+ semester.name"
-             v-for="semester in this.$store.state.user.semesters"
-             lazy>
+             lazy
+             v-for="semester in this.$store.state.user.semesters">
         <div class="row justify-content-md-center"
         >
           <div class="col-lg-10"
@@ -47,7 +47,9 @@
         <h2>עוד לא נוספו סמסטרים</h2>
 
         <br>
-        <b-button  variant="outline-secondary" @click.prevent="newTab">הוסף סמסטר</b-button>
+        <b-button @click.prevent="newTab"
+                  variant="outline-secondary">הוסף סמסטר
+        </b-button>
       </div>
     </b-tabs>
   </b-card>
@@ -88,7 +90,6 @@
         methods: {
             closeTab() {
                 this.$store.commit('removeSemester');
-                // this.$store.commit('reCalcCurrentSemester');
             },
             newTab() {
                 this.$store.commit('addSemester', 1);
@@ -100,9 +101,3 @@
         }
     }
 </script>
-
-<style >
-  .card-header{
-    font-size: larger;
-  }
-</style>

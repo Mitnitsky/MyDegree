@@ -18,7 +18,6 @@
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ],
                 callbacks: {
-                    // Called when the user has been successfully signed in.
                     // eslint-disable-next-line no-unused-vars
                     signInSuccessWithAuthResult: function (authResult) {
                         return false;

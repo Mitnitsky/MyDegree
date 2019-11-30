@@ -1,10 +1,9 @@
 <template>
   <tr>
-    <td class="courseType">
+    <td>
       <select :select-on-tab="true"
               @change.stop="updateField('type')"
-              class="form-control"
-              style="text-align-last: center;"
+              class="form-control courseType"
               v-model.number.lazy="course.type">
         <option :value="types.MUST">חובה</option>
         <option :value="types.LIST_A">רשימה א'</option>
@@ -16,48 +15,44 @@
         <option :value="types.EXEMPTION">פטור</option>
       </select>
     </td>
-    <td class="courseNumber">
+    <td>
       <input @change="updateField('number')"
-             class="form-control"
+             class="form-control courseNumber"
              max="9999999"
              min="0"
              step="1"
-             style="text-align: center;direction: ltr"
              type="number"
              v-model.number.lazy="course.number">
     </td>
-    <td class="courseName">
+    <td>
       <input @change="updateField('name')"
-             class="form-control"
-             style="text-align: center;direction: rtl;"
-             :style="{}"
+             class="form-control courseName"
              type="text"
              v-model.lazy="course.name">
     </td>
-    <td class="coursePoints">
+    <td>
       <input @change="updateField('points')"
-             class="form-control"
-             v-bind:class="[course.points >= 0 ? ''  : InputIsWrong]"
+             class="form-control coursePoints"
              max="500"
              min="0"
              step="0.5"
-             style="text-align: center;direction: ltr"
              type="number"
+             v-bind:class="[course.points >= 0 ? ''  : InputIsWrong]"
              v-model.number.lazy="course.points">
     </td>
-    <td class="courseGrade">
+    <td class="">
       <input @change="updateField('grade')"
-             class="form-control"
-             v-bind:class="[course.grade >= 0 && course.grade <= 100 ? ''  : InputIsWrong]"
+             class="form-control courseGrade"
              max="100"
              min="0"
              step="1"
-             style="text-align: center;direction: ltr"
              type="number"
+             v-bind:class="[course.grade >= 0 && course.grade <= 100 ? ''  : InputIsWrong]"
              v-model.number.lazy="course.grade">
     </td>
-    <td class="clearButton text-center">
+    <td class="text-center">
       <b-button @click="clearRow"
+                class="clearButton"
                 title="נקה/הסר שורה"
                 v-b-tooltip.hover.v-secondary
                 variant="outline-secondary">x
@@ -66,7 +61,7 @@
   </tr>
 </template>
 <script>
-    import {clearCourse, courseIsEmpty} from "@/store/classes/course";
+    import {clearCourse, courseIsEmpty} from "../store/classes/course";
     import {course_types} from "../store/classes/course_types";
 
     export default {
@@ -105,27 +100,33 @@
     -webkit-appearance: none;
     margin: 0;
   }
-  .inputIsWrong{
+
+  .inputIsWrong {
     border-color: red !important;
   }
-  .courseType {
 
+  .courseType {
+    text-align-last: center;
   }
 
   .courseNumber {
-
+    text-align: center;
+    direction: ltr;
   }
 
   .courseName {
-
+    text-align: center;
+    direction: rtl;
   }
 
   .courseGrade {
-
+    text-align: center;
+    direction: ltr
   }
 
   .coursePoints {
-
+    text-align: center;
+    direction: ltr;
   }
 
   .clearButton {

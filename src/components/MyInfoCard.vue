@@ -18,29 +18,27 @@
         </div>
         <div class="col pl-0 pr-0  mr-3">
           <b-card
-                  class="pr-custom"
-                  style="font-family: Helvetica, Arial, sans-serif"
-                  header="Contact Info"
-                  header-bg-variant="light"
-                  header-text-variant="black"
-                  >
-          <b-card-body class="justify-content-center">
-            <b-card-text class="ml-4 pt-4">
-              <font-awesome-icon :icon="['fab', 'github']"
-                                 class="mr-1"></font-awesome-icon>
-              <a href="https://github.com/Vladimir-pa/" target="_blank">Github</a>
-            </b-card-text>
-            <b-card-text class="ml-4">
-              <font-awesome-icon :icon="['fab', 'linkedin']"
-                                 class="mr-1"></font-awesome-icon>
-              <a href="https://www.linkedin.com/in/vladimir-parakhin/" target="_blank">LinkedIn</a>
-            </b-card-text>
-            <b-card-text class="ml-4 pb-4">
-              <font-awesome-icon class="mr-1"
-                                 icon="envelope"></font-awesome-icon>
-              <a href="vov4ikpa@gmail.com" target="_blank">Email </a>
-            </b-card-text>
-          </b-card-body>
+              class="pr-custom"
+              header="Contact Info"
+              header-bg-variant="light"
+              header-text-variant="black"
+              style="font-family: Helvetica, Arial, sans-serif"
+          >
+            <b-card-body class="justify-content-center">
+              <b-card-text class="ml-4 pt-4 pb-2">
+                <font-awesome-icon :icon="['fab', 'github']"
+                                   class="mr-1"/>
+                <a href="https://github.com/Vladimir-pa/"
+                   target="_blank">Github</a>
+              </b-card-text>
+              <b-card-text class="ml-4 pb-5">
+                <font-awesome-icon :icon="['fab', 'linkedin']"
+                                   class="mr-1"/>
+                <a href="https://www.linkedin.com/in/vladimir-parakhin/"
+                   target="_blank">LinkedIn</a>
+              </b-card-text>
+
+            </b-card-body>
           </b-card>
         </div>
       </div>
@@ -55,11 +53,7 @@
 </script>
 
 <style scoped>
-  .card-header{
-    font-size: larger;;
-    font-weight: bolder;;
-  }
-  .my-logo{
+  .my-logo {
     border-right-color: red !important;
   }
 </style>

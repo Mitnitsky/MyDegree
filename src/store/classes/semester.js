@@ -2,10 +2,7 @@ import {courseIsEmpty, createCourseFromDBEntry, createNewCourse} from "@/store/c
 import {course_types} from "./course_types";
 import {MathRound10} from "../aux/rounder";
 
-export function createNewSemester(name, courses_initially) {
-    let semester = {};
-    semester.name = name.toString();
-    semester.average = 0;
+function initializeSemesterPoints(semester) {
     semester.points = 0;
     semester.points_done = 0;
     semester.must_points = 0;
@@ -16,6 +13,13 @@ export function createNewSemester(name, courses_initially) {
     semester.projects_points = 0;
     semester.sport = 0;
     semester.exemption_points = 0;
+}
+
+export function createNewSemester(name, courses_initially) {
+    let semester = {};
+    semester.name = name.toString();
+    semester.average = 0;
+    initializeSemesterPoints(semester);
     semester.courses = [];
     for (let i = 0; i < courses_initially; i++) {
         semester.courses.push(createNewCourse());
@@ -88,16 +92,7 @@ export function calculateAverage(semester) {
 
 export function calculatePoints(semester) {
     if(semester !== 'undefined') {
-        semester.points = 0;
-        semester.points_done = 0;
-        semester.must_points = 0;
-        semester.a_list_points = 0;
-        semester.b_list_points = 0;
-        semester.humanistic_points = 0;
-        semester.free_points = 0;
-        semester.projects_points = 0;
-        semester.sport = 0;
-        semester.exemption_points = 0;
+        initializeSemesterPoints(semester)
         for (const course of semester.courses) {
             if (course.points !== '') {
                 switch (course.type) {
