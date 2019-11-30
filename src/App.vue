@@ -1,28 +1,22 @@
 <template>
   <div id="app" style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif">
-    <header-nav-bar></header-nav-bar>
+    <header-nav-bar/>
     <div class="container-fluid">
-      <semesters-tab-view style="margin: 5px"></semesters-tab-view>
+      <semesters-tab-view style="margin: 5px"/>
       <degree-summary/>
-      <dp-footer></dp-footer>
+      <dp-footer/>
     </div>
   </div>
 </template>
 
 <script>
-    import SemestersTabView from "@/components/SemestersTabView";
-    import HeaderNavBar from "@/components/Header";
-    import DpFooter from "@/components/Footer";
-    import DegreeSummary from "@/components/DegreeSummary";
+    import SemestersTabView from "./components/SemestersTabView";
+    import HeaderNavBar from "./components/Header";
+    import DpFooter from "./components/Footer";
+    import DegreeSummary from "./components/DegreeSummary";
 
     export default {
         name: 'app',
-        mounted() {
-
-        },
-        data() {
-            return {}
-        },
         components: {
             DegreeSummary,
             DpFooter,
