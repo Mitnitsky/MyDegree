@@ -5,15 +5,24 @@
         style="width: 15%;">קטגוריה
     </th>
     <th scope="col"
+        title="לחץ למיון"
+        v-b-tooltip.hover.v-secondary
+        @click="sortBy('number')"
         style="width: 15%;">מספר קורס
     </th>
     <th scope="col"
         style="width: 45%;">שם קורס
     </th>
     <th scope="col"
+        title="לחץ למיון"
+        v-b-tooltip.hover.v-secondary
+        @click="sortBy('points')"
         style="width: 10%;">נקודות
     </th>
     <th scope="col"
+        title="לחץ למיון"
+        v-b-tooltip.hover.v-secondary
+        @click="sortBy('grade')"
         style="width: 10%;">ציון
     </th>
     <th scope="col"
@@ -24,7 +33,12 @@
 
 <script>
     export default {
-        name: 'semester-header'
+        name: 'semester-header',
+        methods:{
+            sortBy(field) {
+                this.$store.commit('sortSemesterByField', field)
+            }
+        }
     }
 </script>
 

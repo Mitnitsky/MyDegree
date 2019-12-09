@@ -142,6 +142,9 @@ export const store = new Vuex.Store({
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
             updateUserData(state);
         },
+        sortSemesterByField: (state,fieldName) => {
+            Semester.sortCoursesByField(state.user.semesters[state.user.active_semester],fieldName)
+        },
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
             updateUserData(state);
@@ -240,6 +243,10 @@ export const store = new Vuex.Store({
                 calculateUserInfo(state);
             }
         },
+        updateSemesters(state,semesters){
+            state.user.semesters = semesters
+        }
+
     },
     actions: {
         updateSemesterAsync(context) {

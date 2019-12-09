@@ -37,12 +37,12 @@ export function addExistingCourse(semester, course) {
             semester.courses[i].name = course.name;
             semester.courses[i].points = course.points;
             semester.courses[i].number = course.number;
-            if(course.grade !== 'undefined'){
+            if (course.grade !== 'undefined') {
                 semester.courses[i].grade = parseInt(course.grade);
-                if(isNaN(semester.courses[i].grade)){
+                if (isNaN(semester.courses[i].grade)) {
                     semester.courses[i].grade = 0;
                 }
-            }else{
+            } else {
                 semester.courses[i].grade = 0;
             }
             calculateAverage(semester);
@@ -65,7 +65,7 @@ export function removeCourse(semester, index) {
 }
 
 export function calculateAverage(semester) {
-    if (semester !== 'undefined')  {
+    if (semester !== 'undefined') {
         let points = 0;
         let total_grade = 0;
         for (const course of semester.courses) {
@@ -91,7 +91,7 @@ export function calculateAverage(semester) {
 }
 
 export function calculatePoints(semester) {
-    if(semester !== 'undefined') {
+    if (semester !== 'undefined') {
         initializeSemesterPoints(semester)
         for (const course of semester.courses) {
             if (course.points !== '') {
@@ -152,4 +152,41 @@ export function courseExistInSemesters(semesters, course_number, stop_index = nu
         }
     }
     return false;
+}
+
+function compareByNumericField(a, b, fieldName) {
+    if(isNaN(parseInt(a[fieldName]))){
+        return 1;
+    }else if(isNaN(parseInt(b[fieldName]))){
+        return -1;
+    }
+    if (parseInt(a[fieldName]) > parseInt(b[fieldName])) {
+        return 1;
+    } else if (parseInt(a[fieldName]) < parseInt(b[fieldName])) {
+        return -1
+    }
+    return 0;
+}
+
+function is_array_sorted(arr,  fieldName) {
+    for(let i=0; i < arr.length-1; i++) {
+        if(compareByNumericField(arr[i], arr[i+1], fieldName) === 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+export function sortCoursesByField(semester, fieldName) {
+    if (semester) {
+        if (semester.courses) {
+            if (is_array_sorted(semester.courses, fieldName)){
+                semester.courses.sort((a,b) => {return (compareByNumericField(a,b, fieldName) * -1)})
+            }else{
+                semester.courses.sort((a,b) => {return (compareByNumericField(a,b, fieldName))})
+            }
+            semester.courses.sort((a,b) => { if (isNaN(parseInt(a.number))) {return 1} else if(isNaN(parseInt(b.number))) {return -1} else return 0})
+        }
+    }
 }
