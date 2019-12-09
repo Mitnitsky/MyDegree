@@ -1,8 +1,9 @@
 <template>
 
-  <div class="container-fluid">
+  <div class="container" style="max-width: 200px
+">
     <div class="col align-self-start"
-         style="padding: 0 0;">
+         style="padding: 0 0">
       <table class="table table-borderless">
         <thead class="thead-light">
         <tr>
@@ -14,16 +15,16 @@
         </thead>
         <tbody>
           <tr>
-            <td style="width:  30%; text-align: right;">
+            <td style="width:  30%; text-align: right; padding-bottom: 0">
               <label style="margin: 8px 0 8px 0;  text-align: right;">ממוצע:</label>
             </td>
-            <td style="width:  70%">
+            <td style="width:  70%; padding-bottom: 0;">
               <input class="form-control"
                      max="100"
                      min="0"
                      readonly
                      step="0.01"
-                     style="text-align: center;width: 100%;direction: ltr"
+                     style="text-align: center;direction: ltr"
                      type="number"
                      v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
             </td>

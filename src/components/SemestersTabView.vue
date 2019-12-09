@@ -10,20 +10,20 @@
              v-for="semester in this.$store.state.user.semesters">
         <div class="row justify-content-md-center"
         >
-          <div class="col-lg-10"
-               style="margin-bottom: 10px">
-            <app-semester-table :semester="semester"/>
+          <div class="col-xl-10"
+               style="margin-bottom: 10px;">
+            <app-semester-table  :semester="semester"/>
           </div>
-          <div class="col-lg-2"
+          <div class="col-xl-2"
                style="padding: 0 0">
             <app-semester-summary/>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col-xl-10">
 
           </div>
-          <div class="col-lg-2"
+          <div class="col-xl-2"
           >
             <b-button @click="closeTab"
                       class="align-self-end"

@@ -15,10 +15,9 @@
     </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-xl-2"></div>
-            <div class="col-xl-4">
+        <div class="container justify-content-center">
+          <div class="row justify-content-center">
+            <div class="col" style="max-width: 550px; min-width: 480px">
               <b-card flow
                       header="סיכום תואר"
                       header-bg-variant="dark"
@@ -87,7 +86,7 @@
                 </div>
               </b-card>
             </div>
-            <div class="col-xl-4 ">
+            <div class="col" style="max-width: 550px; min-width: 480px">
               <b-card class="h-100"
                       flow
                       header="ניתוח סוגי קורסים"
@@ -248,7 +247,6 @@
                 </div>
               </b-card>
             </div>
-            <div class="col-xl-2"></div>
           </div>
         </div>
       </b-card-group>

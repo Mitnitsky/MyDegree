@@ -1,16 +1,19 @@
 <template>
-  <div class="container-fluid">
-    <table class="table table-sm table-borderless"
-           style="margin-right: 5px">
-      <semester-header/>
-      <tbody>
-        <semester-table-row :course="course"
-                            :index="index"
-                            :key="index"
-                            v-for="(course,index) in semester.courses"/>
-      </tbody>
-    </table>
-    <div class="row justify-content-md-center">
+  <div style="max-width: 1400px">
+    <div class="row">
+      <table class="table table-sm table-borderless"
+             style="margin-right: 5px; ">
+        <semester-header/>
+        <tbody>
+          <semester-table-row :course="course"
+                              :index="index"
+                              :key="index"
+                              v-for="(course,index) in semester.courses"/>
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-md-center"
+    style="justify-content: center !important;">
       <b-button-group class="mx-1"
                       style="direction: ltr">
         <b-button @click.stop="$bvModal.show('modal-center'+'_'+semester.name)"

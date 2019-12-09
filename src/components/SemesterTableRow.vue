@@ -15,7 +15,7 @@
         <option :value="types.EXEMPTION">פטור</option>
       </select>
     </td>
-    <td>
+    <td style="min-width: 90px">
       <input @change="updateField('number')"
              class="form-control courseNumber"
              max="9999999"
@@ -24,13 +24,13 @@
              type="number"
              v-model.number.lazy="course.number">
     </td>
-    <td>
+    <td style="min-width: 250px">
       <input @change="updateField('name')"
              class="form-control courseName"
              type="text"
              v-model.lazy="course.name">
     </td>
-    <td>
+    <td style="min-width: 60px">
       <input @change="updateField('points')"
              class="form-control coursePoints"
              max="500"
@@ -40,7 +40,7 @@
              v-bind:class="[course.points >= 0 ? ''  : InputIsWrong]"
              v-model.number.lazy="course.points">
     </td>
-    <td class="">
+    <td style="min-width: 60px">
       <input @change="updateField('grade')"
              class="form-control courseGrade"
              max="100"
@@ -50,7 +50,7 @@
              v-bind:class="[course.grade >= 0 && course.grade <= 100 ? ''  : InputIsWrong]"
              v-model.number.lazy="course.grade">
     </td>
-    <td class="text-center">
+    <td class="text-center" style="min-width: 45px">
       <b-button @click="clearRow"
                 class="clearButton"
                 title="נקה/הסר שורה"
