@@ -44,7 +44,7 @@ export function parseGraduateInformation(grades_copy) {
                 for (let i = 1; i < index; i++) {
                     let to_remove_list = [];
                     for (let cour of semesters[i.toString()]) {
-                        if(!cour['name'].includes('ספורט') || !cour['name'].includes('חינוך')) {
+                        if(!cour['name'].includes('ספורט') && !cour['name'].includes('חינוך') && !cour['name'].includes('נבחרות')) {
                             if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
                                 to_remove_list.push(cour)
                             }

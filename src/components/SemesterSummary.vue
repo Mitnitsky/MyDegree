@@ -24,7 +24,7 @@
                      min="0"
                      readonly
                      step="0.01"
-                     style="text-align: center;direction: ltr"
+                     style="text-align: center;direction: ltr;cursor: default;"
                      type="number"
                      v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
             </td>
@@ -39,7 +39,7 @@
                      min="0"
                      readonly
                      step="0.5"
-                     style="text-align: center;width: 100%;direction: ltr"
+                     style="text-align: center;width: 100%;direction: ltr;cursor: default;"
                      type="number"
                      v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].points">
             </td>
