@@ -85,7 +85,7 @@ def get_info_from_graduate(course_number):
                 if i == 0:
                     course_number = course_name_number[i]
                 else:
-                    course_name += course_name_number[i]
+                    course_name += " " + course_name_number[i]
         else:
             course_number, course_name = course_name_number
         table = soup.find("table", attrs={"class": "tab0"})

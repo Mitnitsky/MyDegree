@@ -4,6 +4,9 @@ import json
 import bs4
 from itertools import product
 from datetime import date
+from multiprocessing import Pool, Lock
+import sys
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -124,7 +127,7 @@ def cutDependencies(dependencies):
 
 # Function which gets a course info from ug website
 # Creates a course class instance and writes all the data into it
-def getCourseInfo(course_number, index, total_number):
+def getCourseInfo(course_number):
     temp_course = Course()
     types = get_info_from_graduate(course_number)
     temp_course.add_prerequisites(types[0])
@@ -136,20 +139,23 @@ def getCourseInfo(course_number, index, total_number):
     temp_course.set_points(types[6])
     temp_course.set_name(types[7])
     temp_course.set_number(types[8])
-    print('index: ' + str(index) + 'out of ' + str(total_number) + ' course:' + str(course_number))
     return temp_course
 
 
 # Function which updates the Courses data baseS
 def updateDb():
     initDB()
+    start_time = time.time()
     course_numbers = sorted(getNumberOfCoursesList())
-    index = 0
     course_numbers_length = len(course_numbers)
-    for number in course_numbers:
-        course = getCourseInfo(number, index, course_numbers_length)
-        index += 1
+    p = Pool(8)
+    pool = Pool(processes=4)
+    results = [pool.apply_async(getCourseInfo, args=(course_number,)) for course_number in course_numbers]
+    output = [p.get() for p in results]
+    for course in output:
+        print(course.number)
         dbAddCourse(course)
+    print("--- %.2f seconds ---" % (time.time() - start_time))
 
 
 def getNumberOfCoursesList():
@@ -263,8 +269,11 @@ def loadCourseNameNumberPairs():
 
 
 def main():
+
+    sys.setrecursionlimit(250000)
     updateDb()
 
 
 if __name__ == "__main__":
+    lock = Lock()
     main()

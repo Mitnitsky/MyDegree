@@ -155,9 +155,9 @@ export function courseExistInSemesters(semesters, course_number, stop_index = nu
 }
 
 function compareByNumericField(a, b, fieldName) {
-    if(isNaN(parseInt(a[fieldName]))){
+    if (isNaN(parseInt(a[fieldName]))) {
         return 1;
-    }else if(isNaN(parseInt(b[fieldName]))){
+    } else if (isNaN(parseInt(b[fieldName]))) {
         return -1;
     }
     if (parseInt(a[fieldName]) > parseInt(b[fieldName])) {
@@ -168,25 +168,99 @@ function compareByNumericField(a, b, fieldName) {
     return 0;
 }
 
-function is_array_sorted(arr,  fieldName) {
-    for(let i=0; i < arr.length-1; i++) {
-        if(compareByNumericField(arr[i], arr[i+1], fieldName) === 1) {
-            return false;
+function is_array_sorted(arr, fieldName) {
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (fieldName === 'name') {
+            if (CharCompare(arr[i].name, arr[i + 1].name, 0) === 1) {
+                return false;
+            }
+        } else {
+            if (compareByNumericField(arr[i], arr[i + 1], fieldName) === 1) {
+                return false;
+            }
         }
     }
     return true;
 }
 
 
+/**
+ * @return {number}
+ */
+function CharCompare(a, b, index) {
+    let alphabets = [" ", "-", ",", "'", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "v", "u", "w", "x", "y", "z",
+        "א",
+        "ב",
+        "ג",
+        "ד",
+        "ה",
+        "ו",
+        "ז",
+        "ח",
+        "ט",
+        "י",
+        "כ",
+        "ל",
+        "מ",
+        "ם",
+        "נ",
+        "ן",
+        "ס",
+        "ע",
+        "פ",
+        "ף",
+        "צ",
+        "ץ",
+        "ק",
+        "ר",
+        "ש",
+        "ת",
+    ];
+    if (index === a.length || index === b.length)
+        return 0;
+    let aChar = alphabets.indexOf(a.toUpperCase().charAt(index));
+    let bChar = alphabets.indexOf(b.toUpperCase().charAt(index));
+    if (aChar !== bChar) {
+        return (aChar - bChar > 0) ? 1 : -1;
+    } else {
+        return CharCompare(a, b, index + 1)
+    }
+}
+
+
 export function sortCoursesByField(semester, fieldName) {
     if (semester) {
         if (semester.courses) {
-            if (is_array_sorted(semester.courses, fieldName)){
-                semester.courses.sort((a,b) => {return (compareByNumericField(a,b, fieldName) * -1)})
-            }else{
-                semester.courses.sort((a,b) => {return (compareByNumericField(a,b, fieldName))})
+            if (fieldName === 'name') {
+                if (is_array_sorted(semester.courses, fieldName)) {
+                    semester.courses.sort((a, b) => {
+                        return (CharCompare(a.name, b.name, 0) * -1)
+                    })
+                } else {
+                    semester.courses.sort((a, b) => {
+                        return (CharCompare(a.name, b.name, 0))
+                    })
+                }
+            } else {
+                if (is_array_sorted(semester.courses, fieldName)) {
+                    semester.courses.sort((a, b) => {
+                        return (compareByNumericField(a, b, fieldName) * -1)
+                    })
+                } else {
+                    semester.courses.sort((a, b) => {
+                        return (compareByNumericField(a, b, fieldName))
+                    })
+                }
             }
-            semester.courses.sort((a,b) => { if (isNaN(parseInt(a.number))) {return 1} else if(isNaN(parseInt(b.number))) {return -1} else return 0})
+            semester.courses.sort((a, b) => {
+                if (a.number.toString() === '' || a.name.toString() === '') {
+                    return 1
+                } else if (b.number.toString() === '' || a.name.toString() === '') {
+                    return -1
+                } else return 0
+            })
         }
     }
 }
+

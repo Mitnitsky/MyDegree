@@ -19,69 +19,72 @@
           <div class="row justify-content-center">
             <div class="col" style="max-width: 550px; min-width: 480px">
               <b-card flow
+                      style="min-height: 491px !important;"
                       header="סיכום תואר"
                       header-bg-variant="dark"
                       header-text-variant="white"
               >
-                <div class="input-group mb-2"
-                     style="margin-top: 46px">
-                  <div class="input-group categoryName">
-                    <span class="input-group-text categoryNameSpan">נקודות תואר</span>
+                <div style="height: 100%">
+                  <div class="input-group mb-2"
+                       style="margin-top: 46px">
+                    <div class="input-group categoryName">
+                      <span class="input-group-text categoryNameSpan">נקודות תואר</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number degree-input-field"
+                           max="9999999"
+                           min="0"
+                           step="0.5"
+                           type="number"
+                           v-model.number="degree_points">
                   </div>
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         type="number"
-                         v-model.number="degree_points">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group categoryName">
-                    <span class="input-group-text categoryNameSpan">ממוצע תואר</span>
+                  <div class="input-group mb-2">
+                    <div class="input-group categoryName">
+                      <span class="input-group-text categoryNameSpan">ממוצע תואר</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.01"
+                           type="number"
+                           v-model.number="degree_average">
                   </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.01"
-                         type="number"
-                         v-model.number="degree_average">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group categoryName">
-                    <span class="input-group-text categoryNameSpan">נקודות בוצעו</span>
+                  <div class="input-group mb-2">
+                    <div class="input-group categoryName">
+                      <span class="input-group-text categoryNameSpan">נקודות בוצעו</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.5"
+                           type="number"
+                           v-model.number="degree_points_done">
                   </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="degree_points_done">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group categoryName">
-                    <span class="input-group-text categoryNameSpan">נקודות נותרו</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="degree_points_left">
-                  <div class="input-group degree-summary degree-summary">
+                  <div class="input-group mb-2">
+                    <div class="input-group categoryName">
+                      <span class="input-group-text categoryNameSpan">נקודות נותרו</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.5"
+                           type="number"
+                           v-model.number="degree_points_left">
+                    <div class="input-group degree-summary degree-summary">
 
+                    </div>
                   </div>
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group categoryName">
-                    <span class="input-group-text categoryNameSpan">נותרו לשבץ</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="degree_points_to_choose">
-                  <div class="input-group degree-summary degree-summary">
+                  <div class="input-group mb-2">
+                    <div class="input-group categoryName">
+                      <span class="input-group-text categoryNameSpan">נותרו לשבץ</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.5"
+                           type="number"
+                           v-model.number="degree_points_to_choose">
+                    <div class="input-group degree-summary degree-summary">
+                    </div>
                   </div>
                 </div>
               </b-card>
@@ -100,10 +103,12 @@
                          readonly
                          style="background-color: aliceblue;align-content: center;text-align: center;"
                          type="text"
+                         disabled
                          value="נותרו:"
                   >
-                  <input class="input-group form-control"
+                  <input class="input-group form-control column-headers"
                          readonly
+                         disabled
                          style="background-color: aliceblue;text-align: center;"
                          type="text"
                          value="מתוך:">
@@ -316,6 +321,7 @@
   .courseNameSpan {
     width: 100%;
     background-color: aliceblue;
+    cursor: default;
   }
 
   .disabled-input {
@@ -342,6 +348,7 @@
   .categoryNameSpan {
     width: 100%;
     background-color: aliceblue;
+    cursor: default;
   }
 
 </style>
