@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 1400px">
+  <div >
     <div class="row">
       <table class="table table-sm table-borderless"
              style="margin-right: 5px; ">
