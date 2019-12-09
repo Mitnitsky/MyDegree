@@ -34,6 +34,7 @@
                    header-text-variant="white"
                    hide-footer
                    hide-header-close
+
                    id="modal-1"
                    ok-title="סגור"
                    ref="auth-modal"
@@ -143,7 +144,8 @@
             v-b-modal.modal-import-from-json
         >יבוא קורסים מ-JSON
         </b-nav-item>
-        <b-modal centered
+        <b-modal class="modal"
+                 centered
                  content-class="shadow"
                  header-bg-variant="dark"
                  header-text-variant="white"
@@ -302,5 +304,14 @@
   span.navbar-text {
     text-align: start;
     direction: rtl;
+  }
+
+  #modal-1___BV_modal_outer_ {
+    min-width: 810px !important;
+  }
+  #modal-1 {
+
+    min-width: 810px !important;
+
   }
 </style>
