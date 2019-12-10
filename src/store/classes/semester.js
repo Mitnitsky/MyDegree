@@ -254,9 +254,9 @@ export function sortCoursesByField(semester, fieldName) {
                 }
             }
             semester.courses.sort((a, b) => {
-                if (a.number.toString() === '' || a.name.toString() === '') {
+                if (a.number.toString() === '' && a.name.toString() === '') {
                     return 1
-                } else if (b.number.toString() === '' || a.name.toString() === '') {
+                } else if (b.number.toString() === '' && b.name.toString() === '') {
                     return -1
                 } else return 0
             })
