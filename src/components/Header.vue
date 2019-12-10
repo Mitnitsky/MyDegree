@@ -41,7 +41,7 @@
                    size="md"
                    title="כניסה">
             <authentication/>
-            <b-button @click="hideModal"
+            <b-button @click="hideModal('auth-modal')"
                       block
                       class="mt-3"
                       variant="outline-primary">סגור
@@ -66,6 +66,7 @@
                  header-text-variant="white"
                  hide-backdrop
                  hide-footer
+                 ref="modal-import"
                  id="modal-import"
                  ok-title="הוסף קורסים"
                  ok-variant="primary"
@@ -154,6 +155,7 @@
                  id="modal-import-from-json"
                  ok-title="הוסף קורסים"
                  ok-variant="primary"
+                 ref="modal-import-from-json"
                  size="md"
                  title="יבוא נתונים מקובץ JSON">
           <template v-slot:modal-header="{ close }">
@@ -267,7 +269,9 @@
                         this.$store.dispatch('loadUserDataFromUGSite', {
                             "semesters": semesters_exemption['semesters'],
                             "exemption": semesters_exemption['exemption']
-                        })
+                        });
+                        this.message = '';
+                        this.hideModal('modal-import');
                     }
                 }
             },
@@ -276,6 +280,8 @@
                     if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
                         this.$store.commit('importCoursesFromJson', this.json_text);
                         this.$store.commit('reCalcCurrentSemester');
+                        this.json_text = '';
+                        this.hideModal('modal-import-from-json');
                     }
                 }
             },
@@ -286,8 +292,10 @@
                 this.logged = false;
                 this.$store.commit('clearUserData');
             },
-            hideModal() {
-                this.$refs['auth-modal'].hide();
+            hideModal(modalName) {
+                if(this.$refs[modalName]) {
+                    this.$refs[modalName].hide();
+                }
             }
         },
     }
