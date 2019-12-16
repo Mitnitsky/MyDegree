@@ -10,8 +10,6 @@
         <option :value="types.LIST_B">רשימה ב'</option>
         <option :value="types.HUMANISTIC">הומניסטיים</option>
         <option :value="types.FREE_CHOICE">בחירה חופשית</option>
-        <option :value="types.PROJECTS">פרוייקט</option>
-        <option :value="types.SPORT">ספורט</option>
         <option :value="types.EXEMPTION">פטור</option>
       </select>
     </td>
@@ -24,7 +22,7 @@
              type="number"
              v-model.number.lazy="course.number">
     </td>
-    <td style="min-width: 250px;padding-right: 0px">
+    <td style="min-width: 250px;padding-right: 0">
       <input @change="updateField('name')"
              class="form-control courseName"
              type="text"

@@ -19,8 +19,9 @@
           <div class="row justify-content-center">
             <div class="col" style="max-width: 550px; min-width: 480px">
               <b-card flow
-                      style="min-height: 491px !important;"
+                      style="min-height: 400px !important;"
                       header="סיכום תואר"
+                      header-class="summary-card-header"
                       header-bg-variant="dark"
                       header-text-variant="white"
               >
@@ -44,6 +45,8 @@
                     <input class="form-control degree-summary degree-summary-number disabled-input"
                            disabled="disabled"
                            readonly
+                           min="0"
+                           max="100"
                            step="0.01"
                            type="number"
                            v-model.number="degree_average">
@@ -93,6 +96,7 @@
               <b-card class="h-100"
                       flow
                       header="ניתוח סוגי קורסים"
+                      header-class="summary-card-header"
                       header-bg-variant="dark"
                       header-text-variant="white">
                 <div class="input-group mb-2">
@@ -104,14 +108,15 @@
                          style="background-color: aliceblue;align-content: center;text-align: center;"
                          type="text"
                          disabled
-                         value="נותרו:"
+                         value="נותרו"
                   >
                   <input class="input-group form-control column-headers"
                          readonly
                          disabled
                          style="background-color: aliceblue;text-align: center;"
                          type="text"
-                         value="מתוך:">
+                         value="מתוך"
+                          title="יש למלא שדות אלו בהתאם לתואר">
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group courseName">
@@ -204,44 +209,6 @@
                          v-model.number="free_points">
                 </div>
                 <div class="input-group mb-2">
-
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">פרוייקטים</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="projects_points_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="projects_points">
-                </div>
-                <div class="input-group mb-2">
-
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">ספורט</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="sport_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="sport">
-                </div>
-                <div class="input-group mb-2">
                   <b-form-checkbox
                       id="checkbox-1"
                       name="checkbox-1"
@@ -294,10 +261,6 @@
                 'humanistic_points_left',
                 'free_points',
                 'free_points_left',
-                'projects_points',
-                'projects_points_left',
-                'sport',
-                'sport_left',
                 'exemption_points',
                 'english_exemption',
                 'semesters'
@@ -350,5 +313,8 @@
     background-color: aliceblue;
     cursor: default;
   }
-
+  .summary-card-header
+  {
+    font-weight: bold !important;
+  }
 </style>

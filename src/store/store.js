@@ -47,8 +47,6 @@ function calculateUserInfo(state) {
         state.user.b_list_points_left = state.user.b_list_points;
         state.user.humanistic_points_left = state.user.humanistic_points;
         state.user.free_points_left = state.user.free_points;
-        state.user.projects_points_left = state.user.projects_points;
-        state.user.sport_left = state.user.sport;
         for (const semester of state.user.semesters) {
             state.user.degree_average += semester.points_done * semester.average;
             state.user.degree_points_done += semester.points_done;
@@ -58,11 +56,13 @@ function calculateUserInfo(state) {
             state.user.b_list_points_left -= semester.b_list_points;
             state.user.humanistic_points_left -= semester.humanistic_points;
             state.user.free_points_left -= semester.free_points;
-            state.user.projects_points_left -= semester.projects_points;
-            state.user.sport_left -= semester.sport;
         }
-        state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
-        state.user.degree_average = state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+        if((state.user.degree_points_done - (state.user.english_exemption ? 3 : 0)) !== 0){
+            state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
+            state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+        }else{
+            state.user.degree_average = 0;
+        }
         state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
         updateUserData(state);
     }
@@ -89,10 +89,6 @@ export const store = new Vuex.Store({
             humanistic_points_left: 0,
             free_points: 0,
             free_points_left: 0,
-            projects_points: 0,
-            projects_points_left: 0,
-            sport: 0,
-            sport_left: 0,
             exemption_points: 0,
             english_exemption: false,
             semesters: [],
@@ -123,10 +119,6 @@ export const store = new Vuex.Store({
             state.user.humanistic_points_left = 0;
             state.user.free_points = 0;
             state.user.free_points_left = 0;
-            state.user.projects_points = 0;
-            state.user.projects_points_left = 0;
-            state.user.sport = 0;
-            state.user.sport_left = 0;
             state.user.exemption_points = 0;
             state.user.english_exemption = false;
             state.user.semesters = [];

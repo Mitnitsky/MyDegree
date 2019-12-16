@@ -10,8 +10,6 @@ function initializeSemesterPoints(semester) {
     semester.b_list_points = 0;
     semester.humanistic_points = 0;
     semester.free_points = 0;
-    semester.projects_points = 0;
-    semester.sport = 0;
     semester.exemption_points = 0;
 }
 
@@ -110,12 +108,6 @@ export function calculatePoints(semester) {
                         break;
                     case course_types.FREE_CHOICE:
                         semester.free_points += parseFloat(course.points);
-                        break;
-                    case course_types.PROJECTS:
-                        semester.projects_points += parseFloat(course.points);
-                        break;
-                    case course_types.SPORT:
-                        semester.sport += parseFloat(course.points);
                         break;
                     case course_types.EXEMPTION:
                         semester.exemption_points += parseFloat(course.points);
