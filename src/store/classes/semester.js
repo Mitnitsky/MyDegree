@@ -90,7 +90,7 @@ export function calculateAverage(semester) {
 
 export function calculatePoints(semester) {
     if (semester !== 'undefined') {
-        initializeSemesterPoints(semester)
+        initializeSemesterPoints(semester);
         for (const course of semester.courses) {
             if (course.points !== '') {
                 switch (course.type) {
@@ -167,7 +167,7 @@ function is_array_sorted(arr, fieldName) {
                 return false;
             }
         } else {
-            if(arr[i+1].name.toString() === ''){
+            if (arr[i + 1].name.toString() === '') {
                 continue;
             }
             if (compareByNumericField(arr[i], arr[i + 1], fieldName) === 1) {
@@ -214,13 +214,13 @@ export function sortCoursesByField(semester, fieldName) {
                 }
             } else {
                 if (is_array_sorted(semester.courses, fieldName)) {
-                    window.console.log('sorted')
+                    window.console.log('sorted');
 
                     semester.courses.sort((a, b) => {
                         return (compareByNumericField(a, b, fieldName) * -1)
                     })
                 } else {
-                    window.console.log('!sorted')
+                    window.console.log('!sorted');
                     semester.courses.sort((a, b) => {
                         return (compareByNumericField(a, b, fieldName))
                     })

@@ -48,7 +48,8 @@
              v-bind:class="[course.grade >= 0 && course.grade <= 100 ? ''  : InputIsWrong]"
              v-model.number.lazy="course.grade">
     </td>
-    <td class="text-center" style="min-width: 45px">
+    <td class="text-center"
+        style="min-width: 45px">
       <b-button @click="clearRow"
                 class="clearButton"
                 title="נקה/הסר שורה"

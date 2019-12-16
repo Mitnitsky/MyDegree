@@ -7,17 +7,24 @@
                 is-nav>
       <b-navbar-nav align="start">
         <template v-if="this.logged">
-          <b-nav-text href="#"
-                      style="font-size: 18px;color: lightgray;margin-left: 10px;">
-            שלום {{this.user_name}} !
-          </b-nav-text>
-          <font-awesome-icon icon="sign-out-alt"
+          <font-awesome-icon href="#"
+                             icon="user-circle"
                              size="lg"
-                             style="margin-left: 5px;margin-top: 10px;color: lightgray"/>
-          <b-nav-item @click="signOut"
-                      DIR="ltr"
-                      style="font-size: 18px;text-decoration: underline;color: lightgray">יציאה
-          </b-nav-item>
+                             style="color: lightgray;margin-right: 0px;margin-left: 0px;font-size: 20px;text-decoration: underline;margin-top:10px"/>
+          <b-nav-item-dropdown :text=" this.user_name"
+                               right
+                               style="font-size: 18px;color: lightgray;">
+            <template slot="button-content">שלום <b>{{this.user_name}}</b></template>
+            <b-dropdown-item @click="signOut"
+                             href="#">
+              <font-awesome-icon href="#"
+                                 icon="sign-out-alt"
+                                 size="lg"
+                                 style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"/>
+              יציאה
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+
         </template>
         <template v-else>
           <font-awesome-icon icon="sign-in-alt"
@@ -60,94 +67,98 @@
                     style="font-size: 18px;color: lightgray;text-decoration-line: underline"
         >יבוא קורסים מ-UG
         </b-nav-item>
-        <b-nav-item-dropdown right>
-          <b-dropdown-item                                href="#"
-                                                              title="ייצוא מערכת קורסים(ללא ציונים)"
-                                                              v-b-tooltip.hover.v-dark>
-            <b-modal centered
-                     content-class="shadow"
-                     header-bg-variant="dark"
-                     header-text-variant="white"
-                     hide-backdrop
-                     hide-footer
-                     ref="modal-import"
-                     id="modal-import"
-                     ok-title="הוסף קורסים"
-                     ok-variant="primary"
-                     size="md"
-                     title="יבוא קורסים וציונים מ-UG">
-              <template v-slot:modal-header="{ close }">
-                <div class="row"
-                     style="width: 100%">
-                  <div class="col-lg-11"
-                       style="text-align: right;">
-                    <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
-                  </div>
-                  <div class="col-lg-1"
-                       style="width: 5%;text-align: left;align-items: flex-end">
-                    <b-button @click="close()"
-                              aria-label="Close"
-                              class="close text-light"
-                              style="margin-right: 5px;"
-                              type="button">×
-                    </b-button>
-                  </div>
-                </div>
-              </template>
-              <div class="row justify-content-center">
-                <b-button id="popover-button-variant"
-                          variant="outline-primary">הוראות
+        <b-modal centered
+                 content-class="shadow"
+                 header-bg-variant="dark"
+                 header-text-variant="white"
+                 hide-backdrop
+                 hide-footer
+                 id="modal-import"
+                 ok-title="הוסף קורסים"
+                 ok-variant="primary"
+                 ref="modal-import"
+                 size="md"
+                 title="יבוא קורסים וציונים מ-UG">
+          <template v-slot:modal-header="{ close }">
+            <div class="row"
+                 style="width: 100%">
+              <div class="col-lg-11"
+                   style="text-align: right;">
+                <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
+              </div>
+              <div class="col-lg-1"
+                   style="width: 5%;text-align: left;align-items: flex-end">
+                <b-button @click="close()"
+                          aria-label="Close"
+                          class="close text-light"
+                          style="margin-right: 5px;"
+                          type="button">×
                 </b-button>
-                <b-popover placement="top"
-                           target="popover-button-variant"
-                           triggers="hover"
-                           variant="outline-dark">
-                  <template v-slot:title><h4>הוראות</h4></template>
-                  <p>יש לסמן את כל התוכן באמצעות CTRL+A <a href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
-                                                           target="_blank">באתר ציונים</a> ולהעתיק אותו לתיבת הטקסט
-                     בחלון זה
-                    <br>
-                     (<b>אפשרי להעתיק רק את הסמסטרים</b>)
-                  </p>
-                </b-popover>
+              </div>
+            </div>
+          </template>
+          <div class="row justify-content-center">
+            <b-button id="popover-button-variant"
+                      variant="outline-primary">הוראות
+            </b-button>
+            <b-popover placement="top"
+                       target="popover-button-variant"
+                       triggers="hover"
+                       variant="outline-dark">
+              <template v-slot:title><h4>הוראות</h4></template>
+              <p>יש לסמן את כל התוכן באמצעות CTRL+A <a href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
+                                                       target="_blank">באתר ציונים</a> ולהעתיק אותו לתיבת הטקסט
+                 בחלון זה
+                <br>
+                 (<b>אפשרי להעתיק רק את הסמסטרים</b>)
+              </p>
+            </b-popover>
 
-              </div>
-              <div class="row justify-content-center mb-2">
-                <b-form-text>
-                </b-form-text>
-              </div>
-              <b-form-textarea id="import-text"
-                               placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
-                               v-model="message"
-                               no-resize
-                               rows="5"
-              >
-              </b-form-textarea>
-              <div class="row justify-content-center mt-2">
-                <b-button @click="importCourses"
-                          variant="outline-primary"
-                >
-                  יבוא קורסים
-                </b-button>
-              </div>
-            </b-modal>
-            <font-awesome-icon icon="download"
+          </div>
+          <div class="row justify-content-center mb-2">
+            <b-form-text>
+            </b-form-text>
+          </div>
+          <b-form-textarea id="import-text"
+                           no-resize
+                           placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
+                           rows="5"
+                           v-model="message"
+          >
+          </b-form-textarea>
+          <div class="row justify-content-center mt-2">
+            <b-button @click="importCourses"
+                      variant="outline-primary"
+            >
+              יבוא קורסים
+            </b-button>
+          </div>
+        </b-modal>
+        <b-nav-item-dropdown id="extra"
+                             right>
+          <b-dropdown-item @click="exportAsJson"
+                           href="#"
+                           title="ייצוא מערכת קורסים(ללא ציונים)"
+                           v-b-tooltip.hover.left.v-dark>
+            <font-awesome-icon href="#"
+                               icon="download"
                                size="lg"
                                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
-                               href="#"
                                title="ייצוא מערכת קורסים(ללא ציונים)"
-                               v-b-tooltip.hover.v-dark
+
             />
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
-          <b-dropdown-item v-b-modal.modal-import-from-json  href="#">
+          <b-dropdown-item @click="importCoursesFromJSON"
+                           href="#"
+                           v-b-modal.modal-import-from-json>
             <font-awesome-icon icon="upload"
                                size="lg"
                                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
             />
             יבוא קורסים מקובץ-JSON
-            <b-modal class="modal"
-                     centered
+            <b-modal centered
+                     class="modal"
                      content-class="shadow"
                      header-bg-variant="dark"
                      header-text-variant="white"
@@ -197,12 +208,13 @@
       <b-navbar-nav class="mr-auto">
         <b-navbar-brand href="#"
                         mar
-                        style='font-family: "Arial", “Helvetica Neue”, Helvetica, Arial, sans-serif;'>
+                        style='padding-top: 5px;padding-bottom: 0;margin-left: 5px'>
           My Degree
-          <img alt=""
-               src="../assets/main_icon_white.svg"
-               style="width: 48px; height: 48px;margin-right: 5px;"/>
         </b-navbar-brand>
+
+        <img alt=""
+             src="../assets/main_icon_white.svg"
+             style="height: 36px;"/>
       </b-navbar-nav>
     </b-collapse>
 
@@ -263,7 +275,7 @@
             }
         },
         methods: {
-            saveAsJson() {
+            exportAsJson() {
                 this.$store.commit('exportSemesters')
             },
             importCourses() {
@@ -297,7 +309,7 @@
                 this.$store.commit('clearUserData');
             },
             hideModal(modalName) {
-                if(this.$refs[modalName]) {
+                if (this.$refs[modalName]) {
                     this.$refs[modalName].hide();
                 }
             }
@@ -305,12 +317,17 @@
     }
 </script>
 
-<style>
+<style scoped>
   @import "../fonts/Alef/stylesheet.css";
+
 
   a.nav-link {
     direction: rtl;
     text-align: start;
+  }
+
+  ul {
+    padding-inline-start: 10px;
   }
 
   span.navbar-text {
@@ -321,9 +338,12 @@
   #modal-1___BV_modal_outer_ {
     min-width: 810px !important;
   }
+
+
   #modal-1 {
 
     min-width: 810px !important;
 
   }
+
 </style>

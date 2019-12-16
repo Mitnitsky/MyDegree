@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="row">
       <table class="table table-sm table-borderless"
              style="margin-right: 5px; ">
@@ -13,7 +13,7 @@
       </table>
     </div>
     <div class="row justify-content-md-center"
-    style="justify-content: center !important;">
+         style="justify-content: center !important;">
       <b-button-group class="mx-1"
                       style="direction: ltr">
 

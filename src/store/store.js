@@ -57,10 +57,10 @@ function calculateUserInfo(state) {
             state.user.humanistic_points_left -= semester.humanistic_points;
             state.user.free_points_left -= semester.free_points;
         }
-        if((state.user.degree_points_done - (state.user.english_exemption ? 3 : 0)) !== 0){
+        if ((state.user.degree_points_done - (state.user.english_exemption ? 3 : 0)) !== 0) {
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
             state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
-        }else{
+        } else {
             state.user.degree_average = 0;
         }
         state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
@@ -134,8 +134,8 @@ export const store = new Vuex.Store({
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
             updateUserData(state);
         },
-        sortSemesterByField: (state,fieldName) => {
-            Semester.sortCoursesByField(state.user.semesters[state.user.active_semester],fieldName)
+        sortSemesterByField: (state, fieldName) => {
+            Semester.sortCoursesByField(state.user.semesters[state.user.active_semester], fieldName)
         },
         addCourse: (state) => {
             Semester.addCourseToSemester(state.user.semesters[state.user.active_semester]);
@@ -235,7 +235,7 @@ export const store = new Vuex.Store({
                 calculateUserInfo(state);
             }
         },
-        updateSemesters(state,semesters){
+        updateSemesters(state, semesters) {
             state.user.semesters = semesters
         }
 

@@ -17,13 +17,14 @@
       <b-card-group>
         <div class="container justify-content-center">
           <div class="row justify-content-center">
-            <div class="col" style="max-width: 550px; min-width: 480px">
+            <div class="col"
+                 style="max-width: 550px; min-width: 480px">
               <b-card flow
-                      style="min-height: 400px !important;"
                       header="סיכום תואר"
-                      header-class="summary-card-header"
                       header-bg-variant="dark"
+                      header-class="summary-card-header"
                       header-text-variant="white"
+                      style="min-height: 400px !important;"
               >
                 <div style="height: 100%">
                   <div class="input-group mb-2"
@@ -44,9 +45,9 @@
                     </div>
                     <input class="form-control degree-summary degree-summary-number disabled-input"
                            disabled="disabled"
-                           readonly
-                           min="0"
                            max="100"
+                           min="0"
+                           readonly
                            step="0.01"
                            type="number"
                            v-model.number="degree_average">
@@ -92,31 +93,32 @@
                 </div>
               </b-card>
             </div>
-            <div class="col" style="max-width: 550px; min-width: 480px">
+            <div class="col"
+                 style="max-width: 550px; min-width: 480px">
               <b-card class="h-100"
                       flow
                       header="ניתוח סוגי קורסים"
-                      header-class="summary-card-header"
                       header-bg-variant="dark"
+                      header-class="summary-card-header"
                       header-text-variant="white">
                 <div class="input-group mb-2">
                   <div class="input-group courseName">
 
                   </div>
                   <input class="input-group form-control"
+                         disabled
                          readonly
                          style="background-color: aliceblue;align-content: center;text-align: center;"
                          type="text"
-                         disabled
                          value="נותרו"
                   >
                   <input class="input-group form-control column-headers"
-                         readonly
                          disabled
+                         readonly
                          style="background-color: aliceblue;text-align: center;"
+                         title="יש למלא שדות אלו בהתאם לתואר"
                          type="text"
-                         value="מתוך"
-                          title="יש למלא שדות אלו בהתאם לתואר">
+                         value="מתוך">
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group courseName">
@@ -313,8 +315,8 @@
     background-color: aliceblue;
     cursor: default;
   }
-  .summary-card-header
-  {
+
+  .summary-card-header {
     font-weight: bold !important;
   }
 </style>

@@ -1,6 +1,7 @@
 <template>
 
-  <div class="container" style="max-width: 300px
+  <div class="container"
+       style="max-width: 300px
 ">
     <div class="col align-self-start"
          style="padding: 0 0">

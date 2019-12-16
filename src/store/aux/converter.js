@@ -12,7 +12,7 @@ export function parseGraduateInformation(grades_copy) {
     let semesters = {};
     for (let line of grades_copy) {
         if (found_first_sem === false) {
-            if(line.includes('אנגלית') && line.includes('פטור')){
+            if (line.includes('אנגלית') && line.includes('פטור')) {
                 english_exemption = true;
             }
             if (line.includes('קיץ') || line.includes('חורף') || line.includes('אביב')) {
@@ -36,7 +36,7 @@ export function parseGraduateInformation(grades_copy) {
             let course = {};
             if (line.length > 1 && line.trim().length > 1) {
                 let parts = line.split('\t');
-                course['grade'] = parts[0].replace('-', '').replace('*', '').replace('לא השלים', '')
+                course['grade'] = parts[0].replace('-', '').replace('*', '').replace('לא השלים', '');
                 course['points'] = parts[1];
                 let course_full_name = parts[2].split(' ');
                 course['name'] = course_full_name.slice(0, -1).join(' ');
@@ -44,7 +44,7 @@ export function parseGraduateInformation(grades_copy) {
                 for (let i = 1; i < index; i++) {
                     let to_remove_list = [];
                     for (let cour of semesters[i.toString()]) {
-                        if(!cour['name'].includes('ספורט') && !cour['name'].includes('חינוך') && !cour['name'].includes('נבחרות')) {
+                        if (!cour['name'].includes('ספורט') && !cour['name'].includes('חינוך') && !cour['name'].includes('נבחרות')) {
                             if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
                                 to_remove_list.push(cour)
                             }
@@ -54,13 +54,13 @@ export function parseGraduateInformation(grades_copy) {
                         semesters = arrayRemove(semesters, i, rem)
                     }
                 }
-                for(let already_added of courses){
-                    if(already_added['name'] === course['name']){
+                for (let already_added of courses) {
+                    if (already_added['name'] === course['name']) {
                         already_added['grade'] = course['grade'];
                         course = null;
                     }
                 }
-                if(course !== null){
+                if (course !== null) {
                     courses.push(course)
                 }
             }
@@ -68,5 +68,5 @@ export function parseGraduateInformation(grades_copy) {
         semesters[index.toString()] = courses;
         index += 1
     }
-    return {"semesters":semesters, "exemption":english_exemption};
+    return {"semesters": semesters, "exemption": english_exemption};
 }

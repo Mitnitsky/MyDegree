@@ -1,5 +1,6 @@
 <template>
-  <div id="app" style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif;min-width: 810px !important;">
+  <div id="app"
+       style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif;min-width: 810px !important;">
     <header-nav-bar/>
     <div class="container-fluid">
       <semesters-tab-view style="margin: 5px"/>
@@ -38,17 +39,20 @@
 
   /*//Firefox fix of input fields */
   input[type=number] {
-    -moz-appearance:textfield; /* Firefox arrows on numeric fields */
+    -moz-appearance: textfield; /* Firefox arrows on numeric fields */
   }
 
   @supports (-moz-appearance:none) {
     /*Firefox spin-box fix*/
-    SELECT
-    {
-      -moz-appearance:none !important;
+    SELECT {
+      -moz-appearance: none !important;
       background: transparent url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==') left center no-repeat !important;
-      background-position: calc( 5px) center !important;
+      background-position: calc(5px) center !important;
     }
 
+  }
+
+  .dropdown-item {
+    text-align: right !important;
   }
 </style>

@@ -13,12 +13,14 @@ export function decimalAdjust(type, value, exp) {
     return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
 }
 
-export function MathRound10(value, exp){
-        return decimalAdjust('round', value, exp);
+export function MathRound10(value, exp) {
+    return decimalAdjust('round', value, exp);
 }
+
 export function MathFloor10(value, exp) {
-        return decimalAdjust('floor', value, exp);
+    return decimalAdjust('floor', value, exp);
 }
+
 export function MathCeil10(value, exp) {
-        return decimalAdjust('ceil', value, exp);
+    return decimalAdjust('ceil', value, exp);
 }

@@ -4,29 +4,33 @@
     <th scope="col"
         style="width: 15%;">קטגוריה
     </th>
-    <th class="clickAbleHeader" scope="col"
+    <th @click="sortBy('number')"
+        class="clickAbleHeader"
+        scope="col"
+        style="width: 15%;"
         title="לחץ למיון"
-        v-b-tooltip.hover.v-secondary
-        @click="sortBy('number')"
-        style="width: 15%;">מספר קורס
+        v-b-tooltip.hover.v-secondary>מספר קורס
     </th>
-    <th class="clickAbleHeader" scope="col"
-        @click="sortBy('name')"
+    <th @click="sortBy('name')"
+        class="clickAbleHeader"
+        scope="col"
+        style="width: 40%;"
         title="לחץ למיון"
-        v-b-tooltip.hover.v-secondary
-        style="width: 40%;">שם קורס
+        v-b-tooltip.hover.v-secondary>שם קורס
     </th>
-    <th class="clickAbleHeader" scope="col"
+    <th @click="sortBy('points')"
+        class="clickAbleHeader"
+        scope="col"
+        style="width: 12%;"
         title="לחץ למיון"
-        v-b-tooltip.hover.v-secondary
-        @click="sortBy('points')"
-        style="width: 12%;">נקודות
+        v-b-tooltip.hover.v-secondary>נקודות
     </th>
-    <th class="clickAbleHeader" scope="col"
+    <th @click="sortBy('grade')"
+        class="clickAbleHeader"
+        scope="col"
+        style="width: 12%;"
         title="לחץ למיון"
-        v-b-tooltip.hover.v-secondary
-        @click="sortBy('grade')"
-        style="width: 12%;">ציון
+        v-b-tooltip.hover.v-secondary>ציון
     </th>
     <th scope="col"
         style="width: 6%;"/>
@@ -37,7 +41,7 @@
 <script>
     export default {
         name: 'semester-header',
-        methods:{
+        methods: {
             sortBy(field) {
                 this.$store.commit('sortSemesterByField', field)
             }
@@ -52,6 +56,7 @@
     border-color: #dee2e6;
     text-align: center;
   }
+
   .clickAbleHeader:hover {
     color: cornflowerblue;
     text-decoration: underline;

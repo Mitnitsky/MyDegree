@@ -3,7 +3,7 @@
           style="margin: 10px 20px">
     <b-tabs @input="updateActiveSemester"
             card
-            pill>
+            pills>
       <b-tab :key="semester.name"
              :title="'סמסטר '+ semester.name"
              lazy
@@ -12,7 +12,7 @@
         >
           <div class="col-xl-10"
                style="margin-bottom: 10px;">
-            <app-semester-table  :semester="semester"/>
+            <app-semester-table :semester="semester"/>
           </div>
           <div class="col-xl-2"
                style="padding: 0 0">
