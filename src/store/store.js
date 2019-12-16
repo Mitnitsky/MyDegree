@@ -41,7 +41,7 @@ function calculateUserInfo(state) {
             state.user.degree_points_done = 0;
         }
         state.user.degree_average = 0;
-        state.user.degree_points_to_choose = state.user.degree_points;
+        state.user.degree_points_to_choose = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
         state.user.a_list_points_left = state.user.a_list_points;
         state.user.b_list_points_left = state.user.b_list_points;
