@@ -24,7 +24,7 @@
              type="number"
              v-model.number.lazy="course.number">
     </td>
-    <td style="min-width: 250px">
+    <td style="min-width: 250px;padding-right: 0px">
       <input @change="updateField('name')"
              class="form-control courseName"
              type="text"
@@ -132,4 +132,6 @@
   .clearButton {
 
   }
+
+
 </style>

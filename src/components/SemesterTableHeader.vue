@@ -14,22 +14,22 @@
         @click="sortBy('name')"
         title="לחץ למיון"
         v-b-tooltip.hover.v-secondary
-        style="width: 45%;">שם קורס
+        style="width: 40%;">שם קורס
     </th>
     <th class="clickAbleHeader" scope="col"
         title="לחץ למיון"
         v-b-tooltip.hover.v-secondary
         @click="sortBy('points')"
-        style="width: 10%;">נקודות
+        style="width: 12%;">נקודות
     </th>
     <th class="clickAbleHeader" scope="col"
         title="לחץ למיון"
         v-b-tooltip.hover.v-secondary
         @click="sortBy('grade')"
-        style="width: 10%;">ציון
+        style="width: 12%;">ציון
     </th>
     <th scope="col"
-        style="width: 5%;"/>
+        style="width: 6%;"/>
   </tr>
   </thead>
 </template>

@@ -28,4 +28,27 @@
 
 <style>
   @import "./fonts/Alef/stylesheet.css";
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+  }
+
+
+  /*//Firefox fix of input fields */
+  input[type=number] {
+    -moz-appearance:textfield; /* Firefox arrows on numeric fields */
+  }
+
+  @supports (-moz-appearance:none) {
+    /*Firefox spin-box fix*/
+    SELECT
+    {
+      -moz-appearance:none !important;
+      background: transparent url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==') left center no-repeat !important;
+      background-position: calc( 5px) center !important;
+    }
+
+  }
 </style>

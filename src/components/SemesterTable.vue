@@ -16,8 +16,12 @@
     style="justify-content: center !important;">
       <b-button-group class="mx-1"
                       style="direction: ltr">
+
+        <b-button @click="removeLastRow"
+                  variant="outline-danger">הסר שורה
+        </b-button>
         <b-button @click.stop="$bvModal.show('modal-center'+'_'+semester.name)"
-                  variant="outline-info">חפש קורסים
+                  variant="info">חיפוש קורסים
         </b-button>
         <b-modal
             :header-bg-variant="headerBgVariant"
@@ -54,9 +58,6 @@
         </b-modal>
         <b-button @click="addRow"
                   variant="outline-primary">הוסף שורה
-        </b-button>
-        <b-button @click="removeLastRow"
-                  variant="outline-danger">הסר שורה
         </b-button>
       </b-button-group>
     </div>

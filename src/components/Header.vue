@@ -119,6 +119,8 @@
               <b-form-textarea id="import-text"
                                placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
                                v-model="message"
+                               no-resize
+                               rows="5"
               >
               </b-form-textarea>
               <div class="row justify-content-center mt-2">
