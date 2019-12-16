@@ -60,141 +60,143 @@
                     style="font-size: 18px;color: lightgray;text-decoration-line: underline"
         >יבוא קורסים מ-UG
         </b-nav-item>
-        <b-modal centered
-                 content-class="shadow"
-                 header-bg-variant="dark"
-                 header-text-variant="white"
-                 hide-backdrop
-                 hide-footer
-                 ref="modal-import"
-                 id="modal-import"
-                 ok-title="הוסף קורסים"
-                 ok-variant="primary"
-                 size="md"
-                 title="יבוא קורסים וציונים מ-UG">
-          <template v-slot:modal-header="{ close }">
-            <div class="row"
-                 style="width: 100%">
-              <div class="col-lg-11"
-                   style="text-align: right;">
-                <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
-              </div>
-              <div class="col-lg-1"
-                   style="width: 5%;text-align: left;align-items: flex-end">
-                <b-button @click="close()"
-                          aria-label="Close"
-                          class="close text-light"
-                          style="margin-right: 5px;"
-                          type="button">×
+        <b-nav-item-dropdown right>
+          <b-dropdown-item                                href="#"
+                                                              title="ייצוא מערכת קורסים(ללא ציונים)"
+                                                              v-b-tooltip.hover.v-dark>
+            <b-modal centered
+                     content-class="shadow"
+                     header-bg-variant="dark"
+                     header-text-variant="white"
+                     hide-backdrop
+                     hide-footer
+                     ref="modal-import"
+                     id="modal-import"
+                     ok-title="הוסף קורסים"
+                     ok-variant="primary"
+                     size="md"
+                     title="יבוא קורסים וציונים מ-UG">
+              <template v-slot:modal-header="{ close }">
+                <div class="row"
+                     style="width: 100%">
+                  <div class="col-lg-11"
+                       style="text-align: right;">
+                    <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
+                  </div>
+                  <div class="col-lg-1"
+                       style="width: 5%;text-align: left;align-items: flex-end">
+                    <b-button @click="close()"
+                              aria-label="Close"
+                              class="close text-light"
+                              style="margin-right: 5px;"
+                              type="button">×
+                    </b-button>
+                  </div>
+                </div>
+              </template>
+              <div class="row justify-content-center">
+                <b-button id="popover-button-variant"
+                          variant="outline-primary">הוראות
                 </b-button>
-              </div>
-            </div>
-          </template>
-          <div class="row justify-content-center">
-            <b-button id="popover-button-variant"
-                      variant="outline-primary">הוראות
-            </b-button>
-            <b-popover placement="top"
-                       target="popover-button-variant"
-                       triggers="hover"
-                       variant="outline-dark">
-              <template v-slot:title><h4>הוראות</h4></template>
-              <p>יש לסמן את כל התוכן באמצעות CTRL+A <a href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
-                                                       target="_blank">באתר ציונים</a> ולהעתיק אותו לתיבת הטקסט בחלון זה
-                <br>
-                 (<b>אפשרי להעתיק רק את הסמסטרים</b>)
-              </p>
-            </b-popover>
+                <b-popover placement="top"
+                           target="popover-button-variant"
+                           triggers="hover"
+                           variant="outline-dark">
+                  <template v-slot:title><h4>הוראות</h4></template>
+                  <p>יש לסמן את כל התוכן באמצעות CTRL+A <a href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
+                                                           target="_blank">באתר ציונים</a> ולהעתיק אותו לתיבת הטקסט
+                     בחלון זה
+                    <br>
+                     (<b>אפשרי להעתיק רק את הסמסטרים</b>)
+                  </p>
+                </b-popover>
 
-          </div>
-          <div class="row justify-content-center mb-2">
-            <b-form-text>
-            </b-form-text>
-          </div>
-          <b-form-textarea id="import-text"
-                           placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
-                           v-model="message"
-          >
-          </b-form-textarea>
-          <div class="row justify-content-center mt-2">
-            <b-button @click="importCourses"
-                      variant="outline-primary"
-            >
-              יבוא קורסים
-            </b-button>
-          </div>
-        </b-modal>
-        <font-awesome-icon icon="download"
-                           size="lg"
-                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
-        />
-        <b-nav-item @click="saveAsJson"
-                    href="#"
-                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
-                    title="ייצוא מערכת קורסים(ללא ציונים)"
-                    v-b-tooltip.hover.v-dark
-        >יצוא קורסים ל-JSON
-        </b-nav-item>
-        <font-awesome-icon icon="upload"
-                           size="lg"
-                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
-        />
-        <b-nav-item
-            href="#"
-            style="font-size: 18px;color: lightgray;text-decoration-line: underline"
-            v-b-modal.modal-import-from-json
-        >יבוא קורסים מ-JSON
-        </b-nav-item>
-        <b-modal class="modal"
-                 centered
-                 content-class="shadow"
-                 header-bg-variant="dark"
-                 header-text-variant="white"
-                 hide-backdrop
-                 hide-footer
-                 id="modal-import-from-json"
-                 ok-title="הוסף קורסים"
-                 ok-variant="primary"
-                 ref="modal-import-from-json"
-                 size="md"
-                 title="יבוא נתונים מקובץ JSON">
-          <template v-slot:modal-header="{ close }">
-            <div class="row"
-                 style="width: 100%">
-              <div class="col-lg-11"
-                   style="text-align: right;">
-                <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
               </div>
-              <div class="col-lg-1"
-                   style="width: 5%;text-align: left;align-items: flex-end">
-                <b-button @click="close()"
-                          aria-label="Close"
-                          class="close text-light"
-                          style="margin-right: 5px;"
-                          type="button">×
+              <div class="row justify-content-center mb-2">
+                <b-form-text>
+                </b-form-text>
+              </div>
+              <b-form-textarea id="import-text"
+                               placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
+                               v-model="message"
+              >
+              </b-form-textarea>
+              <div class="row justify-content-center mt-2">
+                <b-button @click="importCourses"
+                          variant="outline-primary"
+                >
+                  יבוא קורסים
                 </b-button>
               </div>
-            </div>
-          </template>
-          <b-form-textarea id="import-text-json"
-                           placeholder="יש להעתיק את התוכן קובץ ה-JSON"
-                           v-model="json_text"
-          >
-          </b-form-textarea>
-          <div class="row justify-content-center mt-2">
-            <b-button @click="importCoursesFromJSON"
-                      variant="outline-primary"
-            >
-              יבוא קורסים
-            </b-button>
-          </div>
-        </b-modal>
+            </b-modal>
+            <font-awesome-icon icon="download"
+                               size="lg"
+                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                               href="#"
+                               title="ייצוא מערכת קורסים(ללא ציונים)"
+                               v-b-tooltip.hover.v-dark
+            />
+            יצוא קורסים לקובץ-JSON
+          </b-dropdown-item>
+          <b-dropdown-item v-b-modal.modal-import-from-json  href="#">
+            <font-awesome-icon icon="upload"
+                               size="lg"
+                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+            />
+            יבוא קורסים מקובץ-JSON
+            <b-modal class="modal"
+                     centered
+                     content-class="shadow"
+                     header-bg-variant="dark"
+                     header-text-variant="white"
+                     hide-backdrop
+                     hide-footer
+                     id="modal-import-from-json"
+                     ok-title="הוסף קורסים"
+                     ok-variant="primary"
+                     ref="modal-import-from-json"
+                     size="md"
+                     title="יבוא נתונים מקובץ JSON">
+              <template v-slot:modal-header="{ close }">
+                <div class="row"
+                     style="width: 100%">
+                  <div class="col-lg-11"
+                       style="text-align: right;">
+                    <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
+                  </div>
+                  <div class="col-lg-1"
+                       style="width: 5%;text-align: left;align-items: flex-end">
+                    <b-button @click="close()"
+                              aria-label="Close"
+                              class="close text-light"
+                              style="margin-right: 5px;"
+                              type="button">×
+                    </b-button>
+                  </div>
+                </div>
+              </template>
+              <b-form-textarea id="import-text-json"
+                               placeholder="יש להעתיק את התוכן קובץ ה-JSON"
+                               v-model="json_text"
+              >
+              </b-form-textarea>
+              <div class="row justify-content-center mt-2">
+                <b-button @click="importCoursesFromJSON"
+                          variant="outline-primary"
+                >
+                  יבוא קורסים
+                </b-button>
+              </div>
+            </b-modal>
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
       </b-navbar-nav>
       <b-navbar-nav class="mr-auto">
         <b-navbar-brand href="#"
                         mar
                         style='font-family: "Arial", “Helvetica Neue”, Helvetica, Arial, sans-serif;'>
-          Degree Planner
+          My Degree
           <img alt=""
                src="../assets/main_icon_white.svg"
                style="width: 48px; height: 48px;margin-right: 5px;"/>
