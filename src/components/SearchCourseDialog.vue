@@ -181,15 +181,20 @@
                 this.selected_course = course;
             },
             addCourse() {
-                let course_number_and_anwser = {course_number: this.selected_course.number, answer: ''};
-                this.$store.commit('checkIfCourseExists', course_number_and_anwser);
-                if (course_number_and_anwser.answer !== false) {
-                    let message = "הקורס קיים בסמסטר " + course_number_and_anwser.answer + ", להוסיף בכל זאת?";
-                    if (confirm(message)) {
+                if (!(this.selected_course.name.includes("ספורט") || this.selected_course.name.includes("גופני"))) {
+                    let course_number_and_anwser = {course_number: this.selected_course.number, answer: ''};
+                    this.$store.commit('checkIfCourseExists', course_number_and_anwser);
+                    if (course_number_and_anwser.answer !== false) {
+                        let message = "הקורס קיים בסמסטר " + course_number_and_anwser.answer + ", להוסיף בכל זאת?";
+                        if (confirm(message)) {
+                            this.$store.commit('addCourseWithData', this.selected_course);
+                            this.$store.commit('reCalcCurrentSemester');
+                        }
+                    } else {
                         this.$store.commit('addCourseWithData', this.selected_course);
                         this.$store.commit('reCalcCurrentSemester');
                     }
-                } else {
+                }else{
                     this.$store.commit('addCourseWithData', this.selected_course);
                     this.$store.commit('reCalcCurrentSemester');
                 }

@@ -20,7 +20,7 @@ def convert_db_entry_to_course(entry):
 
 
 def main():
-    conn = sqlite3.connect('courses_backup.db')
+    conn = sqlite3.connect('courses.db')
     cursor = conn.cursor()
     courses = list()
     types = ['linked', 'identical', 'overlapping', 'inclusive', 'including']

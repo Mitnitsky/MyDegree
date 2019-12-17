@@ -53,8 +53,7 @@ function calculateUserInfo(state) {
             Semester.calculatePoints(semester);
             for (const course of semester.courses) {
                 if (   course.name.includes('ספורט')
-                    || course.name.includes('חינוך')
-                    || course.name.includes('נבחרות')
+                    || course.name.includes('גופני')
                     || !((course.name in courses_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
                 ) {
                     let course_points = parseFloat(course.points);
@@ -72,8 +71,9 @@ function calculateUserInfo(state) {
                         }
                         state.user.degree_points_to_choose -= course_points;
                     }
-                    if (    parseInt(course.grade) > 0 && !(course.name in courses_done)
-                        || (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0 )) {
+                    if (    ((parseInt(course.grade) > 0 && !(course.name in courses_done))
+                        ||  (parseInt(course.grade) > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
+                        ||  (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0 )) {
                         state.user.degree_average += course_points * parseInt(course.grade);
                         state.user.degree_points_left -= course_points;
                         if(parseInt(course.grade) > 0 > 0)
