@@ -1,5 +1,6 @@
 <template>
   <b-card no-body
+          class="shadow bg-white rounded"
           style="margin: 10px 20px">
     <b-tabs @input="updateActiveSemester"
             card
@@ -47,7 +48,9 @@
         <h2>עוד לא נוספו סמסטרים</h2>
 
         <br>
+
         <b-button @click.prevent="newTab"
+
                   variant="outline-secondary">הוסף סמסטר
         </b-button>
       </div>

@@ -59,6 +59,7 @@
         <b-button @click="addRow"
                   variant="outline-primary">הוסף שורה
         </b-button>
+
       </b-button-group>
     </div>
   </div>

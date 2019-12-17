@@ -8,7 +8,7 @@
         <option :value="types.MUST">חובה</option>
         <option :value="types.LIST_A">רשימה א'</option>
         <option :value="types.LIST_B">רשימה ב'</option>
-        <option :value="types.HUMANISTIC">הומניסטיים</option>
+        <option :value="types.HUMANISTIC">מל"ג</option>
         <option :value="types.FREE_CHOICE">בחירה חופשית</option>
         <option :value="types.EXEMPTION">פטור</option>
       </select>

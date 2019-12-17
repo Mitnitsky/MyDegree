@@ -18,7 +18,7 @@
         </div>
         <div class="col pl-0 pr-0  mr-3">
           <b-card
-              class="pr-custom"
+              class="pr-custom "
               header="Contact Info"
               header-bg-variant="light"
               header-text-variant="black"

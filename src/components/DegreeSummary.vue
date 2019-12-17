@@ -17,9 +17,10 @@
       <b-card-group>
         <div class="container justify-content-center">
           <div class="row justify-content-center">
-            <div class="col"
+            <div class="col "
                  style="max-width: 550px; min-width: 480px">
               <b-card flow
+                      class="shadow bg-white rounded"
                       header="סיכום תואר"
                       header-bg-variant="dark"
                       header-class="summary-card-header"
@@ -93,9 +94,9 @@
                 </div>
               </b-card>
             </div>
-            <div class="col"
+            <div class="col "
                  style="max-width: 550px; min-width: 480px">
-              <b-card class="h-100"
+              <b-card class="h-100 shadow bg-white rounded"
                       flow
                       header="ניתוח סוגי קורסים"
                       header-bg-variant="dark"
