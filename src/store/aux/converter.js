@@ -1,7 +1,7 @@
-function arrayRemove(semesters, index, value) {
-    semesters[index.toString()] = semesters[index.toString()].filter((ele) => ele !== value);
-    return semesters;
-}
+// function arrayRemove(semesters, index, value) {
+//     semesters[index.toString()] = semesters[index.toString()].filter((ele) => ele !== value);
+//     return semesters;
+// }
 
 export function parseGraduateInformation(grades_copy) {
     grades_copy = grades_copy.split('\n');
@@ -42,17 +42,17 @@ export function parseGraduateInformation(grades_copy) {
                 course['name'] = course_full_name.slice(0, -1).join(' ');
                 course['number'] = course_full_name[course_full_name.length - 1];
                 for (let i = 1; i < index; i++) {
-                    let to_remove_list = [];
+                    // let to_remove_list = [];
                     for (let cour of semesters[i.toString()]) {
                         if (!cour['name'].includes('ספורט') && !cour['name'].includes('חינוך') && !cour['name'].includes('נבחרות')) {
-                            if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
-                                to_remove_list.push(cour)
-                            }
+                            // if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
+                            //     to_remove_list.push(cour)
+                            // }
                         }
                     }
-                    for (let rem of to_remove_list) {
-                        semesters = arrayRemove(semesters, i, rem)
-                    }
+                    // for (let rem of to_remove_list) {
+                    //     semesters = arrayRemove(semesters, i, rem)
+                    // }
                 }
                 for (let already_added of courses) {
                     if (already_added['name'] === course['name']) {

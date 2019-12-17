@@ -9,6 +9,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
+import {course_types} from "./classes/course_types";
 
 Vue.use(Vuex);
 
@@ -32,8 +33,6 @@ function updateUserData(state) {
 function calculateUserInfo(state) {
     let current_semester = state.user.semesters[state.user.active_semester];
     if (current_semester != null) {
-        Semester.calculateAverage(current_semester);
-        Semester.calculatePoints(current_semester);
         if (state.user.english_exemption) {
             state.user.degree_points_done = 3;
             state.must_points = 0;
@@ -42,20 +41,50 @@ function calculateUserInfo(state) {
         }
         state.user.degree_average = 0;
         state.user.degree_points_to_choose = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
+        state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
         state.user.a_list_points_left = state.user.a_list_points;
         state.user.b_list_points_left = state.user.b_list_points;
         state.user.humanistic_points_left = state.user.humanistic_points;
         state.user.free_points_left = state.user.free_points;
-        for (const semester of state.user.semesters) {
-            state.user.degree_average += semester.points_done * semester.average;
-            state.user.degree_points_done += semester.points_done;
-            state.user.degree_points_to_choose -= semester.points;
-            state.user.must_points_left -= semester.must_points;
-            state.user.a_list_points_left -= semester.a_list_points;
-            state.user.b_list_points_left -= semester.b_list_points;
-            state.user.humanistic_points_left -= semester.humanistic_points;
-            state.user.free_points_left -= semester.free_points;
+        let courses_done = {};
+        for (const semester of state.user.semesters.slice().reverse()) {
+            Semester.calculateAverage(semester);
+            Semester.calculatePoints(semester);
+            for (const course of semester.courses) {
+                if (   course.name.includes('ספורט')
+                    || course.name.includes('חינוך')
+                    || course.name.includes('נבחרות')
+                    || !((course.name in courses_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
+                ) {
+                    let course_points = parseFloat(course.points);
+                    if(!((course.name in courses_done) && (course.number === courses_done[course.name][0]))){
+                        if (course.type === course_types.MUST) {
+                            state.user.must_points_left += course_points
+                        } else if (course.type === course_types.LIST_A) {
+                            state.user.a_list_points_left += course_points;
+                        } else if (course.type === course_types.LIST_B) {
+                            state.user.b_list_points_left += course_points;
+                        } else if (course.type === course_types.HUMANISTIC) {
+                            state.user.humanistic_points_left += course_points;
+                        } else if (course.type === course_types.FREE_CHOICE) {
+                            state.user.free_points_left += course_points;
+                        }
+                        state.user.degree_points_to_choose -= course_points;
+                    }
+                    if (    parseInt(course.grade) > 0 && !(course.name in courses_done)
+                        || (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0 )) {
+                        state.user.degree_average += course_points * parseInt(course.grade);
+                        state.user.degree_points_left -= course_points;
+                        if(parseInt(course.grade) > 0 > 0)
+                        {
+                            state.user.degree_points_done += course_points;
+                        }
+
+                    }
+                    courses_done[course.name] = [course.number, course.grade];
+                }
+            }
         }
         if ((state.user.degree_points_done - (state.user.english_exemption ? 3 : 0)) !== 0) {
             state.user.degree_average /= (state.user.degree_points_done - (state.user.english_exemption ? 3 : 0));
@@ -64,8 +93,8 @@ function calculateUserInfo(state) {
             state.user.degree_average = 0;
         }
         state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-        updateUserData(state);
     }
+    updateUserData(state);
 }
 
 export const store = new Vuex.Store({
