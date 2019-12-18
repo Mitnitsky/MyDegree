@@ -1,4 +1,4 @@
-# degree_planner
+# My Degree
 
 ## Project setup
 ```
