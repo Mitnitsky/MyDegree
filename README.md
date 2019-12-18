@@ -1,4 +1,4 @@
-# [My Degree](https://mydegree.co.il) 
+#[My Degree](https://mydegree.co.il)
 It is an web application made to ease the degree planning of Technion students.
 
 ## Features
