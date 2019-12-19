@@ -59,15 +59,15 @@ function calculateUserInfo(state) {
                     let course_points = parseFloat(course.points);
                     if(!((course.name in courses_done) && (course.number === courses_done[course.name][0]))){
                         if (course.type === course_types.MUST) {
-                            state.user.must_points_left += course_points
+                            state.user.must_points_left -= course_points
                         } else if (course.type === course_types.LIST_A) {
-                            state.user.a_list_points_left += course_points;
+                            state.user.a_list_points_left -= course_points;
                         } else if (course.type === course_types.LIST_B) {
-                            state.user.b_list_points_left += course_points;
+                            state.user.b_list_points_left -= course_points;
                         } else if (course.type === course_types.HUMANISTIC) {
-                            state.user.humanistic_points_left += course_points;
+                            state.user.humanistic_points_left -= course_points;
                         } else if (course.type === course_types.FREE_CHOICE) {
-                            state.user.free_points_left += course_points;
+                            state.user.free_points_left -= course_points;
                         }
                         state.user.degree_points_to_choose -= course_points;
                     }
