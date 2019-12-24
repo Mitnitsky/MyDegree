@@ -121,96 +121,29 @@
                          type="text"
                          value="מתוך">
                 </div>
-                <div class="input-group mb-2">
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">חובה </span>
+
+                <template v-for="(type, index) in course_types">
+                  <div class="input-group mb-2" v-bind:key="index">
+                    <div class="input-group courseName">
+                      <span class="input-group-text courseNameSpan">{{type.name}}</span>
+                    </div>
+                    <input class="form-control degree-summary degree-summary-number disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.5"
+                           type="number"
+                           v-model.number="type.points_left"
+                    >
+                    <input class="form-control degree-summary degree-summary-number degree-input-field"
+                           max="9999999"
+                           min="0"
+                           step="0.5"
+                           style="text-align: center"
+                           type="number"
+                           v-model.number="type.points_required">
                   </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="must_points_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="must_points">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">רשימה א'</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="a_list_points_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="a_list_points">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">רשימה ב'</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="b_list_points_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="b_list_points">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">הומניסטיים</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         type="number"
-                         v-model.number="humanistic_points_left">
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="humanistic_points">
-                </div>
-                <div class="input-group mb-2">
-                  <div class="input-group courseName">
-                    <span class="input-group-text courseNameSpan">בחירה חופשית</span>
-                  </div>
-                  <input class="form-control degree-summary degree-summary-number disabled-input"
-                         disabled="disabled"
-                         readonly
-                         step="0.5"
-                         type="number"
-                         v-model.number="free_points_left"
-                  >
-                  <input class="form-control degree-summary degree-summary-number degree-input-field"
-                         max="9999999"
-                         min="0"
-                         step="0.5"
-                         style="text-align: center"
-                         type="number"
-                         v-model.number="free_points">
-                </div>
+                </template>
+
                 <div class="input-group mb-2">
                   <b-form-checkbox
                       id="checkbox-1"
@@ -266,7 +199,8 @@
                 'free_points_left',
                 'exemption_points',
                 'english_exemption',
-                'semesters'
+                'semesters',
+                'course_types'
             ]),
         },
         methods: {},

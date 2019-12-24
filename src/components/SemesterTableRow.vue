@@ -5,12 +5,10 @@
               @change.stop="updateField('type')"
               class="form-control courseType"
               v-model.number.lazy="course.type">
-        <option :value="types.MUST">חובה</option>
-        <option :value="types.LIST_A">רשימה א'</option>
-        <option :value="types.LIST_B">רשימה ב'</option>
-        <option :value="types.HUMANISTIC">מל"ג</option>
-        <option :value="types.FREE_CHOICE">בחירה חופשית</option>
-        <option :value="types.EXEMPTION">פטור</option>
+        <template v-for="(type, index) in course_types" >
+           <option :value="index" v-bind:key="index">{{type.name}}</option>
+        </template>
+
       </select>
     </td>
     <td style="min-width: 90px">
@@ -62,6 +60,12 @@
 <script>
     import {clearCourse, courseIsEmpty} from "../store/classes/course";
     import {course_types} from "../store/classes/course_types";
+    import {createHelpers} from 'vuex-map-fields';
+
+    const {mapFields} = createHelpers({
+        getterType: 'getUserField',
+        mutationType: 'updateUserField',
+    });
 
     export default {
         name: 'semester-table-course-row',
@@ -71,6 +75,11 @@
                 types: course_types,
                 InputIsWrong: 'inputIsWrong'
             }
+        },
+        computed: {
+            ...mapFields([
+                'course_types'
+            ]),
         },
         methods: {
             clearRow() {

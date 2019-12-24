@@ -21,7 +21,7 @@ yarn-error.log*
 *.sln
 *.sw?
 
-./src/firebaseconfig.js
+src/firebaseconfig.js
 .firebase
 python_scripts/__pycache__
 python_scripts/db/__pycache__

@@ -10,6 +10,7 @@ import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
 import {course_types} from "./classes/course_types";
+import {create_course_type, default_course_types} from "@/store/classes/course_types";
 
 Vue.use(Vuex);
 
@@ -17,7 +18,9 @@ function updateUserData(state) {
     if (localStorage.getItem('authenticated') === 'true') {
         const user = firebase.auth().currentUser;
         if (user != null) {
+            setDefaultCourseTypes(state);
             firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                window.console.log("User data uploaded");
                 return typeof result;
             }).catch((reason => {
                 window.console.log('Error uploading user-data (' + reason + ')');
@@ -97,6 +100,18 @@ function calculateUserInfo(state) {
     updateUserData(state);
 }
 
+function setDefaultCourseTypes(state) {
+    if(state.user.course_types == null){
+        state.user.course_types = []
+    }
+    if (state.user.course_types.length === 0) {
+        for (let course_type of default_course_types) {
+            state.user.course_types.push(create_course_type(course_type))
+        }
+        updateUserData(state);
+    }
+}
+
 export const store = new Vuex.Store({
     state: {
         logged: false,
@@ -121,6 +136,7 @@ export const store = new Vuex.Store({
             exemption_points: 0,
             english_exemption: false,
             semesters: [],
+            course_types:[ ]
         }
     },
     getters: {
@@ -151,7 +167,13 @@ export const store = new Vuex.Store({
             state.user.exemption_points = 0;
             state.user.english_exemption = false;
             state.user.semesters = [];
+            state.user.course_types = [];
             updateUserData(state);
+        },
+        setUserData:(state, user_data) => {
+            state.user = user_data;
+            setDefaultCourseTypes(state);
+            window.console.log(state.user.course_types)
         },
         setActiveSemester: (state, index) => {
             state.user.active_semester = index;
@@ -215,6 +237,17 @@ export const store = new Vuex.Store({
         changeSemesterTo: (state, index) => {
             state.user.active_semester = index;
             updateUserData(state);
+        },
+        addCourseType: (state, typeName) => {
+            if(typeName.toString() !== ""){
+                for(let type of state.user.course_types){
+                    if(type.name === typeName.toString()){
+                        return
+                    }
+                }
+                state.user.course_types.push(create_course_type(typeName))
+                updateUserData(state);
+            }
         },
         reCalcCurrentSemester: (state) => {
             if (state.user.semesters.length > 0) {

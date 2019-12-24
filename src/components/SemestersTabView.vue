@@ -76,9 +76,9 @@
                     let user_data = localStorage.getItem('saved_session_data');
                     if (user_data !== null) {
                         if (typeof user_data === 'object') {
-                            this.$store.state.user = user_data;
+                            this.$store.commit("setUserData",user_data);
                         } else {
-                            this.$store.state.user = JSON.parse(localStorage.getItem('saved_session_data'));
+                            this.$store.commit("setUserData",JSON.parse(localStorage.getItem('saved_session_data')));
                         }
                     }
                 }
