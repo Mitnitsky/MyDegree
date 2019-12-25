@@ -1,6 +1,6 @@
 <template>
-  <b-card no-body
-          class="shadow bg-white rounded"
+  <b-card class="shadow bg-white rounded"
+          no-body
           style="margin: 10px 20px">
     <b-tabs @input="updateActiveSemester"
             card
@@ -76,9 +76,9 @@
                     let user_data = localStorage.getItem('saved_session_data');
                     if (user_data !== null) {
                         if (typeof user_data === 'object') {
-                            this.$store.commit("setUserData",user_data);
+                            this.$store.commit("setUserData", user_data);
                         } else {
-                            this.$store.commit("setUserData",JSON.parse(localStorage.getItem('saved_session_data')));
+                            this.$store.commit("setUserData", JSON.parse(localStorage.getItem('saved_session_data')));
                         }
                     }
                 }
@@ -92,8 +92,25 @@
         },
         methods: {
             closeTab() {
-                this.$store.commit('removeSemester');
-                this.$store.commit('reCalcCurrentSemester');
+                this.$bvModal.msgBoxConfirm('למחוק סמסטר זה?', {
+                    title: 'אזהרה',
+                    size: 'sm',
+                    buttonSize: 'md',
+                    cancelDisabled: 'true',
+                    okVariant: 'danger',
+                    okTitle: 'כן',
+                    cancelTitle: 'לא',
+                    autoFocusButton: 'ok',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }).then(v => {
+                        if (v === true) {
+                            this.$store.commit('removeSemester');
+                            this.$store.commit('reCalcCurrentSemester');
+                        }
+                    }
+                );
             },
             newTab() {
                 this.$store.commit('addSemester', 1);

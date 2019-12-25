@@ -88,8 +88,26 @@
                 this.$store.commit('addCourse');
             },
             removeLastRow() {
-                this.$store.commit('removeLastRow');
-                this.$store.commit('reCalcCurrentSemester');
+                this.$bvModal.msgBoxConfirm('למחוק שורה בעלת תוכן?', {
+                    title: 'אזהרה',
+                    size: 'sm',
+                    headerBgVariant: "dark",
+                    headerTextVariant: "white",
+                    buttonSize: 'md',
+                    cancelDisabled: 'true',
+                    okVariant: 'danger',
+                    okTitle: 'כן',
+                    cancelTitle: 'לא',
+                    autoFocusButton: 'ok',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }).then(v => {
+                    if (v === true) {
+                        this.$store.commit('removeLastRow');
+                        this.$store.commit('reCalcCurrentSemester');
+                    }
+                });
             }
         }
     }

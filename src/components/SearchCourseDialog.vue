@@ -134,8 +134,8 @@
     let json_courses;
 
     if (localStorage.getItem('courses')) {
-        json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'))
-        if(!json_courses.version || json_courses.version <= 1.0){
+        json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'));
+        if (!json_courses.version || json_courses.version <= 1.0) {
             json_courses = require("../data/courses.json");
             localStorage.setItem('courses', JSON.stringify(json_courses));
         }
@@ -190,15 +190,32 @@
                     this.$store.commit('checkIfCourseExists', course_number_and_anwser);
                     if (course_number_and_anwser.answer !== false) {
                         let message = "הקורס קיים בסמסטר " + course_number_and_anwser.answer + ", להוסיף בכל זאת?";
-                        if (confirm(message)) {
-                            this.$store.commit('addCourseWithData', this.selected_course);
-                            this.$store.commit('reCalcCurrentSemester');
-                        }
+                        this.$bvModal.msgBoxConfirm(message, {
+                            title: 'אזהרה',
+                            headerBgVariant: "dark",
+                            headerTextVariant: "white",
+                            size: 'sm',
+                            buttonSize: 'md',
+                            cancelDisabled: 'true',
+                            okVariant: 'danger',
+                            okTitle: 'כן',
+                            autoFocusButton: 'ok',
+                            cancelTitle: 'לא',
+                            footerClass: 'p-2',
+                            hideHeaderClose: true,
+                            centered: true
+                        }).then(v => {
+                                if (v === true) {
+                                    this.$store.commit('addCourseWithData', this.selected_course);
+                                    this.$store.commit('reCalcCurrentSemester');
+                                }
+                            }
+                        )
                     } else {
                         this.$store.commit('addCourseWithData', this.selected_course);
                         this.$store.commit('reCalcCurrentSemester');
                     }
-                }else{
+                } else {
                     this.$store.commit('addCourseWithData', this.selected_course);
                     this.$store.commit('reCalcCurrentSemester');
                 }

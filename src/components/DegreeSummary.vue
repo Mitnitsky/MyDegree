@@ -204,7 +204,7 @@
         },
         methods: {
             updateInfo() {
-              this.$store.commit("reCalcCurrentSemester")
+                this.$store.commit("reCalcCurrentSemester")
             }
         },
     }

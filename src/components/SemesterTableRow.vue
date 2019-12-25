@@ -5,8 +5,10 @@
               @change.stop="updateField('type')"
               class="form-control courseType"
               v-model.number.lazy="course.type">
-        <template v-for="(type, index) in course_types" >
-           <option :value="index" v-bind:key="index">{{type.name}}</option>
+        <template v-for="(type, index) in course_types">
+          <option :value="index"
+                  v-bind:key="index">{{type.name}}
+          </option>
         </template>
 
       </select>

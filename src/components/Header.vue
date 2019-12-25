@@ -267,7 +267,7 @@
 
                 <tr :key="index"
                     v-if="type.name === 'פטור' || type.name === 'חובה'"
-                    >
+                >
                   <td :key="index"
                       colspan="2">
                     <input :value="type.name"
@@ -294,7 +294,6 @@
                     </b-button>
                   </td>
                 </tr>
-
 
 
               </template>
@@ -511,24 +510,40 @@
                 this.$store.commit("changeCategoryName", [event.target.value, index])
             },
             deleteCategory(index) {
-                if (confirm('למחוק קטגוריה?')) {
-                    this.$store.commit("deleteCourseType", index);
-                }
+                this.$bvModal.msgBoxConfirm('למחוק קטגוריה?', {
+                    title: 'אזהרה',
+                    autoFocusButton: 'ok',
+                    headerBgVariant: "dark",
+                    headerTextVariant: "white",
+                    size: 'sm',
+                    buttonSize: 'md',
+                    cancelDisabled: 'true',
+                    okVariant: 'danger',
+                    okTitle: 'כן',
+                    cancelTitle: 'לא',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }).then(v => {
+                    if (v === true) {
+                        this.$store.commit("deleteCourseType", index);
+                    }
+                })
             },
             hideInvalidInput() {
                 this.wrongInput = false;
                 // document.getElementById('invalid-input').hidden = true
             },
             addCategory() {
-                let new_category_name = document.getElementById("new_category_name").value
-                window.console.log(document.getElementById("new_category_name").value)
+                let new_category_name = document.getElementById("new_category_name").value;
+                window.console.log(document.getElementById("new_category_name").value);
                 for (let course_type of this.course_types) {
                     if (course_type.name === new_category_name) {
                         this.wrongInput = true;
                         return
                     }
                 }
-                this.$store.commit("addCourseType", new_category_name)
+                this.$store.commit("addCourseType", new_category_name);
                 this.hideModal('modal-add-course-type')
             },
             exportAsJson() {
@@ -536,15 +551,32 @@
             },
             importCoursesFromUG() {
                 if (this.message !== '') {
-                    if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
-                        let semesters_exemption = parseGraduateInformation(this.message);
-                        this.$store.dispatch('loadUserDataFromUGSite', {
-                            "semesters": semesters_exemption['semesters'],
-                            "exemption": semesters_exemption['exemption']
-                        });
-                        this.message = '';
-                        this.hideModal('modal-import');
-                    }
+                    this.$bvModal.msgBoxConfirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?', {
+                        title: 'אזהרה',
+                        headerBgVariant: "dark",
+                        autoFocusButton: 'ok',
+                        headerTextVariant: "white",
+                        size: 'sm',
+                        buttonSize: 'md',
+                        cancelDisabled: 'true',
+                        okVariant: 'danger',
+                        okTitle: 'כן',
+                        cancelTitle: 'לא',
+                        footerClass: 'p-2',
+                        hideHeaderClose: true,
+                        centered: true
+                    }).then(v => {
+                            if (v === true) {
+                                let semesters_exemption = parseGraduateInformation(this.message);
+                                this.$store.dispatch('loadUserDataFromUGSite', {
+                                    "semesters": semesters_exemption['semesters'],
+                                    "exemption": semesters_exemption['exemption']
+                                });
+                                this.message = '';
+                                this.hideModal('modal-import');
+                            }
+                        }
+                    )
                 }
             },
             importCoursesFromCF() {
@@ -557,12 +589,28 @@
             },
             importCoursesFromJSON() {
                 if (this.json_text !== '') {
-                    if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
-                        this.$store.commit('importCoursesFromJson', this.json_text);
-                        this.$store.commit('reCalcCurrentSemester');
-                        this.json_text = '';
-                        this.hideModal('modal-import-from-json');
-                    }
+                    this.$bvModal.msgBoxConfirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?', {
+                        title: 'אזהרה',
+                        headerBgVariant: "dark",
+                        headerTextVariant: "white",
+                        size: 'sm',
+                        buttonSize: 'md',
+                        autoFocusButton: 'ok',
+                        cancelDisabled: 'true',
+                        okVariant: 'danger',
+                        okTitle: 'כן',
+                        cancelTitle: 'לא',
+                        footerClass: 'p-2',
+                        hideHeaderClose: true,
+                        centered: true
+                    }).then(v => {
+                        if (v === true) {
+                            this.$store.commit('importCoursesFromJson', this.json_text);
+                            this.$store.commit('reCalcCurrentSemester');
+                            this.json_text = '';
+                            this.hideModal('modal-import-from-json');
+                        }
+                    })
                 }
             },
             signOut() {
@@ -576,8 +624,8 @@
                 if (this.$refs[modalName]) {
                     this.$refs[modalName].hide();
                 }
-            }
-        },
+            },
+        }
     }
 </script>
 

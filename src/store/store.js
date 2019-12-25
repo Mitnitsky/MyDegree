@@ -32,12 +32,12 @@ function updateUserData(state) {
 }
 
 function resetRemovedCategory(state, category_id) {
-    for(let semester of state.user.semesters){
-        for(let course of semester.courses){
-            if(course.type == category_id){
+    for (let semester of state.user.semesters) {
+        for (let course of semester.courses) {
+            if (course.type == category_id) {
                 course.type = 0
-            }else{
-                if(course.type > category_id){
+            } else {
+                if (course.type > category_id) {
                     course.type -= 1;
                 }
             }
@@ -60,7 +60,7 @@ function calculateUserInfo(state) {
         state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[0].points_left = state.user.course_types[0].points_required - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[3].points_left = 0;
-        for(let course_type of state.user.course_types){
+        for (let course_type of state.user.course_types) {
             if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
                 course_type.points_left = course_type.points_required
             }
@@ -70,24 +70,23 @@ function calculateUserInfo(state) {
             Semester.calculateAverage(semester);
             Semester.calculatePoints(semester);
             for (const course of semester.courses) {
-                if (   course.name.includes('ספורט')
+                if (course.name.includes('ספורט')
                     || course.name.includes('גופני')
                     || !((course.name in courses_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
                 ) {
                     let course_points = parseFloat(course.points);
-                    if(!((course.name in courses_done) && (course.number === courses_done[course.name][0]))){
+                    if (!((course.name in courses_done) && (course.number === courses_done[course.name][0]))) {
                         state.user.course_types[course.type].points_left -= course_points
                         state.user.degree_points_to_choose -= course_points;
                     }
-                    if (    ((parseInt(course.grade) > 0 && !(course.name in courses_done))
-                        ||  (parseInt(course.grade) > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
-                        ||  (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0 )) {
+                    if (((parseInt(course.grade) > 0 && !(course.name in courses_done))
+                        || (parseInt(course.grade) > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
+                        || (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0)) {
                         if (course.type !== exemption_index) {
                             state.user.degree_average += course_points * parseInt(course.grade);
                         }
                         state.user.degree_points_left -= course_points;
-                        if(parseInt(course.grade) > 0 && course.type !== exemption_index)
-                        {
+                        if (parseInt(course.grade) > 0 && course.type !== exemption_index) {
                             state.user.degree_points_done += course_points;
                         }
 
@@ -108,7 +107,7 @@ function calculateUserInfo(state) {
 }
 
 function setDefaultCourseTypes(state) {
-    if(state.user.course_types == null){
+    if (state.user.course_types == null) {
         state.user.course_types = []
     }
     if (state.user.course_types.length === 0) {
@@ -132,7 +131,7 @@ export const store = new Vuex.Store({
             degree_points_to_choose: 0,
             english_exemption: false,
             semesters: [],
-            course_types:[ ]
+            course_types: []
         }
     },
     getters: {
@@ -155,7 +154,7 @@ export const store = new Vuex.Store({
             state.user.course_types = [];
             updateUserData(state);
         },
-        setUserData:(state, user_data) => {
+        setUserData: (state, user_data) => {
             state.user = user_data;
             setDefaultCourseTypes(state);
         },
@@ -200,17 +199,14 @@ export const store = new Vuex.Store({
             let current_semester = state.user.semesters[state.user.active_semester];
             let last_course_index = current_semester.courses.length - 1;
             if (!Course.courseIsEmpty(current_semester.courses[last_course_index])) {
-                if (confirm("למחוק קורס בעל תוכן?"))
-                    Semester.removeCourse(current_semester, last_course_index);
+                Semester.removeCourse(current_semester, last_course_index)
             } else {
                 Semester.removeCourse(current_semester, last_course_index);
             }
             updateUserData(state);
         },
         removeSemester: (state) => {
-            if (confirm("למחוק סמסטר זה?")) {
-                state.user.semesters.splice(state.user.active_semester, 1);
-            }
+            state.user.semesters.splice(state.user.active_semester, 1);
             let i = 1;
             for (let semester of state.user.semesters) {
                 semester.name = i.toString();
@@ -223,9 +219,9 @@ export const store = new Vuex.Store({
             updateUserData(state);
         },
         addCourseType: (state, typeName) => {
-            if(typeName.toString() !== ""){
-                for(let type of state.user.course_types){
-                    if(type.name === typeName.toString()){
+            if (typeName.toString() !== "") {
+                for (let type of state.user.course_types) {
+                    if (type.name === typeName.toString()) {
                         return
                     }
                 }
@@ -234,15 +230,15 @@ export const store = new Vuex.Store({
             }
         },
         changeCategoryName: (state, name_index) => {
-            if(name_index[1] < state.user.course_types.length){
+            if (name_index[1] < state.user.course_types.length) {
                 state.user.course_types[name_index[1]].name = name_index[0]
             }
             calculateUserInfo(state);
         },
         deleteCourseType: (state, index) => {
-            if(index < state.user.course_types.length){
-                resetRemovedCategory(state,index);
-                state.user.course_types.splice(index,1);
+            if (index < state.user.course_types.length) {
+                resetRemovedCategory(state, index);
+                state.user.course_types.splice(index, 1);
             }
             calculateUserInfo(state);
         },
@@ -309,8 +305,8 @@ export const store = new Vuex.Store({
         },
         addNewSemesterFromData: (context, course_list) => {
             context.commit('addSemester', 0);
-            context.commit('changeSemesterTo', context.state.user.semesters.length-1);
-            for(let course of course_list){
+            context.commit('changeSemesterTo', context.state.user.semesters.length - 1);
+            for (let course of course_list) {
                 context.commit('addCourseWithData', course);
             }
         },
@@ -327,7 +323,7 @@ export const store = new Vuex.Store({
             }
             commit('setExemptionStatus', (semesters_exemption['exemption']));
             commit('reCalcCurrentSemester');
-            commit('changeSemesterTo', semesters_exemption['semesters'].length -1)
+            commit('changeSemesterTo', semesters_exemption['semesters'].length - 1)
         },
     }
 });
