@@ -85,6 +85,10 @@ export function parseCheeseFork(courses) {
     let json_courses;
     if (localStorage.getItem('courses')) {
         json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'))
+        if(!json_courses.version || json_courses.version <= 1.0){
+            json_courses = require("../../data/courses.json");
+            localStorage.setItem('courses', JSON.stringify(json_courses));
+        }
     } else {
         json_courses = require("../../data/courses.json");
         localStorage.setItem('courses', JSON.stringify(json_courses));
