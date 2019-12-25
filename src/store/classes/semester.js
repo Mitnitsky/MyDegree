@@ -1,19 +1,15 @@
 import {courseIsEmpty, createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
-import {course_types} from "./course_types";
 import {MathRound10} from "../aux/rounder";
+
+const exemption_index = 3;
+
 
 function initializeSemesterPoints(semester) {
     semester.points = 0;
-    semester.points_done = 0;
-    semester.must_points = 0;
-    semester.a_list_points = 0;
-    semester.b_list_points = 0;
-    semester.humanistic_points = 0;
-    semester.free_points = 0;
-    semester.exemption_points = 0;
 }
 
-export function createNewSemester(name, courses_initially) {
+
+export function createNewSemester(name, courses_initially,) {
     let semester = {};
     semester.name = name.toString();
     semester.average = 0;
@@ -62,6 +58,7 @@ export function removeCourse(semester, index) {
     calculatePoints(semester);
 }
 
+
 export function calculateAverage(semester) {
     if (semester !== 'undefined') {
         let points = 0;
@@ -71,7 +68,7 @@ export function calculateAverage(semester) {
                 && course.grade !== ''
                 && parseFloat(course.grade) !== 0
                 && parseFloat(course.points) !== 0
-                && course.type !== course_types.EXEMPTION) {
+                && course.type !== exemption_index) {
                 points += parseFloat(course.points);
                 total_grade += parseFloat(course.grade) * parseFloat(course.points);
             }
@@ -92,34 +89,7 @@ export function calculatePoints(semester) {
     if (semester !== 'undefined') {
         initializeSemesterPoints(semester);
         for (const course of semester.courses) {
-            if (course.points !== '') {
-                switch (course.type) {
-                    case course_types.MUST:
-                        semester.must_points += parseFloat(course.points);
-                        break;
-                    case course_types.LIST_A:
-                        semester.a_list_points += parseFloat(course.points);
-                        break;
-                    case course_types.LIST_B:
-                        semester.b_list_points += parseFloat(course.points);
-                        break;
-                    case course_types.HUMANISTIC:
-                        semester.humanistic_points += parseFloat(course.points);
-                        break;
-                    case course_types.FREE_CHOICE:
-                        semester.free_points += parseFloat(course.points);
-                        break;
-                    case course_types.EXEMPTION:
-                        semester.exemption_points += parseFloat(course.points);
-                        semester.points_done += parseFloat(course.points);
-                        semester.points += parseFloat(course.points);
-                        continue;
-                }
                 semester.points += parseFloat(course.points);
-                if (course.grade !== '' && parseFloat(course.grade) !== 0) {
-                    semester.points_done += parseFloat(course.points);
-                }
-            }
         }
         semester.points.toFixed(1);
     }
@@ -214,13 +184,11 @@ export function sortCoursesByField(semester, fieldName) {
                 }
             } else {
                 if (is_array_sorted(semester.courses, fieldName)) {
-                    window.console.log('sorted');
 
                     semester.courses.sort((a, b) => {
                         return (compareByNumericField(a, b, fieldName) * -1)
                     })
                 } else {
-                    window.console.log('!sorted');
                     semester.courses.sort((a, b) => {
                         return (compareByNumericField(a, b, fieldName))
                     })

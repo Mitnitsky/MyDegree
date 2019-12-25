@@ -15,24 +15,24 @@ It is an web application made to ease the degree planning of Technion students.
 
 - Tracking of various course types points done.
 
-- Synchornize account across different devices using google sign-in or email account.
+- Synchronize account across different devices using google sign-in or email account.
 
 - Keep track of various courses types.
 
 ## Screenshots
 
 ### Courses view
-![](/images/main.png)
+![](images/main.png)
 
 ### Courses search
-![](/images/search_2.png)
+![](images/search_2.png)
 
 
 ### Course pre-requisites/parallel check
-![](/images/search.png)
+![](images/search.png)
 
 ### Import from UG
-![](/images/import_ug.png)
+![](images/import_ug.png)
 
 
 

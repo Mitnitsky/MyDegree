@@ -9,7 +9,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
-import {course_types} from "./classes/course_types";
 import {create_course_type, default_course_types} from "@/store/classes/course_types";
 
 Vue.use(Vuex);
@@ -20,7 +19,6 @@ function updateUserData(state) {
         if (user != null) {
             setDefaultCourseTypes(state);
             firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
-                window.console.log("User data uploaded");
                 return typeof result;
             }).catch((reason => {
                 window.console.log('Error uploading user-data (' + reason + ')');
@@ -33,8 +31,23 @@ function updateUserData(state) {
     }
 }
 
+function resetRemovedCategory(state, category_id) {
+    for(let semester of state.user.semesters){
+        for(let course of semester.courses){
+            if(course.type == category_id){
+                course.type = 0
+            }else{
+                if(course.type > category_id){
+                    course.type -= 1;
+                }
+            }
+        }
+    }
+}
+
 function calculateUserInfo(state) {
     let current_semester = state.user.semesters[state.user.active_semester];
+    const exemption_index = 3;
     if (current_semester != null) {
         if (state.user.english_exemption) {
             state.user.degree_points_done = 3;
@@ -45,11 +58,13 @@ function calculateUserInfo(state) {
         state.user.degree_average = 0;
         state.user.degree_points_to_choose = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
-        state.user.must_points_left = state.user.must_points - (state.user.english_exemption ? 3 : 0);
-        state.user.a_list_points_left = state.user.a_list_points;
-        state.user.b_list_points_left = state.user.b_list_points;
-        state.user.humanistic_points_left = state.user.humanistic_points;
-        state.user.free_points_left = state.user.free_points;
+        state.user.course_types[0].points_left = state.user.course_types[0].points_required - (state.user.english_exemption ? 3 : 0);
+        state.user.course_types[3].points_left = 0;
+        for(let course_type of state.user.course_types){
+            if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
+                course_type.points_left = course_type.points_required
+            }
+        }
         let courses_done = {};
         for (const semester of state.user.semesters.slice().reverse()) {
             Semester.calculateAverage(semester);
@@ -61,25 +76,17 @@ function calculateUserInfo(state) {
                 ) {
                     let course_points = parseFloat(course.points);
                     if(!((course.name in courses_done) && (course.number === courses_done[course.name][0]))){
-                        if (course.type === course_types.MUST) {
-                            state.user.must_points_left -= course_points
-                        } else if (course.type === course_types.LIST_A) {
-                            state.user.a_list_points_left -= course_points;
-                        } else if (course.type === course_types.LIST_B) {
-                            state.user.b_list_points_left -= course_points;
-                        } else if (course.type === course_types.HUMANISTIC) {
-                            state.user.humanistic_points_left -= course_points;
-                        } else if (course.type === course_types.FREE_CHOICE) {
-                            state.user.free_points_left -= course_points;
-                        }
+                        state.user.course_types[course.type].points_left -= course_points
                         state.user.degree_points_to_choose -= course_points;
                     }
                     if (    ((parseInt(course.grade) > 0 && !(course.name in courses_done))
                         ||  (parseInt(course.grade) > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
                         ||  (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0 )) {
-                        state.user.degree_average += course_points * parseInt(course.grade);
+                        if (course.type !== exemption_index) {
+                            state.user.degree_average += course_points * parseInt(course.grade);
+                        }
                         state.user.degree_points_left -= course_points;
-                        if(parseInt(course.grade) > 0 > 0)
+                        if(parseInt(course.grade) > 0 && course.type !== exemption_index)
                         {
                             state.user.degree_points_done += course_points;
                         }
@@ -123,17 +130,6 @@ export const store = new Vuex.Store({
             degree_points_done: 0,
             degree_points_left: 0,
             degree_points_to_choose: 0,
-            must_points: 0,
-            must_points_left: 0,
-            a_list_points: 0,
-            a_list_points_left: 0,
-            b_list_points: 0,
-            b_list_points_left: 0,
-            humanistic_points: 0,
-            humanistic_points_left: 0,
-            free_points: 0,
-            free_points_left: 0,
-            exemption_points: 0,
             english_exemption: false,
             semesters: [],
             course_types:[ ]
@@ -154,17 +150,6 @@ export const store = new Vuex.Store({
             state.user.degree_points_done = 0;
             state.user.degree_points_left = 0;
             state.user.degree_points_to_choose = 0;
-            state.user.must_points = 0;
-            state.user.must_points_left = 0;
-            state.user.a_list_points = 0;
-            state.user.a_list_points_left = 0;
-            state.user.b_list_points = 0;
-            state.user.b_list_points_left = 0;
-            state.user.humanistic_points = 0;
-            state.user.humanistic_points_left = 0;
-            state.user.free_points = 0;
-            state.user.free_points_left = 0;
-            state.user.exemption_points = 0;
             state.user.english_exemption = false;
             state.user.semesters = [];
             state.user.course_types = [];
@@ -173,7 +158,6 @@ export const store = new Vuex.Store({
         setUserData:(state, user_data) => {
             state.user = user_data;
             setDefaultCourseTypes(state);
-            window.console.log(state.user.course_types)
         },
         setActiveSemester: (state, index) => {
             state.user.active_semester = index;
@@ -249,6 +233,19 @@ export const store = new Vuex.Store({
                 updateUserData(state);
             }
         },
+        changeCategoryName: (state, name_index) => {
+            if(name_index[1] < state.user.course_types.length){
+                state.user.course_types[name_index[1]].name = name_index[0]
+            }
+            calculateUserInfo(state);
+        },
+        deleteCourseType: (state, index) => {
+            if(index < state.user.course_types.length){
+                resetRemovedCategory(state,index);
+                state.user.course_types.splice(index,1);
+            }
+            calculateUserInfo(state);
+        },
         reCalcCurrentSemester: (state) => {
             if (state.user.semesters.length > 0) {
                 calculateUserInfo(state);
@@ -323,6 +320,7 @@ export const store = new Vuex.Store({
             }
             commit('setExemptionStatus', (semesters_exemption['exemption']));
             commit('reCalcCurrentSemester');
+            commit('setActiveSemester', semesters_exemption['semesters'].length)
         },
     }
 });

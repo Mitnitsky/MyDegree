@@ -59,7 +59,6 @@
 </template>
 <script>
     import {clearCourse, courseIsEmpty} from "../store/classes/course";
-    import {course_types} from "../store/classes/course_types";
     import {createHelpers} from 'vuex-map-fields';
 
     const {mapFields} = createHelpers({
@@ -72,7 +71,6 @@
         props: ['course', 'index'],
         data() {
             return {
-                types: course_types,
                 InputIsWrong: 'inputIsWrong'
             }
         },

@@ -1,4 +1,4 @@
-import {course_types} from "./course_types";
+
 
 export function createNewCourse() {
     let course = {};
@@ -7,7 +7,7 @@ export function createNewCourse() {
     course.number = '';
     course.points = 0;
     course.grade = 0;
-    course.type = course_types.MUST;
+    course.type = 0;
     return course;
 }
 
@@ -22,7 +22,7 @@ export function createCourseFromDBEntry(course) {
     } else {
         course_to_add.grade = 0;
     }
-    course_to_add.type = course_types.MUST;
+    course_to_add.type = 0;
 
     return course_to_add;
 }
@@ -37,6 +37,6 @@ export function clearCourse(course) {
     course.number = '';
     course.points = 0;
     course.grade = 0;
-    course.type = course_types.MUST;
+    course.type = 0;
 }
 

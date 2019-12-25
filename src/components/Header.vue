@@ -134,6 +134,146 @@
             </b-button>
           </div>
         </b-modal>
+        <font-awesome-icon icon="sliders-h"
+                           size="lg"
+                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                           v-b-modal.modal-1/>
+        <b-nav-item @click="$bvModal.show('modal-course-types')"
+                    href="#"
+                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+        >שינוי קטגוריות קורסים
+        </b-nav-item>
+        <b-modal centered
+                 content-class="shadow"
+                 header-bg-variant="dark"
+                 header-text-variant="white"
+                 hide-backdrop
+                 hide-footer
+                 id="modal-course-types"
+                 ok-disabled
+                 ref="modal-course-types"
+                 size="md"
+                 title="שינוי קטגוריות קורסים">
+          <template v-slot:modal-header="{ close }">
+            <div class="row"
+                 style="width: 100%">
+              <div class="col-lg-11"
+                   style="text-align: right;">
+                <h5 class="modal-title">שינוי קטגוריות קורסים</h5>
+              </div>
+              <div class="col-lg-1"
+                   style="width: 5%;text-align: left;align-items: flex-end">
+                <b-button @click="close()"
+                          aria-label="Close"
+                          class="close text-light"
+                          style="margin-right: 5px;"
+                          type="button">×
+                </b-button>
+              </div>
+            </div>
+          </template>
+          <table class="table table-sm ">
+            <thead class="thead-dark">
+            <tr>
+              <th colspan="2"
+                  scope="col"
+                  style="text-align: center;padding:.3rem">קטגוריות
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+              <template v-for="(type,index) in course_types">
+                <tr :key="index"
+                    v-if="index > 3">
+                  <td :key="index"
+                      class="col-11">
+                    <input :value="type.name"
+                           class="form-control"
+                           type="text">
+                  </td>
+                  <td class="col-1">
+                    <b-button @change="changeCategoryName(index)"
+                              @click="deleteCategory(index)"
+                              title="מחק קטגוריה"
+                              v-b-tooltip.hover.v-secondary
+                              variant="outline-danger">x
+                    </b-button>
+                  </td>
+                </tr>
+                <tr :key="index"
+                    v-else>
+                  <td :key="index"
+                      colspan="2">
+                    <input :value="type.name"
+                           class="form-control"
+                           readonly
+                           style="text-align: center;cursor: default;"
+                           type="text">
+                  </td>
+                </tr>
+
+
+              </template>
+            </tbody>
+
+          </table>
+          <div class="row justify-content-center">
+            <b-button v-b-modal.modal-add-course-type
+                      variant="outline-primary"
+            >
+              הוסף קטגוריה
+            </b-button>
+            <b-modal cancel-disabled
+                     centered
+                     content-class="shadow"
+                     header-bg-variant="dark"
+                     header-text-variant="white"
+                     hide-footer
+                     id="modal-add-course-type"
+                     ok-disabled
+                     size="sm"
+                     ref="modal-add-course-type"
+                     title="הוספת קטגוריה">
+              <template v-slot:modal-header="{ close }">
+                <div class="row"
+                     style="width: 100%">
+                  <div class="col"
+                       style="text-align: right;">
+                    <h5 class="modal-title">הוספת קטגוריה</h5>
+                  </div>
+                  <div class="col-2"
+                       style="width: 5%;text-align: left;align-items: flex-end">
+                    <b-button @click="close()"
+                              aria-label="Close"
+                              class="close text-light"
+                              style="margin-right: 5px;"
+                              type="button">×
+                    </b-button>
+                  </div>
+                </div>
+              </template>
+              <div class="input-group-prepend "
+                   style="width: 100%">
+                <span class="input-group-text input-group-addon courseNameSpan">שם</span>
+                <input @change="invalidInput = false"
+                       id="new_category_name"
+                       class="form-control  input-group-addon "
+                       type="text"
+                >
+              </div>
+              <span dir="rtl"
+                    style="size: 12px;color: red;"
+                    v-if="wrongInput">קטגוריה עם שם זה קיימת כבר!<br> יש לבחור שם אחר</span>
+              <div class="row justify-content-center mt-2">
+                <b-button @click="addCategory"
+                          variant="outline-primary"
+                >
+                  הוסף
+                </b-button>
+              </div>
+            </b-modal>
+          </div>
+        </b-modal>
         <b-nav-item-dropdown id="extra"
                              right>
           <b-dropdown-item @click="exportAsJson"
@@ -224,19 +364,22 @@
 <script>
     import firebase from "firebase/app"
     import Authentication from "./HeaderAuthentication";
-    import {mapFields} from 'vuex-map-fields';
     import 'firebase/auth'
     import 'firebase/firestore'
     import {parseGraduateInformation} from "../store/aux/converter";
+    import {createHelpers} from 'vuex-map-fields';
+
+    const {mapFields} = createHelpers({
+        getterType: 'getUserField',
+        mutationType: 'updateUserField',
+    });
 
     export default {
         components: {Authentication},
         name: "HeaderNavBar",
         computed: {
             ...mapFields([
-                'user_name',
-                'logged'
-
+                'course_types'
             ])
         },
         mounted() {
@@ -271,10 +414,32 @@
         data() {
             return {
                 message: '',
-                json_text: ''
+                json_text: '',
+                user_name: this.$store.state.user_name,
+                logged: this.$store.state.logged,
+                wrongInput: false
             }
         },
         methods: {
+            changeCategoryName(index) {
+              this.$store.commit("changeCategoryName", [this.course_types[index].name,index])
+            },
+            deleteCategory(index) {
+              this.$store.commit("deleteCourseType", index);
+            },
+            addCategory() {
+                this.wrongInput = false;
+                let new_category_name = document.getElementById("new_category_name").value
+                window.console.log(document.getElementById("new_category_name").value)
+                for (let course_type of this.course_types) {
+                    if (course_type.name === new_category_name) {
+                        this.wrongInput = true;
+                        return
+                    }
+                }
+                this.$store.commit("addCourseType", new_category_name)
+                this.hideModal('modal-add-course-type')
+            },
             exportAsJson() {
                 this.$store.commit('exportSemesters')
             },

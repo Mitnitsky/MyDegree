@@ -14,18 +14,18 @@
               variant="outline-dark">הסתר סיכום תואר &Uarr;
     </b-button>
     <b-collapse id="collapse-summary">
-      <b-card-group>
+      <b-card-group deck>
         <div class="container justify-content-center">
           <div class="row justify-content-center">
             <div class="col "
-                 style="max-width: 550px; min-width: 480px">
-              <b-card flow
-                      class="shadow bg-white rounded"
+                 style="max-width: 590px; min-width: 480px">
+              <b-card class="shadow bg-white rounded h-100"
+                      flow
                       header="סיכום תואר"
                       header-bg-variant="dark"
                       header-class="summary-card-header"
                       header-text-variant="white"
-                      style="min-height: 400px !important;"
+                      style=""
               >
                 <div style="height: 100%">
                   <div class="input-group mb-2"
@@ -37,7 +37,9 @@
                            max="9999999"
                            min="0"
                            step="0.5"
+                           title="יש למלא שדה זה"
                            type="number"
+                           v-b-tooltip.hover.v-dark
                            v-model.number="degree_points">
                   </div>
                   <div class="input-group mb-2">
@@ -95,7 +97,7 @@
               </b-card>
             </div>
             <div class="col "
-                 style="max-width: 550px; min-width: 480px">
+                 style="max-width: 590px; min-width: 480px">
               <b-card class="h-100 shadow bg-white rounded"
                       flow
                       header="ניתוח סוגי קורסים"
@@ -103,17 +105,17 @@
                       header-class="summary-card-header"
                       header-text-variant="white">
                 <div class="input-group mb-2">
-                  <div class="input-group courseName">
+                  <div class="input-group col-4">
 
                   </div>
-                  <input class="input-group form-control"
+                  <input class="input-group-prepend input-group-addon form-control"
                          disabled
                          readonly
                          style="background-color: aliceblue;align-content: center;text-align: center;"
                          type="text"
                          value="נותרו"
                   >
-                  <input class="input-group form-control column-headers"
+                  <input class="input-group  form-control column-headers"
                          disabled
                          readonly
                          style="background-color: aliceblue;text-align: center;"
@@ -123,24 +125,32 @@
                 </div>
 
                 <template v-for="(type, index) in course_types">
-                  <div class="input-group mb-2" v-bind:key="index">
-                    <div class="input-group courseName">
-                      <span class="input-group-text courseNameSpan">{{type.name}}</span>
+                  <div class="input-group mb-2"
+                       v-bind:key="index"
+                       v-if="type.name !== 'פטור'">
+                    <div class="input-group-prepend "
+                         style="width: 100%">
+                      <span class="input-group-text input-group-addon courseNameSpan">{{type.name}}</span>
+                      <input class="form-control degree-summary input-group-addon  disabled-input"
+                             disabled="disabled"
+                             readonly
+
+                             step="0.5"
+                             style="text-align: center"
+                             type="number"
+                             v-model.number="type.points_left"
+                      >
+                      <input @input="updateInfo"
+                             class="form-control degree-summary degree-summary-number degree-input-field"
+                             max="9999999"
+                             min="0"
+                             step="0.5"
+                             style="text-align: center"
+                             title="יש למלא שדה זה"
+                             type="number"
+                             v-b-tooltip.hover.left.v-dark
+                             v-model.number="type.points_required">
                     </div>
-                    <input class="form-control degree-summary degree-summary-number disabled-input"
-                           disabled="disabled"
-                           readonly
-                           step="0.5"
-                           type="number"
-                           v-model.number="type.points_left"
-                    >
-                    <input class="form-control degree-summary degree-summary-number degree-input-field"
-                           max="9999999"
-                           min="0"
-                           step="0.5"
-                           style="text-align: center"
-                           type="number"
-                           v-model.number="type.points_required">
                   </div>
                 </template>
 
@@ -187,23 +197,16 @@
                 'degree_points_done',
                 'degree_points_left',
                 'degree_points_to_choose',
-                'must_points',
-                'must_points_left',
-                'a_list_points',
-                'a_list_points_left',
-                'b_list_points',
-                'b_list_points_left',
-                'humanistic_points',
-                'humanistic_points_left',
-                'free_points',
-                'free_points_left',
-                'exemption_points',
                 'english_exemption',
                 'semesters',
                 'course_types'
             ]),
         },
-        methods: {},
+        methods: {
+            updateInfo() {
+              this.$store.commit("reCalcCurrentSemester")
+            }
+        },
     }
 </script>
 
@@ -254,4 +257,47 @@
   .summary-card-header {
     font-weight: bold !important;
   }
+
+  /*Thanks to Vucko at https://stackoverflow.com/questions/42677620/bootstrap-4-input-group-rtl-issue*/
+  [dir="rtl"] .input-group-addon:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, .15);
+    border-left: 0;
+  }
+
+  [dir="rtl"] .input-group .form-control:not(:last-child),
+  [dir="rtl"] .input-group-addon:not(:last-child),
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group:not(:last-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn:not(:last-child):not(.dropdown-toggle),
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+    border-bottom-right-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  [dir="rtl"] .input-group .form-control:not(:first-child),
+  [dir="rtl"] .input-group-addon:not(:first-child),
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group:not(:first-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .25rem;
+    border-top-left-radius: .25rem;
+  }
+
+  [dir="rtl"] .form-control + .input-group-addon:not(:first-child) {
+    border-left: 1px solid rgba(0, 0, 0, .15);
+    border-right: 0;
+  }
+
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
 </style>

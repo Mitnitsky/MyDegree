@@ -21,6 +21,7 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {
     faDownload,
     faEnvelope,
+    faSlidersH,
     faFileImport,
     faSignInAlt,
     faSignOutAlt,
@@ -32,6 +33,7 @@ import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 library.add(faUserCircle);
 library.add(faSignInAlt);
 library.add(faDownload);
+library.add(faSlidersH);
 library.add(faUpload);
 library.add(faSignOutAlt);
 library.add(faFileImport);
