@@ -425,7 +425,9 @@
               this.$store.commit("changeCategoryName", [this.course_types[index].name,index])
             },
             deleteCategory(index) {
-              this.$store.commit("deleteCourseType", index);
+              if (confirm('למחוק קטגוריה?')) {
+                  this.$store.commit("deleteCourseType", index);
+              }
             },
             addCategory() {
                 this.wrongInput = false;
