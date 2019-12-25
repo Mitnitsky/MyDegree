@@ -127,13 +127,93 @@
           >
           </b-form-textarea>
           <div class="row justify-content-center mt-2">
-            <b-button @click="importCourses"
+            <b-button @click="importCoursesFromUG"
                       variant="outline-primary"
             >
               יבוא קורסים
             </b-button>
           </div>
         </b-modal>
+
+        <!--        --><!--        --><!--        --><!--        -->
+        <font-awesome-icon icon="file-import"
+                           rotation="180"
+
+                           size="lg"
+                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                           v-b-modal.modal-1/>
+        <b-nav-item @click="$bvModal.show('modal-cf-import')"
+                    href="#"
+                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+        >יבוא סמסטר מ-CheeseFork</b-nav-item>
+        <b-modal centered
+                 content-class="shadow"
+                 header-bg-variant="dark"
+                 header-text-variant="white"
+                 hide-backdrop
+                 hide-footer
+                 id="modal-cf-import"
+                 ok-title="הוסף קורסים"
+                 ok-variant="primary"
+                 ref="modal-cf-import"
+                 size="md"
+                 title="יבוא סמסטר מ-CheeseFork">
+          <template v-slot:modal-header="{ close }">
+            <div class="row"
+                 style="width: 100%">
+              <div class="col-lg-11"
+                   style="text-align: right;">
+                <h5 class="modal-title">יבוא סמסטר מ-CheeseFork</h5>
+              </div>
+              <div class="col-lg-1"
+                   style="width: 5%;text-align: left;align-items: flex-end">
+                <b-button @click="close()"
+                          aria-label="Close"
+                          class="close text-light"
+                          style="margin-right: 5px;"
+                          type="button">×
+                </b-button>
+              </div>
+            </div>
+          </template>
+          <div class="row justify-content-center">
+            <b-button id="popover-cf-variant"
+                      variant="outline-primary">הוראות
+            </b-button>
+            <b-popover placement="top"
+                       target="popover-cf-variant"
+                       triggers="hover"
+                       variant="outline-dark">
+              <template v-slot:title><h4>הוראות</h4></template>
+              <p>יש לסמן את הקורסים<a href="https://cheesefork.cf/"
+                                                       target="_blank">Cheesefork</a> ולהעתיק אותו לתיבת הטקסט
+                 בחלון זה
+              </p>
+              <img src="../../images/import_from_cf.png">
+            </b-popover>
+
+          </div>
+          <div class="row justify-content-center mb-2">
+            <b-form-text>
+            </b-form-text>
+          </div>
+          <b-form-textarea id="import-text"
+                           no-resize
+                           placeholder="יש להעתיק את התוכן לכאן"
+                           rows="5"
+                           v-model="input_data"
+          >
+          </b-form-textarea>
+          <div class="row justify-content-center mt-2">
+            <b-button @click="importCoursesFromCF"
+                      variant="outline-primary"
+            >
+              יבוא קורסים
+            </b-button>
+          </div>
+        </b-modal>
+
+        <!--        --><!--        --><!--        --><!--        --><!--        -->
         <font-awesome-icon icon="sliders-h"
                            size="lg"
                            style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
@@ -254,16 +334,17 @@
               </template>
               <div class="input-group-prepend "
                    style="width: 100%">
-                <span class="input-group-text input-group-addon courseNameSpan">שם</span>
-                <input @change="invalidInput = false"
+                <input @input="hideInvalidInput"
                        id="new_category_name"
+                       placeholder="שם קטגוריה"
                        class="form-control  input-group-addon "
                        type="text"
                 >
               </div>
               <span dir="rtl"
+                    id="invalid-input"
                     style="size: 12px;color: red;"
-                    v-if="wrongInput">קטגוריה עם שם זה קיימת כבר!<br> יש לבחור שם אחר</span>
+                    v-if="wrongInput">קטגוריה עם שם כזה קיימת כבר!</span>
               <div class="row justify-content-center mt-2">
                 <b-button @click="addCategory"
                           variant="outline-primary"
@@ -289,7 +370,7 @@
             />
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
-          <b-dropdown-item @click="importCoursesFromJSON"
+          <b-dropdown-item
                            href="#"
                            v-b-modal.modal-import-from-json>
             <font-awesome-icon icon="upload"
@@ -366,7 +447,7 @@
     import Authentication from "./HeaderAuthentication";
     import 'firebase/auth'
     import 'firebase/firestore'
-    import {parseGraduateInformation} from "../store/aux/converter";
+    import {parseGraduateInformation, parseCheeseFork} from "../store/aux/converter";
     import {createHelpers} from 'vuex-map-fields';
 
     const {mapFields} = createHelpers({
@@ -414,6 +495,7 @@
         data() {
             return {
                 message: '',
+                input_data: '',
                 json_text: '',
                 user_name: this.$store.state.user_name,
                 logged: this.$store.state.logged,
@@ -429,8 +511,11 @@
                   this.$store.commit("deleteCourseType", index);
               }
             },
-            addCategory() {
+            hideInvalidInput(){
                 this.wrongInput = false;
+              // document.getElementById('invalid-input').hidden = true
+            },
+            addCategory() {
                 let new_category_name = document.getElementById("new_category_name").value
                 window.console.log(document.getElementById("new_category_name").value)
                 for (let course_type of this.course_types) {
@@ -445,7 +530,7 @@
             exportAsJson() {
                 this.$store.commit('exportSemesters')
             },
-            importCourses() {
+            importCoursesFromUG() {
                 if (this.message !== '') {
                     if (confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?')) {
                         let semesters_exemption = parseGraduateInformation(this.message);
@@ -456,6 +541,14 @@
                         this.message = '';
                         this.hideModal('modal-import');
                     }
+                }
+            },
+            importCoursesFromCF() {
+                if (this.input_data !== '') {
+                        let courses_list = parseCheeseFork(this.input_data);
+                        this.$store.dispatch('addNewSemesterFromData', courses_list);
+                        this.input_data = '';
+                        this.hideModal('modal-cf-import');
                 }
             },
             importCoursesFromJSON() {

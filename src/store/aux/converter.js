@@ -3,6 +3,7 @@
 //     return semesters;
 // }
 
+
 export function parseGraduateInformation(grades_copy) {
     grades_copy = grades_copy.split('\n');
     let lines = [[]];
@@ -69,4 +70,37 @@ export function parseGraduateInformation(grades_copy) {
         index += 1
     }
     return {"semesters": semesters, "exemption": english_exemption};
+}
+
+function findCourse(course_number, json_courses){
+    if(course_number.length < 3){
+        return []
+    }
+    return json_courses.filter( e => e.number.includes(course_number))    
+}
+
+export function parseCheeseFork(courses) {
+    courses = courses.split('\n');
+    let courses_from_db = [];
+    let json_courses;
+    if (localStorage.getItem('courses')) {
+        json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'))
+    } else {
+        json_courses = require("../../data/courses.json");
+        localStorage.setItem('courses', JSON.stringify(json_courses));
+    }
+    let j_courses = json_courses.courses
+    for(let course of courses){
+        let splited = course.split('-');
+        if (splited.length >= 2) {
+            const course_number = splited[0].trim();
+            if (!isNaN(parseInt(course_number))) {
+                let result = findCourse(course_number, j_courses);
+                if(result.length > 0){
+                    courses_from_db.push(result[0])
+                }
+            }
+        }
+    }
+    return courses_from_db
 }

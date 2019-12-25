@@ -307,6 +307,13 @@ export const store = new Vuex.Store({
             }
 
         },
+        addNewSemesterFromData: (context, course_list) => {
+            context.commit('addSemester', 0);
+            context.commit('changeSemesterTo', context.state.user.semesters.length-1);
+            for(let course of course_list){
+                context.commit('addCourseWithData', course);
+            }
+        },
         loadUserDataFromUGSite: ({commit}, semesters_exemption) => {
             commit('clearUserData');
             let index = 0;
@@ -320,7 +327,7 @@ export const store = new Vuex.Store({
             }
             commit('setExemptionStatus', (semesters_exemption['exemption']));
             commit('reCalcCurrentSemester');
-            commit('setActiveSemester', semesters_exemption['semesters'].length)
+            commit('changeSemesterTo', semesters_exemption['semesters'].length -1)
         },
     }
 });
