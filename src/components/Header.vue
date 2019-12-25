@@ -145,7 +145,8 @@
         <b-nav-item @click="$bvModal.show('modal-cf-import')"
                     href="#"
                     style="font-size: 18px;color: lightgray;text-decoration-line: underline"
-        >יבוא סמסטר מ-CheeseFork</b-nav-item>
+        >יבוא סמסטר מ-CheeseFork
+        </b-nav-item>
         <b-modal centered
                  content-class="shadow"
                  header-bg-variant="dark"
@@ -186,7 +187,7 @@
                        variant="outline-dark">
               <template v-slot:title><h4>הוראות</h4></template>
               <p>יש לסמן את הקורסים<a href="https://cheesefork.cf/"
-                                                       target="_blank">Cheesefork</a> ולהעתיק אותו לתיבת הטקסט
+                                      target="_blank">Cheesefork</a> ולהעתיק אותו לתיבת הטקסט
                  בחלון זה
               </p>
               <img src="../../images/import_from_cf.png">
@@ -268,12 +269,12 @@
                   <td :key="index"
                       class="col-11">
                     <input :value="type.name"
+                           @input="changeCategoryName(index, $event)"
                            class="form-control"
                            type="text">
                   </td>
                   <td class="col-1">
-                    <b-button @change="changeCategoryName(index)"
-                              @click="deleteCategory(index)"
+                    <b-button @click="deleteCategory(index)"
                               title="מחק קטגוריה"
                               v-b-tooltip.hover.v-secondary
                               variant="outline-danger">x
@@ -311,8 +312,8 @@
                      hide-footer
                      id="modal-add-course-type"
                      ok-disabled
-                     size="sm"
                      ref="modal-add-course-type"
+                     size="sm"
                      title="הוספת קטגוריה">
               <template v-slot:modal-header="{ close }">
                 <div class="row"
@@ -335,9 +336,9 @@
               <div class="input-group-prepend "
                    style="width: 100%">
                 <input @input="hideInvalidInput"
+                       class="form-control  input-group-addon "
                        id="new_category_name"
                        placeholder="שם קטגוריה"
-                       class="form-control  input-group-addon "
                        type="text"
                 >
               </div>
@@ -371,8 +372,8 @@
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
           <b-dropdown-item
-                           href="#"
-                           v-b-modal.modal-import-from-json>
+              href="#"
+              v-b-modal.modal-import-from-json>
             <font-awesome-icon icon="upload"
                                size="lg"
                                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
@@ -447,7 +448,7 @@
     import Authentication from "./HeaderAuthentication";
     import 'firebase/auth'
     import 'firebase/firestore'
-    import {parseGraduateInformation, parseCheeseFork} from "../store/aux/converter";
+    import {parseCheeseFork, parseGraduateInformation} from "../store/aux/converter";
     import {createHelpers} from 'vuex-map-fields';
 
     const {mapFields} = createHelpers({
@@ -503,17 +504,17 @@
             }
         },
         methods: {
-            changeCategoryName(index) {
-              this.$store.commit("changeCategoryName", [this.course_types[index].name,index])
+            changeCategoryName(index, event) {
+                this.$store.commit("changeCategoryName", [event.target.value, index])
             },
             deleteCategory(index) {
-              if (confirm('למחוק קטגוריה?')) {
-                  this.$store.commit("deleteCourseType", index);
-              }
+                if (confirm('למחוק קטגוריה?')) {
+                    this.$store.commit("deleteCourseType", index);
+                }
             },
-            hideInvalidInput(){
+            hideInvalidInput() {
                 this.wrongInput = false;
-              // document.getElementById('invalid-input').hidden = true
+                // document.getElementById('invalid-input').hidden = true
             },
             addCategory() {
                 let new_category_name = document.getElementById("new_category_name").value
@@ -545,10 +546,10 @@
             },
             importCoursesFromCF() {
                 if (this.input_data !== '') {
-                        let courses_list = parseCheeseFork(this.input_data);
-                        this.$store.dispatch('addNewSemesterFromData', courses_list);
-                        this.input_data = '';
-                        this.hideModal('modal-cf-import');
+                    let courses_list = parseCheeseFork(this.input_data);
+                    this.$store.dispatch('addNewSemesterFromData', courses_list);
+                    this.input_data = '';
+                    this.hideModal('modal-cf-import');
                 }
             },
             importCoursesFromJSON() {
