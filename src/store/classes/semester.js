@@ -1,7 +1,7 @@
 import {courseIsEmpty, createCourseFromDBEntry, createNewCourse} from "@/store/classes/course";
 import {MathRound10} from "../aux/rounder";
 
-const exemption_index = 3;
+const exemption_index = 1;
 
 
 function initializeSemesterPoints(semester) {

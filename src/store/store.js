@@ -47,7 +47,7 @@ function resetRemovedCategory(state, category_id) {
 
 function calculateUserInfo(state) {
     let current_semester = state.user.semesters[state.user.active_semester];
-    const exemption_index = 3;
+    const exemption_index = 1;
     if (current_semester != null) {
         if (state.user.english_exemption) {
             state.user.degree_points_done = 3;

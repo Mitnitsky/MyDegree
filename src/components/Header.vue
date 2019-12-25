@@ -264,8 +264,21 @@
             </thead>
             <tbody>
               <template v-for="(type,index) in course_types">
+
                 <tr :key="index"
-                    v-if="index > 3">
+                    v-if="type.name === 'פטור' || type.name === 'חובה'"
+                    >
+                  <td :key="index"
+                      colspan="2">
+                    <input :value="type.name"
+                           class="form-control"
+                           readonly
+                           style="text-align: center;cursor: default;"
+                           type="text">
+                  </td>
+                </tr>
+                <tr :key="index"
+                    v-if="index > 0 && type.name !== 'פטור' && type.name !== 'חובה'">
                   <td :key="index"
                       class="col-11">
                     <input :value="type.name"
@@ -281,17 +294,7 @@
                     </b-button>
                   </td>
                 </tr>
-                <tr :key="index"
-                    v-else>
-                  <td :key="index"
-                      colspan="2">
-                    <input :value="type.name"
-                           class="form-control"
-                           readonly
-                           style="text-align: center;cursor: default;"
-                           type="text">
-                  </td>
-                </tr>
+
 
 
               </template>
