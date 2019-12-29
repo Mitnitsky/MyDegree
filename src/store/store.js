@@ -9,7 +9,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
-import {create_course_type, default_course_types} from "@/store/classes/course_types";
+import {create_course_type,  default_course_types_obj} from "@/store/classes/course_types";
 
 Vue.use(Vuex);
 
@@ -17,7 +17,6 @@ function updateUserData(state) {
     if (localStorage.getItem('authenticated') === 'true') {
         const user = firebase.auth().currentUser;
         if (user != null) {
-            setDefaultCourseTypes(state);
             firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
                 return typeof result;
             }).catch((reason => {
@@ -59,8 +58,8 @@ function calculateUserInfo(state) {
         state.user.degree_points_to_choose = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[0].points_left = state.user.course_types[0].points_required - (state.user.english_exemption ? 3 : 0);
-        state.user.course_types[3].points_left = 0;
-        for (let course_type of state.user.course_types) {
+        state.user.course_types[1].points_left = 0;
+        for(let course_type of state.user.course_types){
             if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
                 course_type.points_left = course_type.points_required
             }
@@ -106,18 +105,6 @@ function calculateUserInfo(state) {
     updateUserData(state);
 }
 
-function setDefaultCourseTypes(state) {
-    if (state.user.course_types == null) {
-        state.user.course_types = []
-    }
-    if (state.user.course_types.length === 0) {
-        for (let course_type of default_course_types) {
-            state.user.course_types.push(create_course_type(course_type))
-        }
-        updateUserData(state);
-    }
-}
-
 export const store = new Vuex.Store({
     state: {
         logged: false,
@@ -131,7 +118,7 @@ export const store = new Vuex.Store({
             degree_points_to_choose: 0,
             english_exemption: false,
             semesters: [],
-            course_types: []
+            course_types: default_course_types_obj
         }
     },
     getters: {
@@ -156,7 +143,6 @@ export const store = new Vuex.Store({
         },
         setUserData: (state, user_data) => {
             state.user = user_data;
-            setDefaultCourseTypes(state);
         },
         setActiveSemester: (state, index) => {
             state.user.active_semester = index;
