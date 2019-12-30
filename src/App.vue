@@ -1,6 +1,6 @@
 <template>
   <div id="app"
-       style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif;min-width: 810px !important;">
+       style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif;min-width: 838px !important;">
     <header-nav-bar/>
     <div class="container-fluid">
       <semesters-tab-view style="margin: 5px"/>

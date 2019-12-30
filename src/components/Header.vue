@@ -648,13 +648,13 @@
   }
 
   #modal-1___BV_modal_outer_ {
-    min-width: 810px !important;
+    min-width: 838px !important;
   }
 
 
   #modal-1 {
 
-    min-width: 810px !important;
+    min-width: 838px !important;
 
   }
 
