@@ -11,17 +11,24 @@ export function parseGraduateInformation(grades_copy) {
     let found_first_sem = false;
     let english_exemption = false;
     let semesters = {};
+    let summer_semester_indexes = []
     for (let line of grades_copy) {
         if (found_first_sem === false) {
             if (line.includes('אנגלית') && line.includes('פטור')) {
                 english_exemption = true;
             }
             if (line.includes('קיץ') || line.includes('חורף') || line.includes('אביב')) {
+                if(line.includes('קיץ')){
+                    summer_semester_indexes.push(0)
+                }
                 found_first_sem = true
             }
         } else {
             if (line.includes('קיץ') || line.includes('חורף') || line.includes('אביב')) {
                 index += 1;
+                if(line.includes('קיץ')){
+                    summer_semester_indexes.push((index))
+                }
                 lines.push([]);
                 continue
             }
@@ -69,7 +76,7 @@ export function parseGraduateInformation(grades_copy) {
         semesters[index.toString()] = courses;
         index += 1
     }
-    return {"semesters": semesters, "exemption": english_exemption};
+    return {"semesters": semesters, "exemption": english_exemption,"summer_semesters_indexes": summer_semester_indexes};
 }
 
 function findCourse(course_number, json_courses){

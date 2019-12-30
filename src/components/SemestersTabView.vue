@@ -5,10 +5,10 @@
     <b-tabs @input="updateActiveSemester"
             card
             pills>
-      <b-tab :key="semester.name"
+      <b-tab :key="index"
              :title="'סמסטר '+ semester.name"
              lazy
-             v-for="semester in this.$store.state.user.semesters">
+             v-for="(semester,index) in this.$store.state.user.semesters">
         <div class="row justify-content-md-center"
         >
           <div class="col-xl-10"
@@ -26,12 +26,29 @@
           </div>
           <div class="col-xl-2"
           >
-            <b-button @click="closeTab"
-                      class="align-self-end"
-                      size="sm"
-                      variant="outline-danger">
-              מחיקת סמסטר
-            </b-button>
+            <b-button-group class="mx-1"
+                            style="direction: ltr">
+              <b-button @click="closeTab"
+                        class="align-self-end"
+                        size="sm"
+                        variant="outline-danger">
+                מחק סמסטר
+              </b-button>
+              <b-button v-if="semester.name.toString().includes('קיץ')"
+                        @click="changeToRegular"
+                        class="align-self-end"
+                        size="sm"
+                        variant="outline-info">
+                הפוך לסמסטר רגיל
+              </b-button>
+              <b-button v-else
+                        @click="changeToSummer"
+                        class="align-self-end"
+                        size="sm"
+                        variant="outline-info">
+                הפוך לסמסטר קיץ
+              </b-button>
+            </b-button-group>
           </div>
         </div>
       </b-tab>
@@ -112,8 +129,15 @@
                     }
                 );
             },
+
             newTab() {
                 this.$store.commit('addSemester', 1);
+            },
+            changeToSummer() {
+                this.$store.commit('changeActiveSemesterType')
+            },
+            changeToRegular() {
+                this.$store.commit('changeActiveSemesterType')
             },
             updateActiveSemester(tab_index) {
                 this.$store.commit('changeSemesterTo', tab_index);

@@ -536,7 +536,6 @@
             },
             addCategory() {
                 let new_category_name = document.getElementById("new_category_name").value;
-                window.console.log(document.getElementById("new_category_name").value);
                 for (let course_type of this.course_types) {
                     if (course_type.name === new_category_name) {
                         this.wrongInput = true;
@@ -567,10 +566,11 @@
                         centered: true
                     }).then(v => {
                             if (v === true) {
-                                let semesters_exemption = parseGraduateInformation(this.message);
+                                let semesters_exemption_summerIndexes = parseGraduateInformation(this.message);
                                 this.$store.dispatch('loadUserDataFromUGSite', {
-                                    "semesters": semesters_exemption['semesters'],
-                                    "exemption": semesters_exemption['exemption']
+                                    "semesters": semesters_exemption_summerIndexes['semesters'],
+                                    "exemption": semesters_exemption_summerIndexes['exemption'],
+                                    "summer_semesters_indexes": semesters_exemption_summerIndexes['summer_semesters_indexes']
                                 });
                                 this.message = '';
                                 this.hideModal('modal-import');

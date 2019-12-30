@@ -9,7 +9,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
-import {create_course_type,  default_course_types_obj} from "@/store/classes/course_types";
+import {create_course_type, default_course_types_obj} from "@/store/classes/course_types";
 
 Vue.use(Vuex);
 
@@ -44,6 +44,34 @@ function resetRemovedCategory(state, category_id) {
     }
 }
 
+function renameSemesters(semesters) {
+    if (!semesters || semesters.length < 0) {
+        return
+    }
+    let summer_semesters = 0;
+    for (let i = 0; i < semesters.length; i++) {
+        if (semesters[i].name.toString().includes('קיץ')) {
+            summer_semesters++
+        } else {
+            semesters[i].name = 1 + i - summer_semesters
+        }
+    }
+}
+
+function getSummerSemestersNumber(semesters) {
+    if (!semesters || semesters.length < 0) {
+        return 0
+    } else {
+        let summer_semesters = 0;
+        for (let i = 0; i < semesters.length; i++) {
+            if (semesters[i].name.toString().includes('קיץ')) {
+                summer_semesters++;
+            }
+        }
+        return summer_semesters
+    }
+}
+
 function calculateUserInfo(state) {
     let current_semester = state.user.semesters[state.user.active_semester];
     const exemption_index = 1;
@@ -59,7 +87,7 @@ function calculateUserInfo(state) {
         state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[0].points_left = state.user.course_types[0].points_required - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[1].points_left = 0;
-        for(let course_type of state.user.course_types){
+        for (let course_type of state.user.course_types) {
             if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
                 course_type.points_left = course_type.points_required
             }
@@ -110,6 +138,7 @@ export const store = new Vuex.Store({
         logged: false,
         user_name: '',
         user: {
+            summer_semesters: 0,
             active_semester: 0,
             degree_average: 0,
             degree_points: 0,
@@ -131,6 +160,7 @@ export const store = new Vuex.Store({
         updateField,
         clearUserData: (state) => {
             state.user.active_semester = 0;
+            state.user.summer_semesters = 0;
             state.user.degree_average = 0;
             state.user.degree_points = 0;
             state.user.degree_points_done = 0;
@@ -138,11 +168,17 @@ export const store = new Vuex.Store({
             state.user.degree_points_to_choose = 0;
             state.user.english_exemption = false;
             state.user.semesters = [];
-            state.user.course_types = [];
+            state.user.course_types = default_course_types_obj;
             updateUserData(state);
         },
         setUserData: (state, user_data) => {
             state.user = user_data;
+            if (state.user.course_types === "undefined") {
+                state.user.course_types = default_course_types_obj
+            }
+            if (state.user.summer_semesters === "undefined") {
+                state.user.summer_semesters = 0;
+            }
         },
         setActiveSemester: (state, index) => {
             state.user.active_semester = index;
@@ -151,7 +187,9 @@ export const store = new Vuex.Store({
             state.user.english_exemption = status;
         },
         addSemester: (state, initial_courses) => {
+            state.user.summer_semesters = getSummerSemestersNumber();
             state.user.semesters.push(Semester.createNewSemester(state.user.semesters.length + 1, initial_courses));
+            renameSemesters(state.user.semesters);
             updateUserData(state);
         },
         sortSemesterByField: (state, fieldName) => {
@@ -192,12 +230,15 @@ export const store = new Vuex.Store({
             updateUserData(state);
         },
         removeSemester: (state) => {
-            state.user.semesters.splice(state.user.active_semester, 1);
-            let i = 1;
-            for (let semester of state.user.semesters) {
-                semester.name = i.toString();
-                i++;
+            let semesters = state.user.semesters;
+            if (semesters.length === 1) {
+                state.user.semesters = [];
+                state.user.summer_semesters = 0;
+                return
             }
+            semesters.splice(state.user.active_semester, 1);
+            renameSemesters(semesters)
+            state.user.summer_semesters = getSummerSemestersNumber(semesters);
             updateUserData(state);
         },
         changeSemesterTo: (state, index) => {
@@ -214,6 +255,26 @@ export const store = new Vuex.Store({
                 state.user.course_types.push(create_course_type(typeName))
                 updateUserData(state);
             }
+        },
+        changeActiveSemesterType: (state) => {
+            let current_semester = state.user.semesters[state.user.active_semester];
+            if (current_semester.name.toString().includes('קיץ')) {
+                current_semester.name = 0
+            } else {
+                current_semester.name = 'קיץ'
+            }
+            renameSemesters(state.user.semesters);
+            state.user.summer_semesters = getSummerSemestersNumber(state.user.semesters);
+        },
+        changeSemesterType: (state, index) => {
+            let semester = state.user.semesters[index];
+            if (semester.name.toString().includes('קיץ')) {
+                semester.name = 0
+            } else {
+                semester.name = 'קיץ'
+            }
+            renameSemesters(state.user.semesters);
+            state.user.summer_semesters = getSummerSemestersNumber(state.user.semesters);
         },
         changeCategoryName: (state, name_index) => {
             if (name_index[1] < state.user.course_types.length) {
@@ -278,7 +339,8 @@ export const store = new Vuex.Store({
         },
         updateSemesters(state, semesters) {
             state.user.semesters = semesters
-        }
+        },
+
 
     },
     actions: {
@@ -296,20 +358,24 @@ export const store = new Vuex.Store({
                 context.commit('addCourseWithData', course);
             }
         },
-        loadUserDataFromUGSite: ({commit}, semesters_exemption) => {
+        loadUserDataFromUGSite: ({commit}, semesters_exemption_summerIndexes) => {
             commit('clearUserData');
             let index = 0;
-            for (let semester in semesters_exemption['semesters']) {
+            for (let semester in semesters_exemption_summerIndexes['semesters']) {
                 commit('addSemester', 0);
                 commit('setActiveSemester', index);
-                for (let course of semesters_exemption['semesters'][semester]) {
+                for (let course of semesters_exemption_summerIndexes['semesters'][semester]) {
                     commit('addCourseWithData', course);
                 }
                 index += 1;
             }
-            commit('setExemptionStatus', (semesters_exemption['exemption']));
+            commit('setExemptionStatus', (semesters_exemption_summerIndexes['exemption']));
             commit('reCalcCurrentSemester');
-            commit('changeSemesterTo', semesters_exemption['semesters'].length - 1)
+            commit('changeSemesterTo', semesters_exemption_summerIndexes['semesters'].length - 1)
+            let summer_semesters_indexes = semesters_exemption_summerIndexes['summer_semesters_indexes']
+            for (let i = 0; i < summer_semesters_indexes.length; i++) {
+                commit('changeSemesterType', summer_semesters_indexes[i])
+            }
         },
     }
 });
