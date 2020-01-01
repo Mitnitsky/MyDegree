@@ -10,6 +10,20 @@ import 'firebase/firestore'
 import {MathRound10} from "./aux/rounder";
 import {saveJSON} from "./aux/download";
 import {create_course_type, default_course_types_obj} from "@/store/classes/course_types";
+import {findCourse} from "@/store/aux/converter";
+
+let json_courses;
+
+if (localStorage.getItem('courses')) {
+    json_courses = typeof localStorage.getItem('courses') === 'object' ? localStorage.getItem('courses') : JSON.parse(localStorage.getItem('courses'));
+    if (!json_courses.version || json_courses.version <= 1.0) {
+        json_courses = require("../data/courses.json");
+        localStorage.setItem('courses', JSON.stringify(json_courses));
+    }
+} else {
+    json_courses = require("../data/courses.json");
+    localStorage.setItem('courses', JSON.stringify(json_courses));
+}
 
 Vue.use(Vuex);
 
@@ -97,28 +111,53 @@ function calculateUserInfo(state) {
             Semester.calculateAverage(semester);
             Semester.calculatePoints(semester);
             for (const course of semester.courses) {
+                let course_already_done = course.name in courses_done;
                 if (course.name.includes('ספורט')
                     || course.name.includes('גופני')
-                    || !((course.name in courses_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
+                    || !((course_already_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
                 ) {
                     let course_points = parseFloat(course.points);
-                    if (!((course.name in courses_done) && (course.number === courses_done[course.name][0]))) {
+                    if (!((course_already_done) && (course.number === courses_done[course.name][0]))) {
                         state.user.course_types[course.type].points_left -= course_points
                         state.user.degree_points_to_choose -= course_points;
                     }
-                    if (((parseInt(course.grade) > 0 && !(course.name in courses_done))
-                        || (parseInt(course.grade) > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
-                        || (course.name in courses_done && parseInt(courses_done[course.name][1]) === 0)) {
+                    let course_grade = parseInt(course.grade);
+                    if (  ((course_grade > 0 && !(course_already_done))
+                        || (course_grade > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
+                        || (course_already_done && parseInt(courses_done[course.name][1]) === 0)) {
                         if (course.type !== exemption_index) {
-                            state.user.degree_average += course_points * parseInt(course.grade);
+                            state.user.degree_average += course_points * course_grade;
                         }
                         state.user.degree_points_left -= course_points;
-                        if (parseInt(course.grade) > 0 && course.type !== exemption_index) {
+                        if (course_grade > 0 && course.type !== exemption_index) {
                             state.user.degree_points_done += course_points;
                         }
 
                     }
+                    let course_info = findCourse(course.number, json_courses);
+
                     courses_done[course.name] = [course.number, course.grade];
+                    if (course_info.length > 0) {
+                        course_info = course_info[0];
+                        for (let overlappingKey of course_info.overlapping) {
+                            let fullname = overlappingKey.split(':');
+                            let course_number = fullname[0];
+                            let course_name = fullname.slice(1).join().trim();
+                            courses_done[course_name] = [course_number, course_grade]
+                        }
+                        for (let identicalKey of course_info.identical) {
+                            let fullname = identicalKey.split(':');
+                            let course_number = fullname[0];
+                            let course_name = fullname.slice(1).join().trim();
+                            courses_done[course_name] = [course_number, course_grade]
+                        }
+                        for (let inclusiveKey of course_info.inclusive) {
+                            let fullname = inclusiveKey.split(':');
+                            let course_number = fullname[0];
+                            let course_name = fullname.slice(1).join().trim();
+                            courses_done[course_name] = [course_number, course_grade]
+                        }
+                    }
                 }
             }
         }
@@ -362,8 +401,9 @@ export const store = new Vuex.Store({
             commit('clearUserData');
             let index = 0;
             for (let semester in semesters_exemption_summerIndexes['semesters']) {
-                commit('addSemester', 0);
                 commit('setActiveSemester', index);
+                commit('addSemester', 0);
+
                 for (let course of semesters_exemption_summerIndexes['semesters'][semester]) {
                     commit('addCourseWithData', course);
                 }
@@ -371,7 +411,6 @@ export const store = new Vuex.Store({
             }
             commit('setExemptionStatus', (semesters_exemption_summerIndexes['exemption']));
             commit('reCalcCurrentSemester');
-            commit('changeSemesterTo', semesters_exemption_summerIndexes['semesters'].length - 1)
             let summer_semesters_indexes = semesters_exemption_summerIndexes['summer_semesters_indexes']
             for (let i = 0; i < summer_semesters_indexes.length; i++) {
                 commit('changeSemesterType', summer_semesters_indexes[i])

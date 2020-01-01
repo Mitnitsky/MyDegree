@@ -13,6 +13,7 @@ export function createNewSemester(name, courses_initially,) {
     let semester = {};
     semester.name = name.toString();
     semester.average = 0;
+    semester.points = 0;
     initializeSemesterPoints(semester);
     semester.courses = [];
     for (let i = 0; i < courses_initially; i++) {
