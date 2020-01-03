@@ -44,11 +44,11 @@ export function parseGraduateInformation(grades_copy) {
             let course = {};
             if (line.length > 1 && line.trim().length > 1) {
                 let parts = line.split('\t');
-                course['grade'] = parts[0].replace('-', '').replace('*', '').replace('לא השלים', '');
-                course['points'] = parts[1];
+                course['grade'] = parts[0].replace('-', '').replace('*', '').replace('לא השלים', '').trim();
+                course['points'] = parts[1].trim();
                 let course_full_name = parts[2].split(' ');
-                course['name'] = course_full_name.slice(0, -1).join(' ');
-                course['number'] = course_full_name[course_full_name.length - 1];
+                course['name'] = course_full_name.slice(0, -1).join(' ').trim();
+                course['number'] = course_full_name[course_full_name.length - 1].trim();
                 for (let i = 1; i < index; i++) {
                     // let to_remove_list = [];
                     for (let cour of semesters[i.toString()]) {
