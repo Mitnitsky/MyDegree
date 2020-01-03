@@ -97,6 +97,7 @@
                         } else {
                             this.$store.commit("setUserData", JSON.parse(localStorage.getItem('saved_session_data')));
                         }
+                        this.$store.commit('checkForValidVersion')
                     }
                 }
             }

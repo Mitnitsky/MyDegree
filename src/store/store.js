@@ -173,10 +173,11 @@ export const store = new Vuex.Store({
         },
         setUserData: (state, user_data) => {
             state.user = user_data;
-            if (state.user.course_types === "undefined") {
+            if (state.user.course_types === undefined) {
                 state.user.course_types = default_course_types_obj
             }
-            if (state.user.summer_semesters === "undefined") {
+            window.console.log(state.user.gavno);
+            if (state.user.summer_semesters === undefined) {
                 state.user.summer_semesters = 0;
             }
         },
@@ -292,6 +293,11 @@ export const store = new Vuex.Store({
         reCalcCurrentSemester: (state) => {
             if (state.user.semesters.length > 0) {
                 calculateUserInfo(state);
+            }
+        },
+        checkForValidVersion: (state) => {
+            if (state.user.course_types === "undefined") {
+                state.user.course_types = default_course_types_obj
             }
         },
         updateSemester: (state) => {
