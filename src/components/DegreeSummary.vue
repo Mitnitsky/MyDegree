@@ -76,9 +76,7 @@
                            step="0.5"
                            type="number"
                            v-model.number="degree_points_left">
-                    <div class="input-group degree-summary degree-summary">
 
-                    </div>
                   </div>
                   <div class="input-group mb-2">
                     <div class="input-group categoryName">
@@ -90,8 +88,6 @@
                            step="0.5"
                            type="number"
                            v-model.number="degree_points_to_choose">
-                    <div class="input-group degree-summary degree-summary">
-                    </div>
                   </div>
                 </div>
               </b-card>
@@ -126,31 +122,29 @@
 
                 <template v-for="(type, index) in course_types">
                   <div class="input-group mb-2"
+
                        v-bind:key="index"
                        v-if="type.name !== 'פטור'">
-                    <div class="input-group-prepend "
-                         style="width: 100%">
-                      <span class="input-group-text input-group-addon courseNameSpan">{{type.name}}</span>
-                      <input class="form-control degree-summary input-group-addon  disabled-input"
-                             disabled="disabled"
-                             readonly
 
-                             step="0.5"
-                             style="text-align: center"
-                             type="number"
-                             v-model.number="type.points_left"
-                      >
-                      <input @input="updateInfo"
-                             class="form-control degree-summary degree-summary-number degree-input-field"
-                             max="9999999"
-                             min="0"
-                             step="0.5"
-                             style="text-align: center"
-                             title="יש למלא שדה זה"
-                             type="number"
-                             v-b-tooltip.hover.left.v-dark
-                             v-model.number="type.points_required">
+                    <div class="input-group-prepend " >
+                      <span class="input-group-text input-group-addon courseNameSpan">{{type.name}}</span>
                     </div>
+                    <input class="form-control degree-summary disabled-input"
+                           disabled="disabled"
+                           readonly
+                           step="0.5"
+                           type="number"
+                           v-model.number="type.points_left"
+                    >
+                    <input @input="updateInfo"
+                           class="form-control degree-summary degree-summary-number degree-input-field"
+                           max="9999999"
+                           min="0"
+                           step="0.5"
+                           title="יש למלא שדה זה"
+                           type="number"
+                           v-b-tooltip.hover.left.v-dark
+                           v-model.number="type.points_required">
                   </div>
                 </template>
 
@@ -254,23 +248,26 @@
     cursor: default;
   }
 
+  .courseNameDiV {
+    border-radius: .25rem 0 0 .25rem !important;
+  }
   .summary-card-header {
     font-weight: bold !important;
   }
 
   /*Thanks to Vucko at https://stackoverflow.com/questions/42677620/bootstrap-4-input-group-rtl-issue*/
-  [dir="rtl"] .input-group-addon:not(:last-child) {
-    border-right: 1px solid rgba(0, 0, 0, .15);
+  [dir="rtl"] .input-group-addon:not(:last-child){
+    border-right: 1px solid rgba(0,0,0,.15);
     border-left: 0;
   }
 
   [dir="rtl"] .input-group .form-control:not(:last-child),
   [dir="rtl"] .input-group-addon:not(:last-child),
-  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group:not(:last-child) > .btn,
-  [dir="rtl"] .input-group-btn:not(:first-child) > .btn:not(:last-child):not(.dropdown-toggle),
-  [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
-  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
-  [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+  [dir="rtl"] .input-group-btn:not(:first-child)>.btn-group:not(:last-child)>.btn,
+  [dir="rtl"] .input-group-btn:not(:first-child)>.btn:not(:last-child):not(.dropdown-toggle),
+  [dir="rtl"] .input-group-btn:not(:last-child)>.btn,
+  [dir="rtl"] .input-group-btn:not(:last-child)>.btn-group>.btn,
+  [dir="rtl"] .input-group-btn:not(:last-child)>.dropdown-toggle{
     border-bottom-right-radius: .25rem;
     border-top-right-radius: .25rem;
     border-bottom-left-radius: 0;
@@ -279,20 +276,34 @@
 
   [dir="rtl"] .input-group .form-control:not(:first-child),
   [dir="rtl"] .input-group-addon:not(:first-child),
-  [dir="rtl"] .input-group-btn:not(:first-child) > .btn,
-  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
-  [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
-  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group:not(:first-child) > .btn,
-  [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+  [dir="rtl"] .input-group-btn:not(:first-child)>.btn,
+  [dir="rtl"] .input-group-btn:not(:first-child)>.btn-group>.btn,
+  [dir="rtl"] .input-group-btn:not(:first-child)>.dropdown-toggle,
+  [dir="rtl"] .input-group-btn:not(:last-child)>.btn-group:not(:first-child)>.btn,
+  [dir="rtl"] .input-group-btn:not(:last-child)>.btn:not(:first-child){
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: .25rem;
     border-top-left-radius: .25rem;
   }
 
-  [dir="rtl"] .form-control + .input-group-addon:not(:first-child) {
-    border-left: 1px solid rgba(0, 0, 0, .15);
+  [dir="rtl"] .form-control + .input-group-addon:not(:first-child){
+    border-left: 1px solid rgba(0,0,0,.15);
     border-right: 0;
+  }
+
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child){
+    border-radius: 0;
+  }
+
+
+  .input-group > .input-group-prepend {
+    flex: 0 0 33%;
+  }
+
+  .input-group .input-group-text {
+    width: 100%;
   }
 
   [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
