@@ -111,7 +111,8 @@ function calculateUserInfo(state) {
             Semester.calculateAverage(semester);
             Semester.calculatePoints(semester);
             for (const course of semester.courses) {
-                let course_already_done = course.name in courses_done;
+                let course_has_number = course.number.toString().length > 2;
+                let course_already_done = (course.name in courses_done) && course_has_number;
                 if (course.name.includes('ספורט')
                     || course.name.includes('גופני')
                     || !((course_already_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))

@@ -10,17 +10,17 @@
           <font-awesome-icon href="#"
                              icon="user-circle"
                              size="lg"
-                             style="color: lightgray;margin-right: 0px;margin-left: 0px;font-size: 20px;text-decoration: underline;margin-top:10px"/>
+                             style="color: lightgray;margin-right: 0px;margin-left: 0px;font-size: 20px;margin-top:10px"/>
           <b-nav-item-dropdown :text=" this.user_name"
                                right
                                style="font-size: 18px;color: lightgray;">
-            <template slot="button-content">שלום <b>{{this.user_name}}</b></template>
+            <template slot="button-content" ><span style="margin-left: 5px">שלום {{this.user_name}}</span></template>
             <b-dropdown-item @click="signOut"
                              href="#">
               <font-awesome-icon href="#"
                                  icon="sign-out-alt"
                                  size="lg"
-                                 style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"/>
+                                 style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"/>
               יציאה
             </b-dropdown-item>
           </b-nav-item-dropdown>
@@ -31,10 +31,10 @@
                              rotation="180"
 
                              size="lg"
-                             style="color: lightgray;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                             style="color: lightgray;margin-left: 5px;font-size: 20px;margin-top:10px"
                              v-b-modal.modal-1/>
           <b-nav-item href="#"
-                      style="color: lightgray;text-decoration-line: underline"
+                      style="color: lightgray;"
                       v-b-modal.modal-1>כניסה
           </b-nav-item>
           <b-modal header-bg-variant="primary"
@@ -60,11 +60,11 @@
                            rotation="180"
 
                            size="lg"
-                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
                            v-b-modal.modal-1/>
         <b-nav-item @click="$bvModal.show('modal-import')"
                     href="#"
-                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+                    style="font-size: 18px;color: lightgray;"
         >יבוא קורסים מ-UG
         </b-nav-item>
         <b-modal centered
@@ -140,11 +140,11 @@
                            rotation="180"
 
                            size="lg"
-                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
                            v-b-modal.modal-1/>
         <b-nav-item @click="$bvModal.show('modal-cf-import')"
                     href="#"
-                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+                    style="font-size: 18px;color: lightgray;"
         >יבוא סמסטר מ-CheeseFork
         </b-nav-item>
         <b-modal centered
@@ -217,11 +217,11 @@
         <!--        --><!--        --><!--        --><!--        --><!--        -->
         <font-awesome-icon icon="sliders-h"
                            size="lg"
-                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                           style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
                            v-b-modal.modal-1/>
         <b-nav-item @click="$bvModal.show('modal-course-types')"
                     href="#"
-                    style="font-size: 18px;color: lightgray;text-decoration-line: underline"
+                    style="font-size: 18px;color: lightgray;"
         >שינוי קטגוריות קורסים
         </b-nav-item>
         <b-modal centered
@@ -367,7 +367,7 @@
             <font-awesome-icon href="#"
                                icon="download"
                                size="lg"
-                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
                                title="ייצוא מערכת קורסים(ללא ציונים)"
 
             />
@@ -378,7 +378,7 @@
               v-b-modal.modal-import-from-json>
             <font-awesome-icon icon="upload"
                                size="lg"
-                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;text-decoration: underline;margin-top:10px"
+                               style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
             />
             יבוא קורסים מקובץ-JSON
             <b-modal centered

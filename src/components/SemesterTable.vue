@@ -20,42 +20,35 @@
         <b-button @click="removeLastRow"
                   variant="outline-danger">הסר שורה
         </b-button>
-        <b-button @click.stop="$bvModal.show('modal-center'+'_'+semester.name)"
+        <!--        <b-button @click.stop="$bvModal.show('modal-center'+'_'+semester.name)"-->
+        <!--                  variant="info">חיפוש קורסים-->
+        <!--        </b-button>-->
+        <b-button @click="showModal"
                   variant="info">חיפוש קורסים
         </b-button>
-        <b-modal
-            :header-bg-variant="headerBgVariant"
-            :header-text-variant="headerTextVariant"
-            :id="'modal-center'+'_'+semester.name"
-            centered
-            content-class="shadow"
-            hide-backdrop
-            hide-footer
-            ok-title="הוסף קורס"
-            title="חיפוש קורסים"
-            v-b-modal.modal-scrollable>
-          <template v-slot:modal-header="{ close }">
-            <div class="row"
-                 style="width: 100%">
-              <div class="col-11"
-                   style="text-align: right;">
-                <h5 class="modal-title">חיפוש קורסים</h5>
-              </div>
-              <div :style="{alignItems: alignment}"
-                   class="col-1"
-                   style="width: 5%;text-align: left;align-items: flex-end">
-                <b-button @click="close()"
-                          aria-label="Close"
-                          class="close text-light"
-                          style="margin-right: 5px;"
-                          type="button">×
-                </b-button>
-              </div>
-            </div>
-          </template>
+        <!--        <b-modal-->
+        <!--            :header-bg-variant="headerBgVariant"-->
+        <!--            :header-text-variant="headerTextVariant"-->
+        <!--            :id="'modal-center'+'_'+semester.name"-->
+        <!--            centered-->
+        <!--            content-class="shadow"-->
+        <!--            hide-backdrop-->
+        <!--            hide-footer-->
+        <!--            ok-title="הוסף קורס"-->
+        <!--            title="חיפוש קורסים"-->
+        <!--            v-b-modal.modal-scrollable>-->
+        <modal
+            height="auto"
+            :clickToClose="false"
+            :minHeight=380
+            :minWidth=550
+            scrollable
+            draggable
+            name="search">
+
 
           <search-course-dialog/>
-        </b-modal>
+        </modal>
         <b-button @click="addRow"
                   variant="outline-primary">הוסף שורה
         </b-button>
@@ -84,6 +77,9 @@
             semester: null
         },
         methods: {
+            showModal() {
+                this.$modal.show('search')
+            },
             addRow() {
                 this.$store.commit('addCourse');
             },
