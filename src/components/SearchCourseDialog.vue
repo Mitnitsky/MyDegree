@@ -1,6 +1,9 @@
 <template>
   <b-card dir="rtl"
           no-body
+          :style="{cursor: grab}"
+          @mousedown="changeCursor('down')"
+          @mouseup="changeCursor('up')"
           style="min-height: 410px;">
     <div class="justify-content-center"
     >
@@ -173,6 +176,8 @@
             return {
                 show: false,
                 collapsedExtraInfo: true,
+                grab: 'grab',
+                bgc: 'transparent',
                 selected_course: {
                     full_name: "",
                     name: "",
@@ -182,7 +187,7 @@
                     linked: "",
                     overlapping: "",
                     inclusive: "",
-                    including: ""
+                    including: "",
                 },
                 remove: json_courses,
                 options: json_courses.courses
@@ -200,6 +205,13 @@
                     return [];
                 }
                 return this.options.filter(e => e.full_name.includes(input))
+            },
+            changeCursor(res){
+                if(res === 'up'){
+                    this.grab = 'grab'
+                }else{
+                    this.grab = 'grabbing'
+                }
             },
             getResultValue(result) {
                 return result.full_name

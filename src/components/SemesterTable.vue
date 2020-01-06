@@ -20,26 +20,12 @@
         <b-button @click="removeLastRow"
                   variant="outline-danger">הסר שורה
         </b-button>
-        <!--        <b-button @click.stop="$bvModal.show('modal-center'+'_'+semester.name)"-->
-        <!--                  variant="info">חיפוש קורסים-->
-        <!--        </b-button>-->
+
         <b-button @click="showModal"
                   variant="info">חיפוש קורסים
         </b-button>
-        <!--        <b-modal-->
-        <!--            :header-bg-variant="headerBgVariant"-->
-        <!--            :header-text-variant="headerTextVariant"-->
-        <!--            :id="'modal-center'+'_'+semester.name"-->
-        <!--            centered-->
-        <!--            content-class="shadow"-->
-        <!--            hide-backdrop-->
-        <!--            hide-footer-->
-        <!--            ok-title="הוסף קורס"-->
-        <!--            title="חיפוש קורסים"-->
-        <!--            v-b-modal.modal-scrollable>-->
         <modal
             height="auto"
-            :clickToClose="false"
             :minHeight=380
             :minWidth=550
             scrollable

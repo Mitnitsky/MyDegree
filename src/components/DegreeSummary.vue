@@ -119,11 +119,13 @@
                            disabled="disabled"
                            readonly
                            step="0.5"
+                           dir="ltr"
                            type="number"
                            v-model.number="type.points_left"
                     >
                     <input @input="updateInfo"
                            class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
+                           dir="ltr"
                            max="9999999"
                            min="0"
                            step="0.5"

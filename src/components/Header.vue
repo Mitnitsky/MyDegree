@@ -14,7 +14,7 @@
           <b-nav-item-dropdown :text=" this.user_name"
                                right
                                style="font-size: 18px;color: lightgray;">
-            <template slot="button-content" ><span style="margin-left: 5px">שלום {{this.user_name}}</span></template>
+            <template slot="button-content"><span style="margin-left: 5px">שלום {{this.user_name}}</span></template>
             <b-dropdown-item @click="signOut"
                              href="#">
               <font-awesome-icon href="#"
