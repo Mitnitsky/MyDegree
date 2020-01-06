@@ -27,7 +27,7 @@
                      step="0.01"
                      style="text-align: center;direction: ltr;cursor: default;"
                      type="number"
-                     v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
+                     v-model.number="this.$store.state.user.semesters[this.$store.state.user.active_semester].average">
             </td>
           </tr>
           <tr>
@@ -42,7 +42,7 @@
                      step="0.5"
                      style="text-align: center;width: 100%;direction: ltr;cursor: default;"
                      type="number"
-                     v-model.number.lazy="this.$store.state.user.semesters[this.$store.state.user.active_semester].points">
+                     v-model.number="this.$store.state.user.semesters[this.$store.state.user.active_semester].points">
             </td>
           </tr>
         </tbody>

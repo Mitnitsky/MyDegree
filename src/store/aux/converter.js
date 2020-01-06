@@ -79,11 +79,11 @@ export function parseGraduateInformation(grades_copy) {
     return {"semesters": semesters, "exemption": english_exemption,"summer_semesters_indexes": summer_semester_indexes};
 }
 
-function findCourse(course_number, json_courses){
+export function findCourse(course_number, json_courses){
     if(course_number.length < 3){
         return []
     }
-    return json_courses.filter( e => e.number.includes(course_number))    
+    return json_courses['courses'].filter( e => e.number.includes(course_number))
 }
 
 export function parseCheeseFork(courses) {
