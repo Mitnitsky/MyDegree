@@ -213,12 +213,21 @@ export const store = new Vuex.Store({
         },
         setUserData: (state, user_data) => {
             state.user = user_data;
+            let updated = false;
             if (state.user.course_types === undefined) {
                 state.user.course_types = default_course_types_obj
+                updated = true
             }
-            window.console.log(state.user.gavno);
             if (state.user.summer_semesters === undefined) {
                 state.user.summer_semesters = 0;
+                updated = true
+            }
+            if(updated){
+                firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                    return typeof result;
+                }).catch((reason => {
+                    window.console.log('Error uploading user-data (' + reason + ')');
+                }));
             }
         },
         setActiveSemester: (state, index) => {
@@ -367,13 +376,24 @@ export const store = new Vuex.Store({
         },
         fetchUserInfo: (state, user) => {
             state.user = user;
+            let updated = false;
             if (state.user.course_types === undefined) {
                 state.user.course_types = default_course_types_obj
+                updated = true
             }
             window.console.log(state.user.gavno);
             if (state.user.summer_semesters === undefined) {
                 state.user.summer_semesters = 0;
+                updated = true
             }
+            if(updated){
+                firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                    return typeof result;
+                }).catch((reason => {
+                    window.console.log('Error uploading user-data (' + reason + ')');
+                }));
+            }
+
         },
         checkIfCourseExists: (state, course_number_and_answer) => {
             course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number);
