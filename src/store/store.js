@@ -92,13 +92,12 @@ function calculateUserInfo(state) {
     if (current_semester != null) {
         if (state.user.english_exemption) {
             state.user.degree_points_done = 3;
-            state.must_points = 0;
         } else {
             state.user.degree_points_done = 0;
         }
         state.user.degree_average = 0;
-        state.user.degree_points_to_choose = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
-        state.user.degree_points_left = state.user.degree_points - (state.user.english_exemption ? 3 : 0);
+        state.user.degree_points_to_choose = state.user.degree_points - state.user.degree_points_done;
+        state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
         state.user.course_types[0].points_left = state.user.course_types[0].points_required - (state.user.english_exemption ? 3 : 0);
         state.user.course_types[1].points_left = 0;
         for (let course_type of state.user.course_types) {
@@ -118,7 +117,8 @@ function calculateUserInfo(state) {
                     || !((course_already_done) && (course.number === courses_done[course.name][0] && courses_done[course.name][1] !== 0))
                 ) {
                     let course_points = parseFloat(course.points);
-                    if (!((course_already_done) && (course.number === courses_done[course.name][0]))) {
+                    if (course.name.includes('ספורט')
+                        || course.name.includes('גופני') || (!((course_already_done) && (course.number === courses_done[course.name][0])))) {
                         state.user.course_types[course.type].points_left -= course_points
                         state.user.degree_points_to_choose -= course_points;
                     }

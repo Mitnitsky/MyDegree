@@ -83,7 +83,7 @@ export function findCourse(course_number, json_courses){
     if(course_number.length < 3){
         return []
     }
-    return json_courses.filter( e => e.number.includes(course_number))
+    return json_courses['courses'].filter( e => e.number.includes(course_number))
 }
 
 export function parseCheeseFork(courses) {
@@ -100,7 +100,7 @@ export function parseCheeseFork(courses) {
         json_courses = require("../../data/courses.json");
         localStorage.setItem('courses', JSON.stringify(json_courses));
     }
-    let j_courses = json_courses.courses;
+    let j_courses = json_courses.courses
     for(let course of courses){
         let splited = course.split('-');
         if (splited.length >= 2) {
