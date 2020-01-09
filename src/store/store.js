@@ -367,6 +367,13 @@ export const store = new Vuex.Store({
         },
         fetchUserInfo: (state, user) => {
             state.user = user;
+            if (state.user.course_types === undefined) {
+                state.user.course_types = default_course_types_obj
+            }
+            window.console.log(state.user.gavno);
+            if (state.user.summer_semesters === undefined) {
+                state.user.summer_semesters = 0;
+            }
         },
         checkIfCourseExists: (state, course_number_and_answer) => {
             course_number_and_answer['answer'] = courseExistInSemesters(state.user.semesters, course_number_and_answer.course_number);
