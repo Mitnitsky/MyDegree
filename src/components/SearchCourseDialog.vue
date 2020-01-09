@@ -43,59 +43,77 @@
               header="נקודות"
               no-body
               style="margin-bottom: 10px; ">
-            <p style="margin-top: 5px; margin-bottom: 5px">{{selected_course.points}}</p>
+            <p style="margin-top: 5px; margin-bottom: 10px">{{selected_course.points}}</p>
           </b-card>
-
-          <b-card header="קורסי קדם"
-                  no-body
-                  header-bg-variant="dark"
-                  header-text-variant="white"
-                  style="margin-bottom: 10px"
-                  v-if="selected_course.prerequisites[0].length > 0"
-                  v-model="selected_course.prerequisites">
-            <b-list-group
-
-                :key="index"
-                v-for="(prerequisites, index) in selected_course.prerequisites">
-              <b-list-group-item :key="inner_index"
-                                 :style="{color: checkIfExists(course, 'prerequisite')}"
-                                 @click="findPrerequisites($event)"
-                                 href="#"
-                                 v-for="(course,inner_index) in prerequisites">{{course}}
-              </b-list-group-item>
-              <p style="margin-bottom: 2px"
-                 v-if="index < (selected_course.prerequisites.length - 1)">או-</p>
-            </b-list-group>
-          </b-card>
-          <b-card header="קורסים צמודים"
-                  header-bg-variant="dark"
-                  header-text-variant="white"
-                  no-body
-                  style="margin-bottom: 10px"
-                  v-if="selected_course.linked.length > 0"
-                  v-model="selected_course.linked">
-            <b-list-group style="margin-bottom: 7px;">
-              <b-list-group-item :key="linked"
-                                 :style="{color: checkIfExists(linked, 'linked')}"
-                                 @click="findPrerequisites($event)"
-                                 href="#"
-                                 v-for="linked in selected_course.linked">{{linked}}
-              </b-list-group-item>
-            </b-list-group>
-          </b-card>
-          <div class="row justify-content-center">
+          <div class="row justify-content-center mb-2">
             <b-button @click="addCourse"
                       type="primary"
                       v-if="show">
               הוסף קורס
             </b-button>
           </div>
+
+          <b-button @click="collapsedPrereq = !collapsedPrereq"
+                    style="margin: 5px;"
+                    v-b-toggle.collapse-prereq-courses
+                    v-if="collapsedPrereq"
+                    variant="outline-secondary">הראה קורסי קדם/צמודים&Darr;
+          </b-button>
+          <b-button @click="collapsedPrereq = !collapsedPrereq"
+                    style="margin: 5px"
+                    v-b-toggle.collapse-prereq-courses
+                    v-if="!collapsedPrereq"
+                    variant="outline-secondary">הראה קורסי קדם/צמודים&Uarr;
+          </b-button>
+          <b-collapse id="collapse-prereq-courses">
+            <b-card header="קורסי קדם"
+                    no-body
+                    header-bg-variant="dark"
+                    header-text-variant="white"
+                    style="margin-bottom: 10px"
+                    v-if="selected_course.prerequisites[0].length > 0"
+                    v-model="selected_course.prerequisites">
+              <b-list-group
+
+                  :key="index"
+                  v-for="(prerequisites, index) in selected_course.prerequisites">
+                <b-list-group-item :key="inner_index"
+                                   :style="{color: checkIfExists(course, 'prerequisite')}"
+                                   @click="findPrerequisites($event)"
+                                   href="#"
+                                   v-for="(course,inner_index) in prerequisites">{{course}}
+                </b-list-group-item>
+                <p style="margin-bottom: 2px"
+                   v-if="index < (selected_course.prerequisites.length - 1)">או-</p>
+              </b-list-group>
+            </b-card>
+            <b-card header="קורסים צמודים"
+                    header-bg-variant="dark"
+                    header-text-variant="white"
+                    no-body
+                    style="margin-bottom: 10px"
+                    v-if="selected_course.linked.length > 0"
+                    v-model="selected_course.linked">
+              <b-list-group style="margin-bottom: 7px;">
+                <b-list-group-item :key="linked"
+                                   :style="{color: checkIfExists(linked, 'linked')}"
+                                   @click="findPrerequisites($event)"
+                                   href="#"
+                                   v-for="linked in selected_course.linked">{{linked}}
+                </b-list-group-item>
+              </b-list-group>
+            </b-card>
+          </b-collapse>
+
+
           <b-button @click="collapsedExtraInfo = !collapsedExtraInfo"
                     style="margin: 5px;"
+                    v-b-popover.hover.top="'קורסים מוכלים/מכילים/ללא זיכוי נוסף'"
                     v-b-toggle.collapse-additional-info
                     v-if="collapsedExtraInfo"
                     variant="outline-secondary">הראה מידע נוסף &Darr;
           </b-button>
+          <br v-if="!collapsedExtraInfo">
           <b-button @click="collapsedExtraInfo = !collapsedExtraInfo"
                     style="margin: 5px"
                     v-b-toggle.collapse-additional-info
@@ -106,6 +124,8 @@
             <b-card header="קורסים ללא זיכוי נוסף"
                     no-body
                     style="margin-bottom: 10px"
+                    header-bg-variant="dark"
+                    header-text-variant="white"
                     v-if="selected_course.overlapping.length > 0"
                     v-model="selected_course.overlapping">
               <b-list-group style="margin-bottom: 7px;border-color: #005cbf">
@@ -119,6 +139,8 @@
             </b-card>
             <b-card header="קורסים כלולים:"
                     no-body
+                    header-bg-variant="dark"
+                    header-text-variant="white"
                     style="margin-bottom: 10px"
                     v-if="selected_course.inclusive.length > 0"
                     v-model="selected_course.inclusive">
@@ -134,6 +156,8 @@
             <b-card header="קורסים מכילים"
                     no-body
                     style="margin-bottom: 10px"
+                    header-bg-variant="dark"
+                    header-text-variant="white"
                     v-if="selected_course.including.length > 0"
                     v-model="selected_course.including">
               <b-list-group style="margin-bottom: 7px; border-color: #005cbf">
@@ -176,6 +200,7 @@
             return {
                 show: false,
                 collapsedExtraInfo: true,
+                collapsedPrereq: true,
                 grab: 'grab',
                 bgc: 'transparent',
                 selected_course: {

@@ -28,6 +28,7 @@
             height="auto"
             :minHeight=380
             :minWidth=550
+            :maxHeight=800
             scrollable
             draggable
             name="search">
