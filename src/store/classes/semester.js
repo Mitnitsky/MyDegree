@@ -118,14 +118,14 @@ export function courseExistInSemesters(semesters, course_number, stop_index = nu
 }
 
 function compareByNumericField(a, b, fieldName) {
-    if (isNaN(parseInt(a[fieldName]))) {
+    if (isNaN(parseFloat(a[fieldName]))) {
         return 1;
-    } else if (isNaN(parseInt(b[fieldName]))) {
+    } else if (isNaN(parseFloat(b[fieldName]))) {
         return -1;
     }
-    if (parseInt(a[fieldName]) > parseInt(b[fieldName])) {
+    if (parseFloat(a[fieldName]) > parseFloat(b[fieldName])) {
         return 1;
-    } else if (parseInt(a[fieldName]) < parseInt(b[fieldName])) {
+    } else if (parseFloat(a[fieldName]) < parseFloat(b[fieldName])) {
         return -1
     }
     return 0;
