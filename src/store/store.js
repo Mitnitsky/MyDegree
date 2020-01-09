@@ -223,7 +223,7 @@ export const store = new Vuex.Store({
                 updated = true
             }
             if(updated){
-                firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
+                firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).set(state.user).then((result) => {
                     return typeof result;
                 }).catch((reason => {
                     window.console.log('Error uploading user-data (' + reason + ')');
@@ -381,7 +381,6 @@ export const store = new Vuex.Store({
                 state.user.course_types = default_course_types_obj
                 updated = true
             }
-            window.console.log(state.user.gavno);
             if (state.user.summer_semesters === undefined) {
                 state.user.summer_semesters = 0;
                 updated = true

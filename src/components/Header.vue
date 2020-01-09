@@ -581,7 +581,9 @@
             },
             importCoursesFromCF() {
                 if (this.input_data !== '') {
+                    window.console.log(this.input_data);
                     let courses_list = parseCheeseFork(this.input_data);
+                    window.console.log(courses_list);
                     this.$store.dispatch('addNewSemesterFromData', courses_list);
                     this.input_data = '';
                     this.hideModal('modal-cf-import');
