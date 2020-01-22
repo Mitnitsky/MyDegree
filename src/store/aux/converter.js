@@ -83,7 +83,11 @@ export function findCourse(course_number, json_courses){
     if(course_number.length < 3){
         return []
     }
-    return json_courses['courses'].filter( e => e.number.includes(course_number))
+    if(json_courses['courses'] !== undefined) {
+        return json_courses['courses'].filter(e => e.number.includes(course_number))
+    }else{
+        return json_courses.filter(e => e.number.includes(course_number))
+    }
 }
 
 export function parseCheeseFork(courses) {
@@ -102,7 +106,7 @@ export function parseCheeseFork(courses) {
     }
     let j_courses = json_courses.courses
     for(let course of courses){
-        let splited = course.split('-');
+        let splited = course.trim().split('-');
         if (splited.length >= 2) {
             const course_number = splited[0].trim();
             if (!isNaN(parseInt(course_number))) {

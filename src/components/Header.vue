@@ -214,7 +214,7 @@
           </div>
         </b-modal>
 
-        <!--        --><!--        --><!--        --><!--        --><!--        -->
+
         <font-awesome-icon icon="sliders-h"
                            size="lg"
                            style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"

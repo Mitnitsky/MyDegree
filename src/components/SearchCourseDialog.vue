@@ -162,6 +162,7 @@
                                    :style="{color: checkIfExists(including, 'other')}"
                                    @click="findPrerequisites($event)"
                                    href="#"
+                                   :v-b-popover="'Popover!'"
                                    v-for="including in selected_course.including">{{including}}
                 </b-list-group-item>
               </b-list-group>
@@ -284,17 +285,17 @@
                     return 'black';
                 }
                 let course_number = course_full_name.split(":")[0];
-                let course_number_and_answer = {course_number: course_number, answer: ''};
+                let course_number_answer_semester = {course_number: course_number, answer: '', semester: -1};
                 if (type === 'prerequisite') {
-                    this.$store.commit('checkPrerequisites', course_number_and_answer)
+                    this.$store.commit('checkPrerequisites', course_number_answer_semester)
                 } else if (type === 'linked') {
-                    this.$store.commit('checkLinear', course_number_and_answer);
+                    this.$store.commit('checkLinear', course_number_answer_semester);
                 } else {
-                    this.$store.commit('checkIfCourseExists', course_number_and_answer);
+                    this.$store.commit('checkIfCourseExists', course_number_answer_semester);
                     //It's bad if one of inclusive/including/similar courses are in the table
-                    return course_number_and_answer.answer === true ? 'red' : 'black';
+                    return course_number_answer_semester.answer === true ? 'red' : 'black';
                 }
-                return course_number_and_answer.answer === false ? 'red' : 'black';
+                return course_number_answer_semester.answer === false ? 'red' : 'black';
             }
         }
     }
