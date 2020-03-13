@@ -18,6 +18,7 @@
             <b-dropdown-item @click="signOut"
                              href="#">
               <font-awesome-icon href="#"
+                                 @click="signOut"
                                  icon="sign-out-alt"
                                  size="lg"
                                  style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"/>
@@ -61,7 +62,7 @@
 
                            size="lg"
                            style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
-                           v-b-modal.modal-1/>
+                           v-b-modal.modal-import/>
         <b-nav-item @click="$bvModal.show('modal-import')"
                     href="#"
                     style="font-size: 18px;color: lightgray;"
@@ -141,7 +142,7 @@
 
                            size="lg"
                            style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
-                           v-b-modal.modal-1/>
+                           v-b-modal.modal-cf-import/>
         <b-nav-item @click="$bvModal.show('modal-cf-import')"
                     href="#"
                     style="font-size: 18px;color: lightgray;"
@@ -218,7 +219,7 @@
         <font-awesome-icon icon="sliders-h"
                            size="lg"
                            style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
-                           v-b-modal.modal-1/>
+                           v-b-modal.modal-course-types/>
         <b-nav-item @click="$bvModal.show('modal-course-types')"
                     href="#"
                     style="font-size: 18px;color: lightgray;"
@@ -369,7 +370,6 @@
                                size="lg"
                                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
                                title="ייצוא מערכת קורסים(ללא ציונים)"
-
             />
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
@@ -379,6 +379,7 @@
             <font-awesome-icon icon="upload"
                                size="lg"
                                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+                               v-b-modal.modal-import-from-json
             />
             יבוא קורסים מקובץ-JSON
             <b-modal centered

@@ -26,12 +26,22 @@ import {
     faSignInAlt,
     faSignOutAlt,
     faUpload,
-    faUserCircle
+    faBroom,
+    faMinus,
+    faArrowUp,
+    faArrowDown,
+    faUserCircle,
+    faEllipsisV
 } from "@fortawesome/free-solid-svg-icons";
 import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 
 library.add(faUserCircle);
+library.add(faEllipsisV);
 library.add(faSignInAlt);
+library.add(faBroom);
+library.add(faMinus);
+library.add(faArrowUp);
+library.add(faArrowDown);
 library.add(faDownload);
 library.add(faSlidersH);
 library.add(faUpload);

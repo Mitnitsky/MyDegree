@@ -123,7 +123,7 @@ function calculateUserInfo(state) {
                         state.user.degree_points_to_choose -= course_points;
                     }
                     let course_grade = parseInt(course.grade);
-                    if (  ((course_grade > 0 && !(course_already_done))
+                    if (((course_grade > 0 && !(course_already_done))
                         || (course_grade > 0 && (course.name.includes('ספורט') || course.name.includes('גופני'))))
                         || (course_already_done && parseInt(courses_done[course.name][1]) === 0)) {
                         if (course.type !== exemption_index) {
@@ -222,7 +222,7 @@ export const store = new Vuex.Store({
                 state.user.summer_semesters = 0;
                 updated = true
             }
-            if(updated){
+            if (updated) {
                 firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).set(state.user).then((result) => {
                     return typeof result;
                 }).catch((reason => {
@@ -268,6 +268,16 @@ export const store = new Vuex.Store({
         removeCourse: (state, index) => {
             Semester.removeCourse(state.user.semesters[state.user.active_semester], index);
             updateUserData(state);
+        },
+        moveCourse: (state, {index, direction}) => {
+            const active_semester = state.user.active_semester;
+            const current_semester = state.user.semesters[active_semester];
+            const direction_int = direction === 'up' ? -1 : 1;
+            if (!((current_semester.courses.length - 1 === index && direction === 'down') || (index === 0 && direction === 'up'))) {
+                const temp = current_semester.courses[index];
+                current_semester.courses[index] = current_semester.courses[index + direction_int];
+                current_semester.courses[index + direction_int] = temp;
+            }
         },
         removeLastRow: (state) => {
             let current_semester = state.user.semesters[state.user.active_semester];
@@ -385,7 +395,7 @@ export const store = new Vuex.Store({
                 state.user.summer_semesters = 0;
                 updated = true
             }
-            if(updated){
+            if (updated) {
                 firebase.firestore().collection('users').doc(user.uid).set(state.user).then((result) => {
                     return typeof result;
                 }).catch((reason => {

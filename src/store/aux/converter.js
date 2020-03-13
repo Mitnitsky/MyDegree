@@ -32,7 +32,7 @@ export function parseGraduateInformation(grades_copy) {
                 lines.push([]);
                 continue
             }
-            if (!line.includes('ציון') && !line.includes('ממוצע') && !line.includes('הצלחות') && !line.includes('לא השלים')) {
+            if (!line.includes('ציון') && !line.includes('ממוצע') && !line.includes('הצלחות') && !line.includes('לא השלים') && !line.includes("סה\"כ")) {
                 lines[index].push(line)
             }
         }

@@ -50,17 +50,47 @@
     </td>
     <td class="text-center"
         style="min-width: 45px">
-      <b-button @click="clearRow"
-                class="clearButton"
-                title="נקה/הסר שורה"
-                v-b-tooltip.hover.v-secondary
-                variant="outline-secondary">x
-      </b-button>
+      <b-dropdown id="dropdown-1"
+                  dropleft
+                  title="פעולות על שורה"
+                  v-b-tooltip.hover.v-secondary
+                  variant="outline-dark">
+        <b-dropdown-item @click="clearRow"
+        >
+          <font-awesome-icon icon="broom"
+                             size="sm"
+                             style="color: black; margin-left: 5px;"
+          />
+          נקה שורה
+        </b-dropdown-item>
+        <b-dropdown-item @click="deleteRow"
+        >
+          <font-awesome-icon icon="minus"
+                             size="sm"
+                             style="color: black; margin-left: 10px;"
+          />
+          הסר שורה
+        </b-dropdown-item>
+        <b-dropdown-item @click="moveCourse('up')">
+          <font-awesome-icon icon="arrow-up"
+                             size="sm"
+                             style="color: black; margin-left: 10px;"
+          />
+          העלה
+        </b-dropdown-item>
+        <b-dropdown-item @click="moveCourse('down')">
+          <font-awesome-icon icon="arrow-down"
+                             size="sm"
+                             style="color: black; margin-left: 10px;"
+          />
+          הורד
+        </b-dropdown-item>
+      </b-dropdown>
     </td>
   </tr>
 </template>
 <script>
-    import {clearCourse, courseIsEmpty} from "../store/classes/course";
+    import {clearCourse} from "../store/classes/course";
     import {createHelpers} from 'vuex-map-fields';
 
     const {mapFields} = createHelpers({
@@ -83,13 +113,17 @@
         },
         methods: {
             clearRow() {
-                if (courseIsEmpty(this.course)) {
-                    this.$store.commit('removeCourse', this.index);
-
-                } else {
-                    clearCourse(this.course);
-                }
+                clearCourse(this.course);
                 this.$store.commit('reCalcCurrentSemester');
+            },
+            deleteRow() {
+                this.$store.commit('removeCourse', this.index);
+                this.$store.commit('reCalcCurrentSemester');
+            },
+            moveCourse(direction) {
+                this.$store.commit('moveCourse', {index: this.index, direction: direction})
+                this.$store.commit('reCalcCurrentSemester');
+                this.$forceUpdate();
             },
             updateField(field) {
                 let value = this.course[field];
