@@ -1,12 +1,12 @@
 {
-    "save_file": "/home/vov4ik/Projects/Personal/Others/DegreePlaner/saves/DegreePlan.dps",
-    "language": "heb",
-    "db-updated": "Sat Jul 13 12:05:53 2019",
-    "dimensions": [
-        {
-            "width": 1509,
-            "height": 675
-        }
-    ],
-    "updated": "November 15, 2019"
+  "save_file": "/home/vov4ik/Projects/Personal/Others/DegreePlaner/saves/DegreePlan.dps",
+  "language": "heb",
+  "db-updated": "Sat Jul 13 12:05:53 2019",
+  "dimensions": [
+    {
+      "width": 1509,
+      "height": 675
+    }
+  ],
+  "updated": "November 15, 2019"
 }

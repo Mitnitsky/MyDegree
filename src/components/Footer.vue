@@ -1,22 +1,22 @@
 <template>
   <div>
-    <b-navbar fixed="bottom"
-              type="dark"
-              variant="dark">
-      <div @click="$bvModal.show('contactInfo-modal')"
-           class="mx-auto"
-           style="color: lightgray">
+    <b-navbar fixed="bottom" type="dark" variant="dark">
+      <div
+        class="mx-auto"
+        style="color: lightgray"
+        @click="$bvModal.show('contactInfo-modal')"
+      >
         © 2019 Copyright: <a href="#">Vladimir Parakhin</a>
       </div>
-      <my-info-card/>
+      <my-info-card />
     </b-navbar>
   </div>
 </template>
 <script>
-    import MyInfoCard from "./MyInfoCard";
+import MyInfoCard from "./MyInfoCard";
 
-    export default {
-        name: 'dp-footer',
-        components: {MyInfoCard}
-    }
+export default {
+  name: "DpFooter",
+  components: { MyInfoCard }
+};
 </script>
