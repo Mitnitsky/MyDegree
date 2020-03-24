@@ -16,7 +16,7 @@
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.5.0",
     "file-saver": "^2.0.2",
-    "firebase": "^7.10.0",
+    "firebase": "^7.11.0",
     "firebaseui": "^4.3.0",
     "firestore": "^1.1.6",
     "vue": "^2.6.11",
