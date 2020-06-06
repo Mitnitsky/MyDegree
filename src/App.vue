@@ -19,7 +19,7 @@ import DpFooter from "./components/Footer";
 import DegreeSummary from "./components/DegreeSummary";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     DegreeSummary,
     DpFooter,

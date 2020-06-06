@@ -4,6 +4,7 @@ import VModal from "vue-js-modal";
 //Firebase
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/analytics";
 import VueFirestore from "vue-firestore";
 import { firebaseConfig } from "./firebaseconfig";
 //Bootstrap-vue
@@ -59,6 +60,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 new Vue({
   created() {},

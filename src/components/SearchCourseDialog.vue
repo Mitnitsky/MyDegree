@@ -38,11 +38,15 @@
           header-text-variant="white"
           style="text-align: right;color: black;margin-top: 7px;min-height: 300px"
         >
-          <b-card header="נקודות" no-body style="margin-bottom: 10px; ">
+          <b-card no-body style="margin-bottom: 10px; ">
+            <template v-slot:header>
+              <strong class="mb-0">נקודות</strong>
+            </template>
             <p style="margin-top: 5px; margin-bottom: 10px">
               {{ selected_course.points }}
             </p>
           </b-card>
+
           <div class="row justify-content-center mb-2">
             <b-button v-if="show" type="primary" @click="addCourse">
               הוסף קורס
@@ -50,21 +54,108 @@
           </div>
 
           <b-button
-            v-if="collapsedPrereq"
-            v-b-toggle.collapse-prereq-courses
+            v-if="collapsedHistogram"
             style="margin: 5px;"
             variant="outline-secondary"
-            @click="collapsedPrereq = !collapsedPrereq"
+            @click="
+              collapsedHistogram = !collapsedHistogram;
+              collapseHistogram(true);
+            "
+            >הראה היסטוגרמות&Darr;
+          </b-button>
+          <b-button
+            v-if="!collapsedHistogram"
+            style="margin: 5px;"
+            variant="secondary"
+            @click="
+              collapsedHistogram = !collapsedHistogram;
+              collapseHistogram(false);
+            "
+            >הסתר היסטוגרמות &Uarr;
+          </b-button>
+          <b-button
+            v-if="collapsedPrereq"
+            style="margin: 5px;"
+            variant="outline-secondary"
+            @click="
+              collapsedPrereq = !collapsedPrereq;
+              collapsePrerequisites();
+            "
             >הראה קורסי קדם/צמודים&Darr;
           </b-button>
           <b-button
             v-if="!collapsedPrereq"
-            v-b-toggle.collapse-prereq-courses
             style="margin: 5px"
-            variant="outline-secondary"
-            @click="collapsedPrereq = !collapsedPrereq"
+            variant="secondary"
+            @click="
+              collapsedPrereq = !collapsedPrereq;
+              collapsePrerequisites();
+            "
             >הראה קורסי קדם/צמודים&Uarr;
           </b-button>
+
+          <b-button
+            v-if="collapsedExtraInfo"
+            v-b-popover.hover.top="'קורסים מוכלים/מכילים/ללא זיכוי נוסף'"
+            style="margin: 5px;"
+            variant="outline-secondary"
+            @click="
+              collapsedExtraInfo = !collapsedExtraInfo;
+              collapseExtraInfo();
+            "
+            >הראה מידע נוסף &Darr;
+          </b-button>
+          <b-button
+            v-if="!collapsedExtraInfo"
+            style="margin: 5px"
+            variant="secondary"
+            @click="
+              collapsedExtraInfo = !collapsedExtraInfo;
+              collapseExtraInfo();
+            "
+            >הסתר מידע נוסף &Uarr;
+          </b-button>
+          <b-collapse id="collapse-histograms">
+            <b-card
+              header-bg-variant="dark"
+              header-text-variant="white"
+              no-body
+              style="margin-bottom: 10px; "
+            >
+              <template v-slot:header>
+                <strong class="mb-0">היסטוגרמות</strong>
+              </template>
+              <div class="col mt-2 ">
+                <p v-if="selected_semester_grade_stats">
+                  <strong>{{
+                    selected_semester_grade_stats[0].semester_name
+                  }}</strong>
+                </p>
+                <b-form-select
+                  v-model="selected_semester_grade_stats"
+                  :options="course_info"
+                  class="mb-2"
+                  @change="updateURL($event)"
+                ></b-form-select>
+              </div>
+              <div v-if="selected_semester_grade_stats" class="mt-3 ml-2 mr-2">
+                <b-table
+                  v-if="selected_semester_grade_stats"
+                  bordered
+                  small
+                  fixed
+                  :items="selected_semester_grade_stats"
+                  :fields="fields"
+                  head-variant="Light"
+                ></b-table>
+                <b-img
+                  v-if="histogram_img_link"
+                  :src="histogram_img_link"
+                  fluid
+                ></b-img>
+              </div>
+            </b-card>
+          </b-collapse>
           <b-collapse id="collapse-prereq-courses">
             <b-card
               v-if="selected_course.prerequisites[0].length > 0"
@@ -143,25 +234,6 @@
               </b-list-group>
             </b-card>
           </b-collapse>
-
-          <b-button
-            v-if="collapsedExtraInfo"
-            v-b-toggle.collapse-additional-info
-            v-b-popover.hover.top="'קורסים מוכלים/מכילים/ללא זיכוי נוסף'"
-            style="margin: 5px;"
-            variant="outline-secondary"
-            @click="collapsedExtraInfo = !collapsedExtraInfo"
-            >הראה מידע נוסף &Darr;
-          </b-button>
-          <br v-if="!collapsedExtraInfo" />
-          <b-button
-            v-if="!collapsedExtraInfo"
-            v-b-toggle.collapse-additional-info
-            style="margin: 5px"
-            variant="outline-secondary"
-            @click="collapsedExtraInfo = !collapsedExtraInfo"
-            >הסתר מידע נוסף &Uarr;
-          </b-button>
           <b-collapse id="collapse-additional-info">
             <b-card
               v-if="selected_course.overlapping.length > 0"
@@ -233,6 +305,8 @@
 
 <script>
 import Autocomplete from "@trevoreyre/autocomplete-vue";
+import { convertJsonToProperSelectBoxFormat } from "../store/aux/histogramFunctions";
+import $ from "jquery";
 
 let json_courses;
 
@@ -261,8 +335,41 @@ export default {
       show: false,
       collapsedExtraInfo: true,
       collapsedPrereq: true,
+      collapsedHistogram: true,
       grab: "grab",
       bgc: "transparent",
+      selected_semester_grade_stats: null,
+      course_info: null,
+      fields: [
+        {
+          key: "students",
+          label: "סטודנטים"
+        },
+        {
+          key: "passFail",
+          label: "נכשל/עובר"
+        },
+        {
+          key: "passPercent",
+          label: "אחוז עוברים"
+        },
+        {
+          key: "min",
+          label: "ציון מינימלי"
+        },
+        {
+          key: "max",
+          label: "ציון מקסימלי"
+        },
+        {
+          key: "average",
+          label: "ממוצע"
+        },
+        {
+          key: "median",
+          label: "חציון"
+        }
+      ],
       selected_course: {
         full_name: "",
         name: "",
@@ -274,6 +381,7 @@ export default {
         inclusive: "",
         including: ""
       },
+      histogram_img_link: null,
       remove: json_courses,
       options: json_courses.courses
     };
@@ -294,6 +402,21 @@ export default {
     courseChosen(course) {
       this.show = true;
       this.selected_course = course;
+      this.course_info = [];
+      this.histogram_img_link = null;
+      this.selected_semester_grade_stats = null;
+      if (!this.collapsedHistogram) {
+        this.collapseHistogram(false);
+        this.collapsedHistogram = !this.collapsedHistogram;
+      }
+      if (!this.collapsedExtraInfo) {
+        this.collapseExtraInfo(true);
+        this.collapsedExtraInfo = !this.collapsedExtraInfo;
+      }
+      if (!this.collapsedPrereq) {
+        this.collapsePrerequisites(true);
+        this.collapsedPrereq = !this.collapsedPrereq;
+      }
     },
     addCourse() {
       if (
@@ -351,6 +474,32 @@ export default {
         })[0]
       );
       window.console.log(this.selected_course);
+    },
+    collapseExtraInfo() {
+      this.$root.$emit("bv::toggle::collapse", "collapse-additional-info");
+    },
+    collapsePrerequisites() {
+      this.$root.$emit("bv::toggle::collapse", "collapse-prereq-courses");
+    },
+    collapseHistogram(fetch) {
+      if (fetch) {
+        let self = this;
+        $.getJSON(
+          `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
+          function(doc) {
+            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
+              function(a, b) {
+                return b.semester_number - a.semester_number;
+              }
+            );
+          }
+        );
+      }
+      this.$root.$emit("bv::toggle::collapse", "collapse-histograms");
+    },
+    updateURL(event) {
+      let event_payload = event[0];
+      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
     checkIfExists(course_full_name, type) {
       let course_name = course_full_name.split(":")[1];

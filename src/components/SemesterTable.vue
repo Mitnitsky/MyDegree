@@ -30,7 +30,7 @@
         <modal
           :max-height="800"
           :min-height="380"
-          :min-width="550"
+          width="800"
           height="auto"
           name="search"
           scrollable
@@ -55,7 +55,12 @@ export default {
   name: "SemesterTable",
   components: { SemesterTableRow, SemesterHeader, SearchCourseDialog },
   props: {
-    semester: null
+    semester: {
+      type: Object,
+      default: function() {
+        return { courses: [] };
+      }
+    }
   },
   data() {
     return {
