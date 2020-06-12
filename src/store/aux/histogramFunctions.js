@@ -41,12 +41,23 @@ export function convertJsonToProperSelectBoxFormat(json_obj) {
     semester_result.label = convertTechnionSemesterToText(semester);
     semester_result.semester_number = semester;
     semester_result.options = [];
+    let staff = "";
     for (let entry of Object.keys(json_obj[semester])) {
+      if (entry.startsWith("Staff")) {
+        staff =
+          json_obj[semester][entry][0].title +
+          ": " +
+          json_obj[semester][entry][0].name;
+        continue;
+      }
       let entry_result = {};
       entry_result.value = [json_obj[semester][entry]];
       entry_result.value[0].semester_name = semester_result.label;
       entry_result.value[0].semester_number = semester;
       entry_result.value[0].entry_name = entry;
+      if (staff.length > 0) {
+        entry_result.value[0].staff = staff;
+      }
       entry_result.text = convertExamNameToHebrew(entry);
       semester_result.options.push(entry_result);
     }

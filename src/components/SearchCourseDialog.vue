@@ -125,11 +125,18 @@
               <template v-slot:header>
                 <strong class="mb-0">היסטוגרמות</strong>
               </template>
-              <div class="col mt-2 ">
+              <div v-if="course_info.length > 0" class="col mt-2 ">
                 <p v-if="selected_semester_grade_stats">
                   <strong>{{
                     selected_semester_grade_stats[0].semester_name
                   }}</strong>
+                  <br
+                    v-if="selected_semester_grade_stats[0].staff !== undefined"
+                  />
+                  <strong
+                    v-if="selected_semester_grade_stats[0].staff !== undefined"
+                    >{{ selected_semester_grade_stats[0].staff }}</strong
+                  >
                 </p>
                 <b-form-select
                   v-model="selected_semester_grade_stats"
@@ -137,6 +144,9 @@
                   class="mb-2"
                   @change="updateURL($event)"
                 ></b-form-select>
+              </div>
+              <div v-else class="mt-2 mb-2 mr-2 ml-2">
+                <strong>אין היסטוגרמות זמינות</strong>
               </div>
               <div v-if="selected_semester_grade_stats" class="mt-3 ml-2 mr-2">
                 <b-table
@@ -150,7 +160,9 @@
                 ></b-table>
                 <b-img
                   v-if="histogram_img_link"
+                  rounded
                   :src="histogram_img_link"
+                  class="mb-2"
                   fluid
                 ></b-img>
               </div>
@@ -487,6 +499,7 @@ export default {
         $.getJSON(
           `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
           function(doc) {
+            window.console.log(convertJsonToProperSelectBoxFormat(doc));
             self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
               function(a, b) {
                 return b.semester_number - a.semester_number;
