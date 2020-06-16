@@ -60,7 +60,6 @@
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
         dropleft
-        title="פעולות על שורה"
         variant="outline-dark"
       >
         <b-dropdown-item @click="clearRow">
@@ -79,7 +78,7 @@
           />
           הסר שורה
         </b-dropdown-item>
-        <b-dropdown-item @click="moveCourseInner('up')">
+        <b-dropdown-item :disabled="index === 0" @click="moveCourseInner('up')">
           <font-awesome-icon
             icon="arrow-up"
             size="sm"
@@ -87,7 +86,10 @@
           />
           העלה
         </b-dropdown-item>
-        <b-dropdown-item @click="moveCourseInner('down')">
+        <b-dropdown-item
+          :disabled="index === tableSize - 1"
+          @click="moveCourseInner('down')"
+        >
           <font-awesome-icon
             icon="arrow-down"
             size="sm"
@@ -111,7 +113,7 @@ const { mapFields } = createHelpers({
 export default {
   name: "SemesterTableCourseRow",
   // eslint-disable-next-line vue/require-prop-types
-  props: ["course", "index", "moveFunction"],
+  props: ["course", "index", "moveFunction", "tableSize"],
   data() {
     return {
       InputIsWrong: "inputIsWrong"

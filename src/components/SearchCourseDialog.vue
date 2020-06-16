@@ -52,7 +52,29 @@
               הוסף קורס
             </b-button>
           </div>
-
+          <div class="row justify-content-center mb-2">
+            <b-toast
+              id="added-course"
+              static
+              variant="primary"
+              auto-hide-delay="5000"
+            >
+              <div class="row" style="padding: 10px">
+                <p style="font-size: larger">
+                  קורס: "{{ selected_course.full_name }}" הוסף בהצלחה!
+                </p>
+              </div>
+              <div class="row justify-content-center">
+                <p
+                  class="mr-1"
+                  style="font-size: larger; font-weight: bold; text-decoration: underline;cursor: pointer;color: darkorange;"
+                  @click="removeLastAddedCourse()"
+                >
+                  בטל הוספה
+                </p>
+              </div>
+            </b-toast>
+          </div>
           <b-button
             v-if="collapsedHistogram"
             style="margin: 5px;"
@@ -163,8 +185,19 @@
                   rounded
                   :src="histogram_img_link"
                   class="mb-2"
+                  style="cursor: zoom-in"
                   fluid
+                  @click="$bvModal.show('histogram-modal')"
                 ></b-img>
+                <b-modal id="histogram-modal" centered size="lg" hide-footer>
+                  <b-img
+                    v-if="histogram_img_link"
+                    rounded
+                    size="xl"
+                    :src="histogram_img_link"
+                    fluid-grow
+                  ></b-img>
+                </b-modal>
               </div>
             </b-card>
           </b-collapse>
@@ -352,6 +385,7 @@ export default {
       bgc: "transparent",
       selected_semester_grade_stats: null,
       course_info: null,
+      last_added_course_index: null,
       fields: [
         {
           key: "students",
@@ -465,18 +499,52 @@ export default {
             })
             .then(v => {
               if (v === true) {
-                this.$store.commit("addCourseWithData", this.selected_course);
+                let selected_course_and_added_index = {
+                  course: this.selected_course,
+                  added_index: this.last_added_course_index
+                };
+                this.$store.commit(
+                  "addCourseWithDataReturningIndex",
+                  selected_course_and_added_index
+                );
+                this.last_added_course_index =
+                  selected_course_and_added_index.added_index;
                 this.$store.commit("reCalcCurrentSemester");
+                this.$bvToast.show("added-course");
               }
             });
         } else {
-          this.$store.commit("addCourseWithData", this.selected_course);
+          let selected_course_and_added_index = {
+            course: this.selected_course,
+            added_index: this.last_added_course_index
+          };
+          this.$store.commit(
+            "addCourseWithDataReturningIndex",
+            selected_course_and_added_index
+          );
+          this.last_added_course_index =
+            selected_course_and_added_index.added_index;
           this.$store.commit("reCalcCurrentSemester");
+          this.$bvToast.show("added-course");
         }
       } else {
-        this.$store.commit("addCourseWithData", this.selected_course);
+        let selected_course_and_added_index = {
+          course: this.selected_course,
+          added_index: this.last_added_course_index
+        };
+        this.$store.commit(
+          "addCourseWithDataReturningIndex",
+          selected_course_and_added_index
+        );
+        this.last_added_course_index =
+          selected_course_and_added_index.added_index;
         this.$store.commit("reCalcCurrentSemester");
+        this.$bvToast.show("added-course");
       }
+    },
+    removeLastAddedCourse() {
+      this.$bvToast.hide("added-course");
+      this.$store.commit("removeCourse", this.last_added_course_index);
     },
     findPrerequisites(event) {
       let course_name = event.target.innerText.split(":")[0];
@@ -499,7 +567,6 @@ export default {
         $.getJSON(
           `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
           function(doc) {
-            window.console.log(convertJsonToProperSelectBoxFormat(doc));
             self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
               function(a, b) {
                 return b.semester_number - a.semester_number;

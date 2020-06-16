@@ -9,9 +9,10 @@
         <tbody>
           <semester-table-row
             v-for="(course, index) in semester.courses"
-            :key="course.name + course.number"
+            :key="course.name + course.number + index"
             :course="course"
             :index="index"
+            :table-size="semester.courses.length"
             :move-function="moveFunction"
           />
         </tbody>
@@ -22,7 +23,10 @@
       style="justify-content: center !important;"
     >
       <b-button-group class="mx-1" style="direction: ltr">
-        <b-button variant="outline-danger" @click="removeLastRow"
+        <b-button
+          variant="outline-danger"
+          :disabled="semester.courses.length === 0"
+          @click="removeLastRow"
           >הסר שורה
         </b-button>
 
@@ -105,28 +109,30 @@ export default {
       this.$store.commit("addCourse");
     },
     removeLastRow() {
-      this.$bvModal
-        .msgBoxConfirm("למחוק שורה בעלת תוכן?", {
-          title: "אזהרה",
-          size: "sm",
-          headerBgVariant: "dark",
-          headerTextVariant: "white",
-          buttonSize: "md",
-          cancelDisabled: "true",
-          okVariant: "danger",
-          okTitle: "כן",
-          cancelTitle: "לא",
-          autoFocusButton: "ok",
-          footerClass: "p-2",
-          hideHeaderClose: true,
-          centered: true
-        })
-        .then(v => {
-          if (v === true) {
-            this.$store.commit("removeLastRow");
-            this.$store.commit("reCalcCurrentSemester");
-          }
-        });
+      if (this.semester.courses.length > 0) {
+        this.$bvModal
+          .msgBoxConfirm("למחוק שורה בעלת תוכן?", {
+            title: "אזהרה",
+            size: "sm",
+            headerBgVariant: "dark",
+            headerTextVariant: "white",
+            buttonSize: "md",
+            cancelDisabled: "true",
+            okVariant: "danger",
+            okTitle: "כן",
+            cancelTitle: "לא",
+            autoFocusButton: "ok",
+            footerClass: "p-2",
+            hideHeaderClose: true,
+            centered: true
+          })
+          .then(v => {
+            if (v === true) {
+              this.$store.commit("removeLastRow");
+              this.$store.commit("reCalcCurrentSemester");
+            }
+          });
+      }
     }
   }
 };

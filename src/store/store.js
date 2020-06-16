@@ -324,6 +324,13 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
+    addCourseWithDataReturningIndex: (state, course_and_return_index) => {
+      course_and_return_index["added_index"] = Semester.addExistingCourse(
+        state.user.semesters[state.user.active_semester],
+        course_and_return_index["course"]
+      );
+      updateUserData(state);
+    },
     updateCourse: (state, { field, value, index }) => {
       Object.assign(
         state.user.semesters[state.user.active_semester].courses[index],

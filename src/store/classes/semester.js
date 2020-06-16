@@ -44,13 +44,14 @@ export function addExistingCourse(semester, course) {
       }
       calculateAverage(semester);
       calculatePoints(semester);
-      return;
+      return i;
     }
   }
   //No empty place found.
   semester.courses.push(createCourseFromDBEntry(course));
   calculateAverage(semester);
   calculatePoints(semester);
+  return semester.courses.length - 1;
 }
 
 export function removeCourse(semester, index) {
