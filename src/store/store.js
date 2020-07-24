@@ -1,23 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as Semester from "./classes/semester";
-import {
-  calculateAverage,
-  calculatePoints,
-  courseExistInSemesters
-} from "./classes/semester";
+import {calculateAverage, calculatePoints, courseExistInSemesters} from "./classes/semester";
 import * as Course from "./classes/course";
 import firebase from "firebase/app";
-import { getField, updateField } from "vuex-map-fields";
+import {getField, updateField} from "vuex-map-fields";
 import "firebase/auth";
 import "firebase/firestore";
-import { MathRound10 } from "./aux/rounder";
-import { saveJSON } from "./aux/download";
-import {
-  create_course_type,
-  default_course_types_obj
-} from "@/store/classes/course_types";
-import { findCourse } from "@/store/aux/converter";
+import {MathRound10} from "./aux/rounder";
+import {saveJSON} from "./aux/download";
+import {create_course_type, default_course_types_obj} from "@/store/classes/course_types";
+import {findCourse} from "@/store/aux/converter";
 
 let json_courses;
 
@@ -104,6 +97,8 @@ function getSummerSemestersNumber(semesters) {
 function calculateUserInfo(state) {
   let current_semester = state.user.semesters[state.user.active_semester];
   const exemption_index = 1;
+  let exemption_points = 0;
+  let failed_points = 0;
   if (current_semester != null) {
     if (state.user.english_exemption) {
       state.user.degree_points_done = 3;
@@ -156,6 +151,7 @@ function calculateUserInfo(state) {
           let course_grade = parseInt(course.grade);
           if (
             (course_grade > 0 && !course_already_done) ||
+            (!course_already_done && course.type === exemption_index) ||
             (course_grade > 0 &&
               (course.name.includes("ספורט") ||
                 course.name.includes("גופני"))) ||
@@ -166,8 +162,13 @@ function calculateUserInfo(state) {
               state.user.degree_average += course_points * course_grade;
             }
             state.user.degree_points_left -= course_points;
-            if (course_grade > 0 && course.type !== exemption_index) {
+            if (course_grade >= 55 || course.type === exemption_index) {
+              if (course.type === exemption_index) {
+                exemption_points += course_points;
+              }
               state.user.degree_points_done += course_points;
+            }else if (course_grade !== 0){
+              failed_points += course_points;
             }
           }
           let course_info = findCourse(course.number, json_courses);
@@ -206,21 +207,14 @@ function calculateUserInfo(state) {
         }
       }
     }
-    if (
-      state.user.degree_points_done - (state.user.english_exemption ? 3 : 0) !==
-      0
-    ) {
-      state.user.degree_average /=
-        state.user.degree_points_done - (state.user.english_exemption ? 3 : 0);
-      state.user.degree_average = MathRound10(
-        state.user.degree_average,
-        -1
-      ).toFixed(1);
+    let degree_points_with_grade = state.user.degree_points_done - (state.user.english_exemption ? 3 : 0) - exemption_points + failed_points;
+    if (degree_points_with_grade !== 0) {
+      state.user.degree_average /= degree_points_with_grade;
+      state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
     } else {
       state.user.degree_average = 0;
     }
-    state.user.degree_points_left =
-      state.user.degree_points - state.user.degree_points_done;
+    state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
   }
   updateUserData(state);
 }
@@ -331,21 +325,21 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
-    updateCourse: (state, { field, value, index }) => {
+    updateCourse: (state, {field, value, index}) => {
       Object.assign(
         state.user.semesters[state.user.active_semester].courses[index],
-        { [field]: value }
+        {[field]: value}
       );
       updateUserData(state);
     },
-    updateSemesterSummary: (state, { field, value }) => {
+    updateSemesterSummary: (state, {field, value}) => {
       Object.assign(state.user.semesters[state.user.active_semester], {
         [field]: value
       });
       updateUserData(state);
     },
-    updateInfo: (state, { field, value }) => {
-      Object.assign(state.user, { [field]: value });
+    updateInfo: (state, {field, value}) => {
+      Object.assign(state.user, {[field]: value});
       updateUserData(state);
     },
     removeCourse: (state, index) => {
@@ -355,7 +349,7 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
-    moveCourse: (state, { index, direction }) => {
+    moveCourse: (state, {index, direction}) => {
       const active_semester = state.user.active_semester;
       const current_semester = state.user.semesters[active_semester];
       const direction_int = direction === "up" ? -1 : 1;
@@ -556,7 +550,7 @@ export const store = new Vuex.Store({
         context.commit("addCourseWithData", course);
       }
     },
-    loadUserDataFromUGSite: ({ commit }, semesters_exemption_summerIndexes) => {
+    loadUserDataFromUGSite: ({commit}, semesters_exemption_summerIndexes) => {
       commit("clearUserData");
       let index = 0;
       for (let semester in semesters_exemption_summerIndexes["semesters"]) {
@@ -565,7 +559,7 @@ export const store = new Vuex.Store({
 
         for (let course of semesters_exemption_summerIndexes["semesters"][
           semester
-        ]) {
+          ]) {
           commit("addCourseWithData", course);
         }
         index += 1;
