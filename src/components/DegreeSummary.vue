@@ -9,7 +9,8 @@
       style="margin: 5px;"
       variant="outline-dark"
       @click="collapsed = !collapsed"
-      >הראה סיכום תואר &Darr;
+    >
+      הראה סיכום תואר &Darr;
     </b-button>
     <b-button
       v-if="!collapsed"
@@ -17,13 +18,17 @@
       style="margin: 5px"
       variant="outline-dark"
       @click="collapsed = !collapsed"
-      >הסתר סיכום תואר &Uarr;
+    >
+      הסתר סיכום תואר &Uarr;
     </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group deck>
         <div class="container justify-content-center">
           <div class="row justify-content-center">
-            <div class="col " style="max-width: 590px; min-width: 480px">
+            <div
+              class="col "
+              style="max-width: 590px; min-width: 480px"
+            >
               <b-card
                 class="shadow bg-white rounded h-100"
                 flow
@@ -38,8 +43,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות תואר</span
-                    >
+                    >נקודות תואר</span>
                     <input
                       v-model.number="degree_points"
                       v-b-tooltip.hover.v-dark
@@ -49,15 +53,14 @@
                       step="0.5"
                       title="יש למלא שדה זה"
                       type="number"
-                    />
+                    >
                   </div>
 
                   <div class="input-group mb-2">
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >ממוצע תואר</span
-                    >
+                    >ממוצע תואר</span>
                     <input
                       v-model.number="degree_average"
                       class="form-control degree-summary degree-summary-number disabled-input"
@@ -67,14 +70,13 @@
                       readonly
                       step="0.01"
                       type="number"
-                    />
+                    >
                   </div>
                   <div class="input-group mb-2">
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות בוצעו</span
-                    >
+                    >נקודות בוצעו</span>
                     <input
                       v-model.number="degree_points_done"
                       class="form-control degree-summary degree-summary-number disabled-input"
@@ -82,14 +84,13 @@
                       readonly
                       step="0.5"
                       type="number"
-                    />
+                    >
                   </div>
                   <div class="input-group mb-2">
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות נותרו</span
-                    >
+                    >נקודות נותרו</span>
                     <input
                       v-model.number="degree_points_left"
                       class="form-control degree-summary degree-summary-number disabled-input"
@@ -97,14 +98,13 @@
                       readonly
                       step="0.5"
                       type="number"
-                    />
+                    >
                   </div>
                   <div class="input-group mb-2">
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נותרו לשבץ</span
-                    >
+                    >נותרו לשבץ</span>
                     <input
                       v-model.number="degree_points_to_choose"
                       class="form-control degree-summary degree-summary-number disabled-input"
@@ -112,12 +112,15 @@
                       readonly
                       step="0.5"
                       type="number"
-                    />
+                    >
                   </div>
                 </div>
               </b-card>
             </div>
-            <div class="col " style="max-width: 590px; min-width: 480px">
+            <div
+              class="col "
+              style="max-width: 590px; min-width: 480px"
+            >
               <b-card
                 class="h-100 shadow bg-white rounded"
                 flow
@@ -134,7 +137,7 @@
                     style="background-color: aliceblue;align-content: center;text-align: center; margin-right: 33.6%"
                     type="text"
                     value="נותרו"
-                  />
+                  >
                   <input
                     class="input-group  form-control column-headers"
                     disabled
@@ -143,7 +146,7 @@
                     title="יש למלא שדות אלו בהתאם לתואר"
                     type="text"
                     value="מתוך"
-                  />
+                  >
                 </div>
 
                 <template v-for="(type, index) in course_types">
@@ -155,8 +158,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >{{ type.name }}</span
-                    >
+                    >{{ type.name }}</span>
                     <input
                       v-model.number="type.points_left"
                       class="input-group-append form-control degree-summary disabled-input"
@@ -165,7 +167,7 @@
                       readonly
                       step="0.5"
                       type="number"
-                    />
+                    >
                     <input
                       v-model.number="type.points_required"
                       v-b-tooltip.hover.left.v-dark
@@ -177,7 +179,7 @@
                       title="יש למלא שדה זה"
                       type="number"
                       @input="updateInfo"
-                    />
+                    >
                   </div>
                 </template>
 

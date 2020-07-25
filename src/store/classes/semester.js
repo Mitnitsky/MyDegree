@@ -34,7 +34,7 @@ export function addExistingCourse(semester, course) {
       semester.courses[i].name = course.name;
       semester.courses[i].points = course.points;
       semester.courses[i].number = course.number;
-      if (course.grade !== "undefined") {
+      if (course.grade !== undefined) {
         semester.courses[i].grade = parseInt(course.grade);
         if (isNaN(semester.courses[i].grade)) {
           if(course.grade.includes('פטור')){
@@ -67,7 +67,7 @@ export function removeCourse(semester, index) {
 }
 
 export function calculateAverage(semester) {
-  if (semester !== "undefined") {
+  if (semester !== undefined) {
     let points = 0;
     let total_grade = 0;
     for (const course of semester.courses) {
@@ -95,7 +95,7 @@ export function calculateAverage(semester) {
 }
 
 export function calculatePoints(semester) {
-  if (semester !== "undefined") {
+  if (semester !== undefined) {
     initializeSemesterPoints(semester);
     for (const course of semester.courses) {
       semester.points += parseFloat(course.points);

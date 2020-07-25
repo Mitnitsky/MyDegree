@@ -129,7 +129,7 @@ export function parseCheeseFork(courses) {
       typeof localStorage.getItem("courses") === "object"
         ? localStorage.getItem("courses")
         : JSON.parse(localStorage.getItem("courses"));
-    if (!json_courses.version || json_courses.version <= 1.0) {
+    if (!json_courses.version || json_courses.version <= 2.0) {
       json_courses = require("../../data/courses.json");
       localStorage.setItem("courses", JSON.stringify(json_courses));
     }
@@ -139,9 +139,9 @@ export function parseCheeseFork(courses) {
   }
   let j_courses = json_courses.courses;
   for (let course of courses) {
-    let splited = course.trim().split("-");
-    if (splited.length >= 2) {
-      const course_number = splited[0].trim();
+    let split = course.trim().split("-");
+    if (split.length >= 2) {
+      const course_number = split[0].trim();
       if (!isNaN(parseInt(course_number))) {
         let result = findCourse(course_number, j_courses);
         if (result.length > 0) {

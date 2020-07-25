@@ -1,5 +1,9 @@
 <template>
-  <b-card dir="rtl" no-body style="min-height: 410px;">
+  <b-card
+    dir="rtl"
+    no-body
+    style="min-height: 410px;"
+  >
     <div class="justify-content-center">
       <div
         class="row justify-content-between"
@@ -15,7 +19,8 @@
             style="border-color: #343a40;margin-top:6px;font-weight: bolder;margin-left: 2px"
             variant="outline-light"
             @click="hideSearchModal"
-            >X
+          >
+            X
           </b-button>
         </div>
       </div>
@@ -38,7 +43,10 @@
           header-text-variant="white"
           style="text-align: right;color: black;margin-top: 7px;min-height: 300px"
         >
-          <b-card no-body style="margin-bottom: 10px; ">
+          <b-card
+            no-body
+            style="margin-bottom: 10px; "
+          >
             <template v-slot:header>
               <strong class="mb-0">נקודות</strong>
             </template>
@@ -48,7 +56,11 @@
           </b-card>
 
           <div class="row justify-content-center mb-2">
-            <b-button v-if="show" type="primary" @click="addCourse">
+            <b-button
+              v-if="show"
+              type="primary"
+              @click="addCourse"
+            >
               הוסף קורס
             </b-button>
           </div>
@@ -59,7 +71,10 @@
               variant="primary"
               auto-hide-delay="5000"
             >
-              <div class="row" style="padding: 10px">
+              <div
+                class="row"
+                style="padding: 10px"
+              >
                 <p style="font-size: larger">
                   קורס: "{{ selected_course.full_name }}" הוסף בהצלחה!
                 </p>
@@ -83,7 +98,8 @@
               collapsedHistogram = !collapsedHistogram;
               collapseHistogram(true);
             "
-            >הראה היסטוגרמות&Darr;
+          >
+            הראה היסטוגרמות&Darr;
           </b-button>
           <b-button
             v-if="!collapsedHistogram"
@@ -93,7 +109,8 @@
               collapsedHistogram = !collapsedHistogram;
               collapseHistogram(false);
             "
-            >הסתר היסטוגרמות &Uarr;
+          >
+            הסתר היסטוגרמות &Uarr;
           </b-button>
           <b-button
             v-if="collapsedPrereq"
@@ -103,7 +120,8 @@
               collapsedPrereq = !collapsedPrereq;
               collapsePrerequisites();
             "
-            >הראה קורסי קדם/צמודים&Darr;
+          >
+            הראה קורסי קדם/צמודים&Darr;
           </b-button>
           <b-button
             v-if="!collapsedPrereq"
@@ -113,7 +131,8 @@
               collapsedPrereq = !collapsedPrereq;
               collapsePrerequisites();
             "
-            >הראה קורסי קדם/צמודים&Uarr;
+          >
+            הראה קורסי קדם/צמודים&Uarr;
           </b-button>
 
           <b-button
@@ -125,7 +144,8 @@
               collapsedExtraInfo = !collapsedExtraInfo;
               collapseExtraInfo();
             "
-            >הראה מידע נוסף &Darr;
+          >
+            הראה מידע נוסף &Darr;
           </b-button>
           <b-button
             v-if="!collapsedExtraInfo"
@@ -135,7 +155,8 @@
               collapsedExtraInfo = !collapsedExtraInfo;
               collapseExtraInfo();
             "
-            >הסתר מידע נוסף &Uarr;
+          >
+            הסתר מידע נוסף &Uarr;
           </b-button>
           <b-collapse id="collapse-histograms">
             <b-card
@@ -147,30 +168,38 @@
               <template v-slot:header>
                 <strong class="mb-0">היסטוגרמות</strong>
               </template>
-              <div v-if="course_info.length > 0" class="col mt-2 ">
+              <div
+                v-if="course_info.length > 0"
+                class="col mt-2 "
+              >
                 <p v-if="selected_semester_grade_stats">
                   <strong>{{
                     selected_semester_grade_stats[0].semester_name
                   }}</strong>
                   <br
                     v-if="selected_semester_grade_stats[0].staff !== undefined"
-                  />
+                  >
                   <strong
                     v-if="selected_semester_grade_stats[0].staff !== undefined"
-                    >{{ selected_semester_grade_stats[0].staff }}</strong
-                  >
+                  >{{ selected_semester_grade_stats[0].staff }}</strong>
                 </p>
                 <b-form-select
                   v-model="selected_semester_grade_stats"
                   :options="course_info"
                   class="mb-2"
                   @change="updateURL($event)"
-                ></b-form-select>
+                />
               </div>
-              <div v-else class="mt-2 mb-2 mr-2 ml-2">
+              <div
+                v-else
+                class="mt-2 mb-2 mr-2 ml-2"
+              >
                 <strong>אין היסטוגרמות זמינות</strong>
               </div>
-              <div v-if="selected_semester_grade_stats" class="mt-3 ml-2 mr-2">
+              <div
+                v-if="selected_semester_grade_stats"
+                class="mt-3 ml-2 mr-2"
+              >
                 <b-table
                   v-if="selected_semester_grade_stats"
                   bordered
@@ -179,7 +208,7 @@
                   :items="selected_semester_grade_stats"
                   :fields="fields"
                   head-variant="Light"
-                ></b-table>
+                />
                 <b-img
                   v-if="histogram_img_link"
                   rounded
@@ -188,15 +217,20 @@
                   style="cursor: zoom-in"
                   fluid
                   @click="$bvModal.show('histogram-modal')"
-                ></b-img>
-                <b-modal id="histogram-modal" centered size="lg" hide-footer>
+                />
+                <b-modal
+                  id="histogram-modal"
+                  centered
+                  size="lg"
+                  hide-footer
+                >
                   <b-img
                     v-if="histogram_img_link"
                     rounded
                     size="xl"
                     :src="histogram_img_link"
                     fluid-grow
-                  ></b-img>
+                  />
                 </b-modal>
               </div>
             </b-card>
@@ -222,7 +256,8 @@
                   :style="{ color: checkIfExists(course, 'prerequisite') }"
                   href="#"
                   @click="findPrerequisites($event)"
-                  >{{ course }}
+                >
+                  {{ course }}
                   <b-popover
                     v-if="checkIfExists(course, 'prerequisite') === 'red'"
                     :target="
@@ -230,11 +265,12 @@
                     "
                     placement="top"
                     triggers="hover"
-                    ><span style="color: red">
-                      קורס זה לא נמצא בתואר<br />
-                      (עד סמסטר נוכחי לא כולל)
-                    </span></b-popover
                   >
+                    <span style="color: red">
+                      קורס זה לא נמצא בתואר<br>
+                      (עד סמסטר נוכחי לא כולל)
+                    </span>
+                  </b-popover>
                 </b-list-group-item>
                 <p
                   v-if="index < selected_course.prerequisites.length - 1"
@@ -261,7 +297,8 @@
                   href="#"
                   :style="{ color: checkIfExists(linked, 'linked') }"
                   @click="findPrerequisites($event)"
-                  >{{ linked }}
+                >
+                  {{ linked }}
                   <b-popover
                     v-if="checkIfExists(linked, 'prerequisite') === 'red'"
                     :target="
@@ -270,11 +307,12 @@
                     placement="top"
                     triggers="hover"
                     variant="warning"
-                    ><span style="">
-                      קורס זה לא נמצא בתואר<br />
-                      (עד סמסטר נוכחי כולל)
-                    </span></b-popover
                   >
+                    <span style="">
+                      קורס זה לא נמצא בתואר<br>
+                      (עד סמסטר נוכחי כולל)
+                    </span>
+                  </b-popover>
                 </b-list-group-item>
               </b-list-group>
             </b-card>
@@ -296,7 +334,8 @@
                   :style="{ color: checkIfExists(overlapping, 'other') }"
                   href="#"
                   @click="findPrerequisites($event)"
-                  >{{ overlapping }}
+                >
+                  {{ overlapping }}
                 </b-list-group-item>
               </b-list-group>
             </b-card>
@@ -316,7 +355,8 @@
                   :style="{ color: checkIfExists(inclusive, 'other') }"
                   href="#"
                   @click="findPrerequisites($event)"
-                  >{{ inclusive }}
+                >
+                  {{ inclusive }}
                 </b-list-group-item>
               </b-list-group>
             </b-card>
@@ -337,7 +377,8 @@
                   href="#"
                   :v-b-popover="'Popover!'"
                   @click="findPrerequisites($event)"
-                  >{{ including }}
+                >
+                  {{ including }}
                 </b-list-group-item>
               </b-list-group>
             </b-card>
@@ -360,7 +401,7 @@ if (localStorage.getItem("courses")) {
     typeof localStorage.getItem("courses") === "object"
       ? localStorage.getItem("courses")
       : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version <= 1.0) {
+  if (!json_courses.version || json_courses.version <= 2.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }

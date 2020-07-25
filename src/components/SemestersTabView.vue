@@ -1,6 +1,14 @@
 <template>
-  <b-card class="shadow bg-white rounded" no-body style="margin: 10px 20px">
-    <b-tabs pills card @input="updateActiveSemester">
+  <b-card
+    class="shadow bg-white rounded"
+    no-body
+    style="margin: 10px 20px"
+  >
+    <b-tabs
+      pills
+      card
+      @input="updateActiveSemester"
+    >
       <b-tab
         v-for="(semester, index) in this.$store.state.user.semesters"
         :key="index"
@@ -8,17 +16,26 @@
         lazy
       >
         <div class="row justify-content-md-center">
-          <div class="col-xl-10" style="margin-bottom: 10px;">
+          <div
+            class="col-xl-10"
+            style="margin-bottom: 10px;"
+          >
             <app-semester-table :semester="semester" />
           </div>
-          <div class="col-xl-2" style="padding: 0 0">
+          <div
+            class="col-xl-2"
+            style="padding: 0 0"
+          >
             <app-semester-summary />
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-10"></div>
+          <div class="col-xl-10" />
           <div class="col-xl-2">
-            <b-button-group class="mx-1" style="direction: ltr">
+            <b-button-group
+              class="mx-1"
+              style="direction: ltr"
+            >
               <b-button
                 class="align-self-end"
                 variant="outline-danger"
@@ -52,7 +69,12 @@
 
       <!-- New Tab Button (Using tabs slot) -->
       <template slot="tabs-end">
-        <b-nav-item href="#" @click.prevent="newTab"><b>+</b></b-nav-item>
+        <b-nav-item
+          href="#"
+          @click.prevent="newTab"
+        >
+          <b>+</b>
+        </b-nav-item>
       </template>
 
       <!-- Render this if no tabs -->
@@ -62,10 +84,13 @@
       >
         <h2>עוד לא נוספו סמסטרים</h2>
 
-        <br />
+        <br>
 
-        <b-button variant="outline-secondary" @click.prevent="newTab"
-          >הוסף סמסטר
+        <b-button
+          variant="outline-secondary"
+          @click.prevent="newTab"
+        >
+          הוסף סמסטר
         </b-button>
       </div>
     </b-tabs>

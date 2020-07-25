@@ -19,7 +19,7 @@ if (localStorage.getItem("courses")) {
     typeof localStorage.getItem("courses") === "object"
       ? localStorage.getItem("courses")
       : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version <= 1.0) {
+  if (!json_courses.version || json_courses.version <= 2.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }
@@ -312,6 +312,8 @@ export const store = new Vuex.Store({
       updateUserData(state);
     },
     addCourseWithData: (state, course) => {
+      window.console.log(course);
+      window.console.log(state.user.active_semester);
       Semester.addExistingCourse(
         state.user.semesters[state.user.active_semester],
         course

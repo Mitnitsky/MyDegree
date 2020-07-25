@@ -8,7 +8,12 @@
         @change.stop="updateField('type')"
       >
         <template v-for="(type, index_2) in course_types">
-          <option :key="index_2" :value="index_2">{{ type.name }} </option>
+          <option
+            :key="index_2"
+            :value="index_2"
+          >
+            {{ type.name }}
+          </option>
         </template>
       </select>
     </td>
@@ -21,7 +26,7 @@
         step="1"
         type="number"
         @change="updateField('number')"
-      />
+      >
     </td>
     <td style="min-width: 250px;padding-right: 0">
       <input
@@ -29,7 +34,7 @@
         class="form-control courseName"
         type="text"
         @change="updateField('name')"
-      />
+      >
     </td>
     <td style="min-width: 60px">
       <input
@@ -41,7 +46,7 @@
         step="0.5"
         type="number"
         @change="updateField('points')"
-      />
+      >
     </td>
     <td style="min-width: 60px">
       <input
@@ -53,9 +58,12 @@
         step="1"
         type="number"
         @change="updateField('grade')"
-      />
+      >
     </td>
-    <td class="text-center" style="min-width: 45px">
+    <td
+      class="text-center"
+      style="min-width: 45px"
+    >
       <b-dropdown
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
@@ -78,7 +86,10 @@
           />
           הסר שורה
         </b-dropdown-item>
-        <b-dropdown-item :disabled="index === 0" @click="moveCourseInner('up')">
+        <b-dropdown-item
+          :disabled="index === 0"
+          @click="moveCourseInner('up')"
+        >
           <font-awesome-icon
             icon="arrow-up"
             size="sm"

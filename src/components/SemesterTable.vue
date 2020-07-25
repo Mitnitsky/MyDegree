@@ -22,15 +22,24 @@
       class="row justify-content-md-center"
       style="justify-content: center !important;"
     >
-      <b-button-group class="mx-1" style="direction: ltr">
+      <b-button-group
+        class="mx-1"
+        style="direction: ltr"
+      >
         <b-button
           variant="outline-danger"
           :disabled="semester.courses.length === 0"
           @click="removeLastRow"
-          >הסר שורה
+        >
+          הסר שורה
         </b-button>
 
-        <b-button variant="info" @click="showModal">חיפוש קורסים </b-button>
+        <b-button
+          variant="info"
+          @click="showModal"
+        >
+          חיפוש קורסים
+        </b-button>
         <modal
           :max-height="800"
           :min-height="380"
@@ -41,8 +50,11 @@
         >
           <search-course-dialog />
         </modal>
-        <b-button variant="outline-primary" @click="addRow"
-          >הוסף שורה
+        <b-button
+          variant="outline-primary"
+          @click="addRow"
+        >
+          הוסף שורה
         </b-button>
       </b-button-group>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div id="firebaseui-auth-container"></div>
+  <div id="firebaseui-auth-container" />
 </template>
 
 <script>

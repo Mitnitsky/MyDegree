@@ -18,10 +18,11 @@ export function createCourseFromDBEntry(course) {
   course_to_add.number = course.number;
   course_to_add.points = course.points;
   course_to_add.type = 0;
-  if (course.grade !== "undefined") {
+  if (course.grade !== undefined) {
     course_to_add.grade = isNaN(parseInt(course.grade))
       ? 0
       : parseInt(course.grade);
+    window.console.log(course.grade);
     window.console.log(course.grade.includes('פטור'));
     if(course.grade.includes('פטור')){
       course_to_add.type = exemption_index;

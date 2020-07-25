@@ -1,7 +1,12 @@
 <template>
   <thead class="thead-light">
     <tr style="font-family: Alef,serif">
-      <th scope="col" style="width: 15%;">קטגוריה</th>
+      <th
+        scope="col"
+        style="width: 15%;"
+      >
+        קטגוריה
+      </th>
       <th
         v-b-tooltip.hover.v-secondary
         class="clickAbleHeader"
@@ -42,7 +47,10 @@
       >
         ציון
       </th>
-      <th scope="col" style="width: 6%;" />
+      <th
+        scope="col"
+        style="width: 6%;"
+      />
     </tr>
   </thead>
 </template>

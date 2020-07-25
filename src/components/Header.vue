@@ -1,7 +1,14 @@
 <template>
-  <b-navbar toggleable="sm" type="dark" variant="dark">
+  <b-navbar
+    toggleable="sm"
+    type="dark"
+    variant="dark"
+  >
     <b-navbar-toggle target="nav-collapse" />
-    <b-collapse id="nav-collapse" is-nav>
+    <b-collapse
+      id="nav-collapse"
+      is-nav
+    >
       <b-navbar-nav align="start">
         <template v-if="logged">
           <font-awesome-icon
@@ -15,12 +22,17 @@
             right
             style="font-size: 18px;color: lightgray;"
           >
-            <template slot="button-content"
-              ><span style="margin-left: 5px"
-                >שלום {{ user_name }}</span
-              ></template
+            <template
+              slot="button-content"
             >
-            <b-dropdown-item href="#" @click="signOut">
+              <span
+                style="margin-left: 5px"
+              >שלום {{ user_name }}</span>
+            </template>
+            <b-dropdown-item
+              href="#"
+              @click="signOut"
+            >
               <font-awesome-icon
                 href="#"
                 icon="sign-out-alt"
@@ -40,8 +52,12 @@
             size="lg"
             style="color: lightgray;margin-left: 5px;font-size: 20px;margin-top:10px"
           />
-          <b-nav-item v-b-modal.modal-1 href="#" style="color: lightgray;"
-            >כניסה
+          <b-nav-item
+            v-b-modal.modal-1
+            href="#"
+            style="color: lightgray;"
+          >
+            כניסה
           </b-nav-item>
           <b-modal
             id="modal-1"
@@ -60,7 +76,8 @@
               class="mt-3"
               variant="outline-primary"
               @click="hideModal('auth-modal')"
-              >סגור
+            >
+              סגור
             </b-button>
           </b-modal>
         </template>
@@ -75,7 +92,8 @@
           href="#"
           style="font-size: 18px;color: lightgray;"
           @click="$bvModal.show('modal-import')"
-          >יבוא קורסים מ-UG
+        >
+          יבוא קורסים מ-UG
         </b-nav-item>
         <b-modal
           id="modal-import"
@@ -92,9 +110,17 @@
           title="יבוא קורסים וציונים מ-UG"
         >
           <template v-slot:modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right;">
-                <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
+            <div
+              class="row"
+              style="width: 100%"
+            >
+              <div
+                class="col-lg-11"
+                style="text-align: right;"
+              >
+                <h5 class="modal-title">
+                  יבוא קורסים וציונים מ-UG
+                </h5>
               </div>
               <div
                 class="col-lg-1"
@@ -106,14 +132,18 @@
                   style="margin-right: 5px;"
                   type="button"
                   @click="close()"
-                  >×
+                >
+                  ×
                 </b-button>
               </div>
             </div>
           </template>
           <div class="row justify-content-center">
-            <b-button id="popover-button-variant" variant="outline-primary"
-              >הוראות
+            <b-button
+              id="popover-button-variant"
+              variant="outline-primary"
+            >
+              הוראות
             </b-button>
             <b-popover
               placement="top"
@@ -121,22 +151,23 @@
               triggers="hover"
               variant="outline-dark"
             >
-              <template v-slot:title><h4>הוראות</h4></template>
+              <template v-slot:title>
+                <h4>הוראות</h4>
+              </template>
               <p>
                 יש לסמן את כל התוכן באמצעות CTRL+A
                 <a
                   href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
                   target="_blank"
-                  >באתר ציונים</a
-                >
+                >באתר ציונים</a>
                 ולהעתיק אותו לתיבת הטקסט בחלון זה
-                <br />
+                <br>
                 (<b>אפשרי להעתיק רק את הסמסטרים</b>)
               </p>
             </b-popover>
           </div>
           <div class="row justify-content-center mb-2">
-            <b-form-text> </b-form-text>
+            <b-form-text />
           </div>
           <b-form-textarea
             id="import-text"
@@ -144,10 +175,12 @@
             no-resize
             placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
             rows="5"
-          >
-          </b-form-textarea>
+          />
           <div class="row justify-content-center mt-2">
-            <b-button variant="outline-primary" @click="importCoursesFromUG">
+            <b-button
+              variant="outline-primary"
+              @click="importCoursesFromUG"
+            >
               יבוא קורסים
             </b-button>
           </div>
@@ -165,7 +198,8 @@
           href="#"
           style="font-size: 18px;color: lightgray;"
           @click="$bvModal.show('modal-cf-import')"
-          >יבוא סמסטר מ-CheeseFork
+        >
+          יבוא סמסטר מ-CheeseFork
         </b-nav-item>
         <b-modal
           id="modal-cf-import"
@@ -182,9 +216,17 @@
           title="יבוא סמסטר מ-CheeseFork"
         >
           <template v-slot:modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right;">
-                <h5 class="modal-title">יבוא סמסטר מ-CheeseFork</h5>
+            <div
+              class="row"
+              style="width: 100%"
+            >
+              <div
+                class="col-lg-11"
+                style="text-align: right;"
+              >
+                <h5 class="modal-title">
+                  יבוא סמסטר מ-CheeseFork
+                </h5>
               </div>
               <div
                 class="col-lg-1"
@@ -196,14 +238,18 @@
                   style="margin-right: 5px;"
                   type="button"
                   @click="close()"
-                  >×
+                >
+                  ×
                 </b-button>
               </div>
             </div>
           </template>
           <div class="row justify-content-center">
-            <b-button id="popover-cf-variant" variant="outline-primary"
-              >הוראות
+            <b-button
+              id="popover-cf-variant"
+              variant="outline-primary"
+            >
+              הוראות
             </b-button>
             <b-popover
               placement="top"
@@ -211,20 +257,21 @@
               triggers="hover"
               variant="outline-dark"
             >
-              <template v-slot:title><h4>הוראות</h4></template>
+              <template v-slot:title>
+                <h4>הוראות</h4>
+              </template>
               <p>
                 יש לסמן את הקורסים<a
                   href="https://cheesefork.cf/"
                   target="_blank"
-                  >Cheesefork</a
-                >
+                >Cheesefork</a>
                 ולהעתיק אותו לתיבת הטקסט בחלון זה
               </p>
-              <img src="../../images/import_from_cf.png" />
+              <img src="../../images/import_from_cf.png">
             </b-popover>
           </div>
           <div class="row justify-content-center mb-2">
-            <b-form-text> </b-form-text>
+            <b-form-text />
           </div>
           <b-form-textarea
             id="import-text"
@@ -232,10 +279,12 @@
             no-resize
             placeholder="יש להעתיק את התוכן לכאן"
             rows="5"
-          >
-          </b-form-textarea>
+          />
           <div class="row justify-content-center mt-2">
-            <b-button variant="outline-primary" @click="importCoursesFromCF">
+            <b-button
+              variant="outline-primary"
+              @click="importCoursesFromCF"
+            >
               יבוא קורסים
             </b-button>
           </div>
@@ -251,7 +300,8 @@
           href="#"
           style="font-size: 18px;color: lightgray;"
           @click="$bvModal.show('modal-course-types')"
-          >שינוי קטגוריות קורסים
+        >
+          שינוי קטגוריות קורסים
         </b-nav-item>
         <b-modal
           id="modal-course-types"
@@ -267,9 +317,17 @@
           title="שינוי קטגוריות קורסים"
         >
           <template v-slot:modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right;">
-                <h5 class="modal-title">שינוי קטגוריות קורסים</h5>
+            <div
+              class="row"
+              style="width: 100%"
+            >
+              <div
+                class="col-lg-11"
+                style="text-align: right;"
+              >
+                <h5 class="modal-title">
+                  שינוי קטגוריות קורסים
+                </h5>
               </div>
               <div
                 class="col-lg-1"
@@ -281,7 +339,8 @@
                   type="button"
                   aria-label="Close"
                   @click="close()"
-                  >×
+                >
+                  ×
                 </b-button>
               </div>
             </div>
@@ -304,14 +363,17 @@
                   v-if="type.name === 'פטור' || type.name === 'חובה'"
                   :key="index"
                 >
-                  <td :key="index" colspan="2">
+                  <td
+                    :key="index"
+                    colspan="2"
+                  >
                     <input
                       :value="type.name"
                       class="form-control"
                       readonly
                       style="text-align: center;cursor: default;"
                       type="text"
-                    />
+                    >
                   </td>
                 </tr>
                 <tr
@@ -320,13 +382,16 @@
                   "
                   :key="index"
                 >
-                  <td :key="index" class="col-11">
+                  <td
+                    :key="index"
+                    class="col-11"
+                  >
                     <input
                       :value="type.name"
                       class="form-control"
                       type="text"
                       @input="changeCategoryName(index, $event)"
-                    />
+                    >
                   </td>
                   <td class="col-1">
                     <b-button
@@ -334,7 +399,8 @@
                       title="מחק קטגוריה"
                       variant="outline-danger"
                       @click="deleteCategory(index)"
-                      >x
+                    >
+                      x
                     </b-button>
                   </td>
                 </tr>
@@ -342,7 +408,10 @@
             </tbody>
           </table>
           <div class="row justify-content-center">
-            <b-button v-b-modal.modal-add-course-type variant="outline-primary">
+            <b-button
+              v-b-modal.modal-add-course-type
+              variant="outline-primary"
+            >
               הוסף קטגוריה
             </b-button>
             <b-modal
@@ -359,9 +428,17 @@
               title="הוספת קטגוריה"
             >
               <template v-slot:modal-header="{ close }">
-                <div class="row" style="width: 100%">
-                  <div class="col" style="text-align: right;">
-                    <h5 class="modal-title">הוספת קטגוריה</h5>
+                <div
+                  class="row"
+                  style="width: 100%"
+                >
+                  <div
+                    class="col"
+                    style="text-align: right;"
+                  >
+                    <h5 class="modal-title">
+                      הוספת קטגוריה
+                    </h5>
                   </div>
                   <div
                     class="col-2"
@@ -373,36 +450,45 @@
                       style="margin-right: 5px;"
                       type="button"
                       @click="close()"
-                      >×
+                    >
+                      ×
                     </b-button>
                   </div>
                 </div>
               </template>
-              <div class="input-group-prepend " style="width: 100%">
+              <div
+                class="input-group-prepend "
+                style="width: 100%"
+              >
                 <input
                   id="new_category_name"
                   class="form-control  input-group-addon "
                   placeholder="שם קטגוריה"
                   type="text"
                   @input="hideInvalidInput"
-                />
+                >
               </div>
               <span
                 v-if="wrongInput"
                 id="invalid-input"
                 dir="rtl"
                 style="size: 12px;color: red;"
-                >קטגוריה עם שם כזה קיימת כבר!</span
-              >
+              >קטגוריה עם שם כזה קיימת כבר!</span>
               <div class="row justify-content-center mt-2">
-                <b-button variant="outline-primary" @click="addCategory">
+                <b-button
+                  variant="outline-primary"
+                  @click="addCategory"
+                >
                   הוסף
                 </b-button>
               </div>
             </b-modal>
           </div>
         </b-modal>
-        <b-nav-item-dropdown id="extra" right>
+        <b-nav-item-dropdown
+          id="extra"
+          right
+        >
           <b-dropdown-item
             v-b-tooltip.hover.left.v-dark
             href="#"
@@ -418,7 +504,10 @@
             />
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
-          <b-dropdown-item v-b-modal.modal-import-from-json href="#">
+          <b-dropdown-item
+            v-b-modal.modal-import-from-json
+            href="#"
+          >
             <font-awesome-icon
               v-b-modal.modal-import-from-json
               icon="upload"
@@ -442,9 +531,17 @@
               title="יבוא נתונים מקובץ JSON"
             >
               <template v-slot:modal-header="{ close }">
-                <div class="row" style="width: 100%">
-                  <div class="col-lg-11" style="text-align: right;">
-                    <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
+                <div
+                  class="row"
+                  style="width: 100%"
+                >
+                  <div
+                    class="col-lg-11"
+                    style="text-align: right;"
+                  >
+                    <h5 class="modal-title">
+                      יבוא נתונים מקובץ JSON
+                    </h5>
                   </div>
                   <div
                     class="col-lg-1"
@@ -456,7 +553,8 @@
                       style="margin-right: 5px;"
                       type="button"
                       @click="close()"
-                      >×
+                    >
+                      ×
                     </b-button>
                   </div>
                 </div>
@@ -465,8 +563,7 @@
                 id="import-text-json"
                 v-model="json_text"
                 placeholder="יש להעתיק את התוכן קובץ ה-JSON"
-              >
-              </b-form-textarea>
+              />
               <div class="row justify-content-center mt-2">
                 <b-button
                   variant="outline-primary"
@@ -488,7 +585,11 @@
           My Degree
         </b-navbar-brand>
 
-        <img alt="" src="../assets/main_icon_white.svg" style="height: 36px;" />
+        <img
+          alt=""
+          src="../assets/main_icon_white.svg"
+          style="height: 36px;"
+        >
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

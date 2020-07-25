@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-navbar fixed="bottom" type="dark" variant="dark">
+    <b-navbar
+      fixed="bottom"
+      type="dark"
+      variant="dark"
+    >
       <div
         class="mx-auto"
         style="color: lightgray"
