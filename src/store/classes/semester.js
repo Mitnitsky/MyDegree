@@ -37,7 +37,11 @@ export function addExistingCourse(semester, course) {
       if (course.grade !== "undefined") {
         semester.courses[i].grade = parseInt(course.grade);
         if (isNaN(semester.courses[i].grade)) {
+          if(course.grade.includes('פטור')){
+            semester.courses[i].type = exemption_index;
+          }
           semester.courses[i].grade = 0;
+
         }
       } else {
         semester.courses[i].grade = 0;

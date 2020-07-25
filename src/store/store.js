@@ -556,10 +556,7 @@ export const store = new Vuex.Store({
       for (let semester in semesters_exemption_summerIndexes["semesters"]) {
         commit("setActiveSemester", index);
         commit("addSemester", 0);
-
-        for (let course of semesters_exemption_summerIndexes["semesters"][
-          semester
-          ]) {
+        for (let course of semesters_exemption_summerIndexes["semesters"][semester]) {
           commit("addCourseWithData", course);
         }
         index += 1;
