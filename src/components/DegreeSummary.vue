@@ -42,7 +42,8 @@
                   <div class="input-group mb-2">
                     <span
                       class="input-group-text categoryNameSpan"
-                      style="width: 33%"
+                      style="width: 33%;"
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות שיש לבצע בתואר'"
                     >נקודות תואר</span>
                     <input
                       v-model.number="degree_points"
@@ -76,6 +77,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
+                      v-b-tooltip.hover.up.v-dark="'נקודות עם ציון\\פטור\\בינטארי בתואר'"
                     >נקודות בוצעו</span>
                     <input
                       v-model.number="degree_points_done"
@@ -90,6 +92,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שבוצעו'"
                     >נקודות נותרו</span>
                     <input
                       v-model.number="degree_points_left"
@@ -104,6 +107,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שקיימות בתכנון התואר'"
                     >נותרו לשבץ</span>
                     <input
                       v-model.number="degree_points_to_choose"
