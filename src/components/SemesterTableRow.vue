@@ -50,7 +50,7 @@
     </td>
     <td style="min-width: 60px">
       <input
-        v-if="course.isBinary !== false"
+        v-if="course.binary === false"
         v-model.number.lazy="course.grade"
         :class="[course.grade >= 0 && course.grade <= 100 ? '' : InputIsWrong]"
         class="form-control courseGrade"

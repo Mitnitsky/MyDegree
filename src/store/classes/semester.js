@@ -69,24 +69,30 @@ export function removeCourse(semester, index) {
 export function calculateAverage(semester) {
   if (semester !== undefined) {
     let points = 0;
+    let binary_points = 0;
     let total_grade = 0;
     for (const course of semester.courses) {
       if (
         course.points !== "" &&
         course.grade !== "" &&
         parseFloat(course.grade) !== 0 &&
-        parseFloat(course.points) !== 0 &&
+        (course.binary || parseFloat(course.points) !== 0) &&
         course.type !== exemption_index
       ) {
+        if(course.binary){
+          binary_points += parseFloat(course.points);
+        }else{
+          total_grade += parseFloat(course.grade) * parseFloat(course.points);
+        }
         points += parseFloat(course.points);
-        total_grade += parseFloat(course.grade) * parseFloat(course.points);
       }
     }
-    if (points !== 0) {
-      if (parseInt(total_grade / points) == total_grade / points) {
-        semester.average = parseInt(total_grade / points);
+    let points_graded = points - binary_points;
+    if (points_graded !== 0) {
+      if (parseInt((total_grade / points_graded).toString()) == total_grade / points_graded) {
+        semester.average = parseInt((total_grade / points_graded).toString());
       } else {
-        semester.average = MathRound10(total_grade / points, -1);
+        semester.average = MathRound10(total_grade / points_graded, -1);
       }
     } else {
       semester.average = 0;
