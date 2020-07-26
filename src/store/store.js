@@ -113,7 +113,7 @@ function calculateUserInfo(state) {
     state.user.course_types[0].points_left =
       state.user.course_types[0].points_required -
       (state.user.english_exemption ? 3 : 0);
-    state.user.course_types[1].points_left = 0;
+    state.user.course_types[1].points_left = (state.user.english_exemption ? 3 : 0);
     for (let course_type of state.user.course_types) {
       if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
         course_type.points_left = course_type.points_required;
@@ -145,7 +145,11 @@ function calculateUserInfo(state) {
               course.number === courses_done[course.name][0]
             )
           ) {
-            state.user.course_types[course.type].points_left -= course_points;
+            if(state.user.course_types[course.type].name.includes('פטור')){
+              state.user.course_types[course.type].points_left += course_points;
+            }else{
+              state.user.course_types[course.type].points_left -= course_points;
+            }
             state.user.degree_points_to_choose -= course_points;
           }
           let course_grade = parseInt(course.grade);

@@ -149,9 +149,9 @@
                   >
                 </div>
 
-                <template v-for="(type, index) in course_types">
+                <template v-for="(type, index) in sortCourseTypes(course_types)">
                   <div
-                    v-if="type.name !== 'פטור'"
+                    v-if="type.name !== 'פטור' || (type.name === 'פטור' && (type.points_left !== 0 || type.points_required !== 0))"
                     :key="index"
                     class="input-group mb-2"
                   >
@@ -160,6 +160,7 @@
                       style="width: 33%"
                     >{{ type.name }}</span>
                     <input
+                      v-if="type.name !== 'פטור'"
                       v-model.number="type.points_left"
                       class="input-group-append form-control degree-summary disabled-input"
                       dir="ltr"
@@ -169,6 +170,17 @@
                       type="number"
                     >
                     <input
+                      v-else
+                      v-model.number="type.points_left"
+                      v-b-tooltip.hover.top.v-dark="'נקודות פטור קיימות'"
+                      class="input-group-append form-control degree-summary disabled-input"
+                      style="cursor: default"
+                      dir="ltr"
+                      readonly
+                      type="number"
+                    >
+                    <input
+                      v-if="type.name !== 'פטור'"
                       v-model.number="type.points_required"
                       v-b-tooltip.hover.left.v-dark
                       class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
@@ -186,6 +198,7 @@
                 <div class="input-group mb-2">
                   <b-form-checkbox
                     id="checkbox-1"
+                    v-b-tooltip.hover.top.v-dark="'נקודות יורדות מהחובה אוטומטית'"
                     v-model.number="english_exemption"
                     name="checkbox-1"
                   >
@@ -201,209 +214,222 @@
   </div>
 </template>
 <script>
-import { createHelpers } from "vuex-map-fields";
+  import {createHelpers} from "vuex-map-fields";
 
-const { mapFields } = createHelpers({
-  getterType: "getUserField",
-  mutationType: "updateUserField"
-});
+  const {mapFields} = createHelpers({
+    getterType: "getUserField",
+    mutationType: "updateUserField"
+  });
 
-export default {
-  name: "DegreeSummary",
-  data() {
-    return {
-      collapsed: true,
-      buttonText: "Show summary",
-      inputIsWrong: "inputIsWrong"
-    };
-  },
-  computed: {
-    ...mapFields([
-      "token",
-      "active_semester",
-      "degree_average",
-      "degree_points",
-      "degree_points_done",
-      "degree_points_left",
-      "degree_points_to_choose",
-      "english_exemption",
-      "semesters",
-      "course_types"
-    ])
-  },
-  methods: {
-    updateInfo() {
-      this.$store.commit("reCalcCurrentSemester");
+  export default {
+    name: "DegreeSummary",
+    data() {
+      return {
+        collapsed: true,
+        buttonText: "Show summary",
+        inputIsWrong: "inputIsWrong"
+      };
+    },
+    computed: {
+      ...mapFields([
+        "token",
+        "active_semester",
+        "degree_average",
+        "degree_points",
+        "degree_points_done",
+        "degree_points_left",
+        "degree_points_to_choose",
+        "english_exemption",
+        "semesters",
+        "course_types"
+      ])
+    },
+    methods: {
+      updateInfo() {
+        this.$store.commit("reCalcCurrentSemester");
+      },
+      sortCourseTypes: function (courses) {
+        let sorted_courses = []
+        let ptor_course = null;
+        for (let course of courses) {
+          if (course.name.includes('פטור')) {
+            ptor_course = course;
+          } else {
+            sorted_courses.push(course);
+          }
+        }
+        sorted_courses.push(ptor_course);
+        return sorted_courses;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-.courseName {
-  width: 30%;
-}
+  .courseName {
+    width: 30%;
+  }
 
-.courseNameSpan {
-  width: 100%;
-  background-color: aliceblue;
-  cursor: default;
-}
+  .courseNameSpan {
+    width: 100%;
+    background-color: aliceblue;
+    cursor: default;
+  }
 
-.disabled-input {
-  background-color: whitesmoke !important;
-}
+  .disabled-input {
+    background-color: whitesmoke !important;
+  }
 
-.degree-input-field:hover {
-  border-color: royalblue !important;
-}
+  .degree-input-field:hover {
+    border-color: royalblue !important;
+  }
 
-.degree-summary {
-  text-align: center;
-}
+  .degree-summary {
+    text-align: center;
+  }
 
-.degree-summary-number {
-  direction: ltr;
-}
+  .degree-summary-number {
+    direction: ltr;
+  }
 
-.categoryName {
-  width: 130px;
-}
+  .categoryName {
+    width: 130px;
+  }
 
-.categoryNameSpan {
-  width: 33%;
-  background-color: aliceblue;
-  cursor: default;
-}
+  .categoryNameSpan {
+    width: 33%;
+    background-color: aliceblue;
+    cursor: default;
+  }
 
-.courseNameDiV {
-  border-radius: 0.25rem 0 0 0.25rem !important;
-}
+  .courseNameDiV {
+    border-radius: 0.25rem 0 0 0.25rem !important;
+  }
 
-.summary-card-header {
-  font-weight: bold !important;
-}
+  .summary-card-header {
+    font-weight: bold !important;
+  }
 
-/*Thanks to Vucko at https://stackoverflow.com/questions/42677620/bootstrap-4-input-group-rtl-issue*/
-[dir="rtl"] .input-group-addon:not(:last-child) {
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
-  border-left: 0;
-}
+  /*Thanks to Vucko at https://stackoverflow.com/questions/42677620/bootstrap-4-input-group-rtl-issue*/
+  [dir="rtl"] .input-group-addon:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    border-left: 0;
+  }
 
-[dir="rtl"] .input-group-text:not(:last-child) {
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
-  border-left: 0;
-}
+  [dir="rtl"] .input-group-text:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    border-left: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:last-child),
-[dir="rtl"] .input-group-text:not(:last-child),
-[dir="rtl"]
+  [dir="rtl"] .input-group .form-control:not(:last-child),
+  [dir="rtl"] .input-group-text:not(:last-child),
+  [dir="rtl"]
   .input-group-btn:not(:first-child)
   > .btn-group:not(:last-child)
   > .btn,
-[dir="rtl"]
+  [dir="rtl"]
   .input-group-btn:not(:first-child)
   > .btn:not(:last-child):not(.dropdown-toggle),
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-}
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:last-child),
-[dir="rtl"] .input-group-addon:not(:last-child),
-[dir="rtl"]
+  [dir="rtl"] .input-group .form-control:not(:last-child),
+  [dir="rtl"] .input-group-addon:not(:last-child),
+  [dir="rtl"]
   .input-group-btn:not(:first-child)
   > .btn-group:not(:last-child)
   > .btn,
-[dir="rtl"]
+  [dir="rtl"]
   .input-group-btn:not(:first-child)
   > .btn:not(:last-child):not(.dropdown-toggle),
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-}
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child),
-[dir="rtl"] .input-group-addon:not(:first-child),
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
-[dir="rtl"]
+  [dir="rtl"] .input-group .form-control:not(:first-child),
+  [dir="rtl"] .input-group-addon:not(:first-child),
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
+  [dir="rtl"]
   .input-group-btn:not(:last-child)
   > .btn-group:not(:first-child)
   > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
-}
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child),
-[dir="rtl"] .input-group-text:not(:first-child),
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
-[dir="rtl"]
+  [dir="rtl"] .input-group .form-control:not(:first-child),
+  [dir="rtl"] .input-group-text:not(:first-child),
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
+  [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
+  [dir="rtl"]
   .input-group-btn:not(:last-child)
   > .btn-group:not(:first-child)
   > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
-}
+  [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+  }
 
-[dir="rtl"] .form-control + .input-group-addon:not(:first-child) {
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
-  border-right: 0;
-}
+  [dir="rtl"] .form-control + .input-group-addon:not(:first-child) {
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-right: 0;
+  }
 
-[dir="rtl"] .form-control + .input-group-text:not(:first-child) {
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
-  border-right: 0;
-}
+  [dir="rtl"] .form-control + .input-group-text:not(:first-child) {
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-right: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 
-.input-group > .input-group-prepend {
-  flex: 0 0 33%;
-}
+  .input-group > .input-group-prepend {
+    flex: 0 0 33%;
+  }
 
-.input-group .input-group-text {
-  width: 100%;
-}
+  .input-group .input-group-text {
+    width: 100%;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}
+  [dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
+  [dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 </style>
