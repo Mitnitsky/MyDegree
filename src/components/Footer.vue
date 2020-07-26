@@ -10,7 +10,7 @@
         style="color: lightgray"
         @click="$bvModal.show('contactInfo-modal')"
       >
-        © 2019 Copyright: <a href="#">Vladimir Parakhin</a>
+        ©  Created by: <a href="#">Vladimir Parakhin</a>
       </div>
       <my-info-card />
     </b-navbar>

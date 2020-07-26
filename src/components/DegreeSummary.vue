@@ -151,7 +151,7 @@
 
                 <template v-for="(type, index) in sortCourseTypes(course_types)">
                   <div
-                    v-if="type.name !== 'פטור' || (type.name === 'פטור' && (type.points_left !== 0 || type.points_required !== 0))"
+                    v-if="type.name !== 'פטור' || (type.name === 'פטור' && type.points_left > 0)"
                     :key="index"
                     class="input-group mb-2"
                   >
