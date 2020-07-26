@@ -97,8 +97,11 @@ function getSummerSemestersNumber(semesters) {
 function calculateUserInfo(state) {
   let current_semester = state.user.semesters[state.user.active_semester];
   const exemption_index = 1;
+  const mandatory_index = 0;
+  const english_exemption_points = state.user.english_exemption ? 3 : 0;
   let exemption_points = 0;
   let failed_points = 0;
+  let binary_points = 0;
   if (current_semester != null) {
     if (state.user.english_exemption) {
       state.user.degree_points_done = 3;
@@ -106,14 +109,10 @@ function calculateUserInfo(state) {
       state.user.degree_points_done = 0;
     }
     state.user.degree_average = 0;
-    state.user.degree_points_to_choose =
-      state.user.degree_points - state.user.degree_points_done;
-    state.user.degree_points_left =
-      state.user.degree_points - state.user.degree_points_done;
-    state.user.course_types[0].points_left =
-      state.user.course_types[0].points_required -
-      (state.user.english_exemption ? 3 : 0);
-    state.user.course_types[1].points_left = (state.user.english_exemption ? 3 : 0);
+    state.user.degree_points_to_choose = state.user.degree_points - state.user.degree_points_done;
+    state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+    state.user.course_types[mandatory_index].points_left = state.user.course_types[mandatory_index].points_required - english_exemption_points;
+    state.user.course_types[exemption_index].points_left = english_exemption_points;
     for (let course_type of state.user.course_types) {
       if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
         course_type.points_left = course_type.points_required;
@@ -125,16 +124,16 @@ function calculateUserInfo(state) {
       Semester.calculatePoints(semester);
       for (const course of semester.courses) {
         let course_has_number = course.number.toString().length > 2;
-        let course_already_done =
-          course.name in courses_done && course_has_number;
-        if (
-          course.name.includes("ספורט") ||
-          course.name.includes("גופני") ||
+        let course_already_done = (course.name in courses_done) && course_has_number;
+        const grade_index = 0;
+        const name_index = 1;
+        const binary_index = 2;
+        if ( course.name.includes("ספורט") || course.name.includes("גופני") ||
           !(
-            course_already_done &&
-            course.number === courses_done[course.name][0] &&
-            courses_done[course.name][1] !== 0
-          )
+             course_already_done &&
+             course.number === courses_done[course.name][name_index] &&
+             (parseInt(courses_done[course.name][grade_index]) !== 0 || courses_done[course.name][binary_index])
+           )
         ) {
           let course_points = parseFloat(course.points);
           if (
@@ -142,7 +141,7 @@ function calculateUserInfo(state) {
             course.name.includes("גופני") ||
             !(
               course_already_done &&
-              course.number === courses_done[course.name][0]
+              course.number === courses_done[course.name][name_index]
             )
           ) {
             if(state.user.course_types[course.type].name.includes('פטור')){
@@ -156,19 +155,19 @@ function calculateUserInfo(state) {
           if (
             (course_grade > 0 && !course_already_done) ||
             (!course_already_done && course.type === exemption_index) ||
-            (course_grade > 0 &&
-              (course.name.includes("ספורט") ||
-                course.name.includes("גופני"))) ||
-            (course_already_done &&
-              parseInt(courses_done[course.name][1]) === 0)
+            (course_grade > 0 && (course.name.includes("ספורט") || course.name.includes("גופני"))) ||
+            (course_already_done && (parseInt(courses_done[course.name][grade_index]) === 0 || courses_done[course.name][binary_index]))
           ) {
-            if (course.type !== exemption_index) {
+            if (course.type !== exemption_index && !course.binary) {
               state.user.degree_average += course_points * course_grade;
             }
             state.user.degree_points_left -= course_points;
-            if (course_grade >= 55 || course.type === exemption_index) {
+            if (course_grade >= 55 || course.type === exemption_index || course.binary) {
               if (course.type === exemption_index) {
                 exemption_points += course_points;
+              }
+              if (course.binary && course.type !== exemption_index){
+                binary_points += course_points;
               }
               state.user.degree_points_done += course_points;
             }else if (course_grade !== 0){
@@ -177,7 +176,7 @@ function calculateUserInfo(state) {
           }
           let course_info = findCourse(course.number, json_courses);
 
-          courses_done[course.name] = [course.number, course.grade];
+          courses_done[course.name] = [course.number, course.grade, course.binary];
           if (course_info.length > 0) {
             course_info = course_info[0];
             for (let overlappingKey of course_info.overlapping) {
@@ -211,7 +210,7 @@ function calculateUserInfo(state) {
         }
       }
     }
-    let degree_points_with_grade = state.user.degree_points_done - (state.user.english_exemption ? 3 : 0) - exemption_points + failed_points;
+    let degree_points_with_grade = state.user.degree_points_done - english_exemption_points - exemption_points - binary_points + failed_points;
     if (degree_points_with_grade !== 0) {
       state.user.degree_average /= degree_points_with_grade;
       state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);

@@ -7,6 +7,7 @@ export function createNewCourse() {
   course.points = 0;
   course.grade = 0;
   course.type = 0;
+  course.binary = false;
   return course;
 }
 
@@ -18,6 +19,7 @@ export function createCourseFromDBEntry(course) {
   course_to_add.number = course.number;
   course_to_add.points = course.points;
   course_to_add.type = 0;
+  course_to_add.binary = false;
   if (course.grade !== undefined) {
     course_to_add.grade = isNaN(parseInt(course.grade))
       ? 0
@@ -38,13 +40,4 @@ export function courseIsEmpty(course) {
     course.name === "" &&
     (course.number === "" || parseInt(course.number) === 0)
   );
-}
-
-export function clearCourse(course) {
-  course.existsInDB = false;
-  course.name = "";
-  course.number = "";
-  course.points = 0;
-  course.grade = 0;
-  course.type = 0;
 }

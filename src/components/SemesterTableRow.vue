@@ -50,6 +50,7 @@
     </td>
     <td style="min-width: 60px">
       <input
+        v-if="course.isBinary !== false"
         v-model.number.lazy="course.grade"
         :class="[course.grade >= 0 && course.grade <= 100 ? '' : InputIsWrong]"
         class="form-control courseGrade"
@@ -58,6 +59,14 @@
         step="1"
         type="number"
         @change="updateField('grade')"
+      >
+      <input
+        v-else
+        value="✔"
+        readonly
+        v-b-popover.hover.top="'עובר בינארי'"
+        style="color: green;cursor: default;"
+        class="form-control courseGrade"
       >
     </td>
     <td
@@ -70,6 +79,22 @@
         dropleft
         variant="outline-dark"
       >
+        <b-dropdown-item v-if="!course.binary" @click="setCourseBinaryState(true)">
+          <font-awesome-icon
+            icon="check"
+            size="sm"
+            style="color: green; margin-left: 5px;"
+          />
+          סמן עובר בינארי
+        </b-dropdown-item>
+        <b-dropdown-item v-else @click="setCourseBinaryState(false)">
+          <font-awesome-icon
+            icon="ban"
+            size="sm"
+            style="color: red; margin-left: 5px;"
+          />
+          בטל עובר בינארי
+        </b-dropdown-item>
         <b-dropdown-item @click="clearRow">
           <font-awesome-icon
             icon="broom"
@@ -113,7 +138,7 @@
   </tr>
 </template>
 <script>
-import { clearCourse } from "../store/classes/course";
+import { createNewCourse } from "../store/classes/course";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
@@ -135,14 +160,17 @@ export default {
   },
   methods: {
     clearRow() {
-      clearCourse(this.course);
+      this.course = createNewCourse();
       this.$store.commit("reCalcCurrentSemester");
     },
     deleteRow() {
       this.$store.commit("removeCourse", this.index);
       this.$store.commit("reCalcCurrentSemester");
     },
-
+    setCourseBinaryState(state){
+      this.course.binary = state;
+      this.updateField('binary');
+    },
     updateField(field) {
       let value = this.course[field];
       if (field)

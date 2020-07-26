@@ -23,11 +23,13 @@ import {
   faArrowDown,
   faArrowUp,
   faBroom,
+  faBan,
   faDownload,
   faEllipsisV,
   faEnvelope,
   faFileImport,
   faMinus,
+  faCheck,
   faSignInAlt,
   faSignOutAlt,
   faSlidersH,
@@ -37,6 +39,8 @@ import {
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 library.add(faUserCircle);
+library.add(faCheck);
+library.add(faBan);
 library.add(faEllipsisV);
 library.add(faSignInAlt);
 library.add(faBroom);
