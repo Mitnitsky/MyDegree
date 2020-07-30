@@ -176,7 +176,7 @@
                     >
                     <input
                       v-else
-                      v-model.number="type.points_left"
+                      v-model.number="type.total_points"
                       v-b-tooltip.hover.top.v-dark="'נקודות פטור קיימות'"
                       class="input-group-append form-control degree-summary disabled-input"
                       style="cursor: default"
@@ -186,7 +186,7 @@
                     >
                     <input
                       v-if="type.name !== 'פטור'"
-                      v-model.number="type.total_points"
+                      v-model.number="type.points_required"
                       v-b-tooltip.hover.left.v-dark
                       class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
                       dir="ltr"
