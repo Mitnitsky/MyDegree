@@ -41,9 +41,9 @@
                 <div style="height: 100%; margin-top: 46px">
                   <div class="input-group mb-2">
                     <span
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות שיש לבצע בתואר'"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%;"
-                      v-b-tooltip.hover.up.v-dark="'כל הנקודות שיש לבצע בתואר'"
                     >נקודות תואר</span>
                     <input
                       v-model.number="degree_points"
@@ -75,9 +75,9 @@
                   </div>
                   <div class="input-group mb-2">
                     <span
+                      v-b-tooltip.hover.up.v-dark="'נקודות עם ציון\\פטור\\בינטארי בתואר'"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      v-b-tooltip.hover.up.v-dark="'נקודות עם ציון\\פטור\\בינטארי בתואר'"
                     >נקודות בוצעו</span>
                     <input
                       v-model.number="degree_points_done"
@@ -90,9 +90,9 @@
                   </div>
                   <div class="input-group mb-2">
                     <span
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שבוצעו'"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שבוצעו'"
                     >נקודות נותרו</span>
                     <input
                       v-model.number="degree_points_left"
@@ -105,9 +105,9 @@
                   </div>
                   <div class="input-group mb-2">
                     <span
+                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שקיימות בתכנון התואר'"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      v-b-tooltip.hover.up.v-dark="'כל הנקודות הדרושות בתואר פחות הנקודות שקיימות בתכנון התואר'"
                     >נותרו לשבץ</span>
                     <input
                       v-model.number="degree_points_to_choose"
@@ -155,11 +155,12 @@
 
                 <template v-for="(type, index) in sortCourseTypes(course_types)">
                   <div
-                    v-if="type.name !== 'פטור' || (type.name === 'פטור' && type.points_left > 0)"
+                    v-if="type.name !== 'פטור' || (type.name === 'פטור' && type.total_points > 0)"
                     :key="index"
                     class="input-group mb-2"
                   >
                     <span
+                      v-b-tooltip.hover.top.v-dark="'סה\'\'כ נקודות משובצות' + ': ' + type.total_points"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
                     >{{ type.name }}</span>
@@ -185,7 +186,7 @@
                     >
                     <input
                       v-if="type.name !== 'פטור'"
-                      v-model.number="type.points_required"
+                      v-model.number="type.total_points"
                       v-b-tooltip.hover.left.v-dark
                       class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
                       dir="ltr"
@@ -202,8 +203,8 @@
                 <div class="input-group mb-2">
                   <b-form-checkbox
                     id="checkbox-1"
-                    v-b-tooltip.hover.top.v-dark="'נקודות יורדות מהחובה אוטומטית'"
                     v-model.number="english_exemption"
+                    v-b-tooltip.hover.top.v-dark="'נקודות יורדות מהחובה אוטומטית'"
                     name="checkbox-1"
                   >
                     פטור מאנגלית

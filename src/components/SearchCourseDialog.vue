@@ -186,6 +186,7 @@
                 <b-form-select
                   v-model="selected_semester_grade_stats"
                   :options="course_info"
+
                   class="mb-2"
                   @change="updateURL($event)"
                 />
@@ -391,7 +392,7 @@
 
 <script>
 import Autocomplete from "@trevoreyre/autocomplete-vue";
-import { convertJsonToProperSelectBoxFormat } from "../store/aux/histogramFunctions";
+import { convertJsonToProperSelectBoxFormat } from "@/store/aux/histogramFunctions";
 import $ from "jquery";
 
 let json_courses;
@@ -605,6 +606,7 @@ export default {
     collapseHistogram(fetch) {
       if (fetch) {
         let self = this;
+        let update = this.updateURL;
         $.getJSON(
           `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
           function(doc) {
@@ -613,6 +615,10 @@ export default {
                 return b.semester_number - a.semester_number;
               }
             );
+            if(self.course_info.length > 0){
+              self.selected_semester_grade_stats = self.course_info[0].options[0].value;
+              update(self.selected_semester_grade_stats);
+            }
           }
         );
       }

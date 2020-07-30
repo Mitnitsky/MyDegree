@@ -5,11 +5,13 @@
         v-model.number.lazy="course.type"
         :select-on-tab="true"
         class="form-control courseType"
+        :style="{ backgroundColor: choose_colors[course.type % 10]}"
         @change.stop="updateField('type')"
       >
         <template v-for="(type, index_2) in course_types">
           <option
             :key="index_2"
+            :style="{ backgroundColor: choose_colors[index_2]}"
             :value="index_2"
           >
             {{ type.name }}
@@ -62,9 +64,9 @@
       >
       <input
         v-else
+        v-b-popover.hover.top="'עובר בינארי'"
         value="✔"
         readonly
-        v-b-popover.hover.top="'עובר בינארי'"
         style="color: green;cursor: default;"
         class="form-control courseGrade"
       >
@@ -75,11 +77,14 @@
     >
       <b-dropdown
         id="dropdown-1"
-        v-b-tooltip.hover.v-secondary
+        v-b-tooltip.hover.v-s00econdary
         dropleft
         variant="outline-dark"
       >
-        <b-dropdown-item v-if="!course.binary" @click="setCourseBinaryState(true)">
+        <b-dropdown-item
+          v-if="!course.binary || course.binary === undefined"
+          @click="setCourseBinaryState(true)"
+        >
           <font-awesome-icon
             icon="check"
             size="sm"
@@ -87,7 +92,10 @@
           />
           סמן עובר בינארי
         </b-dropdown-item>
-        <b-dropdown-item v-else @click="setCourseBinaryState(false)">
+        <b-dropdown-item
+          v-else
+          @click="setCourseBinaryState(false)"
+        >
           <font-awesome-icon
             icon="ban"
             size="sm"
@@ -99,15 +107,15 @@
           <font-awesome-icon
             icon="broom"
             size="sm"
-            style="color: black; margin-left: 5px;"
+            style="color: darkslategrey; margin-left: 5px;"
           />
           נקה שורה
         </b-dropdown-item>
         <b-dropdown-item @click="deleteRow">
           <font-awesome-icon
-            icon="minus"
+            icon="trash"
             size="sm"
-            style="color: black; margin-left: 10px;"
+            style="color: darkred; margin-left: 10px;"
           />
           הסר שורה
         </b-dropdown-item>
@@ -138,7 +146,7 @@
   </tr>
 </template>
 <script>
-import { createNewCourse } from "../store/classes/course";
+import { createNewCourse } from "@/store/classes/course";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
@@ -152,7 +160,8 @@ export default {
   props: ["course", "index", "moveFunction", "tableSize"],
   data() {
     return {
-      InputIsWrong: "inputIsWrong"
+      InputIsWrong: "inputIsWrong",
+      choose_colors: ["white", "lightgreen","lightpink","lightblue","lightgoldenrodyellow","lightcyan", "lightsteelblue", "lavender","plum", "#f2b4ba"],
     };
   },
   computed: {
@@ -170,9 +179,13 @@ export default {
     setCourseBinaryState(state){
       this.course.binary = state;
       this.updateField('binary');
+      this.$forceUpdate();
     },
     updateField(field) {
       let value = this.course[field];
+       if(field === 'type'){
+         window.console.log(this.choose_colors[value]);
+       }
       if (field)
         this.$store.commit("updateCourse", { field, value, index: this.index });
       this.$store.commit("reCalcCurrentSemester");

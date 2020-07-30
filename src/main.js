@@ -29,6 +29,7 @@ import {
   faEnvelope,
   faFileImport,
   faMinus,
+  faTrash,
   faCheck,
   faSignInAlt,
   faSignOutAlt,
@@ -49,6 +50,7 @@ library.add(faArrowUp);
 library.add(faArrowDown);
 library.add(faDownload);
 library.add(faSlidersH);
+library.add(faTrash);
 library.add(faUpload);
 library.add(faSignOutAlt);
 library.add(faFileImport);
