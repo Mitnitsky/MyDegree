@@ -183,9 +183,6 @@ export default {
     },
     updateField(field) {
       let value = this.course[field];
-       if(field === 'type'){
-         window.console.log(this.choose_colors[value]);
-       }
       if (field)
         this.$store.commit("updateCourse", { field, value, index: this.index });
       this.$store.commit("reCalcCurrentSemester");

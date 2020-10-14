@@ -99,7 +99,7 @@
               collapseHistogram(true);
             "
           >
-            הראה היסטוגרמות&Darr;
+            היסטוגרמות&Darr;
           </b-button>
           <b-button
             v-if="!collapsedHistogram"
@@ -110,10 +110,10 @@
               collapseHistogram(false);
             "
           >
-            הסתר היסטוגרמות &Uarr;
+            היסטוגרמות &Uarr;
           </b-button>
           <b-button
-            v-if="collapsedPrereq"
+            v-if="collapsedPrereq && (selected_course.prerequisites[0].length > 0 || selected_course.linked.length > 0)"
             style="margin: 5px;"
             variant="outline-secondary"
             @click="
@@ -121,10 +121,10 @@
               collapsePrerequisites();
             "
           >
-            הראה קורסי קדם/צמודים&Darr;
+            קורסי קדם/צמודים&Darr;
           </b-button>
           <b-button
-            v-if="!collapsedPrereq"
+            v-if="!collapsedPrereq && (selected_course.prerequisites[0].length > 0 || selected_course.linked.length > 0)"
             style="margin: 5px"
             variant="secondary"
             @click="
@@ -132,9 +132,30 @@
               collapsePrerequisites();
             "
           >
-            הראה קורסי קדם/צמודים&Uarr;
+            קורסי קדם/צמודים&Uarr;
           </b-button>
-
+          <b-button
+            v-if="collapsedFollowed && selected_course.followed_by.length > 0"
+            style="margin: 5px;"
+            variant="outline-secondary"
+            @click="
+              collapsedFollowed = !collapsedFollowed;
+              collapseFollowedBy();
+            "
+          >
+            קורסי המשך&Darr;
+          </b-button>
+          <b-button
+            v-if="!collapsedFollowed && selected_course.followed_by.length > 0"
+            style="margin: 5px"
+            variant="secondary"
+            @click="
+              collapsedFollowed = !collapsedFollowed;
+              collapseFollowedBy();
+            "
+          >
+            קורסי המשך&Uarr;
+          </b-button>
           <b-button
             v-if="collapsedExtraInfo"
             v-b-popover.hover.top="'קורסים מוכלים/מכילים/ללא זיכוי נוסף'"
@@ -145,7 +166,7 @@
               collapseExtraInfo();
             "
           >
-            הראה מידע נוסף &Darr;
+            מידע נוסף &Darr;
           </b-button>
           <b-button
             v-if="!collapsedExtraInfo"
@@ -156,7 +177,7 @@
               collapseExtraInfo();
             "
           >
-            הסתר מידע נוסף &Uarr;
+            מידע נוסף &Uarr;
           </b-button>
           <b-collapse id="collapse-histograms">
             <b-card
@@ -212,7 +233,7 @@
                 />
                 <b-img
                   v-if="histogram_img_link"
-                  rounded
+                  rounded="true"
                   :src="histogram_img_link"
                   class="mb-2"
                   style="cursor: zoom-in"
@@ -227,7 +248,7 @@
                 >
                   <b-img
                     v-if="histogram_img_link"
-                    rounded
+                    rounded="true"
                     size="xl"
                     :src="histogram_img_link"
                     fluid-grow
@@ -293,7 +314,7 @@
               <b-list-group style="margin-bottom: 7px;">
                 <b-list-group-item
                   v-for="(linked, inner_index) in selected_course.linked"
-                  :id="parseInt(index) + '_' + parseInt(inner_index) + '_link'"
+                  :id="parseInt(inner_index) + '_link'"
                   :key="linked"
                   href="#"
                   :style="{ color: checkIfExists(linked, 'linked') }"
@@ -303,7 +324,7 @@
                   <b-popover
                     v-if="checkIfExists(linked, 'prerequisite') === 'red'"
                     :target="
-                      parseInt(index) + '_' + parseInt(inner_index) + '_link'
+                      parseInt(inner_index) + '_link'
                     "
                     placement="top"
                     triggers="hover"
@@ -312,6 +333,44 @@
                     <span style="">
                       קורס זה לא נמצא בתואר<br>
                       (עד סמסטר נוכחי כולל)
+                    </span>
+                  </b-popover>
+                </b-list-group-item>
+              </b-list-group>
+            </b-card>
+          </b-collapse>
+
+          <b-collapse id="collapse-followed-by">
+            <b-card
+              v-if="selected_course.followed_by.length > 0"
+              v-model="selected_course.followed_by"
+              header="קורסי המשך:"
+              header-bg-variant="dark"
+              header-text-variant="white"
+              no-body
+              style="margin-bottom: 10px"
+            >
+              <b-list-group style="margin-bottom: 7px;border-color: #005cbf">
+                <b-list-group-item
+                  v-for="(followed, inner_index) in selected_course.followed_by"
+                  :id="parseInt(inner_index) + '_followed'"
+                  :key="followed"
+                  :style="{ color: checkIfExists(followed, 'planned') }"
+                  href="#"
+                  @click="findPrerequisites($event)"
+                >
+                  {{ followed }}
+                  <b-popover
+                    v-if="checkIfExists(followed, 'planned') === 'green'"
+                    :target="
+                      parseInt(inner_index) + '_followed'
+                    "
+                    placement="top"
+                    triggers="hover"
+                    variant="info"
+                  >
+                    <span style="">
+                      קורס זה כבר נמצא בתכנון תואר
                     </span>
                   </b-popover>
                 </b-list-group-item>
@@ -392,17 +451,17 @@
 
 <script>
 import Autocomplete from "@trevoreyre/autocomplete-vue";
-import { convertJsonToProperSelectBoxFormat } from "@/store/aux/histogramFunctions";
+import {convertJsonToProperSelectBoxFormat} from "@/store/aux/histogramFunctions";
 import $ from "jquery";
 
 let json_courses;
 
 if (localStorage.getItem("courses")) {
   json_courses =
-    typeof localStorage.getItem("courses") === "object"
-      ? localStorage.getItem("courses")
-      : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version <= 2.0) {
+      typeof localStorage.getItem("courses") === "object"
+          ? localStorage.getItem("courses")
+          : JSON.parse(localStorage.getItem("courses"));
+  if (!json_courses.version || json_courses.version <= 3.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }
@@ -422,6 +481,7 @@ export default {
       show: false,
       collapsedExtraInfo: true,
       collapsedPrereq: true,
+      collapsedFollowed: true,
       collapsedHistogram: true,
       grab: "grab",
       bgc: "transparent",
@@ -467,7 +527,8 @@ export default {
         linked: "",
         overlapping: "",
         inclusive: "",
-        including: ""
+        including: "",
+        followed_by: ""
       },
       histogram_img_link: null,
       remove: json_courses,
@@ -498,20 +559,24 @@ export default {
         this.collapsedHistogram = !this.collapsedHistogram;
       }
       if (!this.collapsedExtraInfo) {
-        this.collapseExtraInfo(true);
+        this.collapseExtraInfo();
         this.collapsedExtraInfo = !this.collapsedExtraInfo;
       }
+      if (!this.collapsedFollowed) {
+        this.collapseFollowedBy();
+        this.collapsedFollowed = !this.collapsedFollowed;
+      }
       if (!this.collapsedPrereq) {
-        this.collapsePrerequisites(true);
+        this.collapsePrerequisites();
         this.collapsedPrereq = !this.collapsedPrereq;
       }
     },
     addCourse() {
       if (
-        !(
-          this.selected_course.name.includes("ספורט") ||
-          this.selected_course.name.includes("גופני")
-        )
+          !(
+              this.selected_course.name.includes("ספורט") ||
+              this.selected_course.name.includes("גופני")
+          )
       ) {
         let course_number_and_answer = {
           course_number: this.selected_course.number,
@@ -520,52 +585,52 @@ export default {
         this.$store.commit("checkIfCourseExists", course_number_and_answer);
         if (course_number_and_answer.answer !== false) {
           let message =
-            "הקורס קיים בסמסטר " +
-            course_number_and_answer.answer +
-            ", להוסיף בכל זאת?";
+              "הקורס קיים בסמסטר " +
+              course_number_and_answer.answer +
+              ", להוסיף בכל זאת?";
           this.$bvModal
-            .msgBoxConfirm(message, {
-              title: "אזהרה",
-              headerBgVariant: "dark",
-              headerTextVariant: "white",
-              size: "sm",
-              buttonSize: "md",
-              cancelDisabled: "true",
-              okVariant: "danger",
-              okTitle: "כן",
-              autoFocusButton: "ok",
-              cancelTitle: "לא",
-              footerClass: "p-2",
-              hideHeaderClose: true,
-              centered: true
-            })
-            .then(v => {
-              if (v === true) {
-                let selected_course_and_added_index = {
-                  course: this.selected_course,
-                  added_index: this.last_added_course_index
-                };
-                this.$store.commit(
-                  "addCourseWithDataReturningIndex",
-                  selected_course_and_added_index
-                );
-                this.last_added_course_index =
-                  selected_course_and_added_index.added_index;
-                this.$store.commit("reCalcCurrentSemester");
-                this.$bvToast.show("added-course");
-              }
-            });
+              .msgBoxConfirm(message, {
+                title: "אזהרה",
+                headerBgVariant: "dark",
+                headerTextVariant: "white",
+                size: "sm",
+                buttonSize: "md",
+                cancelDisabled: "true",
+                okVariant: "danger",
+                okTitle: "כן",
+                autoFocusButton: "ok",
+                cancelTitle: "לא",
+                footerClass: "p-2",
+                hideHeaderClose: true,
+                centered: true
+              })
+              .then(v => {
+                if (v === true) {
+                  let selected_course_and_added_index = {
+                    course: this.selected_course,
+                    added_index: this.last_added_course_index
+                  };
+                  this.$store.commit(
+                      "addCourseWithDataReturningIndex",
+                      selected_course_and_added_index
+                  );
+                  this.last_added_course_index =
+                      selected_course_and_added_index.added_index;
+                  this.$store.commit("reCalcCurrentSemester");
+                  this.$bvToast.show("added-course");
+                }
+              });
         } else {
           let selected_course_and_added_index = {
             course: this.selected_course,
             added_index: this.last_added_course_index
           };
           this.$store.commit(
-            "addCourseWithDataReturningIndex",
-            selected_course_and_added_index
+              "addCourseWithDataReturningIndex",
+              selected_course_and_added_index
           );
           this.last_added_course_index =
-            selected_course_and_added_index.added_index;
+              selected_course_and_added_index.added_index;
           this.$store.commit("reCalcCurrentSemester");
           this.$bvToast.show("added-course");
         }
@@ -575,11 +640,11 @@ export default {
           added_index: this.last_added_course_index
         };
         this.$store.commit(
-          "addCourseWithDataReturningIndex",
-          selected_course_and_added_index
+            "addCourseWithDataReturningIndex",
+            selected_course_and_added_index
         );
         this.last_added_course_index =
-          selected_course_and_added_index.added_index;
+            selected_course_and_added_index.added_index;
         this.$store.commit("reCalcCurrentSemester");
         this.$bvToast.show("added-course");
       }
@@ -591,14 +656,16 @@ export default {
     findPrerequisites(event) {
       let course_name = event.target.innerText.split(":")[0];
       this.courseChosen(
-        this.options.filter(course => {
-          return course.full_name.includes(course_name);
-        })[0]
+          this.options.filter(course => {
+            return course.full_name.includes(course_name);
+          })[0]
       );
-      window.console.log(this.selected_course);
     },
     collapseExtraInfo() {
       this.$root.$emit("bv::toggle::collapse", "collapse-additional-info");
+    },
+    collapseFollowedBy() {
+      this.$root.$emit("bv::toggle::collapse", "collapse-followed-by");
     },
     collapsePrerequisites() {
       this.$root.$emit("bv::toggle::collapse", "collapse-prereq-courses");
@@ -608,18 +675,18 @@ export default {
         let self = this;
         let update = this.updateURL;
         $.getJSON(
-          `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
-          function(doc) {
-            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
-              function(a, b) {
-                return b.semester_number - a.semester_number;
+            `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
+            function (doc) {
+              self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
+                  function (a, b) {
+                    return b.semester_number - a.semester_number;
+                  }
+              );
+              if (self.course_info.length > 0) {
+                self.selected_semester_grade_stats = self.course_info[0].options[0].value;
+                update(self.selected_semester_grade_stats);
               }
-            );
-            if(self.course_info.length > 0){
-              self.selected_semester_grade_stats = self.course_info[0].options[0].value;
-              update(self.selected_semester_grade_stats);
             }
-          }
         );
       }
       this.$root.$emit("bv::toggle::collapse", "collapse-histograms");
@@ -643,10 +710,16 @@ export default {
         this.$store.commit("checkPrerequisites", course_number_answer_semester);
       } else if (type === "linked") {
         this.$store.commit("checkLinear", course_number_answer_semester);
+      } else if (type === "planned") {
+        this.$store.commit(
+            "checkIfCourseExists",
+            course_number_answer_semester
+        );
+        return course_number_answer_semester.answer === true ? "green" : "black";
       } else {
         this.$store.commit(
-          "checkIfCourseExists",
-          course_number_answer_semester
+            "checkIfCourseExists",
+            course_number_answer_semester
         );
         //It's bad if one of inclusive/including/similar courses are in the table
         return course_number_answer_semester.answer === true ? "red" : "black";

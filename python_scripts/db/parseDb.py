@@ -2,6 +2,7 @@ import sqlite3
 import pickle
 import json
 
+from typing import *
 from course import Course
 
 
@@ -23,17 +24,21 @@ def main():
     conn = sqlite3.connect('courses.db')
     cursor = conn.cursor()
     courses = list()
-    types = ['linked', 'identical', 'overlapping', 'inclusive', 'including']
+    types = ['linked', 'identical', 'overlapping', 'inclusive', 'including',"followed_by"]
     for row in cursor.execute('SELECT * FROM courses'):
         course = vars(convert_db_entry_to_course(row))
         for course_type in types:
             course[course_type] = list(course[course_type])
         courses.append(course)
     for course in courses:
-        # extract_prerequisites(cursor, course)
-        # for course_type in types:
-        #     extract_name_for_type(cursor, course, course_type)
         course['full_name'] = course['number'] + ': ' + course['name']
+        for pre_req_list in course['prerequisites']:
+            for req in pre_req_list:
+                opened_by = req.split(":")[0]
+                for i_course in courses:
+                    if i_course['number'] == opened_by:
+                        if course['full_name'] not in i_course["followed_by"]:
+                            i_course["followed_by"].append(course['full_name'])
         course.pop('english', None)
     with open('courses.json', 'w') as courses_file:
         courses_file.write(json.dumps({"courses": courses}, indent=4, ensure_ascii=False))

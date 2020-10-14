@@ -24,6 +24,7 @@ class Course:
         self.overlapping = set()
         self.inclusive = set()
         self.including = set()
+        self.followed_by = set()
         self.english = False
 
     def set_name(self, name):
@@ -41,6 +42,10 @@ class Course:
     # prerequisites, linked, identical, overlapping, inclusive, including
     def add_inclusive(self, courses):
         self.inclusive.update(courses)
+
+    # prerequisites, linked, identical, overlapping, inclusive, including
+    def add_inclusive(self, courses):
+        self.followed_by.update(courses)
 
     def add_identical(self, courses):
         self.identical.update(courses)

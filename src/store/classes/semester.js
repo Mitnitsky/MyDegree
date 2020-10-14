@@ -129,7 +129,7 @@ export function courseExistInSemesters(
   }
   for (let index = 0; index <= stop_index; index++) {
     if (hasCourse(semesters[index], course_number)) {
-      return semesters[index].name;
+      return true;
     }
   }
   return false;
