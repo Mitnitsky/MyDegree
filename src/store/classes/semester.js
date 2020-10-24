@@ -129,10 +129,10 @@ export function courseExistInSemesters(
   }
   for (let index = 0; index <= stop_index; index++) {
     if (hasCourse(semesters[index], course_number)) {
-      return true;
+      return index+1;
     }
   }
-  return false;
+  return -1;
 }
 
 function compareByNumericField(a, b, fieldName) {

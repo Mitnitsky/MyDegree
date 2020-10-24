@@ -583,7 +583,7 @@ export default {
           answer: ""
         };
         this.$store.commit("checkIfCourseExists", course_number_and_answer);
-        if (course_number_and_answer.answer !== false) {
+        if (course_number_and_answer.answer !== false && course_number_and_answer.answer !== -1) {
           let message =
               "הקורס קיים בסמסטר " +
               course_number_and_answer.answer +
@@ -715,16 +715,16 @@ export default {
             "checkIfCourseExists",
             course_number_answer_semester
         );
-        return course_number_answer_semester.answer === true ? "green" : "black";
+        return course_number_answer_semester.answer > 0 ? "green" : "black";
       } else {
         this.$store.commit(
             "checkIfCourseExists",
             course_number_answer_semester
         );
         //It's bad if one of inclusive/including/similar courses are in the table
-        return course_number_answer_semester.answer === true ? "red" : "black";
+        return course_number_answer_semester.answer !== -1 ? "red" : "black";
       }
-      return course_number_answer_semester.answer === false ? "red" : "black";
+      return course_number_answer_semester.answer === -1 ? "red" : "black";
     }
   }
 };

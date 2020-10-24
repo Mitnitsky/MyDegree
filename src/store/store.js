@@ -99,6 +99,7 @@ function calculateUserInfo(state) {
   const exemption_index = 1;
   const mandatory_index = 0;
   const english_exemption_points = state.user.english_exemption ? 3 : 0;
+
   let exemption_points = 0;
   let failed_points = 0;
   let binary_points = 0;
@@ -115,7 +116,7 @@ function calculateUserInfo(state) {
         course_type.points_left = course_type.points_required;
       }
       if(course_type.name === "פטור"){
-        course_type.total_points = 3;
+        course_type.total_points = english_exemption_points;
       }
     }
     let courses_done = {};
@@ -220,6 +221,7 @@ function calculateUserInfo(state) {
     }
     state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
   }
+  window.console.log(state.user.course_types);
   updateUserData(state);
 }
 
