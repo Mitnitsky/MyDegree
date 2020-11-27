@@ -111,6 +111,8 @@ function calculateUserInfo(state) {
     state.user.course_types[mandatory_index].points_left = state.user.course_types[mandatory_index].points_required - english_exemption_points;
     state.user.course_types[exemption_index].points_left = english_exemption_points;
     for (let course_type of state.user.course_types) {
+      course_type.average = 0.0
+      course_type.points_done = 0.0
       course_type.total_points = 0;
       if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
         course_type.points_left = course_type.points_required;
@@ -161,6 +163,9 @@ function calculateUserInfo(state) {
           ) {
             if (course.type !== exemption_index && !(course.binary !== undefined && course.binary)) {
               state.user.degree_average += course_points * course_grade;
+              state.user.course_types[course.type].average += course_points * course_grade;
+              state.user.course_types[course.type].points_done += course_points;
+
             }
             state.user.degree_points_left -= course_points;
             if (course_grade >= 55 || course.type === exemption_index || course.binary) {
@@ -219,9 +224,14 @@ function calculateUserInfo(state) {
     } else {
       state.user.degree_average = 0;
     }
+    for (let course_type of state.user.course_types) {
+      if(course_type.points_done > 0){
+        course_type.average /= course_type.points_done;
+        course_type.average = MathRound10(course_type.average, -1).toFixed(1);
+      }
+    }
     state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
   }
-  window.console.log(state.user.course_types);
   updateUserData(state);
 }
 

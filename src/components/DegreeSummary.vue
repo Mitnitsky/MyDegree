@@ -52,7 +52,7 @@
                       max="9999999"
                       min="0"
                       step="0.5"
-                      title="יש למלא שדה זה"
+                      title="יש למלא שדה זה בהתאם למסלול"
                       type="number"
                     >
                   </div>
@@ -160,10 +160,30 @@
                     class="input-group mb-2"
                   >
                     <span
-                      v-b-tooltip.hover.top.v-dark="'סה\'\'כ נקודות משובצות' + ': ' + type.total_points"
+                      :id="type.name+index"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
                     >{{ type.name }}</span>
+                    <b-tooltip
+                      v-if="type.average > 0"
+                      :target="type.name+index"
+                      placement="top"
+                      variant="dark"
+                    >
+                      סה"כ נקודות משובצות: {{ type.total_points }}<br>
+                      נקודות עם ציון: {{ type.points_done }}<br>
+                      ממוצע: {{ type.average }}
+                    </b-tooltip>
+
+                    <b-tooltip
+                      v-else
+                      :target="type.name+index"
+                      placement="top"
+                      variant="dark"
+                    >
+                      סה"כ נקודות משובצות: {{ type.total_points }}<br>
+                      נקודות עם ציון: {{ type.points_done }}
+                    </b-tooltip>
                     <input
                       v-if="type.name !== 'פטור'"
                       v-model.number="type.points_left"
@@ -193,7 +213,7 @@
                       max="9999999"
                       min="0"
                       step="0.5"
-                      title="יש למלא שדה זה"
+                      title="יש למלא שדה זה בהתאם למסלול"
                       type="number"
                       @input="updateInfo"
                     >
