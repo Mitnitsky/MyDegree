@@ -2,7 +2,7 @@
   <tr>
     <td>
       <select
-        v-model.number.lazy="course.type"
+        v-model.number.lazy="course_copy.type"
         :select-on-tab="true"
         class="form-control courseType"
         :style="{ backgroundColor: choose_colors[course.type % 10]}"
@@ -21,7 +21,7 @@
     </td>
     <td style="min-width: 90px">
       <input
-        v-model.number.lazy="course.number"
+        v-model.number.lazy="course_copy.number"
         class="form-control courseNumber"
         max="9999999"
         min="0"
@@ -32,7 +32,7 @@
     </td>
     <td style="min-width: 250px;padding-right: 0">
       <input
-        v-model.lazy="course.name"
+        v-model.lazy="course_copy.name"
         class="form-control courseName"
         type="text"
         @change="updateField('name')"
@@ -40,7 +40,7 @@
     </td>
     <td style="min-width: 60px">
       <input
-        v-model.number.lazy="course.points"
+        v-model.number.lazy="course_copy.points"
         :class="[course.points >= 0 ? '' : InputIsWrong]"
         class="form-control coursePoints"
         max="500"
@@ -53,7 +53,7 @@
     <td style="min-width: 60px">
       <input
         v-if="course.binary === false || course.binary === undefined"
-        v-model.number.lazy="course.grade"
+        v-model.number.lazy="course_copy.grade"
         :class="[course.grade >= 0 && course.grade <= 100 ? '' : InputIsWrong]"
         class="form-control courseGrade"
         max="100"
@@ -146,7 +146,7 @@
   </tr>
 </template>
 <script>
-import { createNewCourse } from "@/store/classes/course";
+import { clearCourse } from "@/store/classes/course";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
@@ -156,10 +156,29 @@ const { mapFields } = createHelpers({
 
 export default {
   name: "SemesterTableCourseRow",
-  // eslint-disable-next-line vue/require-prop-types
-  props: ["course", "index", "moveFunction", "tableSize"],
+
+  props:
+      {
+        course: {
+          type: Object,
+          required: true
+        },
+        index: {
+          type: Number,
+          required: true
+        },
+        moveFunction: {
+          type: Function,
+          required: true
+        },
+        tableSize: {
+          type: Number,
+          required: true
+        }
+      },
   data() {
     return {
+      course_copy: this.course,
       InputIsWrong: "inputIsWrong",
       choose_colors: ["white", "lightgreen","lightpink","lightblue","lightgoldenrodyellow","lightcyan", "lightsteelblue", "lavender","plum", "#f2b4ba"],
     };
@@ -169,7 +188,7 @@ export default {
   },
   methods: {
     clearRow() {
-      this.course = createNewCourse();
+      clearCourse(this.course_copy);
       this.$store.commit("reCalcCurrentSemester");
     },
     deleteRow() {
@@ -177,12 +196,12 @@ export default {
       this.$store.commit("reCalcCurrentSemester");
     },
     setCourseBinaryState(state){
-      this.course.binary = state;
+      this.course_copy.binary = state;
       this.updateField('binary');
       this.$forceUpdate();
     },
     updateField(field) {
-      let value = this.course[field];
+      let value = this.course_copy[field];
       if (field)
         this.$store.commit("updateCourse", { field, value, index: this.index });
       this.$store.commit("reCalcCurrentSemester");

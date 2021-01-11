@@ -28,7 +28,7 @@
         <autocomplete
           id="auto-input"
           aria-label="חיפוש קורסים"
-          placeholder="חיפוש קורסים"
+          placeholder="הקלד חלק משם או מספר קורס"
           style="text-align: right"
           :auto-select="true"
           :get-result-value="getResultValue"
@@ -47,7 +47,7 @@
             no-body
             style="margin-bottom: 10px; "
           >
-            <template v-slot:header>
+            <template #header>
               <strong class="mb-0">נקודות</strong>
             </template>
             <p style="margin-top: 5px; margin-bottom: 10px">
@@ -186,7 +186,7 @@
               no-body
               style="margin-bottom: 10px; "
             >
-              <template v-slot:header>
+              <template #header>
                 <strong class="mb-0">היסטוגרמות</strong>
               </template>
               <div
@@ -461,7 +461,7 @@ if (localStorage.getItem("courses")) {
       typeof localStorage.getItem("courses") === "object"
           ? localStorage.getItem("courses")
           : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version <= 3.0) {
+  if (!json_courses.version || json_courses.version < 4.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }

@@ -19,7 +19,7 @@ if (localStorage.getItem("courses")) {
     typeof localStorage.getItem("courses") === "object"
       ? localStorage.getItem("courses")
       : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version <= 3.0) {
+  if (!json_courses.version || json_courses.version < 4.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }
@@ -489,7 +489,7 @@ export const store = new Vuex.Store({
         calculateAverage(sem);
       }
       let data = JSON.stringify(copy, undefined, 2);
-      saveJSON(data, "grades.json");
+      saveJSON(data, "courses.json");
     },
     importCoursesFromJson: (state, data) => {
       state.user.semesters = JSON.parse(data);

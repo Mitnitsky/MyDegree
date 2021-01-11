@@ -1,6 +1,11 @@
 
 export function createNewCourse() {
   let course = {};
+  clearCourse(course);
+  return course;
+}
+
+export function clearCourse(course) {
   course.existsInDB = false;
   course.name = "";
   course.number = "";
@@ -8,7 +13,6 @@ export function createNewCourse() {
   course.grade = 0;
   course.type = 0;
   course.binary = false;
-  return course;
 }
 
 export function createCourseFromDBEntry(course) {
