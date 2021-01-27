@@ -451,7 +451,7 @@
 
 <script>
 import Autocomplete from "@trevoreyre/autocomplete-vue";
-import {convertJsonToProperSelectBoxFormat} from "@/store/extesnsions/histogramFunctions";
+import {convertJsonToProperSelectBoxFormat} from "@/store/extensions/histogramFunctions";
 import $ from "jquery";
 
 let json_courses;

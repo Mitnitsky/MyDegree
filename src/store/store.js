@@ -7,10 +7,10 @@ import firebase from "firebase/app";
 import {getField, updateField} from "vuex-map-fields";
 import "firebase/auth";
 import "firebase/firestore";
-import {MathRound10} from "./extesnsions/rounder";
-import {saveJSON} from "./extesnsions/download";
+import {MathRound10} from "./extensions/rounder";
+import {saveJSON} from "./extensions/download";
 import {create_course_type, default_course_types_obj} from "@/store/classes/course_types";
-import {findCourse} from "@/store/extesnsions/converter";
+import {findCourse} from "@/store/extensions/converter";
 
 let json_courses;
 
