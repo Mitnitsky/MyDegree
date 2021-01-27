@@ -603,7 +603,7 @@ import "firebase/firestore";
 import {
   parseCheeseFork,
   parseGraduateInformation
-} from "../store/aux/converter";
+} from "../store/extesnsions/converter";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
