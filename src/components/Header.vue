@@ -824,4 +824,13 @@ span.navbar-text {
 #modal-1 {
   min-width: 838px !important;
 }
+/*.navbar-custom {*/
+/*  background-color: lightgreen;*/
+/*}*/
+/*!* Modify brand and text color *!*/
+
+/*.navbar-custom .navbar-brand,*/
+/*.navbar-custom .navbar-text {*/
+/*  color: green;*/
+/*}*/
 </style>
