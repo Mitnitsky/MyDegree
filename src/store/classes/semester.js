@@ -3,7 +3,7 @@ import {
   createCourseFromDBEntry,
   createNewCourse
 } from "@/store/classes/course";
-import { MathRound10 } from "../aux/rounder";
+import { MathRound10 } from "../extesnsions/rounder";
 
 const exemption_index = 1;
 
