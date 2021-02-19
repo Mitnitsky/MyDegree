@@ -487,6 +487,7 @@
         </b-modal>
         <b-nav-item-dropdown
           id="extra"
+          text="עוד"
           right
         >
           <b-dropdown-item

@@ -27,15 +27,13 @@
         style="direction: ltr"
       >
         <b-button
-          variant="outline-danger"
-          :disabled="semester.courses.length === 0"
-          @click="removeLastRow"
+          variant="outline-primary"
+          @click="addRow"
         >
-          הסר שורה
+          הוספת שורה
         </b-button>
-
         <b-button
-          variant="info"
+          variant="outline-info"
           @click="showModal"
         >
           חיפוש קורסים
@@ -50,12 +48,7 @@
         >
           <search-course-dialog />
         </modal>
-        <b-button
-          variant="outline-primary"
-          @click="addRow"
-        >
-          הוסף שורה
-        </b-button>
+
       </b-button-group>
     </div>
   </div>

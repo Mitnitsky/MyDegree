@@ -77,10 +77,22 @@
     >
       <b-dropdown
         id="dropdown-1"
-        v-b-tooltip.hover.v-s00econdary
+        v-b-tooltip.hover.v-secondary
         dropleft
         variant="outline-dark"
       >
+        <b-dropdown-item
+          :disabled="!(course_copy.number && course_copy.number && course_copy.number > 0)"
+          @click="showHistorgram"
+        >
+          <font-awesome-icon
+            icon="chart-bar"
+            size="sm"
+            style="color: dodgerblue; margin-left: 5px;"
+          />
+          הצג היסטוגרמות
+        </b-dropdown-item>
+
         <b-dropdown-item
           v-if="!course.binary || course.binary === undefined"
           @click="setCourseBinaryState(true)"
@@ -103,11 +115,12 @@
           />
           בטל עובר בינארי
         </b-dropdown-item>
+        <b-dropdown-divider />
         <b-dropdown-item @click="clearRow">
           <font-awesome-icon
             icon="broom"
             size="sm"
-            style="color: darkslategrey; margin-left: 5px;"
+            style="color: burlywood; margin-left: 5px;"
           />
           נקה שורה
         </b-dropdown-item>
@@ -119,6 +132,7 @@
           />
           הסר שורה
         </b-dropdown-item>
+        <b-dropdown-divider />
         <b-dropdown-item
           :disabled="index === 0"
           @click="moveCourseInner('up')"
@@ -143,11 +157,124 @@
         </b-dropdown-item>
       </b-dropdown>
     </td>
+    <b-modal
+      :id="'histogram-'+index"
+      centered
+      size="xl"
+      header-bg-variant="dark"
+      header-text-variant="light"
+      hide-header-close
+    >
+      <template #modal-title>
+        היסטוגרמות עבור <bold>{{course_copy.name}}</bold>
+      </template>
+      <template #modal-footer>
+        <div 
+          class="row justify-content-center"
+          style="width: 100%"
+        >
+          <b-button
+            variant="primary"
+            size="sm"
+            style="width: 50%"
+            @click="hideHistogram"
+          >
+            סגור
+          </b-button>
+        </div>
+      </template>
+      <b-card
+        header-bg-variant="dark"
+        header-text-variant="white"
+
+        style="margin-bottom: 10px; direction: rtl !important"
+      >
+        <div
+          v-if="course_info && course_info.length > 0"
+          class="col"
+        >
+          <div class="row justify-content-center align-self">
+            <p
+              v-if="selected_semester_grade_stats"
+              style="text-align: center"
+            >
+              <strong>
+                {{ selected_semester_grade_stats[0].semester_name }}
+              </strong>
+              <br
+                v-if="selected_semester_grade_stats[0].staff !== undefined"
+              >
+              <strong
+                v-if="selected_semester_grade_stats[0].staff !== undefined"
+              >
+                {{ selected_semester_grade_stats[0].staff }}
+              </strong>
+            </p>
+          </div>
+          <div class="row justify-content-center">
+            <b-form-select
+              v-model="selected_semester_grade_stats"
+              :options="course_info"
+              style="width: 75%"
+              class="mb-2"
+              @change="updateURL($event)"
+            />
+          </div>
+        </div>
+        <div
+          v-else
+          class="row mt-2 mb-2 mr-2 ml-2"
+        >
+          <strong>אין היסטוגרמות זמינות</strong>
+        </div>
+        <div
+          v-if="selected_semester_grade_stats"
+          class="row justify-content-center mt-3 ml-2 mr-2"
+        >
+          <b-table
+            v-if="selected_semester_grade_stats"
+            bordered
+            fixed
+            style="text-align: center"
+            :items="selected_semester_grade_stats"
+            :fields="fields"
+            head-variant="Light"
+          />
+        </div>
+        <div class="row justify-content-center">
+          <b-img
+            v-if="histogram_img_link"
+            rounded="true"
+            :src="histogram_img_link"
+            class="mb-2"
+            style="cursor: zoom-in"
+            fluid
+            @click="$bvModal.show('histogram-modal')"
+          />
+          <b-modal
+            id="histogram-modal"
+            centered
+            size="lg"
+            hide-footer
+          >
+            <b-img
+              v-if="histogram_img_link"
+              rounded="true"
+              size="xl"
+              :src="histogram_img_link"
+              fluid-grow
+            />
+          </b-modal>
+        </div>
+      </b-card>
+    </b-modal>
   </tr>
 </template>
 <script>
 import { clearCourse } from "@/store/classes/course";
 import { createHelpers } from "vuex-map-fields";
+import $ from "jquery";
+import {convertJsonToProperSelectBoxFormat} from "@/store/extensions/histogramFunctions";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
@@ -178,6 +305,39 @@ export default {
       },
   data() {
     return {
+      selected_semester_grade_stats: null,
+      course_info: null,
+      histogram_img_link: null,
+      fields: [
+        {
+          key: "students",
+          label: "סטודנטים"
+        },
+        {
+          key: "passFail",
+          label: "נכשל/עובר"
+        },
+        {
+          key: "passPercent",
+          label: "אחוז עוברים"
+        },
+        {
+          key: "min",
+          label: "ציון מינימלי"
+        },
+        {
+          key: "max",
+          label: "ציון מקסימלי"
+        },
+        {
+          key: "average",
+          label: "ממוצע"
+        },
+        {
+          key: "median",
+          label: "חציון"
+        }
+      ],
       course_copy: this.course,
       InputIsWrong: "inputIsWrong",
       choose_colors: ["white", "lightgreen","lightpink","lightblue","lightgoldenrodyellow","lightcyan", "lightsteelblue", "lavender","plum", "#f2b4ba"],
@@ -194,6 +354,32 @@ export default {
     deleteRow() {
       this.$store.commit("removeCourse", this.index);
       this.$store.commit("reCalcCurrentSemester");
+    },
+    showHistorgram(){
+      let self = this;
+      let update = this.updateURL;
+      $.getJSON(
+          `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/index.json`,
+          function (doc) {
+            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
+                function (a, b) {
+                  return b.semester_number - a.semester_number;
+                }
+            );
+            if (self.course_info.length > 0) {
+              self.selected_semester_grade_stats = self.course_info[0].options[0].value;
+              update(self.selected_semester_grade_stats);
+            }
+          }
+      );
+      this.$bvModal.show("histogram-"+this.index);
+    },
+    hideHistogram(){
+      this.$bvModal.hide("histogram-"+this.index);
+    },
+    updateURL(event) {
+      let event_payload = event[0];
+      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
     setCourseBinaryState(state){
       this.course_copy.binary = state;
