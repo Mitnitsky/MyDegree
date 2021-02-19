@@ -166,7 +166,12 @@
       hide-header-close
     >
       <template #modal-title>
-        היסטוגרמות עבור <bold>{{course_copy.name}}</bold>
+        <tag class="row justify-content-center">
+          <p>
+            היסטוגרמות עבור
+            <bold>{{ course_copy.name }}</bold>
+          </p>
+        </tag>
       </template>
       <template #modal-footer>
         <div 
