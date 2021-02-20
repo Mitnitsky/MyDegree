@@ -11,9 +11,11 @@
       <b-card no-body>
         <b-card-header
           class="text-center"
-          style="padding-bottom:3.8px;padding-top: 3.8px;background-color: #e9ecef !important;color: #495057 !important;"
+          style="padding-bottom:3px;padding-top: 3px;background-color: #e9ecef !important;color: #495057 !important;"
         >
-          <p style="color: #495057; margin-bottom: 0px;font-weight: bold">סיכום סמסטר</p>
+          <p style="color: #495057; margin-bottom: 0;font-weight: bold">
+            סיכום סמסטר
+          </p>
         </b-card-header>
         <b-card-body>
           <b-containter fluid>
