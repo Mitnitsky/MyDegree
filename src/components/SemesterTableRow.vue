@@ -160,6 +160,7 @@
     <b-modal
       :id="'histogram-'+index"
       centered
+      hide-backdrop
       size="xl"
       header-bg-variant="dark"
       header-text-variant="light"

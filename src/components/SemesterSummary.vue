@@ -8,65 +8,66 @@
       class="col align-self-start"
       style="padding: 0 0"
     >
-      <table class="table table-borderless">
-        <thead class="thead-light">
-          <tr>
-            <th
-              colspan="2"
-              scope="col"
-              style="text-align: center;padding:.3rem"
-            >
-              סיכום סמסטר
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="width:  30%; text-align: right; padding-bottom: 0">
-              <label
-                style="margin: 8px 0 8px 0;  text-align: right;"
-              >ממוצע:</label>
-            </td>
-            <td style="width:  70%; padding-bottom: 0;">
-              <input
-                v-model.number="
-                  this.$store.state.user.semesters[
-                    this.$store.state.user.active_semester
-                  ].average
-                "
-                class="form-control"
-                max="100"
-                min="0"
-                readonly
-                step="0.01"
-                style="text-align: center;direction: ltr;cursor: default;"
-                type="number"
+      <b-card no-body>
+        <b-card-header
+          class="text-center"
+          style="padding-bottom:3.8px;padding-top: 3.8px;background-color: #e9ecef !important;color: #495057 !important;"
+        >
+          <p style="color: #495057; margin-bottom: 0px;font-weight: bold">סיכום סמסטר</p>
+        </b-card-header>
+        <b-card-body>
+          <b-containter fluid>
+            <b-row>
+              <b-col
+                sm="3"
+                align-self="center"
+                style="margin: 4px;"
               >
-            </td>
-          </tr>
-          <tr>
-            <td style="width:  30%; text-align: right">
-              <label style="margin: 8px 0 8px 0; ">נקודות:</label>
-            </td>
-            <td style="width:  70%">
-              <input
-                v-model.number="
-                  this.$store.state.user.semesters[
-                    this.$store.state.user.active_semester
-                  ].points
-                "
-                class="form-control"
-                max="300"
-                min="0"
-                readonly
-                step="0.5"
-                style="text-align: center;width: 100%;direction: ltr;cursor: default;"
-                type="number"
+                <label :for="'semester'+this.$store.state.user.active_semester+'average'">ממוצע: </label>
+              </b-col>
+              <b-col sm="8">
+                <b-input
+                  :id="'semester'+this.$store.state.user.active_semester+'average'"
+                  v-model.number="
+                    this.$store.state.user.semesters[
+                      this.$store.state.user.active_semester
+                    ].average
+                  "
+                  max="100"
+                  min="0"
+                  readonly
+                  style="text-align: center;direction: ltr;cursor: default;"
+                  type="number"
+                />
+              </b-col>
+            </b-row>
+            <b-row class="mt-2">
+              <b-col
+                sm="3"
+                align-self="center"
+                style="margin: 4px;"
               >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <label :for="'semester'+this.$store.state.user.active_semester+'points'">נקודות: </label>
+              </b-col>
+              <b-col sm="8">
+                <b-input
+                  :id="'semester'+this.$store.state.user.active_semester+'points'"
+                  v-model.number="
+                    this.$store.state.user.semesters[
+                      this.$store.state.user.active_semester
+                    ].points
+                  "
+                  max="100"
+                  min="0"
+                  readonly
+                  style="text-align: center;direction: ltr;cursor: default;"
+                  type="number"
+                />
+              </b-col>
+            </b-row>
+          </b-containter>
+        </b-card-body>
+      </b-card>
     </div>
   </div>
 </template>
