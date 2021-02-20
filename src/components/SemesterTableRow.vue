@@ -240,6 +240,7 @@
             v-if="selected_semester_grade_stats"
             bordered
             fixed
+            small
             style="text-align: center"
             :items="selected_semester_grade_stats"
             :fields="fields"
