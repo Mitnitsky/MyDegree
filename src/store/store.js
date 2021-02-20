@@ -348,6 +348,7 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
+
     updateSemesterSummary: (state, {field, value}) => {
       Object.assign(state.user.semesters[state.user.active_semester], {
         [field]: value
@@ -455,6 +456,17 @@ export const store = new Vuex.Store({
         state.user.course_types.splice(index, 1);
       }
       calculateUserInfo(state);
+    },
+    moveCourseToSemester: (state, {semester_index, course_index}) => {
+      let course_to_move = state.user.semesters[state.user.active_semester].courses[course_index];
+      state.user.semesters[state.user.active_semester].courses.splice(course_index,1);
+      let index =0;
+      for(; index < state.user.semesters[semester_index].courses.length; index++){
+        if(Course.courseIsEmpty(state.user.semesters[semester_index].courses[index])){
+          break;
+        }
+      }
+      state.user.semesters[semester_index].courses[index] = course_to_move;
     },
     reCalcCurrentSemester: state => {
       if (state.user.semesters.length > 0) {

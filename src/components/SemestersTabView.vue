@@ -10,7 +10,7 @@
       @input="updateActiveSemester"
     >
       <b-tab
-        v-for="(semester, index) in this.$store.state.user.semesters"
+        v-for="(semester, index) in $store.state.user.semesters"
         :key="index"
         :title="'סמסטר ' + semester.name"
         lazy
@@ -33,8 +33,8 @@
           <div class="col-xl-10" />
           <div class="col-xl-2">
             <b-button-group
-              class="mx-1"
-              style="direction: ltr"
+              class="mx-1 mt-2"
+              style="direction: ltr;"
             >
               <b-button
                 class="align-self-end"

@@ -18,56 +18,54 @@
           </p>
         </b-card-header>
         <b-card-body>
-          <b-containter fluid>
-            <b-row>
-              <b-col
-                sm="3"
-                align-self="center"
-                style="margin: 4px;"
-              >
-                <label :for="'semester'+this.$store.state.user.active_semester+'average'">ממוצע: </label>
-              </b-col>
-              <b-col sm="8">
-                <b-input
-                  :id="'semester'+this.$store.state.user.active_semester+'average'"
-                  v-model.number="
-                    this.$store.state.user.semesters[
-                      this.$store.state.user.active_semester
-                    ].average
-                  "
-                  max="100"
-                  min="0"
-                  readonly
-                  style="text-align: center;direction: ltr;cursor: default;"
-                  type="number"
-                />
-              </b-col>
-            </b-row>
-            <b-row class="mt-2">
-              <b-col
-                sm="3"
-                align-self="center"
-                style="margin: 4px;"
-              >
-                <label :for="'semester'+this.$store.state.user.active_semester+'points'">נקודות: </label>
-              </b-col>
-              <b-col sm="8">
-                <b-input
-                  :id="'semester'+this.$store.state.user.active_semester+'points'"
-                  v-model.number="
-                    this.$store.state.user.semesters[
-                      this.$store.state.user.active_semester
-                    ].points
-                  "
-                  max="100"
-                  min="0"
-                  readonly
-                  style="text-align: center;direction: ltr;cursor: default;"
-                  type="number"
-                />
-              </b-col>
-            </b-row>
-          </b-containter>
+          <b-row>
+            <b-col
+              sm="3"
+              align-self="center"
+              style="margin: 4px;"
+            >
+              <label :for="'semester'+$store.state.user.active_semester+'average'">ממוצע: </label>
+            </b-col>
+            <b-col sm="8">
+              <b-input
+                :id="'semester'+$store.state.user.active_semester+'average'"
+                v-model.number="
+                  $store.state.user.semesters[
+                    $store.state.user.active_semester
+                  ].average
+                "
+                max="100"
+                min="0"
+                readonly
+                style="text-align: center;direction: ltr;cursor: default; margin-left: 12px; margin-right: 12px;"
+                type="number"
+              />
+            </b-col>
+          </b-row>
+          <b-row class="mt-2">
+            <b-col
+              sm="3"
+              align-self="center"
+              style="margin: 4px;"
+            >
+              <label :for="'semester'+$store.state.user.active_semester+'points'">נקודות: </label>
+            </b-col>
+            <b-col sm="8">
+              <b-input
+                :id="'semester'+$store.state.user.active_semester+'points'"
+                v-model.number="
+                  $store.state.user.semesters[
+                    $store.state.user.active_semester
+                  ].points
+                "
+                max="100"
+                min="0"
+                readonly
+                style="text-align: center;direction: ltr;cursor: default;margin-left: 12px; margin-right: 12px;"
+                type="number"
+              />
+            </b-col>
+          </b-row>
         </b-card-body>
       </b-card>
     </div>

@@ -79,8 +79,14 @@
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
         dropleft
-        variant="outline-dark"
+        variant="outline-secondary"
       >
+        <template #button-content>
+          <font-awesome-icon
+            icon="ellipsis-v"
+            size="sm"
+          />
+        </template>
         <b-dropdown-item
           :disabled="!(course_copy.number && course_copy.number && course_copy.number > 0)"
           @click="showHistorgram"
@@ -134,6 +140,17 @@
         </b-dropdown-item>
         <b-dropdown-divider />
         <b-dropdown-item
+          v-if="$store.state.user.semesters.length > 1"
+          @click="$bvModal.show('course-move-'+index)"
+        >
+          <font-awesome-icon
+            icon="share-square"
+            size="sm"
+            style="color: black; margin-left: 10px;"
+          />
+          העבר סמסטר
+        </b-dropdown-item>
+        <b-dropdown-item
           :disabled="index === 0"
           @click="moveCourseInner('up')"
         >
@@ -158,6 +175,30 @@
       </b-dropdown>
     </td>
     <b-modal
+      :id="'course-move-'+index"
+      centered
+      header-bg-variant="dark"
+      header-text-variant="light"
+      hide-header-close
+      hide-footer
+      hide-backdrop
+      :title="'העבר קורס ' + course_copy.name + ' אל סמסטר'"
+    >
+      <b-list-group
+        v-for="(semester,i_index) in $store.state.user.semesters"
+        :key="i_index"
+      >
+        <b-list-group-item
+          :disabled="$store.state.user.active_semester === i_index"
+          href="#"
+          :class="{'align-items-start': true, 'justify-content-center': true, 'text-muted': $store.state.user.active_semester === i_index}"
+          @click="moveToSemester(i_index)"
+        >
+          סמסטר {{ semester.name }}
+        </b-list-group-item>
+      </b-list-group>
+    </b-modal>
+    <b-modal
       :id="'histogram-'+index"
       centered
       hide-backdrop
@@ -175,7 +216,7 @@
         </tag>
       </template>
       <template #modal-footer>
-        <div 
+        <div
           class="row justify-content-center"
           style="width: 100%"
         >
@@ -278,12 +319,12 @@
   </tr>
 </template>
 <script>
-import { clearCourse } from "@/store/classes/course";
-import { createHelpers } from "vuex-map-fields";
+import {clearCourse} from "@/store/classes/course";
+import {createHelpers} from "vuex-map-fields";
 import $ from "jquery";
 import {convertJsonToProperSelectBoxFormat} from "@/store/extensions/histogramFunctions";
 
-const { mapFields } = createHelpers({
+const {mapFields} = createHelpers({
   getterType: "getUserField",
   mutationType: "updateUserField"
 });
@@ -347,11 +388,11 @@ export default {
       ],
       course_copy: this.course,
       InputIsWrong: "inputIsWrong",
-      choose_colors: ["white", "lightgreen","lightpink","lightblue","lightgoldenrodyellow","lightcyan", "lightsteelblue", "lavender","plum", "#f2b4ba"],
+      choose_colors: ["white", "lightgreen", "lightpink", "lightblue", "lightgoldenrodyellow", "lightcyan", "lightsteelblue", "lavender", "plum", "#f2b4ba"],
     };
   },
   computed: {
-    ...mapFields(["course_types"])
+    ...mapFields(["course_types"]),
   },
   methods: {
     clearRow() {
@@ -362,7 +403,7 @@ export default {
       this.$store.commit("removeCourse", this.index);
       this.$store.commit("reCalcCurrentSemester");
     },
-    showHistorgram(){
+    showHistorgram() {
       let self = this;
       let update = this.updateURL;
       $.getJSON(
@@ -379,16 +420,16 @@ export default {
             }
           }
       );
-      this.$bvModal.show("histogram-"+this.index);
+      this.$bvModal.show("histogram-" + this.index);
     },
-    hideHistogram(){
-      this.$bvModal.hide("histogram-"+this.index);
+    hideHistogram() {
+      this.$bvModal.hide("histogram-" + this.index);
     },
     updateURL(event) {
       let event_payload = event[0];
       this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
-    setCourseBinaryState(state){
+    setCourseBinaryState(state) {
       this.course_copy.binary = state;
       this.updateField('binary');
       this.$forceUpdate();
@@ -396,13 +437,18 @@ export default {
     updateField(field) {
       let value = this.course_copy[field];
       if (field)
-        this.$store.commit("updateCourse", { field, value, index: this.index });
+        this.$store.commit("updateCourse", {field, value, index: this.index});
       this.$store.commit("reCalcCurrentSemester");
       this.$store.dispatch("updateSemesterAsync");
     },
     moveCourseInner(direction) {
       this.moveFunction(this.index, direction);
+    },
+    moveToSemester(semester_index){
+      this.$store.commit("moveCourseToSemester", {semester_index: semester_index, course_index: this.index});
+      this.$store.commit("reCalcCurrentSemester");
     }
+
   }
 };
 </script>
@@ -442,6 +488,4 @@ input[type="number"]::-webkit-outer-spin-button {
   direction: ltr;
 }
 
-.clearButton {
-}
 </style>

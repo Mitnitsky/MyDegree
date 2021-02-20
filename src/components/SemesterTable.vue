@@ -27,13 +27,15 @@
         style="direction: ltr"
       >
         <b-button
-          variant="outline-primary"
+          variant="info"
+          style="border-right: #0072EC solid 1px"
           @click="addRow"
         >
           הוספת שורה
         </b-button>
         <b-button
-          variant="outline-info"
+          variant="primary"
+          style="border-left: #0072EC solid 1px"
           @click="showModal"
         >
           חיפוש קורסים
@@ -48,11 +50,11 @@
         >
           <search-course-dialog />
         </modal>
-
       </b-button-group>
     </div>
   </div>
 </template>
+
 
 <script>
 import SemesterTableRow from "@/components/SemesterTableRow";
@@ -142,3 +144,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.dropdown-toggle::after {
+  display: none !important;
+}
+.dropdown-toggle::before {
+  display: none !important;
+}
+</style>

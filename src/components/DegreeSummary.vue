@@ -23,7 +23,7 @@
     </b-button>
     <b-collapse id="collapse-summary">
       <b-card-group deck>
-        <div class="container justify-content-center">
+        <div class="container justify-content-center mt-1">
           <div class="row justify-content-center">
             <div
               class="col "

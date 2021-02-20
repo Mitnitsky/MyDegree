@@ -31,6 +31,7 @@ import {
   faMinus,
   faChartBar,
   faTrash,
+  faShareSquare,
   faCheck,
   faSignInAlt,
   faSignOutAlt,
@@ -43,6 +44,7 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 library.add(faUserCircle);
 library.add(faCheck);
 library.add(faBan);
+library.add(faShareSquare);
 library.add(faEllipsisV);
 library.add(faSignInAlt);
 library.add(faBroom);
@@ -50,6 +52,7 @@ library.add(faMinus);
 library.add(faArrowUp);
 library.add(faArrowDown);
 library.add(faDownload);
+library.add(faEllipsisV);
 library.add(faSlidersH);
 library.add(faChartBar);
 library.add(faTrash);
@@ -64,7 +67,7 @@ Vue.use(VueFirestore);
 Vue.use(Autocomplete);
 Vue.use(VModal);
 Vue.use(BootstrapVue);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("FontAwesomeIcon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 firebase.initializeApp(firebaseConfig);
