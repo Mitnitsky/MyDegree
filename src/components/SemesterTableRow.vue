@@ -79,8 +79,14 @@
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
         dropleft
-        variant="outline-dark"
+        variant="outline-secondary"
       >
+        <template #button-content>
+          <font-awesome-icon
+            icon="ellipsis-v"
+            size="sm"
+          />
+        </template>
         <b-dropdown-item
           :disabled="!(course_copy.number && course_copy.number && course_copy.number > 0)"
           @click="showHistorgram"
@@ -444,4 +450,5 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .clearButton {
 }
+
 </style>

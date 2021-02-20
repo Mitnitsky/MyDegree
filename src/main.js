@@ -50,6 +50,7 @@ library.add(faMinus);
 library.add(faArrowUp);
 library.add(faArrowDown);
 library.add(faDownload);
+library.add(faEllipsisV);
 library.add(faSlidersH);
 library.add(faChartBar);
 library.add(faTrash);
