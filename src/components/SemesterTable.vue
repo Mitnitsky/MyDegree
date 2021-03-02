@@ -50,7 +50,6 @@
         >
           <search-course-dialog />
         </modal>
-
       </b-button-group>
     </div>
   </div>

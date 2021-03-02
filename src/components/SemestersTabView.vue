@@ -144,6 +144,7 @@ export default {
           okTitle: "כן",
           cancelTitle: "לא",
           autoFocusButton: "ok",
+
           footerClass: "p-2",
           hideHeaderClose: true,
           centered: true

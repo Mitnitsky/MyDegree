@@ -109,7 +109,7 @@
           size="md"
           title="יבוא קורסים וציונים מ-UG"
         >
-          <template v-slot:modal-header="{ close }">
+          <template #modal-header="{ close }">
             <div
               class="row"
               style="width: 100%"
@@ -151,7 +151,7 @@
               triggers="hover"
               variant="outline-dark"
             >
-              <template v-slot:title>
+              <template #title>
                 <h4>הוראות</h4>
               </template>
               <p>
@@ -215,7 +215,7 @@
           size="md"
           title="יבוא סמסטר מ-CheeseFork"
         >
-          <template v-slot:modal-header="{ close }">
+          <template #modal-header="{ close }">
             <div
               class="row"
               style="width: 100%"
@@ -257,7 +257,7 @@
               triggers="hover"
               variant="outline-dark"
             >
-              <template v-slot:title>
+              <template #title>
                 <h4>הוראות</h4>
               </template>
               <p>
@@ -316,7 +316,7 @@
           size="md"
           title="שינוי קטגוריות קורסים"
         >
-          <template v-slot:modal-header="{ close }">
+          <template #modal-header="{ close }">
             <div
               class="row"
               style="width: 100%"
@@ -427,7 +427,7 @@
               size="sm"
               title="הוספת קטגוריה"
             >
-              <template v-slot:modal-header="{ close }">
+              <template #modal-header="{ close }">
                 <div
                   class="row"
                   style="width: 100%"
@@ -532,7 +532,7 @@
               size="md"
               title="יבוא נתונים מקובץ JSON"
             >
-              <template v-slot:modal-header="{ close }">
+              <template #modal-header="{ close }">
                 <div
                   class="row"
                   style="width: 100%"

@@ -127,12 +127,20 @@ export function courseExistInSemesters(
   if (stop_index === null) {
     stop_index = semesters.length - 1;
   }
+  let summer_semesters = 0;
+  let found_index = -1;
   for (let index = 0; index <= stop_index; index++) {
+    if (semesters[index].name.toString().includes('קיץ')){
+      summer_semesters += 1;
+    }
     if (hasCourse(semesters[index], course_number)) {
-      return index+1;
+      found_index = index+1 - summer_semesters;
+      if (semesters[index].name.toString().includes('קיץ')){
+        found_index = 'קיץ'
+      }
     }
   }
-  return -1;
+  return found_index;
 }
 
 function compareByNumericField(a, b, fieldName) {

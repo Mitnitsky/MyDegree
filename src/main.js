@@ -65,7 +65,7 @@ Vue.use(VueFirestore);
 Vue.use(Autocomplete);
 Vue.use(VModal);
 Vue.use(BootstrapVue);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("FontAwesomeIcon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 firebase.initializeApp(firebaseConfig);

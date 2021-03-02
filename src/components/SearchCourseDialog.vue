@@ -715,7 +715,7 @@ export default {
             "checkIfCourseExists",
             course_number_answer_semester
         );
-        return course_number_answer_semester.answer > 0 ? "green" : "black";
+        return course_number_answer_semester.answer !== -1  ? "green" : "black";
       } else {
         this.$store.commit(
             "checkIfCourseExists",
