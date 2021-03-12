@@ -25,14 +25,14 @@
                 align-self="center"
                 style="margin: 4px;"
               >
-                <label :for="'semester'+this.$store.state.user.active_semester+'average'">ממוצע: </label>
+                <label :for="'semester'+$store.state.user.active_semester+'average'">ממוצע: </label>
               </b-col>
               <b-col sm="8">
                 <b-input
-                  :id="'semester'+this.$store.state.user.active_semester+'average'"
+                  :id="'semester'+$store.state.user.active_semester+'average'"
                   v-model.number="
-                    this.$store.state.user.semesters[
-                      this.$store.state.user.active_semester
+                    $store.state.user.semesters[
+                      $store.state.user.active_semester
                     ].average
                   "
                   max="100"
@@ -49,14 +49,14 @@
                 align-self="center"
                 style="margin: 4px;"
               >
-                <label :for="'semester'+this.$store.state.user.active_semester+'points'">נקודות: </label>
+                <label :for="'semester'+$store.state.user.active_semester+'points'">נקודות: </label>
               </b-col>
               <b-col sm="8">
                 <b-input
-                  :id="'semester'+this.$store.state.user.active_semester+'points'"
+                  :id="'semester'+$store.state.user.active_semester+'points'"
                   v-model.number="
-                    this.$store.state.user.semesters[
-                      this.$store.state.user.active_semester
+                    $store.state.user.semesters[
+                      $store.state.user.active_semester
                     ].points
                   "
                   max="100"

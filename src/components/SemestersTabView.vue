@@ -10,7 +10,7 @@
       @input="updateActiveSemester"
     >
       <b-tab
-        v-for="(semester, index) in this.$store.state.user.semesters"
+        v-for="(semester, index) in $store.state.user.semesters"
         :key="index"
         :title="'סמסטר ' + semester.name"
         lazy
