@@ -58,8 +58,8 @@ export function parseGraduateInformation(grades_copy) {
       if (line.length > 1 && line.trim().length > 1) {
         let parts = line.split("\t");
         course["grade"] = parts[0]
-          .replace("-", "")
-          .replace("*", "")
+          .split("-").join("")
+          .split("*").join("")
           .replace("לא השלים", "")
           .trim();
         course["points"] = parts[1].trim();
