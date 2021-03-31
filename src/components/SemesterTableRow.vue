@@ -192,6 +192,7 @@
           :disabled="$store.state.user.active_semester === i_index"
           href="#"
           :class="{'align-items-start': true, 'justify-content-center': true, 'text-muted': $store.state.user.active_semester === i_index}"
+          style="text-align: right"
           @click="moveToSemester(i_index)"
         >
           סמסטר {{ semester.name }}
