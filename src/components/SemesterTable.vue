@@ -108,12 +108,14 @@ export default {
         }
       }
       this.$store.commit("reCalcCurrentSemester");
+      this.$store.dispatch("updateSemesterAsync");
     },
     showModal() {
       this.$modal.show("search");
     },
     addRow() {
       this.$store.commit("addCourse");
+      this.$store.dispatch("updateSemesterAsync");
     },
     removeLastRow() {
       if (this.semester.courses.length > 0) {
@@ -137,6 +139,7 @@ export default {
             if (v === true) {
               this.$store.commit("removeLastRow");
               this.$store.commit("reCalcCurrentSemester");
+              this.$store.dispatch("updateSemesterAsync");
             }
           });
       }

@@ -162,9 +162,12 @@ export default {
     },
     changeToSummer() {
       this.$store.commit("changeActiveSemesterType");
+      this.$store.dispatch("updateSemesterAsync");
+
     },
     changeToRegular() {
       this.$store.commit("changeActiveSemesterType");
+      this.$store.dispatch("updateSemesterAsync");
     },
     updateActiveSemester(tab_index) {
       this.$store.commit("changeSemesterTo", tab_index);

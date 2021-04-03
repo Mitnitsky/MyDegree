@@ -399,10 +399,12 @@ export default {
     clearRow() {
       clearCourse(this.course_copy);
       this.$store.commit("reCalcCurrentSemester");
+      this.$store.dispatch("updateSemesterAsync");
     },
     deleteRow() {
       this.$store.commit("removeCourse", this.index);
       this.$store.commit("reCalcCurrentSemester");
+      this.$store.dispatch("updateSemesterAsync");
     },
     showHistorgram() {
       let self = this;
@@ -448,6 +450,7 @@ export default {
     moveToSemester(semester_index){
       this.$store.commit("moveCourseToSemester", {semester_index: semester_index, course_index: this.index});
       this.$store.commit("reCalcCurrentSemester");
+      this.$store.dispatch("updateSemesterAsync");
     }
 
   }
