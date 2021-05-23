@@ -1,10 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <table
-        class="table table-sm table-borderless"
-        style="margin-right: 5px; "
-      >
+      <table class="table table-sm table-borderless" style="margin-right: 5px">
         <semester-header />
         <tbody>
           <semester-table-row
@@ -20,22 +17,19 @@
     </div>
     <div
       class="row justify-content-md-center"
-      style="justify-content: center !important;"
+      style="justify-content: center !important"
     >
-      <b-button-group
-        class="mx-1"
-        style="direction: ltr"
-      >
+      <b-button-group class="mx-1" style="direction: ltr">
         <b-button
           variant="info"
-          style="border-right: #0072EC solid 1px"
+          style="border-right: #0072ec solid 1px"
           @click="addRow"
         >
           הוספת שורה
         </b-button>
         <b-button
           variant="primary"
-          style="border-left: #0072EC solid 1px"
+          style="border-left: #0072ec solid 1px"
           @click="showModal"
         >
           חיפוש קורסים
@@ -55,7 +49,6 @@
   </div>
 </template>
 
-
 <script>
 import SemesterTableRow from "@/components/SemesterTableRow";
 import SemesterHeader from "@/components/SemesterTableHeader";
@@ -68,16 +61,16 @@ export default {
   props: {
     semester: {
       type: Object,
-      default: function() {
+      default: function () {
         return { courses: [] };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       headerTextVariant: "light",
       headerBgVariant: "dark",
-      alignment: "flex-end"
+      alignment: "flex-end",
     };
   },
   methods: {
@@ -133,9 +126,9 @@ export default {
             autoFocusButton: "ok",
             footerClass: "p-2",
             hideHeaderClose: true,
-            centered: true
+            centered: true,
           })
-          .then(v => {
+          .then((v) => {
             if (v === true) {
               this.$store.commit("removeLastRow");
               this.$store.commit("reCalcCurrentSemester");
@@ -143,8 +136,8 @@ export default {
             }
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

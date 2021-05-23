@@ -1,4 +1,3 @@
-
 export function createNewCourse() {
   let course = {};
   clearCourse(course);
@@ -28,7 +27,7 @@ export function createCourseFromDBEntry(course) {
     course_to_add.grade = isNaN(parseInt(course.grade))
       ? 0
       : parseInt(course.grade);
-    if(course.grade.includes('פטור')){
+    if (course.grade.includes("פטור")) {
       course_to_add.type = exemption_index;
     }
   } else {

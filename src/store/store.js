@@ -1,16 +1,23 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as Semester from "./classes/semester";
-import {calculateAverage, calculatePoints, courseExistInSemesters} from "./classes/semester";
+import {
+  calculateAverage,
+  calculatePoints,
+  courseExistInSemesters,
+} from "./classes/semester";
 import * as Course from "./classes/course";
 import firebase from "firebase/app";
-import {getField, updateField} from "vuex-map-fields";
+import { getField, updateField } from "vuex-map-fields";
 import "firebase/auth";
 import "firebase/firestore";
-import {MathRound10} from "./extensions/rounder";
-import {saveJSON} from "./extensions/download";
-import {create_course_type, default_course_types_obj} from "@/store/classes/course_types";
-import {findCourse} from "@/store/extensions/converter";
+import { MathRound10 } from "./extensions/rounder";
+import { saveJSON } from "./extensions/download";
+import {
+  create_course_type,
+  default_course_types_obj,
+} from "@/store/classes/course_types";
+import { findCourse } from "@/store/extensions/converter";
 
 let json_courses;
 
@@ -39,10 +46,10 @@ function updateUserData(state) {
         .collection("users")
         .doc(user.uid)
         .set(state.user)
-        .then(result => {
+        .then((result) => {
           return typeof result;
         })
-        .catch(reason => {
+        .catch((reason) => {
           window.console.log("Error uploading user-data (" + reason + ")");
         });
     }
@@ -106,18 +113,23 @@ function calculateUserInfo(state) {
   if (current_semester != null) {
     state.user.degree_points_done = english_exemption_points;
     state.user.degree_average = 0;
-    state.user.degree_points_to_choose = state.user.degree_points - state.user.degree_points_done;
-    state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
-    state.user.course_types[mandatory_index].points_left = state.user.course_types[mandatory_index].points_required - english_exemption_points;
-    state.user.course_types[exemption_index].points_left = english_exemption_points;
+    state.user.degree_points_to_choose =
+      state.user.degree_points - state.user.degree_points_done;
+    state.user.degree_points_left =
+      state.user.degree_points - state.user.degree_points_done;
+    state.user.course_types[mandatory_index].points_left =
+      state.user.course_types[mandatory_index].points_required -
+      english_exemption_points;
+    state.user.course_types[exemption_index].points_left =
+      english_exemption_points;
     for (let course_type of state.user.course_types) {
-      course_type.average = 0.0
-      course_type.points_done = 0.0
+      course_type.average = 0.0;
+      course_type.points_done = 0.0;
       course_type.total_points = 0;
       if (!(course_type.name === "חובה" || course_type.name === "פטור")) {
         course_type.points_left = course_type.points_required;
       }
-      if(course_type.name === "פטור"){
+      if (course_type.name === "פטור") {
         course_type.total_points = english_exemption_points;
       }
     }
@@ -127,16 +139,20 @@ function calculateUserInfo(state) {
       Semester.calculatePoints(semester);
       for (const course of semester.courses) {
         let course_has_number = course.number.toString().length > 2;
-        let course_already_done = (course.name in courses_done) && course_has_number;
+        let course_already_done =
+          course.name in courses_done && course_has_number;
         const number_index = 0;
         const grade_index = 1;
         const binary_index = 2;
-        if ( course.name.includes("ספורט") || course.name.includes("גופני") ||
+        if (
+          course.name.includes("ספורט") ||
+          course.name.includes("גופני") ||
           !(
-             course_already_done &&
-             course.number === courses_done[course.name][number_index] &&
-             (parseInt(courses_done[course.name][grade_index]) !== 0 || courses_done[course.name][binary_index])
-           )
+            course_already_done &&
+            course.number === courses_done[course.name][number_index] &&
+            (parseInt(courses_done[course.name][grade_index]) !== 0 ||
+              courses_done[course.name][binary_index])
+          )
         ) {
           let course_points = parseFloat(course.points);
           if (
@@ -147,7 +163,6 @@ function calculateUserInfo(state) {
               course.number === courses_done[course.name][number_index]
             )
           ) {
-
             state.user.course_types[course.type].total_points += course_points;
             if (!state.user.course_types[course.type].name.includes("פטור")) {
               state.user.course_types[course.type].points_left -= course_points;
@@ -158,79 +173,94 @@ function calculateUserInfo(state) {
           if (
             ((course.binary || course_grade > 0) && !course_already_done) ||
             (!course_already_done && course.type === exemption_index) ||
-            ((course.binary || course_grade > 0) && (course.name.includes("ספורט") || course.name.includes("גופני"))) ||
-            (course_already_done && (parseInt(courses_done[course.name][grade_index]) === 0 || courses_done[course.name][binary_index]))
+            ((course.binary || course_grade > 0) &&
+              (course.name.includes("ספורט") ||
+                course.name.includes("גופני"))) ||
+            (course_already_done &&
+              (parseInt(courses_done[course.name][grade_index]) === 0 ||
+                courses_done[course.name][binary_index]))
           ) {
-            if (course.type !== exemption_index && !(course.binary !== undefined && course.binary)) {
+            if (
+              course.type !== exemption_index &&
+              !(course.binary !== undefined && course.binary)
+            ) {
               state.user.degree_average += course_points * course_grade;
-              state.user.course_types[course.type].average += course_points * course_grade;
+              state.user.course_types[course.type].average +=
+                course_points * course_grade;
               state.user.course_types[course.type].points_done += course_points;
-
             }
             state.user.degree_points_left -= course_points;
-            if (course_grade >= 55 || course.type === exemption_index || course.binary) {
+            if (
+              course_grade >= 55 ||
+              course.type === exemption_index ||
+              course.binary
+            ) {
               if (course.type === exemption_index) {
                 exemption_points += course_points;
               }
-              if (course.binary && course.type !== exemption_index){
+              if (course.binary && course.type !== exemption_index) {
                 binary_points += course_points;
               }
 
               state.user.degree_points_done += course_points;
-            }else if (course_grade !== 0){
+            } else if (course_grade !== 0) {
               failed_points += course_points;
             }
           }
           let course_info = findCourse(course.number, json_courses);
 
-          courses_done[course.name] = [course.number, course.grade, course.binary];
+          courses_done[course.name] = [
+            course.number,
+            course.grade,
+            course.binary,
+          ];
           if (course_info.length > 0) {
             course_info = course_info[0];
             for (let overlappingKey of course_info.overlapping) {
               let fullname = overlappingKey.split(":");
               let course_number = fullname[0];
-              let course_name = fullname
-                .slice(1)
-                .join()
-                .trim();
+              let course_name = fullname.slice(1).join().trim();
               courses_done[course_name] = [course_number, course_grade];
             }
             for (let identicalKey of course_info.identical) {
               let fullname = identicalKey.split(":");
               let course_number = fullname[0];
-              let course_name = fullname
-                .slice(1)
-                .join()
-                .trim();
+              let course_name = fullname.slice(1).join().trim();
               courses_done[course_name] = [course_number, course_grade];
             }
             for (let inclusiveKey of course_info.inclusive) {
               let fullname = inclusiveKey.split(":");
               let course_number = fullname[0];
-              let course_name = fullname
-                .slice(1)
-                .join()
-                .trim();
+              let course_name = fullname.slice(1).join().trim();
               courses_done[course_name] = [course_number, course_grade];
             }
           }
         }
       }
     }
-    let degree_points_with_grade = state.user.degree_points_done - english_exemption_points - exemption_points - binary_points + failed_points;
+    let degree_points_with_grade =
+      state.user.degree_points_done -
+      english_exemption_points -
+      exemption_points -
+      binary_points +
+      failed_points;
     if (degree_points_with_grade !== 0) {
       state.user.degree_average /= degree_points_with_grade;
-      state.user.degree_average = MathRound10(state.user.degree_average, -1).toFixed(1);
+      state.user.degree_average = MathRound10(
+        state.user.degree_average,
+        -1
+      ).toFixed(1);
     } else {
       state.user.degree_average = 0;
     }
     for (let course_type of state.user.course_types) {
-      if(course_type.points_done > 0){
+      if (course_type.points_done > 0) {
         course_type.average /= course_type.points_done;
         course_type.average = MathRound10(course_type.average, -1).toFixed(1);
       }
     }
-    state.user.degree_points_left = state.user.degree_points - state.user.degree_points_done;
+    state.user.degree_points_left =
+      state.user.degree_points - state.user.degree_points_done;
   }
   updateUserData(state);
 }
@@ -249,18 +279,18 @@ export const store = new Vuex.Store({
       degree_points_to_choose: 0,
       english_exemption: false,
       semesters: [],
-      course_types: default_course_types_obj
-    }
+      course_types: default_course_types_obj,
+    },
   },
   getters: {
     getField,
     getUserField(state) {
       return getField(state.user);
-    }
+    },
   },
   mutations: {
     updateField,
-    clearUserData: state => {
+    clearUserData: (state) => {
       state.user.active_semester = 0;
       state.user.summer_semesters = 0;
       state.user.degree_average = 0;
@@ -290,10 +320,10 @@ export const store = new Vuex.Store({
           .collection("users")
           .doc(firebase.auth().currentUser.uid)
           .set(state.user)
-          .then(result => {
+          .then((result) => {
             return typeof result;
           })
-          .catch(reason => {
+          .catch((reason) => {
             window.console.log("Error uploading user-data (" + reason + ")");
           });
       }
@@ -321,7 +351,7 @@ export const store = new Vuex.Store({
         fieldName
       );
     },
-    addCourse: state => {
+    addCourse: (state) => {
       Semester.addCourseToSemester(
         state.user.semesters[state.user.active_semester]
       );
@@ -341,22 +371,22 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
-    updateCourse: (state, {field, value, index}) => {
+    updateCourse: (state, { field, value, index }) => {
       Object.assign(
         state.user.semesters[state.user.active_semester].courses[index],
-        {[field]: value}
+        { [field]: value }
       );
       updateUserData(state);
     },
 
-    updateSemesterSummary: (state, {field, value}) => {
+    updateSemesterSummary: (state, { field, value }) => {
       Object.assign(state.user.semesters[state.user.active_semester], {
-        [field]: value
+        [field]: value,
       });
       updateUserData(state);
     },
-    updateInfo: (state, {field, value}) => {
-      Object.assign(state.user, {[field]: value});
+    updateInfo: (state, { field, value }) => {
+      Object.assign(state.user, { [field]: value });
       updateUserData(state);
     },
     removeCourse: (state, index) => {
@@ -366,7 +396,7 @@ export const store = new Vuex.Store({
       );
       updateUserData(state);
     },
-    moveCourse: (state, {index, direction}) => {
+    moveCourse: (state, { index, direction }) => {
       const active_semester = state.user.active_semester;
       const current_semester = state.user.semesters[active_semester];
       const direction_int = direction === "up" ? -1 : 1;
@@ -383,7 +413,7 @@ export const store = new Vuex.Store({
         current_semester.courses[index + direction_int] = temp;
       }
     },
-    removeLastRow: state => {
+    removeLastRow: (state) => {
       let current_semester = state.user.semesters[state.user.active_semester];
       let last_course_index = current_semester.courses.length - 1;
       if (!Course.courseIsEmpty(current_semester.courses[last_course_index])) {
@@ -393,7 +423,7 @@ export const store = new Vuex.Store({
       }
       updateUserData(state);
     },
-    removeSemester: state => {
+    removeSemester: (state) => {
       let semesters = state.user.semesters;
       if (semesters.length === 1) {
         state.user.semesters = [];
@@ -420,7 +450,7 @@ export const store = new Vuex.Store({
         updateUserData(state);
       }
     },
-    changeActiveSemesterType: state => {
+    changeActiveSemesterType: (state) => {
       let current_semester = state.user.semesters[state.user.active_semester];
       if (current_semester.name.toString().includes("קיץ")) {
         current_semester.name = 0;
@@ -457,40 +487,48 @@ export const store = new Vuex.Store({
       }
       calculateUserInfo(state);
     },
-    moveCourseToSemester: (state, {semester_index, course_index}) => {
-      let course_to_move = state.user.semesters[state.user.active_semester].courses[course_index];
-      state.user.semesters[state.user.active_semester].courses.splice(course_index,1);
-      let index =0;
-      for(; index < state.user.semesters[semester_index].courses.length; index++){
-        if(Course.courseIsEmpty(state.user.semesters[semester_index].courses[index])){
+    moveCourseToSemester: (state, { semester_index, course_index }) => {
+      let course_to_move =
+        state.user.semesters[state.user.active_semester].courses[course_index];
+      state.user.semesters[state.user.active_semester].courses.splice(
+        course_index,
+        1
+      );
+      let index = 0;
+      for (
+        ;
+        index < state.user.semesters[semester_index].courses.length;
+        index++
+      ) {
+        if (
+          Course.courseIsEmpty(
+            state.user.semesters[semester_index].courses[index]
+          )
+        ) {
           break;
         }
       }
       state.user.semesters[semester_index].courses[index] = course_to_move;
     },
-    reCalcCurrentSemester: state => {
+    reCalcCurrentSemester: (state) => {
       if (state.user.semesters.length > 0) {
         calculateUserInfo(state);
       }
     },
-    checkForValidVersion: state => {
+    checkForValidVersion: (state) => {
       if (state.user.course_types === "undefined") {
         state.user.course_types = default_course_types_obj;
       }
     },
-    updateSemester: state => {
+    updateSemester: (state) => {
       const user = firebase.auth().currentUser;
       if (user != null) {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(user.uid)
-          .update({
-            semesters: state.user.semesters
-          });
+        firebase.firestore().collection("users").doc(user.uid).update({
+          semesters: state.user.semesters,
+        });
       }
     },
-    exportSemesters: state => {
+    exportSemesters: (state) => {
       let copy = JSON.stringify(state.user.semesters);
       copy = JSON.parse(copy);
       for (let sem of copy) {
@@ -523,10 +561,10 @@ export const store = new Vuex.Store({
           .collection("users")
           .doc(user.uid)
           .set(state.user)
-          .then(result => {
+          .then((result) => {
             return typeof result;
           })
-          .catch(reason => {
+          .catch((reason) => {
             window.console.log("Error uploading user-data (" + reason + ")");
           });
       }
@@ -559,7 +597,7 @@ export const store = new Vuex.Store({
     },
     updateSemesters(state, semesters) {
       state.user.semesters = semesters;
-    }
+    },
   },
   actions: {
     updateSemesterAsync(context) {
@@ -578,13 +616,15 @@ export const store = new Vuex.Store({
         context.commit("addCourseWithData", course);
       }
     },
-    loadUserDataFromUGSite: ({commit}, semesters_exemption_summerIndexes) => {
+    loadUserDataFromUGSite: ({ commit }, semesters_exemption_summerIndexes) => {
       commit("clearUserData");
       let index = 0;
       for (let semester in semesters_exemption_summerIndexes["semesters"]) {
         commit("setActiveSemester", index);
         commit("addSemester", 0);
-        for (let course of semesters_exemption_summerIndexes["semesters"][semester]) {
+        for (let course of semesters_exemption_summerIndexes["semesters"][
+          semester
+        ]) {
           commit("addCourseWithData", course);
         }
         index += 1;
@@ -599,6 +639,6 @@ export const store = new Vuex.Store({
       for (let i = 0; i < summer_semesters_indexes.length; i++) {
         commit("changeSemesterType", summer_semesters_indexes[i]);
       }
-    }
-  }
+    },
+  },
 });

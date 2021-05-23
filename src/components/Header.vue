@@ -1,43 +1,41 @@
 <template>
-  <b-navbar
-    toggleable="sm"
-    type="dark"
-    variant="dark"
-  >
+  <b-navbar toggleable="sm" type="dark" variant="dark">
     <b-navbar-toggle target="nav-collapse" />
-    <b-collapse
-      id="nav-collapse"
-      is-nav
-    >
+    <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav align="start">
         <template v-if="logged">
           <font-awesome-icon
             href="#"
             icon="user-circle"
             size="lg"
-            style="color: lightgray;margin-right: 0;margin-left: 0;font-size: 20px;margin-top:10px"
+            style="
+              color: lightgray;
+              margin-right: 0;
+              margin-left: 0;
+              font-size: 20px;
+              margin-top: 10px;
+            "
           />
           <b-nav-item-dropdown
             :text="user_name"
             right
-            style="font-size: 18px;color: lightgray;"
+            style="font-size: 18px; color: lightgray"
           >
-            <template
-              slot="button-content"
-            >
-              <span
-                style="margin-left: 5px"
-              >שלום {{ user_name }}</span>
+            <template slot="button-content">
+              <span style="margin-left: 5px">שלום {{ user_name }}</span>
             </template>
-            <b-dropdown-item
-              href="#"
-              @click="signOut"
-            >
+            <b-dropdown-item href="#" @click="signOut">
               <font-awesome-icon
                 href="#"
                 icon="sign-out-alt"
                 size="lg"
-                style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+                style="
+                  color: lightgray;
+                  margin-right: 5px;
+                  margin-left: 5px;
+                  font-size: 20px;
+                  margin-top: 10px;
+                "
                 @click="signOut"
               />
               יציאה
@@ -50,13 +48,14 @@
             icon="sign-in-alt"
             rotation="180"
             size="lg"
-            style="color: lightgray;margin-left: 5px;font-size: 20px;margin-top:10px"
+            style="
+              color: lightgray;
+              margin-left: 5px;
+              font-size: 20px;
+              margin-top: 10px;
+            "
           />
-          <b-nav-item
-            v-b-modal.modal-1
-            href="#"
-            style="color: lightgray;"
-          >
+          <b-nav-item v-b-modal.modal-1 href="#" style="color: lightgray">
             כניסה
           </b-nav-item>
           <b-modal
@@ -86,11 +85,17 @@
           icon="file-import"
           rotation="180"
           size="lg"
-          style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+          style="
+            color: lightgray;
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+            margin-top: 10px;
+          "
         />
         <b-nav-item
           href="#"
-          style="font-size: 18px;color: lightgray;"
+          style="font-size: 18px; color: lightgray"
           @click="$bvModal.show('modal-import')"
         >
           יבוא קורסים מ-UG
@@ -110,26 +115,18 @@
           title="יבוא קורסים וציונים מ-UG"
         >
           <template #modal-header="{ close }">
-            <div
-              class="row"
-              style="width: 100%"
-            >
-              <div
-                class="col-lg-11"
-                style="text-align: right;"
-              >
-                <h5 class="modal-title">
-                  יבוא קורסים וציונים מ-UG
-                </h5>
+            <div class="row" style="width: 100%">
+              <div class="col-lg-11" style="text-align: right">
+                <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
               </div>
               <div
                 class="col-lg-1"
-                style="width: 5%;text-align: left;align-items: flex-end"
+                style="width: 5%; text-align: left; align-items: flex-end"
               >
                 <b-button
                   aria-label="Close"
                   class="close text-light"
-                  style="margin-right: 5px;"
+                  style="margin-right: 5px"
                   type="button"
                   @click="close()"
                 >
@@ -139,10 +136,7 @@
             </div>
           </template>
           <div class="row justify-content-center">
-            <b-button
-              id="popover-button-variant"
-              variant="outline-primary"
-            >
+            <b-button id="popover-button-variant" variant="outline-primary">
               הוראות
             </b-button>
             <b-popover
@@ -159,9 +153,10 @@
                 <a
                   href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
                   target="_blank"
-                >באתר ציונים</a>
+                  >באתר ציונים</a
+                >
                 ולהעתיק אותו לתיבת הטקסט בחלון זה
-                <br>
+                <br />
                 (<b>אפשרי להעתיק רק את הסמסטרים</b>)
               </p>
             </b-popover>
@@ -177,10 +172,7 @@
             rows="5"
           />
           <div class="row justify-content-center mt-2">
-            <b-button
-              variant="outline-primary"
-              @click="importCoursesFromUG"
-            >
+            <b-button variant="outline-primary" @click="importCoursesFromUG">
               יבוא קורסים
             </b-button>
           </div>
@@ -192,11 +184,17 @@
           icon="file-import"
           rotation="180"
           size="lg"
-          style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+          style="
+            color: lightgray;
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+            margin-top: 10px;
+          "
         />
         <b-nav-item
           href="#"
-          style="font-size: 18px;color: lightgray;"
+          style="font-size: 18px; color: lightgray"
           @click="$bvModal.show('modal-cf-import')"
         >
           יבוא סמסטר מ-CheeseFork
@@ -216,26 +214,18 @@
           title="יבוא סמסטר מ-CheeseFork"
         >
           <template #modal-header="{ close }">
-            <div
-              class="row"
-              style="width: 100%"
-            >
-              <div
-                class="col-lg-11"
-                style="text-align: right;"
-              >
-                <h5 class="modal-title">
-                  יבוא סמסטר מ-CheeseFork
-                </h5>
+            <div class="row" style="width: 100%">
+              <div class="col-lg-11" style="text-align: right">
+                <h5 class="modal-title">יבוא סמסטר מ-CheeseFork</h5>
               </div>
               <div
                 class="col-lg-1"
-                style="width: 5%;text-align: left;align-items: flex-end"
+                style="width: 5%; text-align: left; align-items: flex-end"
               >
                 <b-button
                   aria-label="Close"
                   class="close text-light"
-                  style="margin-right: 5px;"
+                  style="margin-right: 5px"
                   type="button"
                   @click="close()"
                 >
@@ -245,10 +235,7 @@
             </div>
           </template>
           <div class="row justify-content-center">
-            <b-button
-              id="popover-cf-variant"
-              variant="outline-primary"
-            >
+            <b-button id="popover-cf-variant" variant="outline-primary">
               הוראות
             </b-button>
             <b-popover
@@ -264,10 +251,11 @@
                 יש לסמן את הקורסים<a
                   href="https://cheesefork.cf/"
                   target="_blank"
-                >Cheesefork</a>
+                  >Cheesefork</a
+                >
                 ולהעתיק אותו לתיבת הטקסט בחלון זה
               </p>
-              <img src="../../images/import_from_cf.png">
+              <img src="../../images/import_from_cf.png" />
             </b-popover>
           </div>
           <div class="row justify-content-center mb-2">
@@ -281,10 +269,7 @@
             rows="5"
           />
           <div class="row justify-content-center mt-2">
-            <b-button
-              variant="outline-primary"
-              @click="importCoursesFromCF"
-            >
+            <b-button variant="outline-primary" @click="importCoursesFromCF">
               יבוא קורסים
             </b-button>
           </div>
@@ -294,11 +279,17 @@
           v-b-modal.modal-course-types
           icon="sliders-h"
           size="lg"
-          style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+          style="
+            color: lightgray;
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+            margin-top: 10px;
+          "
         />
         <b-nav-item
           href="#"
-          style="font-size: 18px;color: lightgray;"
+          style="font-size: 18px; color: lightgray"
           @click="$bvModal.show('modal-course-types')"
         >
           שינוי קטגוריות קורסים
@@ -317,25 +308,17 @@
           title="שינוי קטגוריות קורסים"
         >
           <template #modal-header="{ close }">
-            <div
-              class="row"
-              style="width: 100%"
-            >
-              <div
-                class="col-lg-11"
-                style="text-align: right;"
-              >
-                <h5 class="modal-title">
-                  שינוי קטגוריות קורסים
-                </h5>
+            <div class="row" style="width: 100%">
+              <div class="col-lg-11" style="text-align: right">
+                <h5 class="modal-title">שינוי קטגוריות קורסים</h5>
               </div>
               <div
                 class="col-lg-1"
-                style="width: 5%;text-align: left;align-items: flex-end"
+                style="width: 5%; text-align: left; align-items: flex-end"
               >
                 <b-button
                   class="close text-light"
-                  style="margin-right: 5px;"
+                  style="margin-right: 5px"
                   type="button"
                   aria-label="Close"
                   @click="close()"
@@ -345,13 +328,13 @@
               </div>
             </div>
           </template>
-          <table class="table table-sm ">
+          <table class="table table-sm">
             <thead class="thead-dark">
               <tr>
                 <th
                   colspan="2"
                   scope="col"
-                  style="text-align: center;padding:.3rem"
+                  style="text-align: center; padding: 0.3rem"
                 >
                   קטגוריות
                 </th>
@@ -363,17 +346,14 @@
                   v-if="type.name === 'פטור' || type.name === 'חובה'"
                   :key="index"
                 >
-                  <td
-                    :key="index"
-                    colspan="2"
-                  >
+                  <td :key="index" colspan="2">
                     <input
                       :value="type.name"
                       class="form-control"
                       readonly
-                      style="text-align: center;cursor: default;"
+                      style="text-align: center; cursor: default"
                       type="text"
-                    >
+                    />
                   </td>
                 </tr>
                 <tr
@@ -382,16 +362,13 @@
                   "
                   :key="index"
                 >
-                  <td
-                    :key="index"
-                    class="col-11"
-                  >
+                  <td :key="index" class="col-11">
                     <input
                       :value="type.name"
                       class="form-control"
                       type="text"
                       @input="changeCategoryName(index, $event)"
-                    >
+                    />
                   </td>
                   <td class="col-1">
                     <b-button
@@ -408,10 +385,7 @@
             </tbody>
           </table>
           <div class="row justify-content-center">
-            <b-button
-              v-b-modal.modal-add-course-type
-              variant="outline-primary"
-            >
+            <b-button v-b-modal.modal-add-course-type variant="outline-primary">
               הוסף קטגוריה
             </b-button>
             <b-modal
@@ -428,26 +402,18 @@
               title="הוספת קטגוריה"
             >
               <template #modal-header="{ close }">
-                <div
-                  class="row"
-                  style="width: 100%"
-                >
-                  <div
-                    class="col"
-                    style="text-align: right;"
-                  >
-                    <h5 class="modal-title">
-                      הוספת קטגוריה
-                    </h5>
+                <div class="row" style="width: 100%">
+                  <div class="col" style="text-align: right">
+                    <h5 class="modal-title">הוספת קטגוריה</h5>
                   </div>
                   <div
                     class="col-2"
-                    style="width: 5%;text-align: left;align-items: flex-end"
+                    style="width: 5%; text-align: left; align-items: flex-end"
                   >
                     <b-button
                       aria-label="Close"
                       class="close text-light"
-                      style="margin-right: 5px;"
+                      style="margin-right: 5px"
                       type="button"
                       @click="close()"
                     >
@@ -456,29 +422,24 @@
                   </div>
                 </div>
               </template>
-              <div
-                class="input-group-prepend "
-                style="width: 100%"
-              >
+              <div class="input-group-prepend" style="width: 100%">
                 <input
                   id="new_category_name"
-                  class="form-control  input-group-addon "
+                  class="form-control input-group-addon"
                   placeholder="שם קטגוריה"
                   type="text"
                   @input="hideInvalidInput"
-                >
+                />
               </div>
               <span
                 v-if="wrongInput"
                 id="invalid-input"
                 dir="rtl"
-                style="size: 12px;color: red;"
-              >קטגוריה עם שם כזה קיימת כבר!</span>
+                style="size: 12px; color: red"
+                >קטגוריה עם שם כזה קיימת כבר!</span
+              >
               <div class="row justify-content-center mt-2">
-                <b-button
-                  variant="outline-primary"
-                  @click="addCategory"
-                >
+                <b-button variant="outline-primary" @click="addCategory">
                   הוסף
                 </b-button>
               </div>
@@ -488,7 +449,7 @@
         <b-nav-item-dropdown
           id="extra"
           text="..."
-          style="font-size: 18px;color: lightgray;"
+          style="font-size: 18px; color: lightgray"
           right
         >
           <b-dropdown-item
@@ -501,20 +462,29 @@
               href="#"
               icon="download"
               size="lg"
-              style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+              style="
+                color: lightgray;
+                margin-right: 5px;
+                margin-left: 5px;
+                font-size: 20px;
+                margin-top: 10px;
+              "
               title="ייצוא מערכת קורסים(ללא ציונים)"
             />
             יצוא קורסים לקובץ-JSON
           </b-dropdown-item>
-          <b-dropdown-item
-            v-b-modal.modal-import-from-json
-            href="#"
-          >
+          <b-dropdown-item v-b-modal.modal-import-from-json href="#">
             <font-awesome-icon
               v-b-modal.modal-import-from-json
               icon="upload"
               size="lg"
-              style="color: lightgray;margin-right: 5px;margin-left: 5px;font-size: 20px;margin-top:10px"
+              style="
+                color: lightgray;
+                margin-right: 5px;
+                margin-left: 5px;
+                font-size: 20px;
+                margin-top: 10px;
+              "
             />
             יבוא קורסים מקובץ-JSON
             <b-modal
@@ -533,26 +503,18 @@
               title="יבוא נתונים מקובץ JSON"
             >
               <template #modal-header="{ close }">
-                <div
-                  class="row"
-                  style="width: 100%"
-                >
-                  <div
-                    class="col-lg-11"
-                    style="text-align: right;"
-                  >
-                    <h5 class="modal-title">
-                      יבוא נתונים מקובץ JSON
-                    </h5>
+                <div class="row" style="width: 100%">
+                  <div class="col-lg-11" style="text-align: right">
+                    <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
                   </div>
                   <div
                     class="col-lg-1"
-                    style="width: 5%;text-align: left;align-items: flex-end"
+                    style="width: 5%; text-align: left; align-items: flex-end"
                   >
                     <b-button
                       aria-label="Close"
                       class="close text-light"
-                      style="margin-right: 5px;"
+                      style="margin-right: 5px"
                       type="button"
                       @click="close()"
                     >
@@ -582,16 +544,12 @@
         <b-navbar-brand
           href="#"
           mar
-          style="padding-top: 5px;padding-bottom: 0;margin-left: 5px"
+          style="padding-top: 5px; padding-bottom: 0; margin-left: 5px"
         >
           My Degree
         </b-navbar-brand>
 
-        <img
-          alt=""
-          src="../assets/main_icon_white.svg"
-          style="height: 36px;"
-        >
+        <img alt="" src="../assets/main_icon_white.svg" style="height: 36px" />
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -604,13 +562,13 @@ import "firebase/auth";
 import "firebase/firestore";
 import {
   parseCheeseFork,
-  parseGraduateInformation
+  parseGraduateInformation,
 } from "../store/extensions/converter";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
-  mutationType: "updateUserField"
+  mutationType: "updateUserField",
 });
 
 export default {
@@ -623,14 +581,14 @@ export default {
       json_text: "",
       user_name: this.$store.state.user_name,
       logged: this.$store.state.logged,
-      wrongInput: false
+      wrongInput: false,
     };
   },
   computed: {
-    ...mapFields(["course_types"])
+    ...mapFields(["course_types"]),
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem("authenticated", "true");
         this.logged = true;
@@ -645,7 +603,7 @@ export default {
           .collection("users")
           .doc(uid)
           .get()
-          .then(doc => {
+          .then((doc) => {
             if (doc.exists) {
               this.$store.commit("fetchUserInfo", doc.data());
               this.$store.commit("reCalcCurrentSemester");
@@ -655,14 +613,14 @@ export default {
                 .collection("users")
                 .doc(uid)
                 .set(this.$store.state.user)
-                .catch(error => {
+                .catch((error) => {
                   // eslint-disable-next-line no-console
                   console.log("ErrorHeader - " + error.message);
                 });
             }
             window.localStorage.removeItem("saved_session_data");
           })
-          .catch(error => {
+          .catch((error) => {
             // eslint-disable-next-line no-console
             console.log("ErrorHeader2 - " + error.message);
           });
@@ -688,9 +646,9 @@ export default {
           cancelTitle: "לא",
           footerClass: "p-2",
           hideHeaderClose: true,
-          centered: true
+          centered: true,
         })
-        .then(v => {
+        .then((v) => {
           if (v === true) {
             this.$store.commit("deleteCourseType", index);
           }
@@ -701,8 +659,8 @@ export default {
       // document.getElementById('invalid-input').hidden = true
     },
     addCategory() {
-      let new_category_name = document.getElementById("new_category_name")
-        .value;
+      let new_category_name =
+        document.getElementById("new_category_name").value;
       for (let course_type of this.course_types) {
         if (course_type.name === new_category_name) {
           this.wrongInput = true;
@@ -731,9 +689,9 @@ export default {
             cancelTitle: "לא",
             footerClass: "p-2",
             hideHeaderClose: true,
-            centered: true
+            centered: true,
           })
-          .then(v => {
+          .then((v) => {
             if (v === true) {
               let semesters_exemption_summerIndexes = parseGraduateInformation(
                 this.message
@@ -742,7 +700,7 @@ export default {
                 semesters: semesters_exemption_summerIndexes["semesters"],
                 exemption: semesters_exemption_summerIndexes["exemption"],
                 summer_semesters_indexes:
-                  semesters_exemption_summerIndexes["summer_semesters_indexes"]
+                  semesters_exemption_summerIndexes["summer_semesters_indexes"],
               });
               this.message = "";
               this.hideModal("modal-import");
@@ -774,9 +732,9 @@ export default {
             cancelTitle: "לא",
             footerClass: "p-2",
             hideHeaderClose: true,
-            centered: true
+            centered: true,
           })
-          .then(v => {
+          .then((v) => {
             if (v === true) {
               this.$store.commit("importCoursesFromJson", this.json_text);
               this.$store.commit("reCalcCurrentSemester");
@@ -797,8 +755,8 @@ export default {
       if (this.$refs[modalName]) {
         this.$refs[modalName].hide();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

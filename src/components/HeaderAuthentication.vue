@@ -15,15 +15,15 @@ export default {
       signInFlow: "popup",
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
         // eslint-disable-next-line no-unused-vars
-        signInSuccessWithAuthResult: function(authResult) {
+        signInSuccessWithAuthResult: function (authResult) {
           return false;
-        }
+        },
       },
-      credentialHelper: firebaseui.auth.CredentialHelper.NONE
+      credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     };
     let ui = firebaseui.auth.AuthUI.getInstance();
     if (!ui) {
@@ -31,7 +31,7 @@ export default {
     }
     ui.start("#firebaseui-auth-container", uiConfig);
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

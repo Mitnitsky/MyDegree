@@ -58,16 +58,15 @@ export function parseGraduateInformation(grades_copy) {
       if (line.length > 1 && line.trim().length > 1) {
         let parts = line.split("\t");
         course["grade"] = parts[0]
-          .split("-").join("")
-          .split("*").join("")
+          .split("-")
+          .join("")
+          .split("*")
+          .join("")
           .replace("לא השלים", "")
           .trim();
         course["points"] = parts[1].trim();
         let course_full_name = parts[2].split(" ");
-        course["name"] = course_full_name
-          .slice(0, -1)
-          .join(" ")
-          .trim();
+        course["name"] = course_full_name.slice(0, -1).join(" ").trim();
         course["number"] = course_full_name[course_full_name.length - 1].trim();
         for (let i = 1; i < index; i++) {
           // let to_remove_list = [];
@@ -103,7 +102,7 @@ export function parseGraduateInformation(grades_copy) {
   return {
     semesters: semesters,
     exemption: english_exemption,
-    summer_semesters_indexes: summer_semester_indexes
+    summer_semesters_indexes: summer_semester_indexes,
   };
 }
 
@@ -112,11 +111,11 @@ export function findCourse(course_number, json_courses) {
     return [];
   }
   if (json_courses["courses"] !== undefined) {
-    return json_courses["courses"].filter(e =>
+    return json_courses["courses"].filter((e) =>
       e.number.includes(course_number)
     );
   } else {
-    return json_courses.filter(e => e.number.includes(course_number));
+    return json_courses.filter((e) => e.number.includes(course_number));
   }
 }
 
