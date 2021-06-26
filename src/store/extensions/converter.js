@@ -11,10 +11,28 @@ export function parseGraduateInformation(grades_copy) {
   let english_exemption = false;
   let semesters = {};
   let summer_semester_indexes = [];
+  let exempted_courses = [];
   for (let line of grades_copy) {
     if (found_first_sem === false) {
       if (line.includes("אנגלית") && line.includes("פטור")) {
         english_exemption = true;
+      }
+      if (line.includes("פטור עם ניקוד") && !line.includes("אנגלית")) {
+        let parts = line.split("\t");
+        let course = {};
+        course["grade"] = parts[0]
+          .split("-")
+          .join("")
+          .split("*")
+          .join("")
+          .replace("לא השלים", "")
+          .trim();
+        course["points"] = parts[1].trim();
+        let course_full_name = parts[2].split(" ");
+        course["name"] = course_full_name.slice(0, -1).join(" ").trim();
+        course["number"] = course_full_name[course_full_name.length - 1].trim();
+
+        exempted_courses.push(course);
       }
       if (
         line.includes("קיץ") ||
@@ -96,7 +114,11 @@ export function parseGraduateInformation(grades_copy) {
         }
       }
     }
-    semesters[index.toString()] = courses;
+    if (index === 1) {
+      semesters[index.toString()] = exempted_courses.concat(courses);
+    } else {
+      semesters[index.toString()] = courses;
+    }
     index += 1;
   }
   return {
@@ -128,7 +150,7 @@ export function parseCheeseFork(courses) {
       typeof localStorage.getItem("courses") === "object"
         ? localStorage.getItem("courses")
         : JSON.parse(localStorage.getItem("courses"));
-    if (!json_courses.version || json_courses.version < 4.0) {
+    if (!json_courses.version || json_courses.version < 5.0) {
       json_courses = require("../../data/courses.json");
       localStorage.setItem("courses", JSON.stringify(json_courses));
     }
