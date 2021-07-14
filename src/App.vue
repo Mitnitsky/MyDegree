@@ -1,7 +1,10 @@
 <template>
   <div
     id="app"
-    style="font-family: Alef, Roboto, Helvetica, Arial, sans-serif;min-width: 838px !important;"
+    style="
+      font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
+      min-width: 838px !important;
+    "
   >
     <header-nav-bar />
     <div class="container-fluid">
@@ -24,8 +27,8 @@ export default {
     DegreeSummary,
     DpFooter,
     HeaderNavBar,
-    SemestersTabView
-  }
+    SemestersTabView,
+  },
 };
 </script>
 

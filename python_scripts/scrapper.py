@@ -128,6 +128,7 @@ def cutDependencies(dependencies):
 # Function which gets a course info from ug website
 # Creates a course class instance and writes all the data into it
 def getCourseInfo(course_number):
+    print(course_number)
     temp_course = Course()
     types = get_info_from_graduate(course_number)
     temp_course.add_prerequisites(types[0])
@@ -145,11 +146,11 @@ def getCourseInfo(course_number):
 # Function which updates the Courses data baseS
 def updateDb():
     initDB()
+
     start_time = time.time()
     course_numbers = sorted(getNumberOfCoursesList())
     course_numbers_length = len(course_numbers)
-    p = Pool(8)
-    pool = Pool(processes=4)
+    pool = Pool(processes=16)
     results = [pool.apply_async(getCourseInfo, args=(course_number,)) for course_number in course_numbers]
     output = [p.get() for p in results]
     for course in output:

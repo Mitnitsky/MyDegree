@@ -37,7 +37,7 @@ import {
   faSignOutAlt,
   faSlidersH,
   faUpload,
-  faUserCircle
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
@@ -76,5 +76,7 @@ firebase.analytics();
 new Vue({
   created() {},
   store,
-  render: h => h(App)
+  render(h) {
+    return h(App);
+  },
 }).$mount("#app");

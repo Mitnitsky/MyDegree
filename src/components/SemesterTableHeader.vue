@@ -1,17 +1,12 @@
 <template>
   <thead class="thead-light">
-    <tr style="font-family: Alef,serif">
-      <th
-        scope="col"
-        style="width: 15%;"
-      >
-        קטגוריה
-      </th>
+    <tr style="font-family: Alef, serif">
+      <th scope="col" style="width: 15%">קטגוריה</th>
       <th
         v-b-tooltip.hover.v-secondary
         class="clickAbleHeader"
         scope="col"
-        style="width: 15%;"
+        style="width: 15%"
         title="לחץ למיון"
         @click="sortBy('number')"
       >
@@ -21,7 +16,7 @@
         v-b-tooltip.hover.v-secondary
         class="clickAbleHeader"
         scope="col"
-        style="width: 40%;"
+        style="width: 40%"
         title="לחץ למיון"
         @click="sortBy('name')"
       >
@@ -31,7 +26,7 @@
         v-b-tooltip.hover.v-secondary
         class="clickAbleHeader"
         scope="col"
-        style="width: 12%;"
+        style="width: 12%"
         title="לחץ למיון"
         @click="sortBy('points')"
       >
@@ -41,16 +36,13 @@
         v-b-tooltip.hover.v-secondary
         class="clickAbleHeader"
         scope="col"
-        style="width: 12%;"
+        style="width: 12%"
         title="לחץ למיון"
         @click="sortBy('grade')"
       >
         ציון
       </th>
-      <th
-        scope="col"
-        style="width: 6%;"
-      />
+      <th scope="col" style="width: 6%" />
     </tr>
   </thead>
 </template>
@@ -61,8 +53,8 @@ export default {
   methods: {
     sortBy(field) {
       this.$store.commit("sortSemesterByField", field);
-    }
-  }
+    },
+  },
 };
 </script>
 

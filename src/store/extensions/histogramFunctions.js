@@ -64,7 +64,7 @@ export function convertJsonToProperSelectBoxFormat(json_obj) {
     course_info.push(semester_result);
   }
 
-  return course_info.sort(function(a, b) {
+  return course_info.sort(function (a, b) {
     return b.index - a.index;
   });
 }
@@ -75,9 +75,9 @@ export function getHistogramForCourseNumber(course_number) {
     dataType: "json",
     url: `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
     async: false,
-    success: function(doc) {
+    success: function (doc) {
       json = doc;
-    }
+    },
   });
   return convertJsonToProperSelectBoxFormat(json);
 }

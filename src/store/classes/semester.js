@@ -1,7 +1,7 @@
 import {
   courseIsEmpty,
   createCourseFromDBEntry,
-  createNewCourse
+  createNewCourse,
 } from "@/store/classes/course";
 import { MathRound10 } from "../extensions/rounder";
 
@@ -37,11 +37,10 @@ export function addExistingCourse(semester, course) {
       if (course.grade !== undefined) {
         semester.courses[i].grade = parseInt(course.grade);
         if (isNaN(semester.courses[i].grade)) {
-          if(course.grade.includes('פטור')){
+          if (course.grade.includes("פטור")) {
             semester.courses[i].type = exemption_index;
           }
           semester.courses[i].grade = 0;
-
         }
       } else {
         semester.courses[i].grade = 0;
@@ -79,9 +78,9 @@ export function calculateAverage(semester) {
         (course.binary || parseFloat(course.points) !== 0) &&
         course.type !== exemption_index
       ) {
-        if(course.binary){
+        if (course.binary) {
           binary_points += parseFloat(course.points);
-        }else{
+        } else {
           total_grade += parseFloat(course.grade) * parseFloat(course.points);
         }
         points += parseFloat(course.points);
@@ -89,7 +88,10 @@ export function calculateAverage(semester) {
     }
     let points_graded = points - binary_points;
     if (points_graded !== 0) {
-      if (parseInt((total_grade / points_graded).toString()) == total_grade / points_graded) {
+      if (
+        parseInt((total_grade / points_graded).toString()) ==
+        total_grade / points_graded
+      ) {
         semester.average = parseInt((total_grade / points_graded).toString());
       } else {
         semester.average = MathRound10(total_grade / points_graded, -1);
@@ -130,13 +132,13 @@ export function courseExistInSemesters(
   let summer_semesters = 0;
   let found_index = -1;
   for (let index = 0; index <= stop_index; index++) {
-    if (semesters[index].name.toString().includes('קיץ')){
+    if (semesters[index].name.toString().includes("קיץ")) {
       summer_semesters += 1;
     }
     if (hasCourse(semesters[index], course_number)) {
-      found_index = index+1 - summer_semesters;
-      if (semesters[index].name.toString().includes('קיץ')){
-        found_index = 'קיץ'
+      found_index = index + 1 - summer_semesters;
+      if (semesters[index].name.toString().includes("קיץ")) {
+        found_index = "קיץ";
       }
     }
   }
@@ -243,7 +245,7 @@ function CharCompare(a, b, index) {
     "ק",
     "ר",
     "ש",
-    "ת"
+    "ת",
   ];
   if (index === a.length || index === b.length) return 0;
   let aChar = alphabets.indexOf(a.toUpperCase().charAt(index));
