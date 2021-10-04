@@ -145,6 +145,7 @@ export default {
 .dropdown-toggle::after {
   display: none !important;
 }
+
 .dropdown-toggle::before {
   display: none !important;
 }

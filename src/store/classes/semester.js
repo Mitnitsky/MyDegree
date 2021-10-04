@@ -89,7 +89,7 @@ export function calculateAverage(semester) {
     let points_graded = points - binary_points;
     if (points_graded !== 0) {
       if (
-        parseInt((total_grade / points_graded).toString()) ==
+        parseInt((total_grade / points_graded).toString()) ===
         total_grade / points_graded
       ) {
         semester.average = parseInt((total_grade / points_graded).toString());

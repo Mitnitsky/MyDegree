@@ -4,18 +4,20 @@
 // }
 
 function includesOneOf(str, ...args) {
-  return args.some(v => str.includes(v));
+  return args.some((v) => str.includes(v));
 }
 
 function parseCourseLine(course, parts) {
   course["number"] = parts[0].trim();
   course["name"] = parts[1].trim();
   course["points"] = parts[2].trim();
-  course["grade"] = parts[3].split("-")
+  course["grade"] = parts[3]
+    .split("-")
     .join("")
     .split("*")
     .join("")
-    .replace("לא השלים", "").trim();
+    .replace("לא השלים", "")
+    .trim();
 }
 
 export function parseStudentsSiteGrades(grades_copy) {
@@ -35,8 +37,19 @@ export function parseStudentsSiteGrades(grades_copy) {
       }
       if (exempted_courses_part_found) {
         if (
-          !includesOneOf(line, "ציון", "ממוצע", "הצלחות", "לא השלים", 'סה"כ', "ממוצע סמסטר", "הצלחות סמסטר", "נקודות רישום:","סמסטר")
-          && line.length > 0
+          !includesOneOf(
+            line,
+            "ציון",
+            "ממוצע",
+            "הצלחות",
+            "לא השלים",
+            'סה"כ',
+            "ממוצע סמסטר",
+            "הצלחות סמסטר",
+            "נקודות רישום:",
+            "סמסטר"
+          ) &&
+          line.length > 0
         ) {
           exempted_courses.push(line);
         }
@@ -50,11 +63,8 @@ export function parseStudentsSiteGrades(grades_copy) {
         }
         found_first_semester = true;
       }
-
     } else {
-      if (
-        includesOneOf(line, "קיץ", "חורף", "אביב")
-      ) {
+      if (includesOneOf(line, "קיץ", "חורף", "אביב")) {
         index += 1;
         if (line.includes("קיץ")) {
           summer_semester_indexes.push(index);
@@ -63,8 +73,18 @@ export function parseStudentsSiteGrades(grades_copy) {
         continue;
       }
       if (
-        !includesOneOf(line, "ציון", "ממוצע", "הצלחות", "לא השלים", 'סה"כ', "ממוצע סמסטר", "הצלחות סמסטר", "נקודות רישום:")
-        && line.length > 0
+        !includesOneOf(
+          line,
+          "ציון",
+          "ממוצע",
+          "הצלחות",
+          "לא השלים",
+          'סה"כ',
+          "ממוצע סמסטר",
+          "הצלחות סמסטר",
+          "נקודות רישום:"
+        ) &&
+        line.length > 0
       ) {
         raw_semesters[index].push(line);
       }
@@ -73,13 +93,16 @@ export function parseStudentsSiteGrades(grades_copy) {
   index = 1;
   for (let rawSemester of raw_semesters) {
     let courses = [];
-    if(index === 1 && exempted_courses.length > 0) {
+    if (index === 1 && exempted_courses.length > 0) {
       for (let exempted_course of exempted_courses) {
         let parts = exempted_course.split("\t");
-        if(parts.length !== 4){
+        if (parts.length !== 4) {
           continue;
         }
-        if (parts[3].includes("פטור עם ניקוד") && !parts[1].includes('אנגלית')) {
+        if (
+          parts[3].includes("פטור עם ניקוד") &&
+          !parts[1].includes("אנגלית")
+        ) {
           let course = {};
           parseCourseLine(course, parts);
           courses.push(course);
@@ -90,7 +113,7 @@ export function parseStudentsSiteGrades(grades_copy) {
       let course = {};
       if (raw_line.trim().length > 1) {
         let parts = raw_line.split("\t");
-        if(parts.length !== 4){
+        if (parts.length !== 4) {
           continue;
         }
         parseCourseLine(course, parts);
@@ -111,7 +134,7 @@ export function parseStudentsSiteGrades(grades_copy) {
   return {
     semesters: semesters,
     exemption: english_exemption,
-    summer_semesters_indexes: summer_semester_indexes
+    summer_semesters_indexes: summer_semester_indexes,
   };
 }
 

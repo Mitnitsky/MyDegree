@@ -563,7 +563,7 @@ import "firebase/firestore";
 import {
   parseCheeseFork,
   parseGraduateInformation,
-} from "../store/extensions/converter";
+} from "@/store/extensions/converter";
 import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
@@ -784,6 +784,7 @@ span.navbar-text {
 #modal-1 {
   min-width: 838px !important;
 }
+
 /*.navbar-custom {*/
 /*  background-color: lightgreen;*/
 /*}*/

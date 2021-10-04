@@ -62,7 +62,7 @@ function updateUserData(state) {
 function resetRemovedCategory(state, category_id) {
   for (let semester of state.user.semesters) {
     for (let course of semester.courses) {
-      if (course.type == category_id) {
+      if (course.type === category_id) {
         course.type = 0;
       } else {
         if (course.type > category_id) {
