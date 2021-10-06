@@ -27,14 +27,14 @@
             <b-card-body class="justify-content-center">
               <b-card-text class="ml-4 pt-4 pb-2">
                 <font-awesome-icon :icon="['fab', 'github']" class="mr-1" />
-                <a href="https://github.com/Vladimir-pa/" target="_blank"
+                <a href="https://github.com/Mitnitsky/" target="_blank"
                   >Github</a
                 >
               </b-card-text>
               <b-card-text class="ml-4 pb-5">
                 <font-awesome-icon :icon="['fab', 'linkedin']" class="mr-1" />
                 <a
-                  href="https://www.linkedin.com/in/vladimir-parakhin/"
+                  href="https://www.linkedin.com/in/vladimir-mitnitsky/"
                   target="_blank"
                   >LinkedIn</a
                 >

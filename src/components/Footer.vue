@@ -6,7 +6,7 @@
         style="color: lightgray"
         @click="$bvModal.show('contactInfo-modal')"
       >
-        © Created by: <a href="#">Vladimir Parakhin</a>
+        © Created by: <a href="#">Vladimir Mitnitsky</a>
       </div>
       <my-info-card />
     </b-navbar>
