@@ -329,7 +329,14 @@ export const store = new Vuex.Store({
       }
     },
     setActiveSemester: (state, index) => {
-      state.user.active_semester = index;
+      if (index === -1) {
+        setTimeout(() => {
+          state.user.active_semester = state.user.semesters.length - 1;
+        }, 500);
+      } else {
+        state.user.active_semester = index;
+      }
+      console.log(state.user.active_semester);
     },
     setExemptionStatus: (state, status) => {
       state.user.english_exemption = status;
@@ -360,6 +367,13 @@ export const store = new Vuex.Store({
     addCourseWithData: (state, course) => {
       Semester.addExistingCourse(
         state.user.semesters[state.user.active_semester],
+        course
+      );
+      updateUserData(state);
+    },
+    addCourseWithDataToLastSemester: (state, course) => {
+      Semester.addExistingCourse(
+        state.user.semesters[state.user.semesters.length - 1],
         course
       );
       updateUserData(state);
@@ -608,20 +622,17 @@ export const store = new Vuex.Store({
     },
     addNewSemesterFromData: (context, course_list) => {
       context.commit("addSemester", 0);
-      context.commit(
-        "changeSemesterTo",
-        context.state.user.semesters.length - 1
-      );
       for (let course of course_list) {
-        context.commit("addCourseWithData", course);
+        context.commit("addCourseWithDataToLastSemester", course);
       }
+      context.commit("setActiveSemester", -1);
     },
-    loadUserDataFromUGSite: ({ commit }, semesters_exemption_summerIndexes) => {
+    loadUserDataFromSite: ({ commit }, semesters_exemption_summerIndexes) => {
       commit("clearUserData");
       let index = 0;
       for (let semester in semesters_exemption_summerIndexes["semesters"]) {
-        commit("setActiveSemester", index);
         commit("addSemester", 0);
+        commit("setActiveSemester", index);
         for (let course of semesters_exemption_summerIndexes["semesters"][
           semester
         ]) {
@@ -639,6 +650,7 @@ export const store = new Vuex.Store({
       for (let i = 0; i < summer_semesters_indexes.length; i++) {
         commit("changeSemesterType", summer_semesters_indexes[i]);
       }
+      commit("setActiveSemester", -1);
     },
   },
 });

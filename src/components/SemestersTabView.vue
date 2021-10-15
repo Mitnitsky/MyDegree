@@ -1,6 +1,6 @@
 <template>
   <b-card class="shadow bg-white rounded" no-body style="margin: 10px 20px">
-    <b-tabs pills card @input="updateActiveSemester">
+    <b-tabs pills card v-model="active_semester">
       <b-tab
         v-for="(semester, index) in $store.state.user.semesters"
         :key="index"
@@ -23,7 +23,7 @@
                 class="align-self-end"
                 variant="outline-danger"
                 size="sm"
-                @click="closeTab"
+                @click="removeSemester"
               >
                 מחק סמסטר
               </b-button>
@@ -84,16 +84,16 @@ import AppSemesterSummary from "@/components/SemesterSummary";
 import AppSemesterTable from "@/components/SemesterTable";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { createHelpers } from "vuex-map-fields";
+
+const { mapFields } = createHelpers({
+  getterType: "getUserField",
+  mutationType: "updateUserField",
+});
 
 export default {
   name: "SemestersTabView",
   components: { AppSemesterTable, AppSemesterSummary },
-  data() {
-    return {
-      semesters: [],
-      tabCounter: 1,
-    };
-  },
   mounted() {
     let authentication_status = localStorage.getItem("authenticated");
     const user = firebase.auth().currentUser;
@@ -114,8 +114,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapFields(["active_semester"]),
+  },
   methods: {
-    closeTab() {
+    removeSemester() {
       this.$bvModal
         .msgBoxConfirm("למחוק סמסטר זה?", {
           title: "אזהרה",
@@ -149,10 +152,6 @@ export default {
     changeToRegular() {
       this.$store.commit("changeActiveSemesterType");
       this.$store.dispatch("updateSemesterAsync");
-    },
-    updateActiveSemester(tab_index) {
-      this.$store.commit("changeSemesterTo", tab_index);
-      this.$store.commit("reCalcCurrentSemester");
     },
   },
 };

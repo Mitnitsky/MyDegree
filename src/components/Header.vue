@@ -81,7 +81,7 @@
           </b-modal>
         </template>
         <font-awesome-icon
-          v-b-modal.modal-import
+          v-b-modal.modal-import-from-ug
           icon="file-import"
           rotation="180"
           size="lg"
@@ -96,13 +96,13 @@
         <b-nav-item
           href="#"
           style="font-size: 18px; color: lightgray"
-          @click="$bvModal.show('modal-import')"
+          @click="$bvModal.show('modal-import-from-ug')"
         >
           יבוא קורסים מ-UG
         </b-nav-item>
         <b-modal
-          id="modal-import"
-          ref="modal-import"
+          id="modal-import-from-ug"
+          ref="modal-import-from-ug"
           centered
           content-class="shadow"
           header-bg-variant="dark"
@@ -172,7 +172,107 @@
             rows="5"
           />
           <div class="row justify-content-center mt-2">
-            <b-button variant="outline-primary" @click="importCoursesFromUG">
+            <b-button variant="outline-primary" @click="importCourseFromUG">
+              יבוא קורסים
+            </b-button>
+          </div>
+        </b-modal>
+        <font-awesome-icon
+          v-b-modal.modal-import-from-students
+          icon="file-import"
+          rotation="180"
+          size="lg"
+          style="
+            color: lightgray;
+            margin-right: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+            margin-top: 10px;
+          "
+        />
+        <b-nav-item
+          href="#"
+          style="font-size: 18px; color: lightgray"
+          @click="$bvModal.show('modal-import-from-students')"
+        >
+          יבוא קורסים מ-Students
+        </b-nav-item>
+        <b-modal
+          id="modal-import-from-students"
+          ref="modal-import-from-students"
+          centered
+          content-class="shadow"
+          header-bg-variant="dark"
+          header-text-variant="white"
+          hide-backdrop
+          hide-footer
+          ok-title="הוסף קורסים"
+          ok-variant="primary"
+          size="md"
+          title="יבוא קורסים וציונים מ-Students"
+        >
+          <template #modal-header="{ close }">
+            <div class="row" style="width: 100%">
+              <div class="col-lg-11" style="text-align: right">
+                <h5 class="modal-title">יבוא קורסים וציונים מ-Students</h5>
+              </div>
+              <div
+                class="col-lg-1"
+                style="width: 5%; text-align: left; align-items: flex-end"
+              >
+                <b-button
+                  aria-label="Close"
+                  class="close text-light"
+                  style="margin-right: 5px"
+                  type="button"
+                  @click="close()"
+                >
+                  ×
+                </b-button>
+              </div>
+            </div>
+          </template>
+          <div class="row justify-content-center">
+            <b-button id="popover-button-variant" variant="outline-primary">
+              הוראות
+            </b-button>
+            <b-popover
+              placement="top"
+              target="popover-button-variant"
+              triggers="hover"
+              variant="outline-dark"
+            >
+              <template #title>
+                <h4>הוראות</h4>
+              </template>
+              <p>
+                יש לסמן את כל התוכן באמצעות CTRL+A
+                <a
+                  href="https://students.technion.ac.il/local/tcurricular/grades"
+                  target="_blank"
+                  >באתר ציונים</a
+                >
+                ולהעתיק אותו לתיבת הטקסט בחלון זה
+                <br />
+                (<b>אפשרי להעתיק רק את הסמסטרים</b>)
+              </p>
+            </b-popover>
+          </div>
+          <div class="row justify-content-center mb-2">
+            <b-form-text />
+          </div>
+          <b-form-textarea
+            id="import-text"
+            v-model="message"
+            no-resize
+            placeholder="יש להעתיק את התוכן מאתר הציונים לכאן"
+            rows="5"
+          />
+          <div class="row justify-content-center mt-2">
+            <b-button
+              variant="outline-primary"
+              @click="importCourseFromStudents"
+            >
               יבוא קורסים
             </b-button>
           </div>
@@ -563,6 +663,7 @@ import "firebase/firestore";
 import {
   parseCheeseFork,
   parseGraduateInformation,
+  parseStudentsSiteGrades,
 } from "@/store/extensions/converter";
 import { createHelpers } from "vuex-map-fields";
 
@@ -673,7 +774,13 @@ export default {
     exportAsJson() {
       this.$store.commit("exportSemesters");
     },
-    importCoursesFromUG() {
+    importCourseFromUG() {
+      return this.importCoursesFromSite("UG");
+    },
+    importCourseFromStudents() {
+      return this.importCoursesFromSite("Students");
+    },
+    importCoursesFromSite(site) {
       if (this.message !== "") {
         this.$bvModal
           .msgBoxConfirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?", {
@@ -693,17 +800,28 @@ export default {
           })
           .then((v) => {
             if (v === true) {
-              let semesters_exemption_summerIndexes = parseGraduateInformation(
-                this.message
-              );
-              this.$store.dispatch("loadUserDataFromUGSite", {
+              let semesters_exemption_summerIndexes;
+              if (site === "UG") {
+                semesters_exemption_summerIndexes = parseGraduateInformation(
+                  this.message
+                );
+              } else if (site === "Students") {
+                semesters_exemption_summerIndexes = parseStudentsSiteGrades(
+                  this.message
+                );
+              }
+              this.$store.dispatch("loadUserDataFromSite", {
                 semesters: semesters_exemption_summerIndexes["semesters"],
                 exemption: semesters_exemption_summerIndexes["exemption"],
                 summer_semesters_indexes:
                   semesters_exemption_summerIndexes["summer_semesters_indexes"],
               });
               this.message = "";
-              this.hideModal("modal-import");
+              if (site === "UG") {
+                this.hideModal("modal-import-from-ug");
+              } else if (site === "Students") {
+                this.hideModal("modal-import-from-students");
+              }
             }
           });
       }

@@ -27,7 +27,7 @@ export function parseStudentsSiteGrades(grades_copy) {
   let found_first_semester = false;
   let english_exemption = false;
   let exempted_courses_part_found = false;
-  let semesters = {};
+  let semesters = [];
   let summer_semester_indexes = [];
   let exempted_courses = [];
   for (let line of grades_copy) {
