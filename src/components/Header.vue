@@ -555,7 +555,7 @@
           <b-dropdown-item
             v-b-tooltip.hover.left.v-dark
             href="#"
-            title="ייצוא מערכת קורסים(ללא ציונים)"
+            title="ייצוא מערכת קורסים (עם ציונים)"
             @click="exportAsJson"
           >
             <font-awesome-icon
@@ -569,9 +569,30 @@
                 font-size: 20px;
                 margin-top: 10px;
               "
-              title="ייצוא מערכת קורסים(ללא ציונים)"
+              title="ייצוא מערכת קורסים (עם ציונים)"
             />
             יצוא קורסים לקובץ-JSON
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-b-tooltip.hover.left.v-dark
+            href="#"
+            title="ייצוא מערכת קורסים (ללא ציונים)"
+            @click="exportAsJsonNoGrades"
+          >
+            <font-awesome-icon
+              href="#"
+              icon="download"
+              size="lg"
+              style="
+                color: lightgray;
+                margin-right: 5px;
+                margin-left: 5px;
+                font-size: 20px;
+                margin-top: 10px;
+              "
+              title="ייצוא מערכת קורסים (ללא ציונים)"
+            />
+            יצוא קורסים ללא ציונים לקובץ-JSON
           </b-dropdown-item>
           <b-dropdown-item v-b-modal.modal-import-from-json href="#">
             <font-awesome-icon
@@ -773,6 +794,9 @@ export default {
     },
     exportAsJson() {
       this.$store.commit("exportSemesters");
+    },
+    exportAsJsonNoGrades() {
+      this.$store.commit("exportSemestersNoGrades");
     },
     importCourseFromUG() {
       return this.importCoursesFromSite("UG");
