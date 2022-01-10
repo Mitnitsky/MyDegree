@@ -5,13 +5,13 @@ It is an web application made to ease the degree planning of Technion students.
 
 - Track per semester's average and degree's average.
 
-- Search/Add courses using up  courses data-base.
+- Search/Add courses using up  courses database.
 
 - Check pre-requisites/parallel courses on addition.
 
 - Import courses with grades from UG.
 
-- Search/Add courses using up to date UG based courses data-base.
+- Search/Add courses using up to date UG based courses database.
 
 - Tracking of various course types points done.
 
