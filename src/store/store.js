@@ -542,16 +542,18 @@ export const store = new Vuex.Store({
         });
       }
     },
-    exportSemesters: (state) => {
+    exportSemesters: (state, with_grades) => {
       let copy = JSON.stringify(state.user.semesters);
       copy = JSON.parse(copy);
-      for (let sem of copy) {
-        for (let course of sem.courses) {
-          course.grade = 0;
+      if(!with_grades) {
+        for (let sem of copy) {
+          for (let course of sem.courses) {
+            course.grade = 0;
+          }
+          calculatePoints(sem);
+          calculateAverage(sem);
         }
-        calculatePoints(sem);
-        calculateAverage(sem);
-      }
+      };
       let data = JSON.stringify(copy, undefined, 2);
       saveJSON(data, "courses.json");
     },

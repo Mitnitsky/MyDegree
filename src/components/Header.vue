@@ -233,12 +233,12 @@
             </div>
           </template>
           <div class="row justify-content-center">
-            <b-button id="popover-button-variant" variant="outline-primary">
+            <b-button id="popover-button-variant-2" variant="outline-primary">
               הוראות
             </b-button>
             <b-popover
               placement="top"
-              target="popover-button-variant"
+              target="popover-button-variant-2"
               triggers="hover"
               variant="outline-dark"
             >
@@ -555,8 +555,8 @@
           <b-dropdown-item
             v-b-tooltip.hover.left.v-dark
             href="#"
-            title="ייצוא מערכת קורסים(ללא ציונים)"
-            @click="exportAsJson"
+            title="ייצוא מערכת קורסים (ללא ציונים)"
+            @click="exportAsJson(false)"
           >
             <font-awesome-icon
               href="#"
@@ -569,9 +569,28 @@
                 font-size: 20px;
                 margin-top: 10px;
               "
-              title="ייצוא מערכת קורסים(ללא ציונים)"
             />
-            יצוא קורסים לקובץ-JSON
+            יצוא קורסים לקובץ-JSON (ללא ציונים)
+          </b-dropdown-item>
+          <b-dropdown-item
+            v-b-tooltip.hover.left.v-dark
+            href="#"
+            title="ייצוא מערכת קורסים (עם ציונים)"
+            @click="exportAsJson(true)"
+          >
+            <font-awesome-icon
+              href="#"
+              icon="download"
+              size="lg"
+              style="
+                color: lightgray;
+                margin-right: 5px;
+                margin-left: 5px;
+                font-size: 20px;
+                margin-top: 10px;
+              "
+            />
+            יצוא קורסים לקובץ-JSON (עם ציונים)
           </b-dropdown-item>
           <b-dropdown-item v-b-modal.modal-import-from-json href="#">
             <font-awesome-icon
@@ -771,8 +790,8 @@ export default {
       this.$store.commit("addCourseType", new_category_name);
       this.hideModal("modal-add-course-type");
     },
-    exportAsJson() {
-      this.$store.commit("exportSemesters");
+    exportAsJson(with_grades) {
+      this.$store.commit("exportSemesters", with_grades);
     },
     importCourseFromUG() {
       return this.importCoursesFromSite("UG");
