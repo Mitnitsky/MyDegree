@@ -35,8 +35,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-firestore": "^0.3.30",
     "prettier": "^2.2.1",
+    "vue-firestore": "^0.3.30",
     "vue-template-compiler": "^2.6.11"
   }
 }
