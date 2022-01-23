@@ -1,8 +1,8 @@
 import pickle
 
-vars
+
 # Technion courses class
-# contains information about an course
+# contains information about a course
 # e.g:
 #   name   = "מערכות הפעלה"
 #   number = "234123"
@@ -43,8 +43,7 @@ class Course:
     def add_inclusive(self, courses):
         self.inclusive.update(courses)
 
-    # prerequisites, linked, identical, overlapping, inclusive, including
-    def add_inclusive(self, courses):
+    def add_followed_by(self, courses):
         self.followed_by.update(courses)
 
     def add_identical(self, courses):
@@ -74,7 +73,7 @@ class Course:
             pickle.dumps(self.including)
         ]
 
-    def reprDependencies(self, english=False):
+    def repr_dependencies(self, english=False):
         if len(self.prerequisites) > 0:
             result = []
             if english:
@@ -93,9 +92,9 @@ class Course:
         else:
             return ""
 
-    def repOtherData(self, data):
+    @staticmethod
+    def repr_other_data(data):
         if len(data) > 0:
-            result = ""
             humanify = str.maketrans({"{": None, "}": None, "'": None})
             return str(data).translate(humanify)
         else:
@@ -106,22 +105,18 @@ class Course:
             represent = "Course name: {} \n".format(self.name) \
                         + "Course number: {} \n".format(self.number) \
                         + ("Points: {} \n".format(self.points) if self.points > 0 else "") \
-                        + ("Pre-requisites: {} \n".format(self.reprDependencies(english=True)) if len(self.prerequisites) > 0 else "") \
-                        + ("Parallel courses: {} \n".format(self.repOtherData(self.linked)) if len(self.linked) > 0 else "") \
-                        + ("Similar courses: {} \n".format(self.repOtherData(self.identical)) if len(self.identical) > 0 else "") \
-                        + ("Inclusive courses: {} \n".format(self.repOtherData(self.inclusive)) if len(self.inclusive) > 0 else "") \
-                        + ("Including courses: {} \n".format(self.repOtherData(self.including)) if len(self.including) > 0 else "")
+                        + ("Pre-requisites: {} \n".format(self.repr_dependencies(english=True)) if len(self.prerequisites) > 0 else "") \
+                        + ("Parallel courses: {} \n".format(self.repr_other_data(self.linked)) if len(self.linked) > 0 else "") \
+                        + ("Similar courses: {} \n".format(self.repr_other_data(self.identical)) if len(self.identical) > 0 else "") \
+                        + ("Inclusive courses: {} \n".format(self.repr_other_data(self.inclusive)) if len(self.inclusive) > 0 else "") \
+                        + ("Including courses: {} \n".format(self.repr_other_data(self.including)) if len(self.including) > 0 else "")
         else:
             represent = "שם הקורס: {} \n".format(self.name) \
                         + "מספר קורס: {} \n".format(self.number) \
                         + ("מס' נקודות: {} \n".format(self.points) if self.points > 0 else "") \
-                        + ("מקצועות קדם: {} \n".format(self.reprDependencies()) if len(self.prerequisites) > 0 else "") \
-                        + ("מקצועות צמודים: {} \n".format(self.repOtherData(self.linked)) if len(
-                self.linked) > 0 else "") \
-                        + ("מקצועות ללא זיכוי נוסף: {} \n".format(self.repOtherData(self.identical)) if len(
-                self.identical) > 0 else "") \
-                        + ("מקצועות ללא זיכוי נוסף (מוכלים): {} \n".format(self.repOtherData(self.inclusive)) if len(
-                self.inclusive) > 0 else "") \
-                        + ("מקצועות ללא זיכוי נוסף (כלולים): {} \n".format(self.repOtherData(self.including)) if len(
-                self.including) > 0 else "")
+                        + ("מקצועות קדם: {} \n".format(self.repr_dependencies()) if len(self.prerequisites) > 0 else "") \
+                        + ("מקצועות צמודים: {} \n".format(self.repr_other_data(self.linked)) if len(self.linked) > 0 else "") \
+                        + ("מקצועות ללא זיכוי נוסף: {} \n".format(self.repr_other_data(self.identical)) if len(self.identical) > 0 else "") \
+                        + ("מקצועות ללא זיכוי נוסף (מוכלים): {} \n".format(self.repr_other_data(self.inclusive)) if len(self.inclusive) > 0 else "") \
+                        + ("מקצועות ללא זיכוי נוסף (כלולים): {} \n".format(self.repr_other_data(self.including)) if len(self.including) > 0 else "")
         return represent
