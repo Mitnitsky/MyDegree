@@ -114,7 +114,6 @@ def sport_packages(semester):
     return [package, package2]
 
 
-
 def convert_db_to_json(db):
     types = ['linked', 'identical', 'overlapping', 'inclusive', 'including', "followed_by"]
     courses = extract_all_courses_with_types_from_db(db, types)
