@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-.firebase/*
+
 
 # local env files
 .env.local
@@ -11,6 +11,7 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # Editor directories and files
 .idea
@@ -20,14 +21,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-src/firebaseconfig.js
-.firebase
-python_scripts/__pycache__
-python_scripts/db/__pycache__
-python_scripts/.idea
-python_scripts/db/.idea
-python_scripts/db/.vscode
-python_scripts/db/venv
-./.firebase/
-.firebaserc/*

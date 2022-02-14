@@ -51,7 +51,7 @@
       </b-tab>
 
       <!-- New Tab Button (Using tabs slot) -->
-      <template slot="tabs-end">
+      <template v-slot:tabs-end>
         <b-nav-item href="#" @click.prevent="newTab">
           <b>+</b>
         </b-nav-item>
@@ -60,12 +60,7 @@
       <!-- Render this if no tabs -->
       <div
         slot="empty"
-        class="
-          container
-          justify-content-md-center
-          alert alert-secondary
-          text-center text-muted
-        "
+        class="container justify-content-md-center alert alert-secondary text-center text-muted"
       >
         <h2>עוד לא נוספו סמסטרים</h2>
 
@@ -79,19 +74,20 @@
   </b-card>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import AppSemesterSummary from "@/components/SemesterSummary";
 import AppSemesterTable from "@/components/SemesterTable";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { createHelpers } from "vuex-map-fields";
+import { updateField } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
   mutationType: "updateUserField",
 });
 
-export default {
+export default defineComponent({
   name: "SemestersTabView",
   components: { AppSemesterTable, AppSemesterSummary },
   mounted() {
@@ -154,5 +150,5 @@ export default {
       this.$store.dispatch("updateSemesterAsync");
     },
   },
-};
+});
 </script>

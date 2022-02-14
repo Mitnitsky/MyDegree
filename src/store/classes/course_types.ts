@@ -1,4 +1,12 @@
-export const default_course_types_obj = [
+export class CourseType {
+  name = "";
+  total_points = 0.0;
+  points_left = 0.0;
+  points_required = 0.0;
+  points_done = 0.0;
+  average = 0.0;
+}
+export const default_course_types_obj: CourseType[] = [
   {
     name: "חובה",
     total_points: 0,
@@ -49,7 +57,7 @@ export const default_course_types_obj = [
   },
 ];
 
-export function create_course_type(type_name) {
+export function create_course_type(type_name: string): CourseType {
   return {
     name: type_name,
     total_points: 0,

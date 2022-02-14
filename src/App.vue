@@ -1,35 +1,49 @@
 <template>
-  <div
-    id="app"
-    style="
-      font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
-      min-width: 838px !important;
-    "
-  >
-    <header-nav-bar />
-    <div class="container-fluid">
-      <semesters-tab-view style="margin: 5px" />
-      <degree-summary />
-      <dp-footer />
+  <el-config-provider :locale="locale">
+    <div
+      id="app"
+      style="
+        direction: rtl !important;
+        font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
+        min-width: 838px !important;
+      "
+    >
+      <header-nav-bar />
+      <div class="container-fluid">
+        <!--      <semesters-tab-view style="margin: 5px" />-->
+        <!--      <degree-summary />-->
+        <!--      <dp-footer />-->
+      </div>
     </div>
-  </div>
+  </el-config-provider>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { ElConfigProvider } from "element-plus";
+import He from "element-plus/es/locale/lang/he";
 
-<script>
-import SemestersTabView from "./components/SemestersTabView";
-import HeaderNavBar from "./components/Header";
-import DpFooter from "./components/Footer";
-import DegreeSummary from "./components/DegreeSummary";
-
-export default {
+import HeaderNavBar from "@/components/Header.vue";
+// import DpFooter from "@/components/Footer.vue";
+// import DegreeSummary from "@/components/DegreeSummary.vue";
+// import SemestersTabView from "@/components/SemestersTabView.vue";
+export default defineComponent({
   name: "App",
   components: {
-    DegreeSummary,
-    DpFooter,
+    ElConfigProvider,
+    // DegreeSummary,
+    // DpFooter,
     HeaderNavBar,
-    SemestersTabView,
+    // SemestersTabView,
   },
-};
+  setup() {
+    return {
+      locale: He,
+    };
+  },
+});
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const rtlcss = require('rtlcss');
+const result = rtlcss.process("body { direction:ltr; }");
 </script>
 
 <style>
@@ -59,5 +73,9 @@ input[type="number"] {
 
 .dropdown-item {
   text-align: right !important;
+}
+body,
+html {
+  direction: ltr;
 }
 </style>

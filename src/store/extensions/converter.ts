@@ -1,37 +1,39 @@
-// function arrayRemove(semesters, index, value) {
-//     semesters[index.toString()] = semesters[index.toString()].filter((ele) => ele !== value);
-//     return semesters;
-// }
+import { Semester } from "@/store/classes/semester";
+import { Course } from "@/store/classes/course";
 
-function includesOneOf(str, ...args) {
+function includesOneOf(str: string, ...args: string[]) {
   return args.some((v) => str.includes(v));
 }
 
-function parseCourseLine(course, parts) {
-  course["number"] = parts[0].trim();
-  course["name"] = parts[1].trim();
-  course["points"] = parts[2].trim();
-  course["grade"] = parts[3]
-    .split("-")
-    .join("")
-    .split("*")
-    .join("")
-    .replace("לא השלים", "")
-    .trim();
+function parseCourseLine(course: Course, parts: string[]) {
+  course.number = parts[0].trim();
+  course.name = parts[1].trim();
+  course.points = parseInt(parts[2].trim());
+  course.grade = parseInt(
+    parts[3]
+      .split("-")
+      .join("")
+      .split("*")
+      .join("")
+      .replace("לא השלים", "")
+      .trim()
+  );
 }
 
-export function parseStudentsSiteGrades(grades_copy) {
-  grades_copy = grades_copy.split("\n");
-  let raw_semesters = [[]];
+export function parseStudentsSiteGrades(
+  grades_copy_str: string
+): [Semester[], boolean, number[]] {
+  const grades_copy = grades_copy_str.split("\n");
+  const raw_semesters: string[][] = [[]];
   let index = 0;
   let found_first_semester = false;
   let english_exemption = false;
   let exempted_courses_part_found = false;
-  let semesters = [];
-  let summer_semester_indexes = [];
-  let exempted_courses = [];
-  for (let line of grades_copy) {
-    if (found_first_semester === false) {
+  const semesters: Semester[] = [];
+  const summer_semester_indexes: number[] = [];
+  const exempted_courses: string[] = [];
+  for (const line of grades_copy) {
+    if (!found_first_semester) {
       if (includesOneOf(line, "אנגלית", "פטור")) {
         english_exemption = true;
       }
@@ -91,11 +93,11 @@ export function parseStudentsSiteGrades(grades_copy) {
     }
   }
   index = 1;
-  for (let rawSemester of raw_semesters) {
-    let courses = [];
+  for (const rawSemester of raw_semesters) {
+    const courses: Course[] = [];
     if (index === 1 && exempted_courses.length > 0) {
-      for (let exempted_course of exempted_courses) {
-        let parts = exempted_course.split("\t");
+      for (const exempted_course of exempted_courses) {
+        const parts = exempted_course.split("\t");
         if (parts.length !== 4) {
           continue;
         }
@@ -103,23 +105,23 @@ export function parseStudentsSiteGrades(grades_copy) {
           parts[3].includes("פטור עם ניקוד") &&
           !parts[1].includes("אנגלית")
         ) {
-          let course = {};
+          const course = new Course();
           parseCourseLine(course, parts);
           courses.push(course);
         }
       }
     }
-    for (let raw_line of rawSemester) {
-      let course = {};
+    for (const raw_line of rawSemester) {
+      let course: Course | null = new Course();
       if (raw_line.trim().length > 1) {
-        let parts = raw_line.split("\t");
+        const parts = raw_line.split("\t");
         if (parts.length !== 4) {
           continue;
         }
         parseCourseLine(course, parts);
-        for (let already_added of courses) {
-          if (already_added["name"] === course["name"]) {
-            already_added["grade"] = course["grade"];
+        for (const already_added_course of courses) {
+          if (already_added_course.name === course?.name) {
+            already_added_course.grade = course?.grade;
             course = null;
           }
         }
@@ -128,44 +130,48 @@ export function parseStudentsSiteGrades(grades_copy) {
         }
       }
     }
-    semesters[index.toString()] = courses;
+    semesters[index].courses = courses;
     index += 1;
   }
-  return {
-    semesters: semesters,
-    exemption: english_exemption,
-    summer_semesters_indexes: summer_semester_indexes,
-  };
+  return [semesters, english_exemption, summer_semester_indexes];
 }
 
-export function parseGraduateInformation(grades_copy) {
-  grades_copy = grades_copy.split("\n");
-  let lines = [[]];
+function createCourseFromParts(course: Course, parts: string[]) {
+  course.grade = parseInt(
+    parts[0]
+      .split("-")
+      .join("")
+      .split("*")
+      .join("")
+      .replace("לא השלים", "")
+      .trim()
+  );
+  course.points = parseInt(parts[1].trim());
+  const course_full_name = parts[2].split(" ");
+  course["name"] = course_full_name.slice(0, -1).join(" ").trim();
+  course["number"] = course_full_name[course_full_name.length - 1].trim();
+}
+
+export function parseGraduateInformation(
+  grades_copy_str: string
+): [Semester[], boolean, number[]] {
+  const grades_copy: string[] = grades_copy_str.split("\n");
+  const lines: string[][] = [[]];
   let index = 0;
   let found_first_sem = false;
   let english_exemption = false;
-  let semesters = {};
-  let summer_semester_indexes = [];
-  let exempted_courses = [];
-  for (let line of grades_copy) {
-    if (found_first_sem === false) {
+  const semesters: Semester[] = [];
+  const summer_semester_indexes: number[] = [];
+  const exempted_courses: Course[] = [];
+  for (const line of grades_copy) {
+    if (!found_first_sem) {
       if (line.includes("אנגלית") && line.includes("פטור")) {
         english_exemption = true;
       }
       if (line.includes("פטור עם ניקוד") && !line.includes("אנגלית")) {
-        let parts = line.split("\t");
-        let course = {};
-        course["grade"] = parts[0]
-          .split("-")
-          .join("")
-          .split("*")
-          .join("")
-          .replace("לא השלים", "")
-          .trim();
-        course["points"] = parts[1].trim();
-        let course_full_name = parts[2].split(" ");
-        course["name"] = course_full_name.slice(0, -1).join(" ").trim();
-        course["number"] = course_full_name[course_full_name.length - 1].trim();
+        const parts = line.split("\t");
+        const course: Course = new Course();
+        createCourseFromParts(course, parts);
 
         exempted_courses.push(course);
       }
@@ -204,43 +210,17 @@ export function parseGraduateInformation(grades_copy) {
     }
   }
   index = 1;
-  for (let semester of lines) {
-    let courses = [];
-    for (let line of semester) {
-      let course = {};
+  for (const semester of lines) {
+    const courses: Course[] = [];
+    for (const line of semester) {
+      let course: Course | null = new Course();
       if (line.length > 1 && line.trim().length > 1) {
-        let parts = line.split("\t");
-        course["grade"] = parts[0]
-          .split("-")
-          .join("")
-          .split("*")
-          .join("")
-          .replace("לא השלים", "")
-          .trim();
-        course["points"] = parts[1].trim();
-        let course_full_name = parts[2].split(" ");
-        course["name"] = course_full_name.slice(0, -1).join(" ").trim();
-        course["number"] = course_full_name[course_full_name.length - 1].trim();
-        for (let i = 1; i < index; i++) {
-          // let to_remove_list = [];
-          for (let cour of semesters[i.toString()]) {
-            if (
-              !cour["name"].includes("ספורט") &&
-              !cour["name"].includes("חינוך") &&
-              !cour["name"].includes("נבחרות")
-            ) {
-              // if (cour['name'] === course['name'] && course['grade'] !== '' && ((cour['grade'] !== '' && cour['grade'] !== 'לא השלים') || (course['grade'] === '' || course['grade'] === 'לא השלים'))) {
-              //     to_remove_list.push(cour)
-              // }
-            }
-          }
-          // for (let rem of to_remove_list) {
-          //     semesters = arrayRemove(semesters, i, rem)
-          // }
-        }
-        for (let already_added of courses) {
-          if (already_added["name"] === course["name"]) {
-            already_added["grade"] = course["grade"];
+        const parts = line.split("\t");
+        createCourseFromParts(course, parts);
+
+        for (const already_added_course of courses) {
+          if (already_added_course.name === course?.name) {
+            already_added_course.grade = course?.grade;
             course = null;
           }
         }
@@ -250,41 +230,43 @@ export function parseGraduateInformation(grades_copy) {
       }
     }
     if (index === 1) {
-      semesters[index.toString()] = exempted_courses.concat(courses);
+      semesters[index].courses = exempted_courses.concat(courses);
     } else {
-      semesters[index.toString()] = courses;
+      semesters[index].courses = courses;
     }
     index += 1;
   }
-  return {
-    semesters: semesters,
-    exemption: english_exemption,
-    summer_semesters_indexes: summer_semester_indexes,
-  };
+  return [semesters, english_exemption, summer_semester_indexes];
 }
 
-export function findCourse(course_number, json_courses) {
+export function findCourse(course_number: string, json_courses: any) {
   if (course_number.length < 3) {
     return [];
   }
   if (json_courses["courses"] !== undefined) {
-    return json_courses["courses"].filter((e) =>
+    return json_courses["courses"].filter((e: any) =>
       e.number.includes(course_number)
     );
   } else {
-    return json_courses.filter((e) => e.number.includes(course_number));
+    return json_courses.filter((e: any) => e.number.includes(course_number));
   }
 }
 
-export function parseCheeseFork(courses) {
-  courses = courses.split("\n");
-  let courses_from_db = [];
+export function parseCheeseFork(courses_str: string): string[] {
+  const courses = courses_str.split("\n");
+  const courses_from_db: string[] = [];
   let json_courses;
   if (localStorage.getItem("courses")) {
-    json_courses =
-      typeof localStorage.getItem("courses") === "object"
-        ? localStorage.getItem("courses")
-        : JSON.parse(localStorage.getItem("courses"));
+    if (typeof localStorage.getItem("courses") === "object") {
+      json_courses = localStorage.getItem("courses");
+    } else {
+      const local_courses = localStorage.getItem("courses");
+      if (local_courses !== null) {
+        json_courses = JSON.parse(local_courses);
+      } else {
+        json_courses = {};
+      }
+    }
     if (!json_courses.version || json_courses.version < 5.0) {
       json_courses = require("../../data/courses.json");
       localStorage.setItem("courses", JSON.stringify(json_courses));
@@ -293,13 +275,13 @@ export function parseCheeseFork(courses) {
     json_courses = require("../../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }
-  let j_courses = json_courses.courses;
-  for (let course of courses) {
-    let split = course.trim().split("-");
+  const j_courses = json_courses.courses;
+  for (const course of courses) {
+    const split = course.trim().split("-");
     if (split.length >= 2) {
       const course_number = split[0].trim();
       if (!isNaN(parseInt(course_number))) {
-        let result = findCourse(course_number, j_courses);
+        const result = findCourse(course_number, j_courses);
         if (result.length > 0) {
           courses_from_db.push(result[0]);
         }

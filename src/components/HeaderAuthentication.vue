@@ -2,15 +2,29 @@
   <div id="firebaseui-auth-container" />
 </template>
 
-<script>
-import firebase from "firebase/app";
-import "firebase/auth";
+<script lang="ts">
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import * as firebaseui from "firebaseui";
 import "../../node_modules/firebaseui/dist/firebaseui.css";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "Authentication",
+  props: {
+    close_auth_modal: {
+      type: Function,
+      required: true,
+    },
+  },
+  setup(props) {
+    return {
+      hide_auth_modal: props.close_auth_modal,
+    };
+  },
   mounted() {
+    let hide_auth_modal = this.hide_auth_modal;
     let uiConfig = {
       signInFlow: "popup",
       signInOptions: [
@@ -18,8 +32,9 @@ export default {
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
         signInSuccessWithAuthResult: function (authResult) {
+          hide_auth_modal();
           return false;
         },
       },
@@ -32,7 +47,7 @@ export default {
     ui.start("#firebaseui-auth-container", uiConfig);
   },
   methods: {},
-};
+});
 </script>
 
 <style scoped></style>

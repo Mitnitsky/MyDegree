@@ -46,10 +46,7 @@
                     <input
                       v-model.number="degree_points"
                       v-b-tooltip.hover.v-dark
-                      class="
-                        form-control
-                        degree-summary degree-summary-number degree-input-field
-                      "
+                      class="form-control degree-summary degree-summary-number degree-input-field"
                       max="9999999"
                       min="0"
                       step="0.5"
@@ -66,11 +63,7 @@
                     >
                     <input
                       v-model.number="degree_average"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       max="100"
                       min="0"
@@ -90,11 +83,7 @@
                     >
                     <input
                       v-model.number="degree_points_done"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -112,11 +101,7 @@
                     >
                     <input
                       v-model.number="degree_points_left"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -134,11 +119,7 @@
                     >
                     <input
                       v-model.number="degree_points_to_choose"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -222,12 +203,7 @@
                     <input
                       v-if="type.name !== 'פטור'"
                       v-model.number="type.points_left"
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary
-                        disabled-input
-                      "
+                      class="input-group-append form-control degree-summary disabled-input"
                       dir="ltr"
                       disabled="disabled"
                       readonly
@@ -238,12 +214,7 @@
                       v-else
                       v-model.number="type.total_points"
                       v-b-tooltip.hover.top.v-dark="'נקודות פטור קיימות'"
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary
-                        disabled-input
-                      "
+                      class="input-group-append form-control degree-summary disabled-input"
                       style="cursor: default"
                       dir="ltr"
                       readonly
@@ -253,11 +224,7 @@
                       v-if="type.name !== 'פטור'"
                       v-model.number="type.points_required"
                       v-b-tooltip.hover.left.v-dark
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary degree-summary-number degree-input-field
-                      "
+                      class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
                       dir="ltr"
                       max="9999999"
                       min="0"
@@ -415,10 +382,7 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 [dir="rtl"] .input-group .form-control:not(:last-child),
@@ -433,10 +397,7 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 [dir="rtl"] .input-group .form-control:not(:first-child),
@@ -449,10 +410,7 @@ input[type="number"]::-webkit-outer-spin-button {
   > .btn-group:not(:first-child)
   > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 [dir="rtl"] .input-group .form-control:not(:first-child),
@@ -465,10 +423,7 @@ input[type="number"]::-webkit-outer-spin-button {
   > .btn-group:not(:first-child)
   > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-top-left-radius: 0.25rem;
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 [dir="rtl"] .form-control + .input-group-addon:not(:first-child) {

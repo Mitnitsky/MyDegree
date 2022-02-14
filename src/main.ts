@@ -1,21 +1,17 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
-import VModal from "vue-js-modal";
+import { store } from "./store";
 //Firebase
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/analytics";
-import VueFirestore from "vue-firestore";
-import { firebaseConfig } from "./firebaseconfig";
-//Bootstrap-vue
-import BootstrapVue from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-//Autocomplete
-import Autocomplete from "@trevoreyre/autocomplete-vue";
-import "@trevoreyre/autocomplete-vue/dist/style.css";
-//vuex
-import { store } from "./store/store";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { getAnalytics } from "firebase/analytics";
+import "./firebaseconfig";
+
+//Element
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+import He from "element-plus/es/locale/lang/he";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -40,6 +36,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { firebaseConfig } from "@/firebaseconfig";
 
 library.add(faUserCircle);
 library.add(faCheck);
@@ -63,20 +60,14 @@ library.add(faEnvelope);
 library.add(faLinkedin);
 library.add(faGithub);
 
-Vue.use(VueFirestore);
-Vue.use(Autocomplete);
-Vue.use(VModal);
-Vue.use(BootstrapVue);
-Vue.component("FontAwesomeIcon", FontAwesomeIcon);
-Vue.config.productionTip = false;
-
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+getAnalytics();
 
-new Vue({
-  created() {},
-  store,
-  render(h) {
-    return h(App);
-  },
-}).$mount("#app");
+
+const app = createApp(App);
+app.use(store);
+app.use(ElementPlus, {
+  locale: He,
+});
+app.component("FontAwesomeIcon", FontAwesomeIcon);
+app.mount("#app");
