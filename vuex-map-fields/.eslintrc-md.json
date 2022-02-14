@@ -1,0 +1,10 @@
+{
+  "plugins": ["markdown"],
+  "extends": ".eslintrc",
+  "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off"
+  }
+}
