@@ -690,7 +690,6 @@ export default {
       this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
     checkIfExists(course_full_name, type) {
-      console.log(course_full_name);
       let course_name = course_full_name.split(":")[1];
       if (course_name.includes("השלמות")) {
         return "black";
