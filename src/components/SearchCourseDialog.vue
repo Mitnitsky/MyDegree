@@ -451,7 +451,7 @@ if (localStorage.getItem("courses")) {
     typeof localStorage.getItem("courses") === "object"
       ? localStorage.getItem("courses")
       : JSON.parse(localStorage.getItem("courses"));
-  if (!json_courses.version || json_courses.version < 7.0) {
+  if (!json_courses.version || json_courses.version < 8.0) {
     json_courses = require("../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(json_courses));
   }
@@ -690,6 +690,7 @@ export default {
       this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
     checkIfExists(course_full_name, type) {
+      console.log(course_full_name);
       let course_name = course_full_name.split(":")[1];
       if (course_name.includes("השלמות")) {
         return "black";

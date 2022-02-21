@@ -90,7 +90,7 @@ def get_course_info(course_number):
     temp_course.add_including(types[5])
     temp_course.set_points(types[6])
     temp_course.set_name(types[7])
-    temp_course.set_number(types[8])
+    temp_course.set_number(course_number)
     return temp_course
 
 

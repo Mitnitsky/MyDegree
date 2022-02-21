@@ -99,7 +99,7 @@ def get_points_from_grad(soup):
 
 def get_name_and_number_from_students(soup):
     span = soup.find("h1")
-    name = span.text.strip()
+    name = span.text
     return name
 
 
@@ -119,14 +119,14 @@ def get_info_from_students(course_number):
             print(f"Warning: Couldn't fetch course {course_number}!")
         soup = BeautifulSoup(get.content, features="html5lib")
         points = get_points_from_grad(soup)
-        course_name_number = re.split(' *- *', get_name_and_number_from_students(soup).replace('\n', ''), 1)
+        course_name_number = re.split(' *- *', get_name_and_number_from_students(soup).replace('\n', ''))
         course_name = ''
         if len(course_name_number) > 2:
             for i in range(0, len(course_name_number)):
                 if i == 0:
-                    course_number = course_name_number[i]
+                    continue
                 else:
-                    course_name += " " + course_name_number[i]
+                    course_name += " " + course_name_number[i].strip()
         else:
             course_number, course_name = course_name_number
         categories_div = soup.find("h3", attrs={"class": "card-title"}).find_next(
@@ -155,14 +155,18 @@ def get_info_from_students(course_number):
                         continue
                     else:
                         if '-' in child.text.strip():
-                            result[cat.text][len(result[cat.text]) - 1].append(
-                                ": ".join(re.split(' *- *', child.text.strip(), 1)))
+                            course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
+                            if len(course_name_inn) != 0:
+                                result[cat.text][len(result[cat.text]) - 1].append(course_name_inn)
                 else:
-                    if cat.text == 'מקצועות מכילים':
-                        result['מקצועות ללא זיכוי נוסף (מכילים)'].append(
-                            ": ".join(re.split(' *- *', child.text.strip(), 1)))
+                    if cat.texcourse_name == 'מקצועות מכילים':
+                        course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
+                        if len(course_name_inn) != 0:
+                            result['מקצועות ללא זיכוי נוסף (מכילים)'].append(course_name_inn)
                     else:
-                        result[cat.text].append(": ".join(re.split(' *- *', child.text.strip(), 1)))
+                        course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
+                        if len(course_name_inn) != 0:
+                            result[cat.text].append(course_name_inn)
     return result['מקצועות קדם'], result['מקצועות צמודים'], result['מקצועות זהים'], result['מקצועות ללא זיכוי נוסף'], \
            result['מקצועות ללא זיכוי נוסף (מוכלים)'], result[
                'מקצועות ללא זיכוי נוסף (מכילים)'], points, course_name, course_number
