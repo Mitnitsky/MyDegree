@@ -915,11 +915,11 @@ span.navbar-text {
 }
 
 #modal-1___BV_modal_outer_ {
-  min-width: 838px !important;
+  min-width: 965px !important;
 }
 
 #modal-1 {
-  min-width: 838px !important;
+  min-width: 965px !important;
 }
 
 /*.navbar-custom {*/

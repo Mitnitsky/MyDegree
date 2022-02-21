@@ -3,7 +3,7 @@
     id="app"
     style="
       font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
-      min-width: 838px !important;
+      min-width: 965px !important;
     "
   >
     <header-nav-bar />
