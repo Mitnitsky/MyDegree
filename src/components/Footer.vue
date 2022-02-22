@@ -25,7 +25,7 @@
         >Vladimir Mitnitsky</a
       >
     </span>
-    <my-info-card :visible="infoCardVisible" />
+    <my-info-card :visible="infoCardVisible" :set-visibility="setVisibility" />
   </div>
 </template>
 <script lang="ts">
@@ -38,8 +38,12 @@ export default defineComponent({
 
   setup() {
     const infoCardVisible = ref(false);
+    const setVisibility = (status: boolean) => {
+      infoCardVisible.value = status;
+    };
     return {
       infoCardVisible,
+      setVisibility,
     };
   },
 });
