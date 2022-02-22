@@ -12,8 +12,9 @@ import {
   create_course_type,
   default_course_types_obj,
 } from "@/store/classes/course_types";
-import firebase from "firebase/compat";
-import "firebase/compat/auth";
+// v9 compat packages are API compatible with v8 code
+import { db, auth } from "@/main";
+import { stateConverter } from "@/firestore/firestoreconverter";
 import { saveJSON } from "@/store/extensions/download";
 import { JsonCourseDB } from "@/store/classes/json_course_db";
 import { Course } from "@/store/classes/course";
@@ -26,7 +27,7 @@ if (courses) {
     typeof localStorage.getItem("courses") === "object"
       ? localStorage.getItem("courses")
       : JSON.parse(courses);
-  if (!jsonCourses.version || jsonCourses.version < 5.0) {
+  if (!jsonCourses.version || jsonCourses.version < 7.0) {
     jsonCourses = require("../../../data/courses.json");
     localStorage.setItem("courses", JSON.stringify(jsonCourses));
   }
@@ -37,19 +38,13 @@ if (courses) {
 
 function updateUserData(state: UserState) {
   if (localStorage.getItem("authenticated") === "true") {
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
     if (user != null) {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .set(state)
-        .then((result) => {
-          return typeof result;
-        })
-        .catch((reason) => {
-          window.console.log("Error uploading user-data (" + reason + ")");
-        });
+      const users = db.collection("users").withConverter(stateConverter);
+      const doc = users.doc(user.uid);
+      doc.set(state).catch((reason) => {
+        console.log("Error uploading user-data (" + reason + ")");
+      });
     }
   } else {
     localStorage.setItem("saved_session_data", JSON.stringify(state));
@@ -161,7 +156,7 @@ function calculateUserInfo(state: UserState): void {
               failed_points += course_points;
             }
           }
-          let course_info = findCourse(course.number, jsonCourses);
+          const course_info = findCourse(course.number, jsonCourses.courses);
 
           courses_done[course.name] = [
             course.number,
@@ -169,20 +164,20 @@ function calculateUserInfo(state: UserState): void {
             course.binary,
           ];
           if (course_info.length > 0) {
-            course_info = course_info[0];
-            for (const overlappingKey of course_info.overlapping) {
+            const first_course_info = course_info[0];
+            for (const overlappingKey of first_course_info.overlapping) {
               const fullname = overlappingKey.split(":");
               const course_number = fullname[0];
               const course_name = fullname.slice(1).join().trim();
               courses_done[course_name] = [course_number, course_grade];
             }
-            for (const identicalKey of course_info.identical) {
+            for (const identicalKey of first_course_info.identical) {
               const fullname = identicalKey.split(":");
               const course_number = fullname[0];
               const course_name = fullname.slice(1).join().trim();
               courses_done[course_name] = [course_number, course_grade];
             }
-            for (const inclusiveKey of course_info.inclusive) {
+            for (const inclusiveKey of first_course_info.inclusive) {
               const fullname = inclusiveKey.split(":");
               const course_number = fullname[0];
               const course_name = fullname.slice(1).join().trim();
@@ -214,7 +209,8 @@ function calculateUserInfo(state: UserState): void {
   }
   updateUserData(state);
 }
-function resetRemovedCategory(state, category_id: number) {
+
+function resetRemovedCategory(state: UserState, category_id: number) {
   for (const semester of state.semesters) {
     for (const course of semester.courses) {
       if (course.type === category_id) {
@@ -242,32 +238,10 @@ export const mutations: MutationTree<UserState> = {
     state.course_types = default_course_types_obj;
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.setUserData](state, user_data: UserState) {
-    state = user_data;
-    let updated = false;
-    if (state.course_types === undefined) {
-      state.course_types = default_course_types_obj;
-      updated = true;
-    }
-    if (state.summer_semesters === undefined) {
-      state.summer_semesters = 0;
-      updated = true;
-    }
-    if (updated) {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser?.uid)
-        .set(state)
-        .then((result) => {
-          return typeof result;
-        })
-        .catch((reason) => {
-          window.console.log("Error uploading user-data (" + reason + ")");
-        });
-    }
+  [USER_STORE.MUTATIONS.setSemesters](state: UserState, semesters: Semester[]) {
+    state.semesters = semesters;
   },
-  [USER_STORE.MUTATIONS.setActiveSemester](state, index: number) {
+  [USER_STORE.MUTATIONS.setActiveSemester](state: UserState, index: number) {
     if (index === -1) {
       setTimeout(() => {
         state.active_semester = state.semesters.length - 1;
@@ -275,12 +249,14 @@ export const mutations: MutationTree<UserState> = {
     } else {
       state.active_semester = index;
     }
-    console.log(state.active_semester);
   },
-  [USER_STORE.MUTATIONS.setExemptionStatus](state, status: boolean) {
+  [USER_STORE.MUTATIONS.setExemptionStatus](state: UserState, status: boolean) {
     state.english_exemption = status;
   },
-  [USER_STORE.MUTATIONS.addSemester](state, initial_courses: number) {
+  [USER_STORE.MUTATIONS.addSemester](
+    state: UserState,
+    initial_courses: number
+  ) {
     state.summer_semesters = getSummerSemestersNumber(state.semesters);
     state.semesters.push(
       new Semester(String(state.semesters.length + 1), initial_courses)
@@ -288,25 +264,28 @@ export const mutations: MutationTree<UserState> = {
     renameSemesters(state.semesters);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.sortSemesterByField](state, fieldName) {
+  [USER_STORE.MUTATIONS.sortSemesterByField](state: UserState, fieldName) {
     state.semesters[state.active_semester].sortCoursesByField(fieldName);
   },
   [USER_STORE.MUTATIONS.addCourse](state) {
     state.semesters[state.active_semester].addCourse();
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.addCourseWithData](state, course: Course) {
+  [USER_STORE.MUTATIONS.addCourseWithData](state: UserState, course: Course) {
     state.semesters[state.active_semester].addExistingCourseReturnIndex(course);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.addCourseWithDataToLastSemester](state, course) {
+  [USER_STORE.MUTATIONS.addCourseWithDataToLastSemester](
+    state: UserState,
+    course
+  ) {
     state.semesters[state.semesters.length - 1].addExistingCourseReturnIndex(
       course
     );
     updateUserData(state);
   },
   [USER_STORE.MUTATIONS.addCourseWithDataReturningIndex](
-    state,
+    state: UserState,
     course_and_return_index
   ) {
     course_and_return_index["added_index"] = state.semesters[
@@ -314,27 +293,33 @@ export const mutations: MutationTree<UserState> = {
     ].addExistingCourseReturnIndex(course_and_return_index["course"]);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.updateCourse](state, { field, value, index }) {
+  [USER_STORE.MUTATIONS.updateCourse](
+    state: UserState,
+    { field, value, index }
+  ) {
     Object.assign(state.semesters[state.active_semester].courses[index], {
       [field]: value,
     });
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.updateSemesterSummary](state, { field, value }) {
+  [USER_STORE.MUTATIONS.updateSemesterSummary](
+    state: UserState,
+    { field, value }
+  ) {
     Object.assign(state.semesters[state.active_semester], {
       [field]: value,
     });
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.updateInfo](state, { field, value }) {
+  [USER_STORE.MUTATIONS.updateInfo](state: UserState, { field, value }) {
     Object.assign(state, { [field]: value });
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.removeCourse](state, index) {
+  [USER_STORE.MUTATIONS.removeCourse](state: UserState, index) {
     state.semesters[state.active_semester].removeCourse(index);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.moveCourse](state, { index, direction }) {
+  [USER_STORE.MUTATIONS.moveCourse](state: UserState, { index, direction }) {
     const active_semester = state.active_semester;
     const current_semester = state.semesters[active_semester];
     const direction_int = direction === "up" ? -1 : 1;
@@ -369,11 +354,11 @@ export const mutations: MutationTree<UserState> = {
     state.summer_semesters = getSummerSemestersNumber(semesters);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.changeSemesterTo](state, index) {
+  [USER_STORE.MUTATIONS.changeSemesterTo](state: UserState, index) {
     state.active_semester = index;
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.addCourseType](state, typeName: string) {
+  [USER_STORE.MUTATIONS.addCourseType](state: UserState, typeName: string) {
     if (typeName.toString() !== "") {
       for (const type of state.course_types) {
         if (type.name === typeName.toString()) {
@@ -394,7 +379,7 @@ export const mutations: MutationTree<UserState> = {
     renameSemesters(state.semesters);
     state.summer_semesters = getSummerSemestersNumber(state.semesters);
   },
-  [USER_STORE.MUTATIONS.changeSemesterType](state, index) {
+  [USER_STORE.MUTATIONS.changeSemesterType](state: UserState, index) {
     const semester = state.semesters[index];
     if (semester.name.toString().includes("קיץ")) {
       semester.name = "0";
@@ -404,13 +389,13 @@ export const mutations: MutationTree<UserState> = {
     renameSemesters(state.semesters);
     state.summer_semesters = getSummerSemestersNumber(state.semesters);
   },
-  [USER_STORE.MUTATIONS.changeCategoryName](state, name_index) {
+  [USER_STORE.MUTATIONS.changeCategoryName](state: UserState, name_index) {
     if (name_index[1] < state.course_types.length) {
       state.course_types[name_index[1]].name = name_index[0];
     }
     calculateUserInfo(state);
   },
-  [USER_STORE.MUTATIONS.deleteCourseType](state, index) {
+  [USER_STORE.MUTATIONS.deleteCourseType](state: UserState, index) {
     if (index < state.course_types.length) {
       resetRemovedCategory(state, index);
       state.course_types.splice(index, 1);
@@ -418,7 +403,7 @@ export const mutations: MutationTree<UserState> = {
     calculateUserInfo(state);
   },
   [USER_STORE.MUTATIONS.moveCourseToSemester](
-    state,
+    state: UserState,
     { semester_index, course_index }
   ) {
     const course_to_move =
@@ -443,11 +428,10 @@ export const mutations: MutationTree<UserState> = {
     }
   },
   [USER_STORE.MUTATIONS.updateSemester](state) {
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
     if (user != null) {
-      firebase
-        .firestore()
-        .collection("users")
+      db.collection("users")
+        .withConverter(stateConverter)
         .doc(user.uid)
         .update({
           semesters: state.semesters,
@@ -455,7 +439,7 @@ export const mutations: MutationTree<UserState> = {
         .then((r) => r);
     }
   },
-  [USER_STORE.MUTATIONS.exportSemesters](state, with_grades) {
+  [USER_STORE.MUTATIONS.exportSemesters](state: UserState, with_grades) {
     const copy = JSON.stringify(state.semesters);
     const semesters: Semester[] = JSON.parse(copy);
     if (!with_grades) {
@@ -463,55 +447,50 @@ export const mutations: MutationTree<UserState> = {
         for (const course of semester.courses) {
           course.grade = 0;
         }
-        semester.calculatePoints();
-        semester.calculateAverage();
+        semester.average = 0;
       }
     }
-    const data = JSON.stringify(copy, undefined, 2);
+    const data = JSON.stringify(semesters, undefined, 2);
     saveJSON(data, "courses.json");
   },
-  [USER_STORE.MUTATIONS.importCoursesFromJson](state, data) {
+  [USER_STORE.MUTATIONS.importCoursesFromJson](state: UserState, data) {
     state.semesters = JSON.parse(data);
   },
-  [USER_STORE.MUTATIONS.fetchUserInfo](state, user) {
-    state = user;
-    let updated = false;
-    if (state.course_types === undefined) {
-      state.course_types = default_course_types_obj;
-      updated = true;
-    }
-    if (state.summer_semesters === undefined) {
-      state.summer_semesters = 0;
-      updated = true;
-    }
-    if (updated) {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .set(state)
-        .then((result) => {
-          return typeof result;
-        })
-        .catch((reason) => {
-          window.console.log("Error uploading user-data (" + reason + ")");
-        });
-    }
+  [USER_STORE.MUTATIONS.fetchUserInfo](state: UserState, user) {
+    state.summer_semesters = user.summer_semesters;
+    state.active_semester = user.active_semester;
+    state.degree_average = user.degree_average;
+    state.degree_points = user.degree_points;
+    state.degree_points_done = user.degree_points_done;
+    state.degree_points_left = user.degree_points_left;
+    state.degree_points_to_choose = user.degree_points_to_choose;
+    state.english_exemption = user.english_exemption;
+    state.semesters = user.semesters;
+    state.course_types = user.course_types;
   },
-  [USER_STORE.MUTATIONS.checkIfCourseExists](state, course_number_and_answer) {
+  [USER_STORE.MUTATIONS.checkIfCourseExists](
+    state: UserState,
+    course_number_and_answer
+  ) {
     course_number_and_answer["answer"] = courseExistInSemesters(
       state.semesters,
       course_number_and_answer.course_number
     );
   },
-  [USER_STORE.MUTATIONS.checkPrerequisites](state, course_number_and_answer) {
+  [USER_STORE.MUTATIONS.checkPrerequisites](
+    state: UserState,
+    course_number_and_answer
+  ) {
     course_number_and_answer["answer"] = courseExistInSemesters(
       state.semesters,
       course_number_and_answer.course_number,
       state.active_semester - 1
     );
   },
-  [USER_STORE.MUTATIONS.checkLinear](state, course_number_and_answer) {
+  [USER_STORE.MUTATIONS.checkLinear](
+    state: UserState,
+    course_number_and_answer
+  ) {
     course_number_and_answer["answer"] = courseExistInSemesters(
       state.semesters,
       course_number_and_answer.course_number,
@@ -519,7 +498,7 @@ export const mutations: MutationTree<UserState> = {
     );
   },
 
-  [USER_STORE.MUTATIONS.updateSemesters](state, semesters) {
+  [USER_STORE.MUTATIONS.updateSemesters](state: UserState, semesters) {
     state.semesters = semesters;
   },
 };

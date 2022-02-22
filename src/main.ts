@@ -3,14 +3,17 @@ import App from "./App.vue";
 import { store } from "./store";
 //Firebase
 import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { getAnalytics } from "firebase/analytics";
+import "firebase/compat/analytics";
 import "./firebaseconfig";
 
 //Element
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+import VueFinalModal from "vue-final-modal";
+import Autocomplete from "vue3-autocomplete";
+// Optional: Import default CSS
+import "vue3-autocomplete/dist/vue3-autocomplete.css";
 import He from "element-plus/es/locale/lang/he";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -61,13 +64,18 @@ library.add(faLinkedin);
 library.add(faGithub);
 
 firebase.initializeApp(firebaseConfig);
-getAnalytics();
+firebase.analytics();
 
+export const db = firebase.firestore();
+export const auth = firebase.auth();
 
 const app = createApp(App);
 app.use(store);
+
 app.use(ElementPlus, {
   locale: He,
 });
+app.use(VueFinalModal());
+app.component("Autocomplete", Autocomplete);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.mount("#app");

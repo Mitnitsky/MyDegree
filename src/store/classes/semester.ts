@@ -15,6 +15,18 @@ export class Semester {
   points = 0.0;
   courses: Course[] = [];
 
+  toString(): string {
+    return (
+      this.name +
+      ", " +
+      this.average +
+      ", " +
+      this.points +
+      "\n" +
+      this.courses.join("\n")
+    );
+  }
+
   constructor(name: string, empty_courses: number) {
     this.name = name;
     for (let i = 0; i < empty_courses; i++) {
@@ -88,7 +100,7 @@ export class Semester {
         points += course.points;
         continue;
       }
-      if (course.type === exemption_index || course.grade !== 0) {
+      if (course.type === exemption_index || course.grade === 0) {
         continue;
       }
       total_grade += course.grade * course.points;
@@ -108,6 +120,7 @@ export class Semester {
       this.average = 0;
     }
   }
+
   removeCourse(index: number): void {
     if (index >= this.courses.length || index < 0) {
       return;
@@ -116,6 +129,7 @@ export class Semester {
     this.calculateAverage();
     this.calculatePoints();
   }
+
   calculatePoints(): void {
     this.points = 0;
     for (const course of this.courses) {
@@ -123,6 +137,7 @@ export class Semester {
     }
     this.points.toFixed(1);
   }
+
   hasCourse(courseNumber: string): boolean {
     for (const course of this.courses) {
       if (course.number.toString() === courseNumber) {

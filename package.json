@@ -21,6 +21,7 @@
     "rtlcss": "^3.5.0",
     "vue": "^3.2.31",
     "vue-final-modal": "^3.4.3",
+    "vue3-autocomplete": "^1.0.4",
     "vuex": "^4.0.2",
     "vuex-map-fields": "file:vuex-map-fields"
   },

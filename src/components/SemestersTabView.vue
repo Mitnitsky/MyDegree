@@ -1,6 +1,10 @@
 <template>
-  <b-card class="shadow bg-white rounded" no-body style="margin: 10px 20px">
-    <b-tabs pills card v-model="active_semester">
+  <b-card class="shadow bg-white rounded"
+          no-body
+          style="margin: 10px 20px">
+    <b-tabs pills
+            card
+            v-model="active_semester">
       <b-tab
         v-for="(semester, index) in $store.state.user.semesters"
         :key="index"
@@ -8,17 +12,20 @@
         lazy
       >
         <div class="row justify-content-md-center">
-          <div class="col-xl-10" style="margin-bottom: 10px">
+          <div class="col-xl-10"
+               style="margin-bottom: 10px">
             <app-semester-table :semester="semester" />
           </div>
-          <div class="col-xl-2" style="padding: 0 0">
+          <div class="col-xl-2"
+               style="padding: 0 0">
             <app-semester-summary />
           </div>
         </div>
         <div class="row">
           <div class="col-xl-10" />
           <div class="col-xl-2">
-            <b-button-group class="mx-1 mt-2" style="direction: ltr">
+            <b-button-group class="mx-1 mt-2"
+                            style="direction: ltr">
               <b-button
                 class="align-self-end"
                 variant="outline-danger"
@@ -52,7 +59,8 @@
 
       <!-- New Tab Button (Using tabs slot) -->
       <template v-slot:tabs-end>
-        <b-nav-item href="#" @click.prevent="newTab">
+        <b-nav-item href="#"
+                    @click.prevent="newTab">
           <b>+</b>
         </b-nav-item>
       </template>
@@ -66,7 +74,8 @@
 
         <br />
 
-        <b-button variant="outline-secondary" @click.prevent="newTab">
+        <b-button variant="outline-secondary"
+                  @click.prevent="newTab">
           הוסף סמסטר
         </b-button>
       </div>
@@ -84,7 +93,7 @@ import { updateField } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
-  mutationType: "updateUserField",
+  mutationType: "updateUserField"
 });
 
 export default defineComponent({
@@ -98,10 +107,10 @@ export default defineComponent({
         let user_data = localStorage.getItem("saved_session_data");
         if (user_data !== null) {
           if (typeof user_data === "object") {
-            this.$store.commit("setUserData", user_data);
+            this.$store.commit("fetchUserInfo", user_data);
           } else {
             this.$store.commit(
-              "setUserData",
+              "fetchuser",
               JSON.parse(localStorage.getItem("saved_session_data"))
             );
           }
@@ -111,7 +120,7 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapFields(["active_semester"]),
+    ...mapFields(["active_semester"])
   },
   methods: {
     removeSemester() {
@@ -128,7 +137,7 @@ export default defineComponent({
 
           footerClass: "p-2",
           hideHeaderClose: true,
-          centered: true,
+          centered: true
         })
         .then((v) => {
           if (v === true) {
@@ -148,7 +157,7 @@ export default defineComponent({
     changeToRegular() {
       this.$store.commit("changeActiveSemesterType");
       this.$store.dispatch("updateSemesterAsync");
-    },
-  },
+    }
+  }
 });
 </script>

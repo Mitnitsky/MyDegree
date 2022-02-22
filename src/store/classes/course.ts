@@ -16,12 +16,31 @@ export class Course {
     this.type = 0;
     this.binary = false;
   }
+
   isEmpty(): boolean {
     return (
       this.name === "" && (this.number === "" || parseInt(this.number) === 0)
     );
   }
+
+  toString(): string {
+    return (
+      this.name +
+      ", " +
+      this.number +
+      ", " +
+      this.points +
+      ", " +
+      this.grade +
+      ", " +
+      this.type +
+      ", " +
+      this.binary
+    );
+  }
 }
+
+// Firestore data converter
 
 export function createCourseFromDBEntry(course: Course): Course {
   const course_to_add = new Course();

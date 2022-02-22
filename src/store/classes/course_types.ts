@@ -6,6 +6,7 @@ export class CourseType {
   points_done = 0.0;
   average = 0.0;
 }
+
 export const default_course_types_obj: CourseType[] = [
   {
     name: "חובה",

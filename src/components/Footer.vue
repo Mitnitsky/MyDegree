@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-navbar fixed="bottom" type="dark" variant="dark">
+    <b-navbar fixed="bottom"
+              type="dark"
+              variant="dark">
       <div
         class="mx-auto"
         style="color: lightgray"
@@ -17,6 +19,6 @@ import MyInfoCard from "./MyInfoCard";
 
 export default {
   name: "DpFooter",
-  components: { MyInfoCard },
+  components: { MyInfoCard }
 };
 </script>

@@ -1,9 +1,10 @@
 export enum UserGetters {
   COURSE_TYPES = "COURSE_TYPES",
 }
+
 export enum UserMutations {
   clearUserData = "clearUserData",
-  setUserData = "setUserData",
+  setSemesters = "setSemseters",
   setActiveSemester = "setActiveSemester",
   setExemptionStatus = "setExemptionStatus",
   addSemester = "addSemester",
@@ -38,6 +39,7 @@ export enum UserMutations {
   updateUserField = "updateUserField",
   updateSemesters = "updateSemesters",
 }
+
 export enum UserActions {
   updateSemesterAsync = "updateSemesterAsync",
   addNewSemesterFromData = "addNewSemesterFromData",
@@ -48,8 +50,10 @@ export enum AuthGetters {
   USERNAME = "USERNAME",
   LOGGED = "LOGGED",
 }
+
 export enum AuthMutations {
   setUserName = "setUserName",
   setLoggedStatus = "setLoggedStatus",
 }
+
 export enum AuthActions {}

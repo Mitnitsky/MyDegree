@@ -25,7 +25,8 @@
       <b-card-group deck>
         <div class="container justify-content-center mt-1">
           <div class="row justify-content-center">
-            <div class="col" style="max-width: 590px; min-width: 480px">
+            <div class="col"
+                 style="max-width: 590px; min-width: 480px">
               <b-card
                 class="shadow bg-white rounded h-100"
                 flow
@@ -41,7 +42,7 @@
                       v-b-tooltip.hover.up.v-dark="'כל הנקודות שיש לבצע בתואר'"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות תואר</span
+                    >נקודות תואר</span
                     >
                     <input
                       v-model.number="degree_points"
@@ -59,7 +60,7 @@
                     <span
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >ממוצע תואר</span
+                    >ממוצע תואר</span
                     >
                     <input
                       v-model.number="degree_average"
@@ -79,7 +80,7 @@
                       "
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות בוצעו</span
+                    >נקודות בוצעו</span
                     >
                     <input
                       v-model.number="degree_points_done"
@@ -97,7 +98,7 @@
                       "
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נקודות נותרו</span
+                    >נקודות נותרו</span
                     >
                     <input
                       v-model.number="degree_points_left"
@@ -115,7 +116,7 @@
                       "
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >נותרו לשבץ</span
+                    >נותרו לשבץ</span
                     >
                     <input
                       v-model.number="degree_points_to_choose"
@@ -129,7 +130,8 @@
                 </div>
               </b-card>
             </div>
-            <div class="col" style="max-width: 590px; min-width: 480px">
+            <div class="col"
+                 style="max-width: 590px; min-width: 480px">
               <b-card
                 class="h-100 shadow bg-white rounded"
                 flow
@@ -178,7 +180,7 @@
                       :id="type.name + index"
                       class="input-group-text categoryNameSpan"
                       style="width: 33%"
-                      >{{ type.name }}</span
+                    >{{ type.name }}</span
                     >
                     <b-tooltip
                       v-if="type.average > 0"
@@ -261,7 +263,7 @@ import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
-  mutationType: "updateUserField",
+  mutationType: "updateUserField"
 });
 
 export default {
@@ -270,7 +272,7 @@ export default {
     return {
       collapsed: true,
       buttonText: "Show summary",
-      inputIsWrong: "inputIsWrong",
+      inputIsWrong: "inputIsWrong"
     };
   },
   computed: {
@@ -284,14 +286,14 @@ export default {
       "degree_points_to_choose",
       "english_exemption",
       "semesters",
-      "course_types",
-    ]),
+      "course_types"
+    ])
   },
   methods: {
     updateInfo() {
       this.$store.commit("reCalcCurrentSemester");
     },
-    sortCourseTypes: function (courses) {
+    sortCourseTypes: function(courses) {
       let sorted_courses = [];
       let ptor_course = null;
       for (let course of courses) {
@@ -303,8 +305,8 @@ export default {
       }
       sorted_courses.push(ptor_course);
       return sorted_courses;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -373,12 +375,12 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group .form-control:not(:last-child),
 [dir="rtl"] .input-group-text:not(:last-child),
 [dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn-group:not(:last-child)
-  > .btn,
+.input-group-btn:not(:first-child)
+> .btn-group:not(:last-child)
+> .btn,
 [dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:not(:first-child)
+> .btn:not(:last-child):not(.dropdown-toggle),
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
@@ -388,12 +390,12 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group .form-control:not(:last-child),
 [dir="rtl"] .input-group-addon:not(:last-child),
 [dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn-group:not(:last-child)
-  > .btn,
+.input-group-btn:not(:first-child)
+> .btn-group:not(:last-child)
+> .btn,
 [dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:not(:first-child)
+> .btn:not(:last-child):not(.dropdown-toggle),
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
@@ -406,9 +408,9 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
 [dir="rtl"]
-  .input-group-btn:not(:last-child)
-  > .btn-group:not(:first-child)
-  > .btn,
+.input-group-btn:not(:last-child)
+> .btn-group:not(:first-child)
+> .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
   border-radius: 0.25rem 0 0 0.25rem;
 }
@@ -419,9 +421,9 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
 [dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
 [dir="rtl"]
-  .input-group-btn:not(:last-child)
-  > .btn-group:not(:first-child)
-  > .btn,
+.input-group-btn:not(:last-child)
+> .btn-group:not(:first-child)
+> .btn,
 [dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
   border-radius: 0.25rem 0 0 0.25rem;
 }

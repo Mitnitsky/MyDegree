@@ -1,5 +1,6 @@
 import { Semester } from "@/store/classes/semester";
 import { Course } from "@/store/classes/course";
+import { JsonCourse } from "@/store/classes/json_course_db";
 
 function includesOneOf(str: string, ...args: string[]) {
   return args.some((v) => str.includes(v));
@@ -137,7 +138,7 @@ export function parseStudentsSiteGrades(
 }
 
 function createCourseFromParts(course: Course, parts: string[]) {
-  course.grade = parseInt(
+  course.grade = parseFloat(
     parts[0]
       .split("-")
       .join("")
@@ -146,15 +147,20 @@ function createCourseFromParts(course: Course, parts: string[]) {
       .replace("לא השלים", "")
       .trim()
   );
-  course.points = parseInt(parts[1].trim());
+  if (isNaN(course.grade)) {
+    course.grade = 0;
+  }
+  course.points = parseFloat(parts[1].trim());
   const course_full_name = parts[2].split(" ");
-  course["name"] = course_full_name.slice(0, -1).join(" ").trim();
-  course["number"] = course_full_name[course_full_name.length - 1].trim();
+  course.name = course_full_name.slice(0, -1).join(" ").trim();
+  course.number = course_full_name[course_full_name.length - 1].trim();
 }
 
-export function parseGraduateInformation(
-  grades_copy_str: string
-): [Semester[], boolean, number[]] {
+export function parseGraduateInformation(grades_copy_str: string): {
+  semesters: Semester[];
+  exemption: boolean;
+  summer_semesters_indexes: number[];
+} {
   const grades_copy: string[] = grades_copy_str.split("\n");
   const lines: string[][] = [[]];
   let index = 0;
@@ -229,32 +235,46 @@ export function parseGraduateInformation(
         }
       }
     }
+    semesters.push(new Semester(index.toString(), 0));
     if (index === 1) {
-      semesters[index].courses = exempted_courses.concat(courses);
+      for (const course of exempted_courses.concat(courses)) {
+        semesters[index - 1].addExistingCourseReturnIndex(course);
+      }
     } else {
-      semesters[index].courses = courses;
+      for (const course of courses) {
+        semesters[index - 1].addExistingCourseReturnIndex(course);
+      }
     }
     index += 1;
   }
-  return [semesters, english_exemption, summer_semester_indexes];
+  return {
+    semesters: semesters,
+    exemption: english_exemption,
+    summer_semesters_indexes: summer_semester_indexes,
+  };
 }
 
-export function findCourse(course_number: string, json_courses: any) {
+export function findCourse(
+  course_number: string,
+  json_courses: JsonCourse[]
+): JsonCourse[] {
   if (course_number.length < 3) {
     return [];
   }
   if (json_courses["courses"] !== undefined) {
-    return json_courses["courses"].filter((e: any) =>
+    return json_courses["courses"].filter((e: JsonCourse) =>
       e.number.includes(course_number)
     );
   } else {
-    return json_courses.filter((e: any) => e.number.includes(course_number));
+    return json_courses.filter((e: JsonCourse) =>
+      e.number.includes(course_number)
+    );
   }
 }
 
-export function parseCheeseFork(courses_str: string): string[] {
+export function parseCheeseFork(courses_str: string): JsonCourse[] {
   const courses = courses_str.split("\n");
-  const courses_from_db: string[] = [];
+  const courses_from_db: JsonCourse[] = [];
   let json_courses;
   if (localStorage.getItem("courses")) {
     if (typeof localStorage.getItem("courses") === "object") {
@@ -267,7 +287,7 @@ export function parseCheeseFork(courses_str: string): string[] {
         json_courses = {};
       }
     }
-    if (!json_courses.version || json_courses.version < 5.0) {
+    if (!json_courses.version || json_courses.version < 7.0) {
       json_courses = require("../../data/courses.json");
       localStorage.setItem("courses", JSON.stringify(json_courses));
     }

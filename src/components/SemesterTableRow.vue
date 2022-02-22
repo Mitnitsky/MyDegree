@@ -71,7 +71,8 @@
         class="form-control courseGrade"
       />
     </td>
-    <td class="text-center" style="min-width: 45px">
+    <td class="text-center"
+        style="min-width: 45px">
       <b-dropdown
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
@@ -79,7 +80,8 @@
         variant="outline-secondary"
       >
         <template #button-content>
-          <font-awesome-icon icon="ellipsis-v" size="sm" />
+          <font-awesome-icon icon="ellipsis-v"
+                             size="sm" />
         </template>
         <b-dropdown-item
           :disabled="
@@ -110,7 +112,8 @@
           />
           סמן עובר בינארי
         </b-dropdown-item>
-        <b-dropdown-item v-else @click="setCourseBinaryState(false)">
+        <b-dropdown-item v-else
+                         @click="setCourseBinaryState(false)">
           <font-awesome-icon
             icon="ban"
             size="sm"
@@ -147,7 +150,8 @@
           />
           העבר סמסטר
         </b-dropdown-item>
-        <b-dropdown-item :disabled="index === 0" @click="moveCourseInner('up')">
+        <b-dropdown-item :disabled="index === 0"
+                         @click="moveCourseInner('up')">
           <font-awesome-icon
             icon="arrow-up"
             size="sm"
@@ -215,7 +219,8 @@
         </tag>
       </template>
       <template #modal-footer>
-        <div class="row justify-content-center" style="width: 100%">
+        <div class="row justify-content-center"
+             style="width: 100%">
           <b-button
             variant="primary"
             size="sm"
@@ -231,9 +236,11 @@
         header-text-variant="white"
         style="margin-bottom: 10px; direction: rtl !important"
       >
-        <div v-if="course_info && course_info.length > 0" class="col">
+        <div v-if="course_info && course_info.length > 0"
+             class="col">
           <div class="row justify-content-center align-self">
-            <p v-if="selected_semester_grade_stats" style="text-align: center">
+            <p v-if="selected_semester_grade_stats"
+               style="text-align: center">
               <strong>
                 {{ selected_semester_grade_stats[0].semester_name }}
               </strong>
@@ -255,7 +262,8 @@
             />
           </div>
         </div>
-        <div v-else class="row mt-2 mb-2 mr-2 ml-2">
+        <div v-else
+             class="row mt-2 mb-2 mr-2 ml-2">
           <strong>אין היסטוגרמות זמינות</strong>
         </div>
         <div
@@ -283,7 +291,10 @@
             fluid
             @click="$bvModal.show('histogram-modal')"
           />
-          <b-modal id="histogram-modal" centered size="lg" hide-footer>
+          <b-modal id="histogram-modal"
+                   centered
+                   size="lg"
+                   hide-footer>
             <b-img
               v-if="histogram_img_link"
               rounded="true"
@@ -305,7 +316,7 @@ import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogram
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
-  mutationType: "updateUserField",
+  mutationType: "updateUserField"
 });
 
 export default {
@@ -314,20 +325,20 @@ export default {
   props: {
     course: {
       type: Object,
-      required: true,
+      required: true
     },
     index: {
       type: Number,
-      required: true,
+      required: true
     },
     moveFunction: {
       type: Function,
-      required: true,
+      required: true
     },
     tableSize: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
@@ -337,32 +348,32 @@ export default {
       fields: [
         {
           key: "students",
-          label: "סטודנטים",
+          label: "סטודנטים"
         },
         {
           key: "passFail",
-          label: "נכשל/עובר",
+          label: "נכשל/עובר"
         },
         {
           key: "passPercent",
-          label: "אחוז עוברים",
+          label: "אחוז עוברים"
         },
         {
           key: "min",
-          label: "ציון מינימלי",
+          label: "ציון מינימלי"
         },
         {
           key: "max",
-          label: "ציון מקסימלי",
+          label: "ציון מקסימלי"
         },
         {
           key: "average",
-          label: "ממוצע",
+          label: "ממוצע"
         },
         {
           key: "median",
-          label: "חציון",
-        },
+          label: "חציון"
+        }
       ],
       course_copy: this.course,
       InputIsWrong: "inputIsWrong",
@@ -376,12 +387,12 @@ export default {
         "lightsteelblue",
         "lavender",
         "plum",
-        "#f2b4ba",
-      ],
+        "#f2b4ba"
+      ]
     };
   },
   computed: {
-    ...mapFields(["course_types"]),
+    ...mapFields(["course_types"])
   },
   methods: {
     clearRow() {
@@ -399,9 +410,9 @@ export default {
       let update = this.updateURL;
       $.getJSON(
         `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/index.json`,
-        function (doc) {
+        function(doc) {
           self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
-            function (a, b) {
+            function(a, b) {
               return b.semester_number - a.semester_number;
             }
           );
@@ -439,12 +450,12 @@ export default {
     moveToSemester(semester_index) {
       this.$store.commit("moveCourseToSemester", {
         semester_index: semester_index,
-        course_index: this.index,
+        course_index: this.index
       });
       this.$store.commit("reCalcCurrentSemester");
       this.$store.dispatch("updateSemesterAsync");
-    },
-  },
+    }
+  }
 };
 </script>
 

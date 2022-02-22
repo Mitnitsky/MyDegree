@@ -1,7 +1,7 @@
 import $ from "jquery";
 import {
   HistogramObject,
-  OptionsObject,
+  OptionsObject
 } from "@/store/classes/histogramObject";
 
 export function convertTechnionSemesterToText(semester: string): string {
@@ -44,7 +44,7 @@ export function convertJsonToProperSelectBoxFormat(json_obj: any): HistogramObje
     const semester_result: HistogramObject = {
       label: convertTechnionSemesterToText(semester),
       semester_number: semester,
-      options: [],
+      options: []
     };
     let staff = "";
     for (const entry of Object.keys(json_obj[semester])) {
@@ -57,7 +57,7 @@ export function convertJsonToProperSelectBoxFormat(json_obj: any): HistogramObje
       }
       const entry_result: OptionsObject = {
         value: [json_obj[semester][entry]],
-        text: convertExamNameToHebrew(entry),
+        text: convertExamNameToHebrew(entry)
       };
       entry_result.value[0].semester_name = semester_result.label;
       entry_result.value[0].semester_number = semester;
@@ -78,9 +78,9 @@ export function getHistogramForCourseNumber(course_number) {
     dataType: "json",
     url: `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
     async: false,
-    success: function (doc) {
+    success: function(doc) {
       json = doc;
-    },
+    }
   });
   return convertJsonToProperSelectBoxFormat(json);
 }

@@ -2,18 +2,14 @@ import {
   UserState,
   UserMutationsTypes,
   UserGettersTypes,
-  UserActionsTypes,
+  UserActionsTypes
 } from "@/store/interfaces";
 import { Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
 
-export type UserStoreModuleTypes<S = UserState> = Omit<
-  VuexStore<S>,
-  "commit" | "getters" | "dispatch"
-> & {
-  commit<
-    K extends keyof UserMutationsTypes,
-    P extends Parameters<UserMutationsTypes[K]>[1]
-  >(
+export type UserStoreModuleTypes<S = UserState> = Omit<VuexStore<S>,
+  "commit" | "getters" | "dispatch"> & {
+  commit<K extends keyof UserMutationsTypes,
+    P extends Parameters<UserMutationsTypes[K]>[1]>(
     key: K,
     payload?: P,
     options?: CommitOptions

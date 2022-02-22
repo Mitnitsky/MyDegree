@@ -82,7 +82,7 @@ export interface UserGettersTypes {}
 
 export type UserMutationsTypes<S = UserState> = {
   [USER_STORE.MUTATIONS.clearUserData](state: S): void;
-  [USER_STORE.MUTATIONS.setUserData](state: S, payload: UserState): void;
+  [USER_STORE.MUTATIONS.setSemesters](state: S, semesters: Semester[]): void;
   [USER_STORE.MUTATIONS.setActiveSemester](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.setExemptionStatus](state: S, payload: boolean): void;
   [USER_STORE.MUTATIONS.addSemester](state: S, payload: number): void;
@@ -142,10 +142,12 @@ export interface UserActionsTypes {
     { commit }: AugmentedActionContextUser,
     course_list
   ): void;
+
   [USER_STORE.ACTIONS.loadUserDataFromSite](
     { commit }: AugmentedActionContextUser,
     semesters_exemption_summerIndexes
   ): void;
+
   [USER_STORE.ACTIONS.updateSemesterAsync]({
     commit,
   }: AugmentedActionContextUser): void;
