@@ -86,7 +86,10 @@ export type UserMutationsTypes<S = UserState> = {
   [USER_STORE.MUTATIONS.setActiveSemester](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.setExemptionStatus](state: S, payload: boolean): void;
   [USER_STORE.MUTATIONS.addSemester](state: S, payload: number): void;
-  [USER_STORE.MUTATIONS.sortSemesterByField](state: S, payload: string): void;
+  [USER_STORE.MUTATIONS.sortSemesterByField](
+    state: S,
+    payload: "number" | "grade" | "points" | "name"
+  ): void;
   [USER_STORE.MUTATIONS.addCourse](state: S): void;
   [USER_STORE.MUTATIONS.addCourseWithData](state: S, payload: Course): void;
   [USER_STORE.MUTATIONS.addCourseWithDataToLastSemester](
@@ -98,6 +101,7 @@ export type UserMutationsTypes<S = UserState> = {
     payload
   ): void;
   [USER_STORE.MUTATIONS.updateCourse](state: S, { field, value, index }): void;
+  [USER_STORE.MUTATIONS.swapCourses](state: S, { a, b }): void;
   [USER_STORE.MUTATIONS.updateSemesterSummary](
     state: S,
     { field, value }
@@ -111,6 +115,7 @@ export type UserMutationsTypes<S = UserState> = {
   [USER_STORE.MUTATIONS.addCourseType](state: S, type: string): void;
   [USER_STORE.MUTATIONS.changeActiveSemesterType](state: S): void;
   [USER_STORE.MUTATIONS.changeSemesterType](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.clearCourse](state: S, index: number): void;
   [USER_STORE.MUTATIONS.changeCategoryName](state: S, name_index: any): void;
   [USER_STORE.MUTATIONS.deleteCourseType](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.moveCourseToSemester](
@@ -118,7 +123,6 @@ export type UserMutationsTypes<S = UserState> = {
     { semester_index, course_index }
   ): void;
   [USER_STORE.MUTATIONS.reCalcCurrentSemester](state: S): void;
-  [USER_STORE.MUTATIONS.checkForValidVersion](state: S): void;
   [USER_STORE.MUTATIONS.updateSemester](state: S): void;
   [USER_STORE.MUTATIONS.exportSemesters](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.importCoursesFromJson](state: S, payload: string): void;

@@ -56,7 +56,7 @@ export class Semester {
     return addedIndex;
   }
 
-  sortCoursesByField(fieldName: string): void {
+  sortCoursesByField(fieldName: "number" | "grade" | "points" | "name"): void {
     if (this.courses.length == 0) {
       return;
     }

@@ -376,7 +376,6 @@ import {
   Upload,
 } from "@element-plus/icons-vue";
 import { stateConverter } from "@/firestore/firestoreconverter";
-import { CourseType } from "@/store/classes/course_types";
 
 export default defineComponent({
   name: "HeaderNavBar",

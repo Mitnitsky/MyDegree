@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <table class="table table-sm table-borderless"
-             style="margin-right: 5px">
+      <table class="table table-sm table-borderless" style="margin-right: 5px">
         <semester-header />
         <tbody>
           <semester-table-row
@@ -20,8 +19,7 @@
       class="row justify-content-md-center"
       style="justify-content: center !important"
     >
-      <b-button-group class="mx-1"
-                      style="direction: ltr">
+      <b-button-group class="mx-1" style="direction: ltr">
         <b-button
           variant="info"
           style="border-right: #0072ec solid 1px"
@@ -44,103 +42,97 @@
           name="search"
           scrollable
         >
-          <search-course-dialog />
+          <!--          <search-course-dialog />-->
         </modal>
       </b-button-group>
     </div>
   </div>
 </template>
 
-<script>
-import SemesterTableRow from "@/components/SemesterTableRow";
-import SemesterHeader from "@/components/SemesterTableHeader";
-import SearchCourseDialog from "./SearchCourseDialog";
-import Vue from "vue";
-
-export default {
+<script lang="ts">
+import SemesterTableRow from "@/components/SemesterTableRow.vue";
+import SemesterHeader from "@/components/SemesterTableHeader.vue";
+import { defineComponent, ref } from "vue";
+import { useStore } from "@/use/useStore";
+import { USER_STORE } from "@/store/constants";
+import { ElMessage, ElMessageBox } from "element-plus/es";
+export default defineComponent({
   name: "SemesterTable",
-  components: { SemesterTableRow, SemesterHeader, SearchCourseDialog },
+  components: {  SemesterHeader, SemesterTableRow },
   props: {
     semester: {
       type: Object,
-      default: function() {
+      default: () => {
         return { courses: [] };
-      }
-    }
+      },
+    },
   },
-  data() {
-    return {
-      headerTextVariant: "light",
-      headerBgVariant: "dark",
-      alignment: "flex-end"
-    };
-  },
-  methods: {
-    moveFunction(index, direction) {
+  setup(props) {
+    const store = useStore();
+    const searchDialogShown = ref(false);
+    const moveFunction = (index, direction: "up" | "down") => {
       if (
         !(
-          (index === this.semester.courses.length - 1 &&
-            direction === "down)") ||
+          (index === props.semester.courses.length - 1 &&
+            direction === "down") ||
           (index === 0 && direction === "up")
         )
       ) {
         if (direction === "up") {
-          let temp = this.semester.courses[index - 1];
-          Vue.set(
-            this.semester.courses,
-            index - 1,
-            this.semester.courses[index]
-          );
-          Vue.set(this.semester.courses, index, temp);
+          store.commit(USER_STORE.MUTATIONS.swapCourses, {
+            a: index - 1,
+            b: index,
+          });
         } else if (direction === "down") {
-          let temp = this.semester.courses[index + 1];
-          Vue.set(
-            this.semester.courses,
-            index + 1,
-            this.semester.courses[index]
-          );
-          Vue.set(this.semester.courses, index, temp);
+          store.commit(USER_STORE.MUTATIONS.swapCourses, {
+            a: index + 1,
+            b: index,
+          });
         }
       }
-      this.$store.commit("reCalcCurrentSemester");
-      this.$store.dispatch("updateSemesterAsync");
-    },
-    showModal() {
-      this.$modal.show("search");
-    },
-    addRow() {
-      this.$store.commit("addCourse");
-      this.$store.dispatch("updateSemesterAsync");
-    },
-    removeLastRow() {
-      if (this.semester.courses.length > 0) {
-        this.$bvModal
-          .msgBoxConfirm("למחוק שורה בעלת תוכן?", {
-            title: "אזהרה",
-            size: "sm",
-            headerBgVariant: "dark",
-            headerTextVariant: "white",
-            buttonSize: "md",
-            cancelDisabled: "true",
-            okVariant: "danger",
-            okTitle: "כן",
-            cancelTitle: "לא",
-            autoFocusButton: "ok",
-            footerClass: "p-2",
-            hideHeaderClose: true,
-            centered: true
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
+    };
+    const addRow = () => {
+      store.commit(USER_STORE.MUTATIONS.addCourse);
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
+    };
+    const removeLastRow = () => {
+      if (props.semester.courses.length > 0) {
+        ElMessageBox.confirm("למחוק שורה בעלת תוכן?", {
+          confirmButtonText: "כן",
+          cancelButtonText: "לא",
+          type: "warning",
+          icon: "none",
+        })
+          .then(() => {
+            store.commit(USER_STORE.MUTATIONS.removeLastRow);
+            store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
+            store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
+            ElMessage({
+              type: "success",
+              message: "קורס נמחק בהצלחה",
+            });
           })
-          .then((v) => {
-            if (v === true) {
-              this.$store.commit("removeLastRow");
-              this.$store.commit("reCalcCurrentSemester");
-              this.$store.dispatch("updateSemesterAsync");
-            }
+          .catch(() => {
+            ElMessage({
+              type: "info",
+              message: "המחיקה בוטלה",
+            });
           });
       }
-    }
-  }
-};
+    };
+    return {
+      searchDialogShown,
+      moveFunction,
+      addRow,
+      removeLastRow,
+      headerTextVariant: "light",
+      headerBgVariant: "dark",
+      alignment: "flex-end",
+    };
+  },
+});
 </script>
 
 <style>

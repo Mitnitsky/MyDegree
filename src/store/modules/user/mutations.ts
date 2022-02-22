@@ -264,7 +264,10 @@ export const mutations: MutationTree<UserState> = {
     renameSemesters(state.semesters);
     updateUserData(state);
   },
-  [USER_STORE.MUTATIONS.sortSemesterByField](state: UserState, fieldName) {
+  [USER_STORE.MUTATIONS.sortSemesterByField](
+    state: UserState,
+    fieldName: "number" | "grade" | "points" | "name"
+  ) {
     state.semesters[state.active_semester].sortCoursesByField(fieldName);
   },
   [USER_STORE.MUTATIONS.addCourse](state) {
@@ -301,6 +304,12 @@ export const mutations: MutationTree<UserState> = {
       [field]: value,
     });
     updateUserData(state);
+  },
+  [USER_STORE.MUTATIONS.swapCourses](state: UserState, { a, b }) {
+    const temp = state.semesters[state.active_semester].courses[a];
+    state.semesters[state.active_semester].courses[a] =
+      state.semesters[state.active_semester].courses[b];
+    state.semesters[state.active_semester].courses[b] = temp;
   },
   [USER_STORE.MUTATIONS.updateSemesterSummary](
     state: UserState,
@@ -395,6 +404,9 @@ export const mutations: MutationTree<UserState> = {
     }
     calculateUserInfo(state);
   },
+  [USER_STORE.MUTATIONS.clearCourse](state: UserState, index) {
+    state.semesters[state.active_semester].courses[index].clear();
+  },
   [USER_STORE.MUTATIONS.deleteCourseType](state: UserState, index) {
     if (index < state.course_types.length) {
       resetRemovedCategory(state, index);
@@ -420,11 +432,6 @@ export const mutations: MutationTree<UserState> = {
   [USER_STORE.MUTATIONS.reCalcCurrentSemester](state) {
     if (state.semesters.length > 0) {
       calculateUserInfo(state);
-    }
-  },
-  [USER_STORE.MUTATIONS.checkForValidVersion](state) {
-    if (state.course_types === []) {
-      state.course_types = default_course_types_obj;
     }
   },
   [USER_STORE.MUTATIONS.updateSemester](state) {

@@ -14,24 +14,23 @@
         </el-header>
         <el-main>
           <div class="container-fluid">
-            <el-row>
-              <el-col span="6" offset="6">
-                <autocomplete
-                  @input="getItems"
-                  @onSelect="selectedCourse"
-                  :display-item="displayCourse"
-                  :use-html-for-results="true"
-                  :results="options"
-                ></autocomplete>
-              </el-col>
-              <el-col v-if="courseSelected">
-                <em>{{ course.full_name }} - </em>
-                <em>{{ course.points }} </em>
-              </el-col>
-            </el-row>
-            <!--      <semesters-tab-view style="margin: 5px" />-->
+            <!--            <el-row>-->
+            <!--              <el-col span="6" offset="6">-->
+            <!--                <autocomplete-->
+            <!--                  @input="getItems"-->
+            <!--                  @onSelect="selectedCourse"-->
+            <!--                  :display-item="displayCourse"-->
+            <!--                  :use-html-for-results="true"-->
+            <!--                  :results="options"-->
+            <!--                ></autocomplete>-->
+            <!--              </el-col>-->
+            <!--              <el-col v-if="courseSelected">-->
+            <!--                <em>{{ course.full_name }} - </em>-->
+            <!--                <em>{{ course.points }} </em>-->
+            <!--              </el-col>-->
+            <!--            </el-row>-->
+            <semesters-tab-view style="margin: 5px" />
             <!--      <degree-summary />-->
-            <!--      <dp-footer />-->
           </div>
         </el-main>
         <el-footer class="footer-fixed-bottom">
@@ -50,7 +49,7 @@ import HeaderNavBar from "@/components/Header.vue";
 import { JsonCourse } from "@/store/classes/json_course_db";
 import DpFooter from "@/components/Footer.vue";
 // import DegreeSummary from "@/components/DegreeSummary.vue";
-// import SemestersTabView from "@/components/SemestersTabView.vue";
+import SemestersTabView from "@/components/SemestersTabView.vue";
 export default defineComponent({
   name: "App",
   components: {
@@ -58,7 +57,7 @@ export default defineComponent({
     HeaderNavBar,
     // DegreeSummary,
     DpFooter,
-    // SemestersTabView,
+    SemestersTabView,
   },
   setup() {
     let json_courses;

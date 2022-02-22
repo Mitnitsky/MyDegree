@@ -1,8 +1,10 @@
 export enum UserGetters {
   COURSE_TYPES = "COURSE_TYPES",
+  SEMESTERS = "SEMESTERS",
 }
 
 export enum UserMutations {
+  swapCourses = "swapCourses",
   clearUserData = "clearUserData",
   setSemesters = "setSemseters",
   setActiveSemester = "setActiveSemester",
@@ -28,7 +30,6 @@ export enum UserMutations {
   deleteCourseType = "deleteCourseType",
   moveCourseToSemester = "moveCourseToSemester",
   reCalcCurrentSemester = "reCalcCurrentSemester",
-  checkForValidVersion = "checkForValidVersion",
   updateSemester = "updateSemester",
   exportSemesters = "exportSemesters",
   importCoursesFromJson = "importCoursesFromJson",
@@ -38,6 +39,7 @@ export enum UserMutations {
   checkLinear = "checkLinear",
   updateUserField = "updateUserField",
   updateSemesters = "updateSemesters",
+  clearCourse = "clearCourse",
 }
 
 export enum UserActions {

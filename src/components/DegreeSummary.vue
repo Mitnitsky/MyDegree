@@ -291,7 +291,7 @@ export default {
   },
   methods: {
     updateInfo() {
-      this.$store.commit("reCalcCurrentSemester");
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
     },
     sortCourseTypes: function(courses) {
       let sorted_courses = [];

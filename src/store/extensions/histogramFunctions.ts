@@ -1,7 +1,7 @@
 import $ from "jquery";
 import {
   HistogramObject,
-  OptionsObject
+  OptionsObject,
 } from "@/store/classes/histogramObject";
 
 export function convertTechnionSemesterToText(semester: string): string {
@@ -38,13 +38,16 @@ export function convertExamNameToHebrew(exam_name: string): string {
   }
 }
 
-export function convertJsonToProperSelectBoxFormat(json_obj: any): HistogramObject[] {
+export function convertJsonToProperSelectBoxFormat(
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
+  json_obj: any
+): HistogramObject[] {
   const course_info: HistogramObject[] = [];
   for (const semester of Object.keys(json_obj)) {
     const semester_result: HistogramObject = {
       label: convertTechnionSemesterToText(semester),
       semester_number: semester,
-      options: []
+      options: [],
     };
     let staff = "";
     for (const entry of Object.keys(json_obj[semester])) {
@@ -57,7 +60,7 @@ export function convertJsonToProperSelectBoxFormat(json_obj: any): HistogramObje
       }
       const entry_result: OptionsObject = {
         value: [json_obj[semester][entry]],
-        text: convertExamNameToHebrew(entry)
+        text: convertExamNameToHebrew(entry),
       };
       entry_result.value[0].semester_name = semester_result.label;
       entry_result.value[0].semester_number = semester;
@@ -72,15 +75,17 @@ export function convertJsonToProperSelectBoxFormat(json_obj: any): HistogramObje
   return course_info;
 }
 
-export function getHistogramForCourseNumber(course_number) {
+export function getHistogramForCourseNumber(
+  course_number: string
+): HistogramObject[] {
   let json = null;
   $.ajax({
     dataType: "json",
     url: `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
     async: false,
-    success: function(doc) {
+    success: function (doc) {
       json = doc;
-    }
+    },
   });
   return convertJsonToProperSelectBoxFormat(json);
 }

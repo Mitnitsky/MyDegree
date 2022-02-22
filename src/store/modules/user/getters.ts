@@ -6,4 +6,7 @@ export const getters: GetterTree<UserState, IRootState> = {
   [USER_STORE.GETTERS.COURSE_TYPES]: (state: UserState) => {
     return state.course_types;
   },
+  [USER_STORE.GETTERS.SEMESTERS]: (state: UserState) => {
+    return state.semesters;
+  },
 };
