@@ -195,14 +195,14 @@ function calculateUserInfo(state: UserState): void {
       failed_points;
     if (degree_points_with_grade !== 0) {
       state.degree_average /= degree_points_with_grade;
-      state.degree_average = MathRound10(state.degree_average, -1).toFixed(1);
+      state.degree_average = +MathRound10(state.degree_average, -1).toFixed(1);
     } else {
       state.degree_average = 0;
     }
     for (const course_type of state.course_types) {
       if (course_type.points_done > 0) {
         course_type.average /= course_type.points_done;
-        course_type.average = MathRound10(course_type.average, -1).toFixed(1);
+        course_type.average = +MathRound10(course_type.average, -1).toFixed(1);
       }
     }
     state.degree_points_left = state.degree_points - state.degree_points_done;

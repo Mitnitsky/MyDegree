@@ -1,4 +1,5 @@
-export function saveJSON(data, filename) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
+export function saveJSON(data: any, filename: string): void {
   if (!data) {
     window.console.error("No data");
     return;

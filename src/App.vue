@@ -9,15 +9,13 @@
       "
     >
       <el-container>
-
         <el-header style="padding: 0">
           <header-nav-bar />
         </el-header>
         <el-main>
           <div class="container-fluid">
             <el-row>
-              <el-col span="6"
-                      offset="6">
+              <el-col span="6" offset="6">
                 <autocomplete
                   @input="getItems"
                   @onSelect="selectedCourse"
@@ -36,10 +34,11 @@
             <!--      <dp-footer />-->
           </div>
         </el-main>
-        <el-footer style="padding: 0">
-          kek
+        <el-footer class="footer-fixed-bottom">
+          <dp-footer />
         </el-footer>
-      </el-container></div>
+      </el-container>
+    </div>
   </el-config-provider>
 </template>
 <script lang="ts">
@@ -49,7 +48,7 @@ import { ElConfigProvider } from "element-plus";
 import He from "element-plus/lib/locale/lang/he";
 import HeaderNavBar from "@/components/Header.vue";
 import { JsonCourse } from "@/store/classes/json_course_db";
-// import DpFooter from "@/components/Footer.vue";
+import DpFooter from "@/components/Footer.vue";
 // import DegreeSummary from "@/components/DegreeSummary.vue";
 // import SemestersTabView from "@/components/SemestersTabView.vue";
 export default defineComponent({
@@ -58,7 +57,7 @@ export default defineComponent({
     ElConfigProvider,
     HeaderNavBar,
     // DegreeSummary,
-    // DpFooter,
+    DpFooter,
     // SemestersTabView,
   },
   setup() {
@@ -176,7 +175,17 @@ input[type="number"] {
     background-position: calc(5px) center !important;
   }
 }
-
+.footer-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  bottom: 0;
+  margin-bottom: 0;
+  border-width: 1px 0 0;
+  padding: 0 !important;
+  max-height: 40px;
+}
 .dropdown-item {
   text-align: right !important;
 }
