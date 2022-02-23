@@ -102,21 +102,21 @@
 <!--          סמן עובר בינארי-->
 <!--        </b-dropdown-item>-->
 <!--        <b-dropdown-item v-else @click="setCourseBinaryState(false)">-->
-<!--          <font-awesome-icon-->
-<!--            icon="ban"-->
-<!--            size="sm"-->
-<!--            style="color: red; margin-left: 5px"-->
-<!--          />-->
-<!--          בטל עובר בינארי-->
+          <font-awesome-icon
+            icon="ban"
+            size="sm"
+            style="color: red; margin-left: 5px"
+          />
+          בטל עובר בינארי
 <!--        </b-dropdown-item>-->
 <!--        <b-dropdown-divider />-->
 <!--        <b-dropdown-item @click="clearRow">-->
-<!--          <font-awesome-icon-->
-<!--            icon="broom"-->
-<!--            size="sm"-->
-<!--            style="color: burlywood; margin-left: 5px"-->
-<!--          />-->
-<!--          נקה שורה-->
+          <font-awesome-icon
+            icon="broom"
+            size="sm"
+            style="color: burlywood; margin-left: 5px"
+          />
+          נקה שורה
 <!--        </b-dropdown-item>-->
 <!--        <b-dropdown-item @click="deleteRow">-->
 <!--          <font-awesome-icon-->
@@ -131,12 +131,12 @@
 <!--          v-if="$store.state.user.semesters.length > 1"-->
 <!--          @click="$bvModal.show('course-move-' + index)"-->
 <!--        >-->
-<!--          <font-awesome-icon-->
-<!--            icon="share-square"-->
-<!--            size="sm"-->
-<!--            style="color: black; margin-left: 10px"-->
-<!--          />-->
-<!--          העבר סמסטר-->
+          <font-awesome-icon
+            icon="share-square"
+            size="sm"
+            style="color: black; margin-left: 10px"
+          />
+          העבר סמסטר
 <!--        </b-dropdown-item>-->
 <!--        <b-dropdown-item :disabled="index === 0" @click="moveCourseInner('up')">-->
 <!--          <font-awesome-icon-->
@@ -150,12 +150,12 @@
 <!--          :disabled="index === tableSize - 1"-->
 <!--          @click="moveCourseInner('down')"-->
 <!--        >-->
-<!--          <font-awesome-icon-->
-<!--            icon="arrow-down"-->
-<!--            size="sm"-->
-<!--            style="color: black; margin-left: 10px"-->
-<!--          />-->
-<!--          הורד-->
+          <font-awesome-icon
+            icon="arrow-down"
+            size="sm"
+            style="color: black; margin-left: 10px"
+          />
+          הורד
 <!--        </b-dropdown-item>-->
 <!--      </b-dropdown>-->
     </td>

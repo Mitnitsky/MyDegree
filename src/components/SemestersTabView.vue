@@ -3,7 +3,7 @@
     <el-tabs
       dir="rtl"
       justify="end"
-      v-model="editableTabsValue"
+      v-model="activeSemester"
       type="card"
       editable
       class="demo-tabs"
@@ -124,7 +124,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 // import AppSemesterSummary from "@/components/SemesterSummary.vue";
 import AppSemesterTable from "@/components/SemesterTable.vue";
 import firebase from "firebase/compat/app";
@@ -139,6 +139,11 @@ export default defineComponent({
   components: { AppSemesterTable },
   setup() {
     const store = useStore();
+    const activeSemester = computed(() => {
+      return (
+        +store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER] + 1
+      ).toString();
+    });
     const removeSemester = () => {
       ElMessageBox.confirm("למחוק סמסטר זה?", {
         confirmButtonText: "כן",
@@ -176,6 +181,7 @@ export default defineComponent({
       store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
     };
     return {
+      activeSemester,
       semesters,
       removeSemester,
       newTab,

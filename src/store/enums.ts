@@ -1,6 +1,7 @@
 export enum UserGetters {
   COURSE_TYPES = "COURSE_TYPES",
   SEMESTERS = "SEMESTERS",
+  ACTIVE_SEMESTER = "ACTIVE_SEMESTER",
 }
 
 export enum UserMutations {
