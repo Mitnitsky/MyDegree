@@ -5,6 +5,11 @@
       prop="category"
       label="קטגוריה"
       min-width="135"
+      :header-cell-class-name="
+        (row, column, rowIndex, columnIndex) => {
+          return 'table-header-row-class';
+        }
+      "
     >
       <template #default="scope">
         <select
@@ -102,7 +107,7 @@
           v-else
           model-value="✔"
           :readonly="true"
-          style="color: green; cursor: default"
+          :input-style="{ color: 'green', cursor: 'default' }"
           class="form-control courseGrade"
         />
       </template>
@@ -523,7 +528,9 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-
+.table-header-row-class{
+  background-color: #e9ecef;
+}
 div.courseNumber > input {
   text-align: center !important;
   direction: ltr !important;
@@ -551,11 +558,11 @@ div.coursePoints > input {
   direction: ltr !important;
 }
 
-th {
+tr > th {
   width: 90%;
-  color: #495057;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
+  color: #495057 !important;
+  background-color: #e9ecef !important;
+  border-color: #dee2e6 !important;
   text-align: center;
 }
 
@@ -569,8 +576,11 @@ span.el-input__suffix {
   text-decoration: underline;
   cursor: pointer;
 }
+.el-table{
+  padding: 0.3rem !important;
+}
 .el-table .el-table__cell {
-  padding: 2px 0;
+  padding: 0.3rem 0 !important;
   min-width: 0;
   box-sizing: border-box;
   text-overflow: ellipsis;
