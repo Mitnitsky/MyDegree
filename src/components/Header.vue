@@ -376,6 +376,7 @@ import {
   Upload,
 } from "@element-plus/icons-vue";
 import { stateConverter } from "@/firestore/firestoreconverter";
+import { CourseType } from "@/store/classes/course_types";
 
 export default defineComponent({
   name: "HeaderNavBar",
@@ -418,7 +419,7 @@ export default defineComponent({
         store.commit(AUTH_STORE.MUTATIONS.setUserName, username);
       },
     });
-    const course_types = computed(() => {
+    const course_types = computed<CourseType[]>(() => {
       return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
     });
     const logged: WritableComputedRef<boolean> = computed({

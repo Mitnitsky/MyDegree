@@ -1,14 +1,6 @@
 <template>
   <el-card>
-    <el-tabs
-      dir="rtl"
-      justify="end"
-      v-model="activeSemester"
-      type="card"
-      editable
-      class="demo-tabs"
-      @edit="handleTabsEdit"
-    >
+    <el-tabs dir="rtl" justify="end" type="card" editable class="demo-tabs">
       <el-tab-pane
         justify="end"
         dir="rtl"
@@ -21,7 +13,7 @@
         <el-button
           v-if="semester.name.toString().includes('קיץ')"
           class="align-self-end"
-          size="sm"
+          size="small"
           variant="outline-info"
           @click="changeToRegular"
         >
@@ -30,7 +22,7 @@
         <el-button
           v-else
           class="align-self-end"
-          size="sm"
+          size="small"
           variant="outline-info"
           @click="changeToSummer"
         >
@@ -69,7 +61,7 @@
   <!--              <b-button-->
   <!--                class="align-self-end"-->
   <!--                variant="outline-danger"-->
-  <!--                size="sm"-->
+  <!--                size="small"-->
   <!--                @click="removeSemester"-->
   <!--              >-->
   <!--                מחק סמסטר-->
@@ -77,7 +69,7 @@
   <!--              <b-button-->
   <!--                v-if="semester.name.toString().includes('קיץ')"-->
   <!--                class="align-self-end"-->
-  <!--                size="sm"-->
+  <!--                size="small"-->
   <!--                variant="outline-info"-->
   <!--                @click="changeToRegular"-->
   <!--              >-->
@@ -86,7 +78,7 @@
   <!--              <b-button-->
   <!--                v-else-->
   <!--                class="align-self-end"-->
-  <!--                size="sm"-->
+  <!--                size="small"-->
   <!--                variant="outline-info"-->
   <!--                @click="changeToSummer"-->
   <!--              >-->
@@ -124,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent } from "vue";
 // import AppSemesterSummary from "@/components/SemesterSummary.vue";
 import AppSemesterTable from "@/components/SemesterTable.vue";
 import firebase from "firebase/compat/app";
@@ -133,16 +125,22 @@ import "firebase/compat/firestore";
 import { ElMessage, ElMessageBox } from "element-plus/es";
 import { USER_STORE } from "@/store/constants";
 import { useStore } from "@/use/useStore";
+import { Semester } from "@/store/classes/semester";
 
 export default defineComponent({
   name: "SemestersTabView",
   components: { AppSemesterTable },
   setup() {
     const store = useStore();
-    const activeSemester = computed(() => {
-      return (
-        +store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER] + 1
-      ).toString();
+    const activeSemester = computed({
+      get(): string {
+        return (
+          +store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER] + 1
+        ).toString();
+      },
+      set(value: string) {
+        store.commit(USER_STORE.MUTATIONS.setActiveSemester, +value - 1);
+      },
     });
     const removeSemester = () => {
       ElMessageBox.confirm("למחוק סמסטר זה?", {
@@ -166,7 +164,7 @@ export default defineComponent({
           });
         });
     };
-    const semesters = computed(() => {
+    const semesters = computed<Semester[]>(() => {
       return store.getters[USER_STORE.GETTERS.SEMESTERS];
     });
     const newTab = () => {

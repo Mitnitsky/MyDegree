@@ -65,8 +65,8 @@ const courseDataConverter = {
   },
 };
 
-const semesterDataConverter = {
-  toObject: (semester: Semester) => {
+export const semesterDataConverter = {
+  toObject: (semester: Semester): Record<string, unknown> => {
     return {
       name: semester.name,
       average: semester.average,
@@ -74,7 +74,8 @@ const semesterDataConverter = {
       courses: semester.courses.map(courseDataConverter.toObject),
     };
   },
-  fromObject: (object) => {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
+  fromObject: (object: any) => {
     const semester = new Semester(object.name, 0);
     semester.name = object.name;
     semester.average = object.average;

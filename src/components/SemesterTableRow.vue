@@ -296,6 +296,7 @@ import { USER_STORE } from "@/store/constants";
 import { Course } from "@/store/classes/course";
 import { computed, defineComponent, Ref, ref } from "vue";
 import { HistogramObject, Option } from "@/store/classes/histogramObject";
+import { CourseType } from "@/store/classes/course_types";
 
 export default defineComponent({
   name: "SemesterTableCourseRow",
@@ -359,7 +360,7 @@ export default defineComponent({
         updateField("points", +value);
       },
     });
-    const course_types = computed(() => {
+    const course_types = computed<CourseType[]>(() => {
       return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
     });
     const cGrade = computed({

@@ -14,7 +14,10 @@ import {
 } from "@/store/classes/course_types";
 // v9 compat packages are API compatible with v8 code
 import { db, auth } from "@/main";
-import { stateConverter } from "@/firestore/firestoreconverter";
+import {
+  semesterDataConverter,
+  stateConverter,
+} from "@/firestore/firestoreconverter";
 import { saveJSON } from "@/store/extensions/download";
 import { JsonCourseDB } from "@/store/classes/json_course_db";
 import { Course } from "@/store/classes/course";
@@ -241,13 +244,16 @@ export const mutations: MutationTree<UserState> = {
   [USER_STORE.MUTATIONS.setSemesters](state: UserState, semesters: Semester[]) {
     state.semesters = semesters;
   },
-  [USER_STORE.MUTATIONS.setActiveSemester](state: UserState, index: number) {
+  [USER_STORE.MUTATIONS.setActiveSemester](
+    state: UserState,
+    index: number | string
+  ) {
     if (index === -1) {
       setTimeout(() => {
         state.active_semester = state.semesters.length - 1;
       }, 500);
     } else {
-      state.active_semester = index;
+      state.active_semester = +index;
     }
   },
   [USER_STORE.MUTATIONS.setExemptionStatus](state: UserState, status: boolean) {
@@ -438,10 +444,9 @@ export const mutations: MutationTree<UserState> = {
     const user = auth.currentUser;
     if (user != null) {
       db.collection("users")
-        .withConverter(stateConverter)
         .doc(user.uid)
         .update({
-          semesters: state.semesters,
+          semesters: state.semesters.map(semesterDataConverter.toObject),
         })
         .then((r) => r);
     }
