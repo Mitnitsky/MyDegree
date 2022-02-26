@@ -69,7 +69,6 @@ def get_all_courses_numbers():
                 pass
         search_button = driver.find_element(By.XPATH, "//input[contains(@name, 'submitbutton')]")
         search_button.click()
-
         while True:
             try:
                 courses.extend(get_all_courses_from_page(driver))
@@ -138,35 +137,38 @@ def get_info_from_students(course_number):
         for cat in h5_s:
             p = cat.next_sibling.find_next('p')
             for child in p.children:
+                text = child.text.strip()
                 if cat.text == 'מקצועות קדם':
-                    if child.text.strip() == '(':
+                    if text == '(':
                         continue
-                    elif child.text.strip() == ')':
+                    elif text == ')':
                         continue
-                    elif child.text.strip() == ") או (":
+                    elif text == ") או (":
                         result['מקצועות קדם'].append([])
-                    elif child.text.strip() == "'או-'":
+                    elif text == "'או-'":
                         result['מקצועות קדם'].append([])
-                    elif child.text.strip() == 'או-':
+                    elif text == 'או-':
                         continue
-                    elif child.text.strip() == 'ו-':
+                    elif text == 'ו-':
                         continue
-                    elif child.text.strip() == '':
+                    elif text == '':
                         continue
                     else:
-                        if '-' in child.text.strip():
-                            course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
+                        if '-' in text:
+                            course_name_inn = ": ".join(re.split(' *- *', text, 1))
                             if len(course_name_inn) != 0:
                                 result[cat.text][len(result[cat.text]) - 1].append(course_name_inn)
                 else:
-                    if cat.texcourse_name == 'מקצועות מכילים':
-                        course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
-                        if len(course_name_inn) != 0:
-                            result['מקצועות ללא זיכוי נוסף (מכילים)'].append(course_name_inn)
+                    if cat.text == 'מקצועות מכילים':
+                        if '-' in text:
+                            course_name_inn = ": ".join(re.split(' *- *', text, 1))
+                            if len(course_name_inn) != 0:
+                                result['מקצועות ללא זיכוי נוסף (מכילים)'].append(course_name_inn)
                     else:
-                        course_name_inn = ": ".join(re.split(' *- *', child.text.strip(), 1))
-                        if len(course_name_inn) != 0:
-                            result[cat.text].append(course_name_inn)
+                        if '-' in text:
+                            course_name_inn = ": ".join(re.split(' *- *', text, 1))
+                            if len(course_name_inn) != 0:
+                                result[cat.text].append(course_name_inn)
     return result['מקצועות קדם'], result['מקצועות צמודים'], result['מקצועות זהים'], result['מקצועות ללא זיכוי נוסף'], \
            result['מקצועות ללא זיכוי נוסף (מוכלים)'], result[
                'מקצועות ללא זיכוי נוסף (מכילים)'], points, course_name, course_number
