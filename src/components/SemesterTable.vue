@@ -4,7 +4,8 @@
       header-align="center"
       prop="category"
       label="קטגוריה"
-      min-width="135"
+      :min-width="75"
+      style="width: 15% !important"
       :header-cell-class-name="
         (row, column, rowIndex, columnIndex) => {
           return 'table-header-row-class';
@@ -31,7 +32,8 @@
       prop="number"
       label="מספר קורס"
       sortable
-      min-width="90"
+      style="width: 15% !important"
+      :min-width="75"
     >
       <template #default="scope">
         <el-input
@@ -51,7 +53,8 @@
       prop="name"
       label="שם קורס"
       sortable
-      min-width="250"
+      style="width: 40% !important"
+      :min-width="200"
     >
       <template #default="scope">
         <el-input
@@ -67,6 +70,7 @@
       prop="points"
       label="נקודות"
       sortable
+      style="width: 12% !important"
       :min-width="60"
     >
       <template #default="scope">
@@ -87,6 +91,7 @@
       prop="grade"
       label="ציון"
       sortable
+      style="width: 12% !important"
       :min-width="60"
     >
       <template #default="scope">
@@ -112,12 +117,20 @@
         />
       </template>
     </el-table-column>
-    <el-table-column header-align="center" :min-width="45">
+    <el-table-column
+      header-align="center"
+      :min-width="30"
+      style="width: 6% !important; max-width: 60px !important"
+    >
       <template #default="scope">
-        <el-dropdown @command="handleRowCommand" placement="bottom-end">
-          <el-button
-            ><font-awesome-icon icon="ellipsis-v" size="sm"
-          /></el-button>
+        <el-dropdown
+          style="width: 100% !important; justify-content: center"
+          @command="handleRowCommand"
+          placement="bottom-end"
+        >
+          <el-button>
+            <font-awesome-icon icon="ellipsis-v" size="sm" />
+          </el-button>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
@@ -132,8 +145,8 @@
                   size="sm"
                   style="color: dodgerblue; margin-left: 5px"
                 />
-                הצג היסטוגרמות</el-dropdown-item
-              >
+                הצג היסטוגרמות
+              </el-dropdown-item>
               <el-dropdown-item
                 :command="{
                   name: 'binary-status-update',
@@ -165,8 +178,8 @@
                   size="sm"
                   style="color: burlywood; margin-left: 5px"
                 />
-                נקה שורה</el-dropdown-item
-              >
+                נקה שורה
+              </el-dropdown-item>
               <el-dropdown-item
                 :command="{
                   name: 'remove-row',
@@ -195,8 +208,8 @@
                   size="sm"
                   style="color: black; margin-left: 10px"
                 />
-                העבר סמסטר</el-dropdown-item
-              >
+                העבר סמסטר
+              </el-dropdown-item>
 
               <el-dropdown-item
                 :command="{
@@ -212,8 +225,8 @@
                   size="sm"
                   style="color: black; margin-left: 10px"
                 />
-                העלה</el-dropdown-item
-              >
+                העלה
+              </el-dropdown-item>
 
               <el-dropdown-item
                 :command="{
@@ -228,8 +241,8 @@
                   size="sm"
                   style="color: black; margin-left: 10px"
                 />
-                הורד</el-dropdown-item
-              >
+                הורד
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -248,6 +261,7 @@ import $ from "jquery";
 import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
 import { HistogramObject, Option } from "@/store/classes/histogramObject";
 import { Semester } from "@/store/classes/semester";
+
 export default defineComponent({
   name: "SemesterTable",
   props: {
@@ -502,9 +516,11 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .inputIsWrong {
   border-color: red !important;
 }
+
 .dropdown-toggle::after {
   display: none !important;
 }
@@ -512,15 +528,15 @@ input[type="number"]::-webkit-outer-spin-button {
 .dropdown-toggle::before {
   display: none !important;
 }
+
 .courseType {
   direction: rtl !important;
   display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
+  height: 2rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
+  text-align: center !important;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
@@ -528,9 +544,11 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.table-header-row-class{
+
+.table-header-row-class {
   background-color: #e9ecef;
 }
+
 div.courseNumber > input {
   text-align: center !important;
   direction: ltr !important;
@@ -541,13 +559,17 @@ div.courseName > input {
   text-align: center !important;
   direction: rtl !important;
 }
+
 .form-control {
-  width: 90%;
+  font-family: Alef, Roboto, Helvetica, Arial, sans-serif !important;
+  width: 99% !important;
 }
+
 .courseGrade {
   text-align: center !important;
   direction: ltr !important;
 }
+
 div.courseGrade > input {
   text-align: center !important;
   direction: ltr !important;
@@ -559,8 +581,8 @@ div.coursePoints > input {
 }
 
 tr > th {
-  width: 90%;
   color: #495057 !important;
+
   background-color: #e9ecef !important;
   border-color: #dee2e6 !important;
   text-align: center;
@@ -571,16 +593,15 @@ span.el-input__suffix {
   left: 12px !important;
   top: unset !important;
 }
+
 .clickAbleHeader:hover {
   color: cornflowerblue;
   text-decoration: underline;
   cursor: pointer;
 }
-.el-table{
-  padding: 0.3rem !important;
-}
+
 .el-table .el-table__cell {
-  padding: 0.3rem 0 !important;
+  padding: 0.3rem !important;
   min-width: 0;
   box-sizing: border-box;
   text-overflow: ellipsis;
@@ -589,8 +610,29 @@ span.el-input__suffix {
   text-align: left;
   z-index: 1;
 }
+
+.el-table .cell {
+  padding: 0 !important;
+}
+
 .el-table {
   --el-table-border-color: white !important;
   --el-table-row-hover-bg-color: white !important;
+}
+
+tr > th.el-table__cell:first-child {
+  border-top-right-radius: 5px !important;
+}
+
+tr > th.el-table__cell:last-child {
+  border-top-left-radius: 5px !important;
+}
+
+input {
+  font-family: Alef, Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #495057 !important;
 }
 </style>

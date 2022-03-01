@@ -23,6 +23,7 @@ import {
   faArrowUp,
   faBroom,
   faBan,
+  faSun,
   faDownload,
   faEllipsisV,
   faEnvelope,
@@ -46,6 +47,7 @@ library.add(faCheck);
 library.add(faBan);
 library.add(faShareSquare);
 library.add(faEllipsisV);
+library.add(faSun);
 library.add(faSignInAlt);
 library.add(faBroom);
 library.add(faMinus);

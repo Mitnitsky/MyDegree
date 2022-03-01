@@ -13,7 +13,7 @@
           <header-nav-bar />
         </el-header>
         <el-main>
-          <div class="container-fluid">
+          <div class="container-fluid" style="justify-content: center !important;">
             <!--            <el-row>-->
             <!--              <el-col span="6" offset="6">-->
             <!--                <autocomplete-->

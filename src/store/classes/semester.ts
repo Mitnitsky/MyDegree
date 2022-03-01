@@ -135,7 +135,7 @@ export class Semester {
     for (const course of this.courses) {
       this.points += course.points;
     }
-    this.points.toFixed(1);
+    this.points = parseFloat(this.points.toFixed(1));
   }
 
   hasCourse(courseNumber: string): boolean {

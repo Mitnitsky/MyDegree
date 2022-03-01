@@ -1,118 +1,116 @@
 <template>
-  <el-card>
-    <el-tabs dir="rtl" justify="end" type="card" editable class="demo-tabs">
+  <el-card style="justify-content: center">
+    <el-tabs
+      @tab-click="changeActiveSemester"
+      style="font-size: 16px !important"
+      dir="rtl"
+      justify="end"
+      type="card"
+      addable
+      class="demo-tabs"
+      @edit="handleSemesterEdit"
+    >
       <el-tab-pane
         justify="end"
         dir="rtl"
         v-for="(semester, index) in semesters"
         :key="index"
         :label="'סמסטר ' + semester.name"
-        :name="semester.name"
+        :name="index"
       >
-        <app-semester-table :semester="semester" />
-        <el-button
-          v-if="semester.name.toString().includes('קיץ')"
-          class="align-self-end"
-          size="small"
-          variant="outline-info"
-          @click="changeToRegular"
-        >
-          הפוך לסמסטר רגיל
-        </el-button>
-        <el-button
-          v-else
-          class="align-self-end"
-          size="small"
-          variant="outline-info"
-          @click="changeToSummer"
-        >
-          הפוך לסמסטר קיץ
-        </el-button>
+        <template #label>
+          <span style="margin-left: 4px;">
+            {{ "סמסטר " + semester.name }}
+          </span>
+          <font-awesome-icon v-if="semester.name.includes('קיץ')"
+                             icon="sun"
+                             style="color: orange" />
+        </template>
+        <el-row justify="center">
+          <el-col :span="20">
+            <el-row justify="center">
+              <app-semester-table :semester="semester" />
+            </el-row>
+            <el-row justify="center">
+              <el-button-group style="padding: 8px">
+                <el-button
+                  class="semester-tab-button"
+                  color="#17a2b8"
+                  style="color: white"
+                >הוספת שורה
+                </el-button>
+                <el-button class="semester-tab-button"
+                           type="primary"
+                >חיפוש קורסים
+                </el-button>
+              </el-button-group>
+            </el-row>
+          </el-col>
+          <el-col
+            :span="4"
+            style="
+              min-width: 224px !important;
+              max-width: 300px;
+              padding-right: 24px;
+            "
+          >
+            <el-card shadow="never">
+              <template #header>
+                <span class="card-header-text">סיכום סמסטר</span>
+              </template>
+              <div style="justify-content: center; padding: 1rem 1.5rem">
+                <el-row>
+                  <el-col :span="10">
+                    <span style="margin-left: 4px">ממוצע:</span>
+                  </el-col>
+                  <el-col :span="14">
+                    <el-input
+                      class="semester-info-text"
+                      disabled
+                      :model-value="semester.average"
+                    />
+                  </el-col>
+                </el-row>
+                <el-row style="margin-top: 0.5rem">
+                  <el-col :span="10">
+                    <span style="margin-left: 4px">נקודות:</span>
+                  </el-col>
+                  <el-col :span="14">
+                    <el-input
+                      class="semester-info-text"
+                      disabled
+                      :model-value="semester.points"
+                    />
+                  </el-col>
+                </el-row>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row justify="end"
+                style="margin-top: 10px">
+          <el-button
+            class="align-self-end"
+            style="margin-left: 4px"
+            color="#17A2B8"
+            variant="primary"
+            plain
+            @click="changeSemesterType(semester.name)"
+          >
+            הפוך לסמסטר {{ semester.name.includes("קיץ") ? "רגיל" : "קיץ" }}
+          </el-button>
+          <el-button
+            class="align-self-end"
+            type="danger"
+            plain
+            @click="removeSemester"
+          >
+            מחק סמסטר
+          </el-button>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
   </el-card>
-  <!--  <b-card class="shadow bg-white rounded"-->
-  <!--          no-body-->
-  <!--          style="margin: 10px 20px">-->
-  <!--    <b-tabs pills-->
-  <!--            card-->
-  <!--            v-model="active_semester">-->
-  <!--      <b-tab-->
-  <!--        v-for="(semester, index) in $store.state.user.semesters"-->
-  <!--        :key="index"-->
-  <!--        :title="'סמסטר ' + semester.name"-->
-  <!--        lazy-->
-  <!--      >-->
-  <!--        <div class="row justify-content-md-center">-->
-  <!--          <div class="col-xl-10"-->
-  <!--               style="margin-bottom: 10px">-->
-  <!--            <app-semester-table :semester="semester" />-->
-  <!--          </div>-->
-  <!--          <div class="col-xl-2"-->
-  <!--               style="padding: 0 0">-->
-  <!--            <app-semester-summary />-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--        <div class="row">-->
-  <!--          <div class="col-xl-10" />-->
-  <!--          <div class="col-xl-2">-->
-  <!--            <b-button-group class="mx-1 mt-2"-->
-  <!--                            style="direction: ltr">-->
-  <!--              <b-button-->
-  <!--                class="align-self-end"-->
-  <!--                variant="outline-danger"-->
-  <!--                size="small"-->
-  <!--                @click="removeSemester"-->
-  <!--              >-->
-  <!--                מחק סמסטר-->
-  <!--              </b-button>-->
-  <!--              <b-button-->
-  <!--                v-if="semester.name.toString().includes('קיץ')"-->
-  <!--                class="align-self-end"-->
-  <!--                size="small"-->
-  <!--                variant="outline-info"-->
-  <!--                @click="changeToRegular"-->
-  <!--              >-->
-  <!--                הפוך לסמסטר רגיל-->
-  <!--              </b-button>-->
-  <!--              <b-button-->
-  <!--                v-else-->
-  <!--                class="align-self-end"-->
-  <!--                size="small"-->
-  <!--                variant="outline-info"-->
-  <!--                @click="changeToSummer"-->
-  <!--              >-->
-  <!--                הפוך לסמסטר קיץ-->
-  <!--              </b-button>-->
-  <!--            </b-button-group>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </b-tab>-->
-
-  <!--      &lt;!&ndash; New Tab Button (Using tabs slot) &ndash;&gt;-->
-  <!--      <template v-slot:tabs-end>-->
-  <!--        <b-nav-item href="#"-->
-  <!--                    @click.prevent="newTab">-->
-  <!--          <b>+</b>-->
-  <!--        </b-nav-item>-->
-  <!--      </template>-->
-
-  <!--      &lt;!&ndash; Render this if no tabs &ndash;&gt;-->
-  <!--      <div-->
-  <!--        slot="empty"-->
-  <!--        class="container justify-content-md-center alert alert-secondary text-center text-muted"-->
-  <!--      >-->
-  <!--        <h2>עוד לא נוספו סמסטרים</h2>-->
-
-  <!--        <br />-->
-
-  <!--        <b-button variant="outline-secondary"-->
-  <!--                  @click.prevent="newTab">-->
-  <!--          הוסף סמסטר-->
-  <!--        </b-button>-->
-  <!--      </div>-->
-  <!--    </b-tabs>-->
-  <!--  </b-card>-->
 </template>
 
 <script lang="ts">
@@ -139,28 +137,29 @@ export default defineComponent({
         ).toString();
       },
       set(value: string) {
+        console.log(value);
         store.commit(USER_STORE.MUTATIONS.setActiveSemester, +value - 1);
-      },
+      }
     });
     const removeSemester = () => {
       ElMessageBox.confirm("למחוק סמסטר זה?", {
         confirmButtonText: "כן",
         cancelButtonText: "לא",
         type: "warning",
-        icon: "none",
+        icon: "none"
       })
         .then(() => {
           store.commit(USER_STORE.MUTATIONS.removeSemester);
           store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
           ElMessage({
             type: "success",
-            message: "סמסטר נמחק בהצלחה",
+            message: "סמסטר נמחק בהצלחה"
           });
         })
         .catch(() => {
           ElMessage({
             type: "info",
-            message: "המחיקה בוטלה",
+            message: "המחיקה בוטלה"
           });
         });
     };
@@ -170,6 +169,13 @@ export default defineComponent({
     const newTab = () => {
       store.commit(USER_STORE.MUTATIONS.addSemester, 1);
     };
+    const changeSemesterType = (semester_name) => {
+      if (semester_name.includes("קיץ")) {
+        changeToRegular();
+      } else {
+        changeToSummer();
+      }
+    };
     const changeToSummer = () => {
       store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType);
       store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
@@ -178,13 +184,27 @@ export default defineComponent({
       store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType);
       store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
     };
+    const handleSemesterEdit = (
+      targetName: string,
+      action: "remove" | "add"
+    ) => {
+      if (action === "add") {
+        store.commit(USER_STORE.MUTATIONS.addSemester, 1);
+      } else if (action === "remove") {
+        removeSemester();
+      }
+    };
+    const changeActiveSemester = (element) => {
+      store.commit(USER_STORE.MUTATIONS.setActiveSemester, element.props.name);
+    };
     return {
+      changeActiveSemester,
+      handleSemesterEdit,
       activeSemester,
       semesters,
       removeSemester,
       newTab,
-      changeToSummer,
-      changeToRegular,
+      changeSemesterType
     };
   },
   mounted() {
@@ -210,6 +230,126 @@ export default defineComponent({
         }
       }
     }
-  },
+  }
 });
 </script>
+<style>
+div.el-tabs__header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item:first-child {
+  border-left: 1px solid #e5e4ed !important;
+  border-right: 0 !important;
+  border-top-right-radius: 5px !important;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item:last-child {
+  border-right: unset;
+  border-top-left-radius: 5px !important;
+  border-left: 0 !important;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+  border-bottom-color: #409eff !important;
+  border-bottom: 1px solid !important;
+}
+
+.el-tabs--card > .el-tabs__header {
+  border-bottom: 0 solid var(--el-border-color-light) !important;
+}
+
+.el-tabs--card > .el-tabs__header .el-tabs__item {
+  border-bottom: 1px solid #e5e4ed !important;
+  transition: color var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier),
+  padding var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+}
+
+span.el-tabs__new-tab {
+  background: white !important;
+}
+
+.is-icon-plus {
+  color: black !important;
+}
+
+.is-icon-plus:hover {
+  color: cornflowerblue !important;
+}
+
+.el-tabs__header {
+  padding: 0.75rem 1.25rem !important;
+  margin: 0 !important;
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0 !important;
+}
+
+.el-tabs__content {
+  padding: 0.75rem 1.25rem !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-bottom-left-radius: calc(0.25rem - 1px) calc(0.25rem - 1px);
+  border-bottom-right-radius: calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.el-card__body {
+  padding: 0 !important;
+}
+
+th > div.cell {
+  color: #495057;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px !important;
+}
+
+div.el-tabs__item {
+  background: white !important;
+}
+
+.el-card__header {
+  background-color: rgb(233, 236, 239) !important;
+  padding-bottom: 3px !important;
+  padding-top: 3px !important;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header-text {
+  color: #495057;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px !important;
+}
+
+th.is-sortable > div:hover {
+  color: cornflowerblue !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+}
+
+.clickAbleHeader:hover {
+  color: cornflowerblue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+div.semester-info-text > input {
+  text-align: center !important;
+  background: white !important;
+  color: black !important;
+  cursor: default !important;
+}
+
+.semester-tab-button {
+  font-size: 16px !important;
+  font-family: Alef, Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+div.el-tabs__item {
+  font-size: 16px !important;
+  font-family: Alef, Roboto, Helvetica, Arial, sans-serif !important;
+}
+</style>

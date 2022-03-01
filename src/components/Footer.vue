@@ -3,7 +3,7 @@
     style="
       height: 100%;
       vertical-align: center;
-      background-color: #545c64;
+      background-color: #343a40;
       color: #fff;
       justify-content: center;
       text-align: center;
