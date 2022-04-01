@@ -8,8 +8,7 @@
     active-text-color="#ffd04b"
   >
     <template v-if="!logged">
-      <el-menu-item index="1"
-                    @click="loggedInDialogVisible = true">
+      <el-menu-item index="1" @click="loggedInDialogVisible = true">
         <el-icon>
           <avatar />
         </el-icon>
@@ -31,7 +30,7 @@
             <avatar />
           </el-icon>
           <span style="margin-right: 4px; margin-left: 4px"
-          >שלום {{ username }}</span
+            >שלום {{ username }}</span
           >
         </template>
         <el-menu-item index="1-1">
@@ -49,35 +48,31 @@
         </el-icon>
         <span style="margin-left: 4px">יבוא</span>
       </template>
-      <el-menu-item index="2-1"
-                    @click="studentsDialogVisible = true">
+      <el-menu-item index="2-1" @click="studentsDialogVisible = true">
         <el-icon>
           <download />
         </el-icon>
         <span style="margin-right: 4px"
-        >יבוא קורסים מ-Students</span
+          >יבוא קורסים מ-Students</span
         ></el-menu-item
       >
-      <el-menu-item index="2-2"
-                    @click="gradesDialogVisible = true">
+      <el-menu-item index="2-2" @click="gradesDialogVisible = true">
         <el-icon>
           <download />
         </el-icon>
         <span style="margin-right: 4px">יבוא קורסים מ-UG</span></el-menu-item
       >
 
-      <el-menu-item index="2-3"
-                    @click="cheeseforkDialogVisible = true">
+      <el-menu-item index="2-3" @click="cheeseforkDialogVisible = true">
         <el-icon>
           <download />
         </el-icon>
         <span style="margin-right: 4px"
-        >יבוא סמסטר מ-CheeseFork</span
+          >יבוא סמסטר מ-CheeseFork</span
         ></el-menu-item
       >
 
-      <el-menu-item index="2-4"
-                    @click="jsonImportDialogVisible = true">
+      <el-menu-item index="2-4" @click="jsonImportDialogVisible = true">
         <el-icon>
           <upload />
         </el-icon>
@@ -91,27 +86,24 @@
         </el-icon>
         <span style="margin-left: 4px">יצוא</span>
       </template>
-      <el-menu-item index="3-1"
-                    @click="exportAsJson(false)">
+      <el-menu-item index="3-1" @click="exportAsJson(false)">
         <el-icon>
           <download />
         </el-icon>
         <span style="margin-right: 4px"
-        >יצוא קורסים לקובץ-JSON (ללא ציונים)</span
+          >יצוא קורסים לקובץ-JSON (ללא ציונים)</span
         >
       </el-menu-item>
-      <el-menu-item index="3-2"
-                    @click="exportAsJson(true)">
+      <el-menu-item index="3-2" @click="exportAsJson(true)">
         <el-icon>
           <download />
         </el-icon>
         <span style="margin-right: 4px"
-        >יצוא קורסים לקובץ-JSON (עם ציונים)</span
+          >יצוא קורסים לקובץ-JSON (עם ציונים)</span
         >
       </el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="4"
-                  @click="categoriesDialogVisible = true">
+    <el-menu-item index="4" @click="categoriesDialogVisible = true">
       <el-icon>
         <collection />
       </el-icon>
@@ -145,20 +137,14 @@
     :modal="false"
   >
     <template #title>
-      <span class="dialog-title"
-            style="font-weight: bold">
+      <span class="dialog-title" style="font-weight: bold">
         יבוא קורסים וציונים מ-UG
       </span>
     </template>
     <el-row justify="center">
-      <el-popover placement="top"
-                  :width="350"
-                  title="הוראות"
-                  trigger="click">
+      <el-popover placement="top" :width="350" title="הוראות" trigger="click">
         <template #reference>
-          <el-button type="info"
-                     plain>הוראות
-          </el-button>
+          <el-button type="info" plain>הוראות </el-button>
         </template>
         <template #default>
           <p class="popover-body-text">
@@ -167,7 +153,7 @@
             <a
               href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
               target="_blank"
-            >באתר ציונים</a
+              >באתר ציונים</a
             >
             ולהעתיק אותו לתיבת הטקסט בחלון זה
             <br />
@@ -187,32 +173,22 @@
       />
     </el-row>
     <el-row justify="center">
-      <el-button type="primary"
-                 @click="importCourseFromUG"
-      >יבוא קורסים
+      <el-button type="primary" @click="importCourseFromUG"
+        >יבוא קורסים
       </el-button>
     </el-row>
   </el-dialog>
 
-  <el-dialog width="30%"
-             v-model="studentsDialogVisible"
-             :modal="false"
-             center>
+  <el-dialog width="30%" v-model="studentsDialogVisible" :modal="false" center>
     <template #title>
-      <span class="dialog-title"
-            style="font-weight: bold">
+      <span class="dialog-title" style="font-weight: bold">
         יבוא קורסים מ-Students
       </span>
     </template>
     <el-row justify="center">
-      <el-popover placement="top"
-                  :width="350"
-                  title="הוראות"
-                  trigger="click">
+      <el-popover placement="top" :width="350" title="הוראות" trigger="click">
         <template #reference>
-          <el-button type="info"
-                     plain>הוראות
-          </el-button>
+          <el-button type="info" plain>הוראות </el-button>
         </template>
         <template #default>
           <p class="popover-body-text">
@@ -221,7 +197,7 @@
             <a
               href="https://students.technion.ac.il/local/tcurricular/grades"
               target="_blank"
-            >באתר ציונים</a
+              >באתר ציונים</a
             >
             ולהעתיק אותו לתיבת הטקסט בחלון זה
             <br />
@@ -241,9 +217,8 @@
       />
     </el-row>
     <el-row justify="center">
-      <el-button type="primary"
-                 @click="importCourseFromStudents"
-      >יבוא קורסים
+      <el-button type="primary" @click="importCourseFromStudents"
+        >יבוא קורסים
       </el-button>
     </el-row>
   </el-dialog>
@@ -255,30 +230,23 @@
     center
   >
     <template #title>
-      <span class="dialog-title"
-            style="font-weight: bold">
+      <span class="dialog-title" style="font-weight: bold">
         יבוא סמסטר מ-CheeseFork
       </span>
     </template>
     <el-row justify="center">
-      <el-popover placement="left"
-                  :width="350"
-                  title="הוראות"
-                  trigger="click">
+      <el-popover placement="left" :width="350" title="הוראות" trigger="click">
         <template #reference>
-          <el-button type="info"
-                     plain>הוראות
-          </el-button>
+          <el-button type="info" plain>הוראות </el-button>
         </template>
         <template #default>
           <p class="popover-body-text">
             יש לסמן את הורסים באתר
-            <a href="https://cheesefork.cf/"
-               target="_blank">CheeseFork</a>
+            <a href="https://cheesefork.cf/" target="_blank">CheeseFork</a>
             ולהעתיק אותו<br />לתיבת הטקסט בחלון זה
           </p>
           <el-row style="justify-content: center"
-          ><img src="../../images/import_from_cf.png"
+            ><img src="../../images/import_from_cf.png"
           /></el-row>
         </template>
       </el-popover>
@@ -294,9 +262,8 @@
       />
     </el-row>
     <el-row justify="center">
-      <el-button type="primary"
-                 @click="importCoursesFromCF"
-      >יבוא קורסים
+      <el-button type="primary" @click="importCoursesFromCF"
+        >יבוא קורסים
       </el-button>
     </el-row>
   </el-dialog>
@@ -308,8 +275,7 @@
     center
   >
     <template #title>
-      <span class="dialog-title"
-            style="font-weight: bold">
+      <span class="dialog-title" style="font-weight: bold">
         יבוא נתונים מקובץ JSON
       </span>
     </template>
@@ -324,9 +290,8 @@
       />
     </el-row>
     <el-row justify="center">
-      <el-button type="primary"
-                 @click="importCoursesFromJSON"
-      >יבוא קורסים
+      <el-button type="primary" @click="importCoursesFromJSON"
+        >יבוא קורסים
       </el-button>
     </el-row>
   </el-dialog>
@@ -338,8 +303,7 @@
     center
   >
     <template #title>
-      <span class="dialog-title"
-            style="font-weight: bold">
+      <span class="dialog-title" style="font-weight: bold">
         שינוי קטגוריות קורסים
       </span>
     </template>
@@ -361,13 +325,11 @@
           </template>
           <template #default="scope">
             <template v-if="scope.$index === 0 || scope.$index === 1">
-              <el-input disabled
-                        v-model="scope.row.name" />
+              <el-input disabled v-model="scope.row.name" />
             </template>
             <template v-else>
               <el-row :gutter="2">
-                <el-col :span="21"
-                        s>
+                <el-col :span="21" s>
                   <el-input v-model="scope.row.name" />
                 </el-col>
                 <el-col :span="1">
@@ -377,7 +339,7 @@
                     plain
                     size="small"
                     @click="deleteCategory(scope.$index)"
-                  >x
+                    >x
                   </el-button>
                 </el-col>
               </el-row>
@@ -386,11 +348,8 @@
         </el-table-column>
       </el-table>
     </el-row>
-    <el-row justify="center"
-            style="margin-top: 10px">
-      <el-button type="primary"
-                 @click="addCategory">הוסף קטגוריה
-      </el-button>
+    <el-row justify="center" style="margin-top: 10px">
+      <el-button type="primary" @click="addCategory">הוסף קטגוריה </el-button>
     </el-row>
   </el-dialog>
 </template>
@@ -401,7 +360,7 @@ import Authentication from "@/components/HeaderAuthentication.vue";
 import {
   parseCheeseFork,
   parseGraduateInformation,
-  parseStudentsSiteGrades
+  parseStudentsSiteGrades,
 } from "@/store/extensions/converter";
 
 import { db, auth } from "@/main";
@@ -414,7 +373,7 @@ import {
   Collection,
   Download,
   Right,
-  Upload
+  Upload,
 } from "@element-plus/icons-vue";
 import { stateConverter } from "@/firestore/firestoreconverter";
 import { CourseType } from "@/store/classes/course_types";
@@ -427,7 +386,7 @@ export default defineComponent({
     Download,
     Right,
     Avatar,
-    Authentication
+    Authentication,
   },
   setup() {
     enum HeaderModal {
@@ -458,7 +417,7 @@ export default defineComponent({
       },
       set(username: string): void {
         store.commit(AUTH_STORE.MUTATIONS.setUserName, username);
-      }
+      },
     });
     const course_types = computed<CourseType[]>(() => {
       return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
@@ -469,7 +428,7 @@ export default defineComponent({
       },
       set(logged: boolean): void {
         store.commit(AUTH_STORE.MUTATIONS.setLoggedStatus, logged);
-      }
+      },
     });
     const handleClose = (done: () => void) => {
       ElMessageBox.confirm("Are you sure to close this dialog?")
@@ -483,7 +442,7 @@ export default defineComponent({
     const changeCategoryName = (index, event) => {
       store.commit(USER_STORE.MUTATIONS.changeCategoryName, [
         event.target.value,
-        index
+        index,
       ]);
     };
     const deleteCategory = (index) => {
@@ -491,7 +450,7 @@ export default defineComponent({
         confirmButtonText: "כן",
         cancelButtonText: "לא",
         icon: "none",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           store.commit(USER_STORE.MUTATIONS.deleteCourseType, index);
@@ -516,7 +475,7 @@ export default defineComponent({
     const addCategory = () => {
       ElMessageBox.prompt("הכנס שם קטגוריה:", "הוספת קטגוריה", {
         confirmButtonText: "הוסף",
-        icon: "none"
+        icon: "none",
       }).then(({ value }) => {
         let types = store.getters[USER_STORE.GETTERS.COURSE_TYPES];
         for (let i = 0; i < types.length; i++) {
@@ -524,7 +483,7 @@ export default defineComponent({
             wrongInput.value = true;
             ElMessage({
               type: "info",
-              message: `קטוגריה עם שם כזה קיימת כבר!`
+              message: `קטוגריה עם שם כזה קיימת כבר!`,
             });
             return;
           }
@@ -533,7 +492,7 @@ export default defineComponent({
         hideModal(HeaderModal.CATEGORY_CHANGE);
         ElMessage({
           type: "success",
-          message: `קטוגריה הוספה בהצלחה!`
+          message: `קטוגריה הוספה בהצלחה!`,
         });
       });
     };
@@ -552,7 +511,7 @@ export default defineComponent({
             confirmButtonText: "כן",
             cancelButtonText: "לא",
             type: "warning",
-            icon: "none"
+            icon: "none",
           }
         )
           .then(() => {
@@ -570,7 +529,7 @@ export default defineComponent({
               semesters: semesters_exemption_summerIndexes["semesters"],
               exemption: semesters_exemption_summerIndexes["exemption"],
               summer_semesters_indexes:
-                semesters_exemption_summerIndexes["summer_semesters_indexes"]
+                semesters_exemption_summerIndexes["summer_semesters_indexes"],
             });
             message.value = "";
             if (site === "UG") {
@@ -580,13 +539,13 @@ export default defineComponent({
             }
             ElMessage({
               type: "success",
-              message: "יבוא הושלם"
+              message: "יבוא הושלם",
             });
           })
           .catch(() => {
             ElMessage({
               type: "info",
-              message: "יבוא נכשל"
+              message: "יבוא נכשל",
             });
           });
       }
@@ -605,7 +564,7 @@ export default defineComponent({
           confirmButtonText: "כן",
           cancelButtonText: "לא",
           type: "warning",
-          icon: "none"
+          icon: "none",
         })
           .then(() => {
             store.commit(
@@ -617,13 +576,13 @@ export default defineComponent({
             hideModal(HeaderModal.JSON_IMPORT_GRADES);
             ElMessage({
               type: "success",
-              message: "יבוא הושלם"
+              message: "יבוא הושלם",
             });
           })
           .catch(() => {
             ElMessage({
               type: "info",
-              message: "יבוא נכשל"
+              message: "יבוא נכשל",
             });
           });
       }
@@ -668,7 +627,7 @@ export default defineComponent({
       importCourseFromUG,
       importCourseFromStudents,
       importCoursesFromCF,
-      importCoursesFromJSON
+      importCoursesFromJSON,
     };
   },
   mounted() {
@@ -712,7 +671,7 @@ export default defineComponent({
           });
       }
     });
-  }
+  },
 });
 </script>
 

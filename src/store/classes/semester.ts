@@ -133,7 +133,7 @@ export class Semester {
   calculatePoints(): void {
     this.points = 0;
     for (const course of this.courses) {
-      this.points += course.points;
+      this.points += parseFloat(String(course.points));
     }
     this.points = parseFloat(this.points.toFixed(1));
   }

@@ -19,12 +19,14 @@
         :name="index"
       >
         <template #label>
-          <span style="margin-left: 4px;">
+          <span style="margin-left: 4px">
             {{ "סמסטר " + semester.name }}
           </span>
-          <font-awesome-icon v-if="semester.name.includes('קיץ')"
-                             icon="sun"
-                             style="color: orange" />
+          <font-awesome-icon
+            v-if="semester.name.includes('קיץ')"
+            icon="sun"
+            style="color: orange"
+          />
         </template>
         <el-row justify="center">
           <el-col :span="20">
@@ -37,11 +39,10 @@
                   class="semester-tab-button"
                   color="#17a2b8"
                   style="color: white"
-                >הוספת שורה
+                  >הוספת שורה
                 </el-button>
-                <el-button class="semester-tab-button"
-                           type="primary"
-                >חיפוש קורסים
+                <el-button class="semester-tab-button" type="primary"
+                  >חיפוש קורסים
                 </el-button>
               </el-button-group>
             </el-row>
@@ -87,8 +88,7 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-row justify="end"
-                style="margin-top: 10px">
+        <el-row justify="end" style="margin-top: 10px">
           <el-button
             class="align-self-end"
             style="margin-left: 4px"
@@ -139,27 +139,27 @@ export default defineComponent({
       set(value: string) {
         console.log(value);
         store.commit(USER_STORE.MUTATIONS.setActiveSemester, +value - 1);
-      }
+      },
     });
     const removeSemester = () => {
       ElMessageBox.confirm("למחוק סמסטר זה?", {
         confirmButtonText: "כן",
         cancelButtonText: "לא",
         type: "warning",
-        icon: "none"
+        icon: "none",
       })
         .then(() => {
           store.commit(USER_STORE.MUTATIONS.removeSemester);
           store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
           ElMessage({
             type: "success",
-            message: "סמסטר נמחק בהצלחה"
+            message: "סמסטר נמחק בהצלחה",
           });
         })
         .catch(() => {
           ElMessage({
             type: "info",
-            message: "המחיקה בוטלה"
+            message: "המחיקה בוטלה",
           });
         });
     };
@@ -204,7 +204,7 @@ export default defineComponent({
       semesters,
       removeSemester,
       newTab,
-      changeSemesterType
+      changeSemesterType,
     };
   },
   mounted() {
@@ -230,7 +230,7 @@ export default defineComponent({
         }
       }
     }
-  }
+  },
 });
 </script>
 <style>
@@ -263,8 +263,10 @@ div.el-tabs__header {
 
 .el-tabs--card > .el-tabs__header .el-tabs__item {
   border-bottom: 1px solid #e5e4ed !important;
-  transition: color var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier),
-  padding var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+  transition: color var(--el-transition-duration)
+      var(--el-transition-function-ease-in-out-bezier),
+    padding var(--el-transition-duration)
+      var(--el-transition-function-ease-in-out-bezier);
 }
 
 span.el-tabs__new-tab {

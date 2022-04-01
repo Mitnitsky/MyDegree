@@ -246,6 +246,20 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+        <el-dialog v-model="moveToSemesterDialogVisible">
+          <template #title>
+            <span class="dialog-title" style="font-weight: bold">
+              העבר קורס: {{ selectedCourseNameForAction }} ל סמסטר
+            </span>
+          </template>
+          <el-option
+            v-for="name in semestersNames"
+            :key="name"
+            :label="name"
+            :value="name"
+            :disable="name === activeSemestersNumber"
+          />
+        </el-dialog>
       </template>
     </el-table-column>
   </el-table>
@@ -278,6 +292,8 @@ export default defineComponent({
     const histogram_img_link = ref("");
     const course_info: Ref<HistogramObject[]> = ref([]);
     const histogramVisibilityState = ref(false);
+    const moveToSemesterDialogVisible = ref(false);
+    let selectedCourseNameForAction = "";
     const fields = [
       {
         key: "students",
@@ -317,6 +333,14 @@ export default defineComponent({
     });
     const semestersNumber = computed(() => {
       return store.getters[USER_STORE.GETTERS.SEMESTERS].length;
+    });
+    const semestersNames = computed(() => {
+      let semesterNames: string[] = [];
+      for (const semester in store.getters[USER_STORE.GETTERS.SEMESTERS]) {
+        let s = semester as unknown as Semester;
+        semesterNames.push(s.name);
+      }
+      return semesterNames;
     });
     const activeSemestersNumber = computed(() => {
       return store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER];
@@ -358,6 +382,7 @@ export default defineComponent({
       histogram_img_link.value = `https://michael-maltsev.github.io/technion-histograms/${course_number}/${option.semester_number}/${option.entry_name}.png`;
     };
     const moveToSemester = (course_index) => {
+      console.log(course_index);
       store.commit(USER_STORE.MUTATIONS.moveCourseToSemester, {
         semester_index: activeSemestersNumber,
         course_index: course_index,
@@ -377,7 +402,9 @@ export default defineComponent({
       index: string;
       status: boolean;
     }) => {
-      console.log(command);
+      selectedCourseNameForAction =
+        props.semester?.courses.at(parseInt(command.index))?.name || "";
+      // selectedCourseNameForAction = this.semester?.courses.at(command.index)
       switch (command.name) {
         case "binary-status-update":
           updateField("binary", command.status, command.index);
@@ -393,7 +420,8 @@ export default defineComponent({
           deleteRow(command.index);
           break;
         case "moveSemester":
-          moveToSemester(command.index);
+          moveToSemesterDialogVisible.value = true;
+          console.log(moveToSemesterDialogVisible);
           break;
         case "move-up":
           moveFunction(command.index, "up");
@@ -468,6 +496,9 @@ export default defineComponent({
     };
 
     return {
+      moveToSemesterDialogVisible,
+      activeSemestersNumber,
+      selectedCourseNameForAction,
       histogramVisibilityState,
       clearRow,
       deleteRow,
@@ -476,6 +507,7 @@ export default defineComponent({
       moveToSemester,
       handleRowCommand,
       semestersNumber,
+      semestersNames,
       updateField,
       searchDialogShown,
       moveFunction,

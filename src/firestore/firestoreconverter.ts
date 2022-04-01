@@ -25,6 +25,7 @@ export const stateConverter = {
     const course_types = data.course_types.map(
       courseTypeDataConverter.fromObject
     );
+    console.log(course_types);
     return {
       summer_semesters: 0,
       active_semester: 0,

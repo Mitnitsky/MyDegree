@@ -13,7 +13,10 @@
           <header-nav-bar />
         </el-header>
         <el-main>
-          <div class="container-fluid" style="justify-content: center !important;">
+          <div
+            class="container-fluid"
+            style="justify-content: center !important"
+          >
             <!--            <el-row>-->
             <!--              <el-col span="6" offset="6">-->
             <!--                <autocomplete-->
@@ -30,7 +33,7 @@
             <!--              </el-col>-->
             <!--            </el-row>-->
             <semesters-tab-view style="margin: 5px" />
-            <!--      <degree-summary />-->
+            <degree-summary />
           </div>
         </el-main>
         <el-footer class="footer-fixed-bottom">
@@ -48,14 +51,14 @@ import He from "element-plus/lib/locale/lang/he";
 import HeaderNavBar from "@/components/Header.vue";
 import { JsonCourse } from "@/store/classes/json_course_db";
 import DpFooter from "@/components/Footer.vue";
-// import DegreeSummary from "@/components/DegreeSummary.vue";
+import DegreeSummary from "@/components/DegreeSummary.vue";
 import SemestersTabView from "@/components/SemestersTabView.vue";
 export default defineComponent({
   name: "App",
   components: {
     ElConfigProvider,
     HeaderNavBar,
-    // DegreeSummary,
+    DegreeSummary,
     DpFooter,
     SemestersTabView,
   },
@@ -78,6 +81,7 @@ export default defineComponent({
     const options = ref([]);
     const textPart = ref("");
     const courseSelected = ref(false);
+    const showInfo = ref(false);
     if (localStorage.getItem("courses")) {
       json_courses =
         typeof localStorage.getItem("courses") === "object"
@@ -134,7 +138,9 @@ export default defineComponent({
       course.including = c.including;
       course.followed_by = c.followed_by;
     };
+
     return {
+      showInfo,
       course,
       courseSelected,
       selectedCourse,

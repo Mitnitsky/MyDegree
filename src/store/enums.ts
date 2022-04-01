@@ -2,6 +2,12 @@ export enum UserGetters {
   COURSE_TYPES = "COURSE_TYPES",
   SEMESTERS = "SEMESTERS",
   ACTIVE_SEMESTER = "ACTIVE_SEMESTER",
+  DEGREE_AVERAGE = "DEGREE_AVERAGE",
+  DEGREE_POINTS = "DEGREE_POINTS",
+  DEGREE_POINTS_DONE = "DEGREE_POINTS_DONE",
+  DEGREE_POINTS_LEFT = "DEGREE_POINTS_LEFT",
+  DEGREE_POINTS_TO_CHOOSE = "DEGREE_POINTS_TO_CHOOSE",
+  ENGLISH_EXEMPTION = "ENGLISH_EXEMPTION",
 }
 
 export enum UserMutations {
@@ -41,6 +47,11 @@ export enum UserMutations {
   updateUserField = "updateUserField",
   updateSemesters = "updateSemesters",
   clearCourse = "clearCourse",
+  setDegreeAverage = "setDegreeAverage",
+  setDegreePoints = "setDegreePoints",
+  setDegreePointsDone = "setDegreePointsDone",
+  setDegreePointsLeft = "setDegreePointsLeft",
+  setDegreePointsToChoose = "setDegreePointsToChose",
 }
 
 export enum UserActions {

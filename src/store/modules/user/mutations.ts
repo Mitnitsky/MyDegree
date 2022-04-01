@@ -85,6 +85,7 @@ function calculateUserInfo(state: UserState): void {
         course_type.total_points = english_exemption_points;
       }
     }
+    console.log(state);
     const courses_done = {};
     for (const semester of state.semesters.slice().reverse()) {
       semester.calculateAverage();
@@ -258,6 +259,30 @@ export const mutations: MutationTree<UserState> = {
   },
   [USER_STORE.MUTATIONS.setExemptionStatus](state: UserState, status: boolean) {
     state.english_exemption = status;
+  },
+  [USER_STORE.MUTATIONS.setDegreeAverage](state: UserState, average: number) {
+    state.degree_average = average;
+  },
+  [USER_STORE.MUTATIONS.setDegreePoints](state: UserState, points: number) {
+    state.degree_points = points;
+  },
+  [USER_STORE.MUTATIONS.setDegreePointsDone](
+    state: UserState,
+    points_done: number
+  ) {
+    state.degree_points_done = points_done;
+  },
+  [USER_STORE.MUTATIONS.setDegreePointsLeft](
+    state: UserState,
+    points_left: number
+  ) {
+    state.degree_points_left = points_left;
+  },
+  [USER_STORE.MUTATIONS.setDegreePointsToChoose](
+    state: UserState,
+    points_to_choose: number
+  ) {
+    state.degree_points_to_choose = points_to_choose;
   },
   [USER_STORE.MUTATIONS.addSemester](
     state: UserState,

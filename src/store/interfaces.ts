@@ -132,6 +132,14 @@ export type UserMutationsTypes<S = UserState> = {
   [USER_STORE.MUTATIONS.checkLinear](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.updateUserField](state: S, payload: number): void;
   [USER_STORE.MUTATIONS.updateSemesters](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.setDegreeAverage](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.setDegreePoints](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.setDegreePointsDone](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.setDegreePointsLeft](state: S, payload: number): void;
+  [USER_STORE.MUTATIONS.setDegreePointsToChoose](
+    state: S,
+    payload: number
+  ): void;
 };
 
 export type AugmentedActionContextUser = {
