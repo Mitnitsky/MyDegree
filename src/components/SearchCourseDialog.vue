@@ -1,23 +1,13 @@
 <template>
   <b-card dir="rtl" no-body style="min-height: 410px">
     <div class="justify-content-center">
-      <div
-        class="row justify-content-between"
-        style="background-color: #343a40; min-height: 50px"
-      >
+      <div class="row justify-content-between" style="background-color: #343a40; min-height: 50px">
         <div class="col-auto">
-          <h5 style="color: white; margin-top: 12px; margin-right: 10px">
-            חיפוש קורסים
-          </h5>
+          <h5 style="color: white; margin-top: 12px; margin-right: 10px">חיפוש קורסים</h5>
         </div>
         <div class="col-auto mr-auto">
           <b-button
-            style="
-              border-color: #343a40;
-              margin-top: 6px;
-              font-weight: bolder;
-              margin-left: 2px;
-            "
+            style="border-color: #343a40; margin-top: 6px; font-weight: bolder; margin-left: 2px"
             variant="outline-light"
             @click="hideSearchModal"
           >
@@ -42,12 +32,7 @@
           class="text-center"
           header-bg-variant="dark"
           header-text-variant="white"
-          style="
-            text-align: right;
-            color: black;
-            margin-top: 7px;
-            min-height: 300px;
-          "
+          style="text-align: right; color: black; margin-top: 7px; min-height: 300px"
         >
           <b-card no-body style="margin-bottom: 10px">
             <template #header>
@@ -59,17 +44,10 @@
           </b-card>
 
           <div class="row justify-content-center mb-2">
-            <b-button v-if="show" type="primary" @click="addCourse">
-              הוסף קורס
-            </b-button>
+            <b-button v-if="show" type="primary" @click="addCourse"> הוסף קורס </b-button>
           </div>
           <div class="row justify-content-center mb-2">
-            <b-toast
-              id="added-course"
-              auto-hide-delay="5000"
-              static
-              variant="primary"
-            >
+            <b-toast id="added-course" auto-hide-delay="5000" static variant="primary">
               <div class="row" style="padding: 10px">
                 <p style="font-size: larger">
                   קורס: "{{ selected_course.full_name }}" הוסף בהצלחה!
@@ -97,8 +75,8 @@
             style="margin: 5px"
             variant="outline-secondary"
             @click="
-              collapsedHistogram = !collapsedHistogram;
-              collapseHistogram(true);
+              collapsedHistogram = !collapsedHistogram
+              collapseHistogram(true)
             "
           >
             היסטוגרמות&Darr;
@@ -108,8 +86,8 @@
             style="margin: 5px"
             variant="secondary"
             @click="
-              collapsedHistogram = !collapsedHistogram;
-              collapseHistogram(false);
+              collapsedHistogram = !collapsedHistogram
+              collapseHistogram(false)
             "
           >
             היסטוגרמות &Uarr;
@@ -117,14 +95,13 @@
           <b-button
             v-if="
               collapsedPrereq &&
-              (selected_course.prerequisites[0].length > 0 ||
-                selected_course.linked.length > 0)
+              (selected_course.prerequisites[0].length > 0 || selected_course.linked.length > 0)
             "
             style="margin: 5px"
             variant="outline-secondary"
             @click="
-              collapsedPrereq = !collapsedPrereq;
-              collapsePrerequisites();
+              collapsedPrereq = !collapsedPrereq
+              collapsePrerequisites()
             "
           >
             קורסי קדם/צמודים&Darr;
@@ -132,14 +109,13 @@
           <b-button
             v-if="
               !collapsedPrereq &&
-              (selected_course.prerequisites[0].length > 0 ||
-                selected_course.linked.length > 0)
+              (selected_course.prerequisites[0].length > 0 || selected_course.linked.length > 0)
             "
             style="margin: 5px"
             variant="secondary"
             @click="
-              collapsedPrereq = !collapsedPrereq;
-              collapsePrerequisites();
+              collapsedPrereq = !collapsedPrereq
+              collapsePrerequisites()
             "
           >
             קורסי קדם/צמודים&Uarr;
@@ -149,8 +125,8 @@
             style="margin: 5px"
             variant="outline-secondary"
             @click="
-              collapsedFollowed = !collapsedFollowed;
-              collapseFollowedBy();
+              collapsedFollowed = !collapsedFollowed
+              collapseFollowedBy()
             "
           >
             קורסי המשך&Darr;
@@ -160,8 +136,8 @@
             style="margin: 5px"
             variant="secondary"
             @click="
-              collapsedFollowed = !collapsedFollowed;
-              collapseFollowedBy();
+              collapsedFollowed = !collapsedFollowed
+              collapseFollowedBy()
             "
           >
             קורסי המשך&Uarr;
@@ -172,8 +148,8 @@
             style="margin: 5px"
             variant="outline-secondary"
             @click="
-              collapsedExtraInfo = !collapsedExtraInfo;
-              collapseExtraInfo();
+              collapsedExtraInfo = !collapsedExtraInfo
+              collapseExtraInfo()
             "
           >
             מידע נוסף &Darr;
@@ -183,8 +159,8 @@
             style="margin: 5px"
             variant="secondary"
             @click="
-              collapsedExtraInfo = !collapsedExtraInfo;
-              collapseExtraInfo();
+              collapsedExtraInfo = !collapsedExtraInfo
+              collapseExtraInfo()
             "
           >
             מידע נוסף &Uarr;
@@ -201,16 +177,11 @@
               </template>
               <div v-if="course_info.length > 0" class="col mt-2">
                 <p v-if="selected_semester_grade_stats">
-                  <strong>{{
-                    selected_semester_grade_stats[0].semester_name
+                  <strong>{{ selected_semester_grade_stats[0].semester_name }}</strong>
+                  <br v-if="selected_semester_grade_stats[0].staff !== undefined" />
+                  <strong v-if="selected_semester_grade_stats[0].staff !== undefined">{{
+                    selected_semester_grade_stats[0].staff
                   }}</strong>
-                  <br
-                    v-if="selected_semester_grade_stats[0].staff !== undefined"
-                  />
-                  <strong
-                    v-if="selected_semester_grade_stats[0].staff !== undefined"
-                    >{{ selected_semester_grade_stats[0].staff }}</strong
-                  >
                 </p>
                 <b-form-select
                   v-model="selected_semester_grade_stats"
@@ -278,9 +249,7 @@
                   {{ course }}
                   <b-popover
                     v-if="checkIfExists(course, 'prerequisite') === 'red'"
-                    :target="
-                      parseInt(index) + '_' + parseInt(inner_index) + '_preq'
-                    "
+                    :target="parseInt(index) + '_' + parseInt(inner_index) + '_preq'"
                     placement="top"
                     triggers="hover"
                   >
@@ -440,28 +409,28 @@
 </template>
 
 <script>
-import Autocomplete from "@trevoreyre/autocomplete-vue";
-import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
-import $ from "jquery";
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import { convertJsonToProperSelectBoxFormat } from '@/store/extensions/histogramFunctions'
+import $ from 'jquery'
 
-let json_courses;
+let json_courses
 
-if (localStorage.getItem("courses")) {
+if (localStorage.getItem('courses')) {
   json_courses =
-    typeof localStorage.getItem("courses") === "object"
-      ? localStorage.getItem("courses")
-      : JSON.parse(localStorage.getItem("courses"));
+    typeof localStorage.getItem('courses') === 'object'
+      ? localStorage.getItem('courses')
+      : JSON.parse(localStorage.getItem('courses'))
   if (!json_courses.version || json_courses.version < 7.0) {
-    json_courses = require("../data/courses.json");
-    localStorage.setItem("courses", JSON.stringify(json_courses));
+    json_courses = require('../data/courses.json')
+    localStorage.setItem('courses', JSON.stringify(json_courses))
   }
 } else {
-  json_courses = require("../data/courses.json");
-  localStorage.setItem("courses", JSON.stringify(json_courses));
+  json_courses = require('../data/courses.json')
+  localStorage.setItem('courses', JSON.stringify(json_courses))
 }
 
 export default {
-  name: "SearchCourseDialog",
+  name: 'SearchCourseDialog',
   components: {
     Autocomplete,
   },
@@ -473,130 +442,121 @@ export default {
       collapsedPrereq: true,
       collapsedFollowed: true,
       collapsedHistogram: true,
-      grab: "grab",
-      bgc: "transparent",
+      grab: 'grab',
+      bgc: 'transparent',
       selected_semester_grade_stats: null,
       course_info: null,
       last_added_course_index: null,
       fields: [
         {
-          key: "students",
-          label: "סטודנטים",
+          key: 'students',
+          label: 'סטודנטים',
         },
         {
-          key: "passFail",
-          label: "נכשל/עובר",
+          key: 'passFail',
+          label: 'נכשל/עובר',
         },
         {
-          key: "passPercent",
-          label: "אחוז עוברים",
+          key: 'passPercent',
+          label: 'אחוז עוברים',
         },
         {
-          key: "min",
-          label: "ציון מינימלי",
+          key: 'min',
+          label: 'ציון מינימלי',
         },
         {
-          key: "max",
-          label: "ציון מקסימלי",
+          key: 'max',
+          label: 'ציון מקסימלי',
         },
         {
-          key: "average",
-          label: "ממוצע",
+          key: 'average',
+          label: 'ממוצע',
         },
         {
-          key: "median",
-          label: "חציון",
+          key: 'median',
+          label: 'חציון',
         },
       ],
       selected_course: {
-        full_name: "",
-        name: "",
-        number: "",
-        points: "",
-        prerequisites: "",
-        linked: "",
-        overlapping: "",
-        inclusive: "",
-        including: "",
-        followed_by: "",
+        full_name: '',
+        name: '',
+        number: '',
+        points: '',
+        prerequisites: '',
+        linked: '',
+        overlapping: '',
+        inclusive: '',
+        including: '',
+        followed_by: '',
       },
       histogram_img_link: null,
       remove: json_courses,
       options: json_courses.courses,
-    };
+    }
   },
   methods: {
     hideSearchModal() {
-      this.$modal.hide("search");
+      this.$modal.hide('search')
     },
     search(input) {
       if (input.length < 2) {
-        return [];
+        return []
       }
-      return this.options.filter((e) => e.full_name.includes(input));
+      return this.options.filter((e) => e.full_name.includes(input))
     },
     getResultValue(result) {
-      return result.full_name;
+      return result.full_name
     },
     courseChosen(course) {
-      this.show = true;
-      this.selected_course = course;
-      this.course_info = [];
-      this.histogram_img_link = null;
-      this.selected_semester_grade_stats = null;
+      this.show = true
+      this.selected_course = course
+      this.course_info = []
+      this.histogram_img_link = null
+      this.selected_semester_grade_stats = null
       if (!this.collapsedHistogram) {
-        this.collapseHistogram(false);
-        this.collapsedHistogram = !this.collapsedHistogram;
+        this.collapseHistogram(false)
+        this.collapsedHistogram = !this.collapsedHistogram
       }
       if (!this.collapsedExtraInfo) {
-        this.collapseExtraInfo();
-        this.collapsedExtraInfo = !this.collapsedExtraInfo;
+        this.collapseExtraInfo()
+        this.collapsedExtraInfo = !this.collapsedExtraInfo
       }
       if (!this.collapsedFollowed) {
-        this.collapseFollowedBy();
-        this.collapsedFollowed = !this.collapsedFollowed;
+        this.collapseFollowedBy()
+        this.collapsedFollowed = !this.collapsedFollowed
       }
       if (!this.collapsedPrereq) {
-        this.collapsePrerequisites();
-        this.collapsedPrereq = !this.collapsedPrereq;
+        this.collapsePrerequisites()
+        this.collapsedPrereq = !this.collapsedPrereq
       }
     },
     addCourse() {
       if (
         !(
-          this.selected_course.name.includes("ספורט") ||
-          this.selected_course.name.includes("גופני")
+          this.selected_course.name.includes('ספורט') || this.selected_course.name.includes('גופני')
         )
       ) {
         const course_number_and_answer = {
           course_number: this.selected_course.number,
-          answer: "",
-        };
-        store.commit(
-          USER_STORE.MUTATIONS.checkIfCourseExists,
-          course_number_and_answer
-        );
-        if (
-          course_number_and_answer.answer !== false &&
-          course_number_and_answer.answer !== -1
-        ) {
+          answer: '',
+        }
+        store.commit(USER_STORE.MUTATIONS.checkIfCourseExists, course_number_and_answer)
+        if (course_number_and_answer.answer !== false && course_number_and_answer.answer !== -1) {
           const message =
-            "הקורס קיים בסמסטר " +
-            course_number_and_answer.answer +
-            ", להוסיף בכל זאת?";
+            'הקורס קיים בסמסטר ' + course_number_and_answer.answer + ', להוסיף בכל זאת?'
           this.$bvModal
             .msgBoxConfirm(message, {
-              title: "אזהרה",
-              headerBgVariant: "dark",
-              headerTextVariant: "white",
-              size: "sm",
-              buttonSize: "md",
-              cancelDisabled: "true",
-              okVariant: "danger",
-              okTitle: "כן",
-              autoFocusButton: "ok",
-              cancelTitle: "לא",
-              footerClass: "p-2",
+              title: 'אזהרה',
+              headerBgVariant: 'dark',
+              headerTextVariant: 'white',
+              size: 'sm',
+              buttonSize: 'md',
+              cancelDisabled: 'true',
+              okVariant: 'danger',
+              okTitle: 'כן',
+              autoFocusButton: 'ok',
+              cancelTitle: 'לא',
+              footerClass: 'p-2',
               hideHeaderClose: true,
               centered: true,
             })
@@ -605,133 +565,106 @@ export default {
                 const selected_course_and_added_index = {
                   course: this.selected_course,
                   added_index: this.last_added_course_index,
-                };
+                }
                 this.$store.commit(
-                  "addCourseWithDataReturningIndex",
+                  'addCourseWithDataReturningIndex',
                   selected_course_and_added_index
-                );
-                this.last_added_course_index =
-                  selected_course_and_added_index.added_index;
-                store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-                this.$bvToast.show("added-course");
+                )
+                this.last_added_course_index = selected_course_and_added_index.added_index
+                store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+                this.$bvToast.show('added-course')
               }
-            });
+            })
         } else {
           const selected_course_and_added_index = {
             course: this.selected_course,
             added_index: this.last_added_course_index,
-          };
-          this.$store.commit(
-            "addCourseWithDataReturningIndex",
-            selected_course_and_added_index
-          );
-          this.last_added_course_index =
-            selected_course_and_added_index.added_index;
-          store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-          this.$bvToast.show("added-course");
+          }
+          this.$store.commit('addCourseWithDataReturningIndex', selected_course_and_added_index)
+          this.last_added_course_index = selected_course_and_added_index.added_index
+          store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+          this.$bvToast.show('added-course')
         }
       } else {
         const selected_course_and_added_index = {
           course: this.selected_course,
           added_index: this.last_added_course_index,
-        };
-        this.$store.commit(
-          "addCourseWithDataReturningIndex",
-          selected_course_and_added_index
-        );
-        this.last_added_course_index =
-          selected_course_and_added_index.added_index;
-        store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-        this.$bvToast.show("added-course");
+        }
+        this.$store.commit('addCourseWithDataReturningIndex', selected_course_and_added_index)
+        this.last_added_course_index = selected_course_and_added_index.added_index
+        store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+        this.$bvToast.show('added-course')
       }
     },
     removeLastAddedCourse() {
-      this.$bvToast.hide("added-course");
-      store.commit(
-        USER_STORE.MUTATIONS.removeCourse,
-        this.last_added_course_index
-      );
+      this.$bvToast.hide('added-course')
+      store.commit(USER_STORE.MUTATIONS.removeCourse, this.last_added_course_index)
     },
     findPrerequisites(event) {
-      const course_name = event.target.innerText.split(":")[0];
+      const course_name = event.target.innerText.split(':')[0]
       this.courseChosen(
         this.options.filter((course) => {
-          return course.full_name.includes(course_name);
+          return course.full_name.includes(course_name)
         })[0]
-      );
+      )
     },
     collapseExtraInfo() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-additional-info");
+      this.$root.$emit('bv::toggle::collapse', 'collapse-additional-info')
     },
     collapseFollowedBy() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-followed-by");
+      this.$root.$emit('bv::toggle::collapse', 'collapse-followed-by')
     },
     collapsePrerequisites() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-prereq-courses");
+      this.$root.$emit('bv::toggle::collapse', 'collapse-prereq-courses')
     },
     collapseHistogram(fetch) {
       if (fetch) {
-        const self = this;
-        const update = this.updateURL;
+        const self = this
+        const update = this.updateURL
         $.getJSON(
           `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
           function (doc) {
-            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
-              function (a, b) {
-                return b.semester_number - a.semester_number;
-              }
-            );
+            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(function (a, b) {
+              return b.semester_number - a.semester_number
+            })
             if (self.course_info.length > 0) {
-              self.selected_semester_grade_stats =
-                self.course_info[0].options[0].value;
-              update(self.selected_semester_grade_stats);
+              self.selected_semester_grade_stats = self.course_info[0].options[0].value
+              update(self.selected_semester_grade_stats)
             }
           }
-        );
+        )
       }
-      this.$root.$emit("bv::toggle::collapse", "collapse-histograms");
+      this.$root.$emit('bv::toggle::collapse', 'collapse-histograms')
     },
     updateURL(event) {
-      const event_payload = event[0];
-      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
+      const event_payload = event[0]
+      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`
     },
     checkIfExists(course_full_name, type) {
-      const course_name = course_full_name.split(":")[1];
-      if (course_name.includes("השלמות")) {
-        return "black";
+      const course_name = course_full_name.split(':')[1]
+      if (course_name.includes('השלמות')) {
+        return 'black'
       }
-      const course_number = course_full_name.split(":")[0];
+      const course_number = course_full_name.split(':')[0]
       const course_number_answer_semester = {
         course_number: course_number,
-        answer: "",
+        answer: '',
         semester: -1,
-      };
-      if (type === "prerequisite") {
-        store.commit(
-          USER_STORE.MUTATIONS.checkPrerequisites,
-          course_number_answer_semester
-        );
-      } else if (type === "linked") {
-        store.commit(
-          USER_STORE.MUTATIONS.checkLinear,
-          course_number_answer_semester
-        );
-      } else if (type === "planned") {
-        this.$store.commit(
-          "checkIfCourseExists",
-          course_number_answer_semester
-        );
-        return course_number_answer_semester.answer !== -1 ? "green" : "black";
-      } else {
-        this.$store.commit(
-          "checkIfCourseExists",
-          course_number_answer_semester
-        );
-        //It's bad if one of inclusive/including/similar courses are in the table
-        return course_number_answer_semester.answer !== -1 ? "red" : "black";
       }
-      return course_number_answer_semester.answer === -1 ? "red" : "black";
+      if (type === 'prerequisite') {
+        store.commit(USER_STORE.MUTATIONS.checkPrerequisites, course_number_answer_semester)
+      } else if (type === 'linked') {
+        store.commit(USER_STORE.MUTATIONS.checkLinear, course_number_answer_semester)
+      } else if (type === 'planned') {
+        this.$store.commit('checkIfCourseExists', course_number_answer_semester)
+        return course_number_answer_semester.answer !== -1 ? 'green' : 'black'
+      } else {
+        this.$store.commit('checkIfCourseExists', course_number_answer_semester)
+        //It's bad if one of inclusive/including/similar courses are in the table
+        return course_number_answer_semester.answer !== -1 ? 'red' : 'black'
+      }
+      return course_number_answer_semester.answer === -1 ? 'red' : 'black'
     },
   },
-};
+}
 </script>

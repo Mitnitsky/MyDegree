@@ -8,35 +8,20 @@
   >
     <el-container class="info-container">
       <el-aside class="border-round-left info-side" width="275px">
-        <img
-          class="border-round-left"
-          src="../assets/logo_transparent.png"
-          width="275"
-        />
+        <img class="border-round-left" src="../assets/logo_transparent.png" width="275" />
       </el-aside>
       <el-container class="nested-info">
         <el-header class="info-header"> Contact Info</el-header>
         <el-main class="info-main">
           <el-row style="height: 30%" />
           <el-row class="info-row" justify="center">
-            <font-awesome-icon
-              :icon="['fab', 'github']"
-              style="margin-right: 4px"
-            />
-            <a
-              class="info-link"
-              href="https://github.com/Mitnitsky/"
-              target="_blank"
-              >Github</a
-            >
+            <font-awesome-icon :icon="['fab', 'github']" style="margin-right: 4px" />
+            <a class="info-link" href="https://github.com/Mitnitsky/" target="_blank">Github</a>
           </el-row>
           <el-row style="height: 5%" />
           <el-row class="info-row" justify="center">
             <br />
-            <font-awesome-icon
-              :icon="['fab', 'linkedin']"
-              style="margin-right: 4px"
-            />
+            <font-awesome-icon :icon="['fab', 'linkedin']" style="margin-right: 4px" />
             <a
               class="info-link"
               href="https://www.linkedin.com/in/vladimir-mitnitsky/"
@@ -52,10 +37,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "MyInfoCard",
+  name: 'MyInfoCard',
   props: {
     visible: { type: Boolean, required: true },
     setVisibility: { type: Function, required: true },
@@ -63,17 +48,17 @@ export default defineComponent({
   setup(props) {
     const visibility = computed({
       get(): boolean {
-        return props.visible;
+        return props.visible
       },
       set(status: boolean): void {
-        props.setVisibility(status);
+        props.setVisibility(status)
       },
-    });
+    })
     return {
       visibility,
-    };
+    }
   },
-});
+})
 </script>
 
 <style>
@@ -128,7 +113,7 @@ div.info-dialog {
 }
 
 .info-header:before {
-  content: "";
+  content: '';
   display: inline-block;
   height: 100%;
   max-height: 60px;
@@ -152,9 +137,9 @@ div.info-dialog {
 }
 
 .info-link {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
   color: #007bff;
   font-size: 16px;
   text-decoration: none;
@@ -164,7 +149,7 @@ div.info-dialog {
 .info-row {
   height: 10%;
   justify-content: center;
-  content: "";
+  content: '';
   display: inline-block;
   vertical-align: middle;
 }

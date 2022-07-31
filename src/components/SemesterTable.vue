@@ -3,7 +3,7 @@
     <el-table-column
       :header-cell-class-name="
         (_) => {
-          return 'table-header-row-class';
+          return 'table-header-row-class'
         }
       "
       :min-width="75"
@@ -101,9 +101,7 @@
         <el-input
           v-if="scope.row.binary === false || scope.row.binary === undefined"
           v-model.number.lazy="scope.row.grade"
-          :class="[
-            scope.row.grade >= 0 && scope.row.grade <= 100 ? '' : InputIsWrong,
-          ]"
+          :class="[scope.row.grade >= 0 && scope.row.grade <= 100 ? '' : InputIsWrong]"
           class="form-control courseGrade"
           max="100"
           min="0"
@@ -166,7 +164,7 @@
                   }"
                   size="sm"
                 />
-                {{ scope.row.binary ? "בטל" : "סמן" }} עובר בינארי
+                {{ scope.row.binary ? 'בטל' : 'סמן' }} עובר בינארי
               </el-dropdown-item>
               <el-dropdown-item
                 :command="{
@@ -269,34 +267,34 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from "vue";
-import { useStore } from "@/use/useStore";
-import { USER_STORE } from "@/store/constants";
-import { ElMessage, ElMessageBox } from "element-plus/es";
-import { CourseType } from "@/store/classes/course_types";
-import $ from "jquery";
-import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
-import { HistogramObject, Option } from "@/store/classes/histogramObject";
-import { Semester } from "@/store/classes/semester";
+import { computed, defineComponent, Ref, ref } from 'vue'
+import { useStore } from '@/use/useStore'
+import { USER_STORE } from '@/store/constants'
+import { ElMessage, ElMessageBox } from 'element-plus/es'
+import { CourseType } from '@/store/classes/course_types'
+import $ from 'jquery'
+import { convertJsonToProperSelectBoxFormat } from '@/store/extensions/histogramFunctions'
+import { HistogramObject, Option } from '@/store/classes/histogramObject'
+import { Semester } from '@/store/classes/semester'
 
 export default defineComponent({
-  name: "SemesterTable",
+  name: 'SemesterTable',
   props: {
     semester: {
       type: Semester,
       default: () => {
-        return { courses: [] };
+        return { courses: [] }
       },
     },
   },
   setup(props) {
-    const store = useStore();
-    const selected_semester_grade_stats: Ref<Option[]> = ref([]);
-    const histogram_img_link = ref("");
-    const course_info: Ref<HistogramObject[]> = ref([]);
-    const histogramVisibilityState = ref(false);
-    const moveToSemesterDialogVisible = ref(false);
-    let selectedCourseNameForAction = "";
+    const store = useStore()
+    const selected_semester_grade_stats: Ref<Option[]> = ref([])
+    const histogram_img_link = ref('')
+    const course_info: Ref<HistogramObject[]> = ref([])
+    const histogramVisibilityState = ref(false)
+    const moveToSemesterDialogVisible = ref(false)
+    let selectedCourseNameForAction = ''
     // const fields = [
     //   {
     //     key: "students",
@@ -328,175 +326,170 @@ export default defineComponent({
     //   },
     // ];
     const forceUpdate = ref(() => {
-      console.log("");
-    });
-    const searchDialogShown = ref(false);
+      console.log('')
+    })
+    const searchDialogShown = ref(false)
     const course_types = computed<CourseType[]>(() => {
-      return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
-    });
+      return store.getters[USER_STORE.GETTERS.COURSE_TYPES]
+    })
     const semestersNumber = computed(() => {
-      return store.getters[USER_STORE.GETTERS.SEMESTERS].length;
-    });
+      return store.getters[USER_STORE.GETTERS.SEMESTERS].length
+    })
     const semestersNames = computed(() => {
-      const semesterNames: string[] = [];
+      const semesterNames: string[] = []
       for (const semester in store.getters[USER_STORE.GETTERS.SEMESTERS]) {
-        const s = semester as unknown as Semester;
-        semesterNames.push(s.name);
+        const s = semester as unknown as Semester
+        semesterNames.push(s.name)
       }
-      return semesterNames;
-    });
+      return semesterNames
+    })
     const activeSemestersNumber = computed(() => {
-      return store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER];
-    });
+      return store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER]
+    })
     const clearRow = (row_index) => {
-      store.commit(USER_STORE.MUTATIONS.clearCourse, row_index);
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      store.commit(USER_STORE.MUTATIONS.clearCourse, row_index)
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const deleteRow = (row_index) => {
-      store.commit(USER_STORE.MUTATIONS.removeCourse, row_index);
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      store.commit(USER_STORE.MUTATIONS.removeCourse, row_index)
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const showHistorgram = (course_index) => {
-      const course_number = props.semester?.courses[course_index].number;
+      const course_number = props.semester?.courses[course_index].number
       $.getJSON(
         `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
         (doc) => {
-          course_info.value = convertJsonToProperSelectBoxFormat(doc).sort(
-            function (a, b) {
-              return +b.semester_number - +a.semester_number;
-            }
-          );
+          course_info.value = convertJsonToProperSelectBoxFormat(doc).sort(function (a, b) {
+            return +b.semester_number - +a.semester_number
+          })
           if (course_info.value.length > 0) {
-            selected_semester_grade_stats.value =
-              course_info.value[0].options[0].value;
-            updateURL(selected_semester_grade_stats.value, course_number);
+            selected_semester_grade_stats.value = course_info.value[0].options[0].value
+            updateURL(selected_semester_grade_stats.value, course_number)
           }
         }
-      );
-      histogramVisibilityState.value = true;
-    };
+      )
+      histogramVisibilityState.value = true
+    }
     const hideHistogram = () => {
-      histogramVisibilityState.value = false;
-    };
+      histogramVisibilityState.value = false
+    }
     const updateURL = (options: Option[], course_number: string) => {
-      const option = options[0];
-      histogram_img_link.value = `https://michael-maltsev.github.io/technion-histograms/${course_number}/${option.semester_number}/${option.entry_name}.png`;
-    };
+      const option = options[0]
+      histogram_img_link.value = `https://michael-maltsev.github.io/technion-histograms/${course_number}/${option.semester_number}/${option.entry_name}.png`
+    }
     const moveToSemester = (course_index) => {
-      console.log(course_index);
+      console.log(course_index)
       store.commit(USER_STORE.MUTATIONS.moveCourseToSemester, {
-        semester_index: activeSemestersNumber,
+        semester_index: parseInt(activeSemestersNumber.value),
         course_index: course_index,
-      });
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      })
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const handleRowCommand = (command: {
       name:
-        | "binary-status-update"
-        | "histogram"
-        | "clean-row"
-        | "remove-row"
-        | "moveSemester"
-        | "move-up"
-        | "move-down";
-      index: string;
-      status: boolean;
+        | 'binary-status-update'
+        | 'histogram'
+        | 'clean-row'
+        | 'remove-row'
+        | 'moveSemester'
+        | 'move-up'
+        | 'move-down'
+      index: string
+      status: boolean
     }) => {
-      selectedCourseNameForAction =
-        props.semester?.courses.at(parseInt(command.index))?.name || "";
+      selectedCourseNameForAction = props.semester?.courses.at(parseInt(command.index))?.name || ''
       // selectedCourseNameForAction = this.semester?.courses.at(command.index)
       switch (command.name) {
-        case "binary-status-update":
-          updateField("binary", command.status, command.index);
-          forceUpdate.value();
-          break;
-        case "histogram":
-          showHistorgram(command.index);
-          break;
-        case "clean-row":
-          clearRow(command.index);
-          break;
-        case "remove-row":
-          deleteRow(command.index);
-          break;
-        case "moveSemester":
-          moveToSemesterDialogVisible.value = true;
-          console.log(moveToSemesterDialogVisible);
-          break;
-        case "move-up":
-          moveFunction(command.index, "up");
-          break;
-        case "move-down":
-          moveFunction(command.index, "down");
-          break;
+        case 'binary-status-update':
+          updateField('binary', command.status, command.index)
+          forceUpdate.value()
+          break
+        case 'histogram':
+          showHistorgram(command.index)
+          break
+        case 'clean-row':
+          clearRow(command.index)
+          break
+        case 'remove-row':
+          deleteRow(command.index)
+          break
+        case 'moveSemester':
+          moveToSemesterDialogVisible.value = true
+          console.log(moveToSemesterDialogVisible)
+          break
+        case 'move-up':
+          moveFunction(command.index, 'up')
+          break
+        case 'move-down':
+          moveFunction(command.index, 'down')
+          break
       }
-    };
+    }
     const updateField = (field, value, index) => {
-      console.log(field, value, index);
+      console.log(field, value, index)
       if (field)
         store.commit(USER_STORE.MUTATIONS.updateCourse, {
           field,
           value,
           index,
-        });
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
-    const moveFunction = (index, direction: "up" | "down") => {
+        })
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
+    const moveFunction = (index, direction: 'up' | 'down') => {
       if (
         !(
-          (index === props.semester.courses.length - 1 &&
-            direction === "down") ||
-          (index === 0 && direction === "up")
+          (index === props.semester.courses.length - 1 && direction === 'down') ||
+          (index === 0 && direction === 'up')
         )
       ) {
-        if (direction === "up") {
+        if (direction === 'up') {
           store.commit(USER_STORE.MUTATIONS.swapCourses, {
             a: index - 1,
             b: index,
-          });
-        } else if (direction === "down") {
+          })
+        } else if (direction === 'down') {
           store.commit(USER_STORE.MUTATIONS.swapCourses, {
             a: index + 1,
             b: index,
-          });
+          })
         }
       }
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const addRow = () => {
-      store.commit(USER_STORE.MUTATIONS.addCourse);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      store.commit(USER_STORE.MUTATIONS.addCourse)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const removeLastRow = () => {
       if (props.semester.courses.length > 0) {
-        ElMessageBox.confirm("למחוק שורה בעלת תוכן?", {
-          confirmButtonText: "כן",
-          cancelButtonText: "לא",
-          type: "warning",
-          icon: "none",
+        ElMessageBox.confirm('למחוק שורה בעלת תוכן?', {
+          confirmButtonText: 'כן',
+          cancelButtonText: 'לא',
+          type: 'warning',
+          icon: 'none',
         })
           .then(() => {
-            store.commit(USER_STORE.MUTATIONS.removeLastRow);
-            store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-            store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
+            store.commit(USER_STORE.MUTATIONS.removeLastRow)
+            store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+            store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
             ElMessage({
-              type: "success",
-              message: "קורס נמחק בהצלחה",
-            });
+              type: 'success',
+              message: 'קורס נמחק בהצלחה',
+            })
           })
           .catch(() => {
             ElMessage({
-              type: "info",
-              message: "המחיקה בוטלה",
-            });
-          });
+              type: 'info',
+              message: 'המחיקה בוטלה',
+            })
+          })
       }
-    };
+    }
 
     return {
       moveToSemesterDialogVisible,
@@ -516,38 +509,38 @@ export default defineComponent({
       moveFunction,
       addRow,
       removeLastRow,
-      headerTextVariant: "light",
-      headerBgVariant: "dark",
-      alignment: "flex-end",
+      headerTextVariant: 'light',
+      headerBgVariant: 'dark',
+      alignment: 'flex-end',
       course_types,
       f: forceUpdate,
-      InputIsWrong: "inputIsWrong",
+      InputIsWrong: 'inputIsWrong',
       choose_colors: [
-        "white",
-        "lightgreen",
-        "lightpink",
-        "lightblue",
-        "lightgoldenrodyellow",
-        "lightcyan",
-        "lightsteelblue",
-        "lavender",
-        "plum",
-        "#f2b4ba",
+        'white',
+        'lightgreen',
+        'lightpink',
+        'lightblue',
+        'lightgoldenrodyellow',
+        'lightcyan',
+        'lightsteelblue',
+        'lavender',
+        'plum',
+        '#f2b4ba',
       ],
-    };
+    }
   },
   mounted() {
     this.f = () => {
-      console.log("cheburek");
-      this.$forceUpdate();
-    };
+      console.log('cheburek')
+      this.$forceUpdate()
+    }
   },
-});
+})
 </script>
 
 <style>
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

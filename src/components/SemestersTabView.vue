@@ -20,7 +20,7 @@
       >
         <template #label>
           <span style="margin-left: 4px">
-            {{ "סמסטר " + semester.name }}
+            {{ 'סמסטר ' + semester.name }}
           </span>
           <font-awesome-icon
             v-if="semester.name.includes('קיץ')"
@@ -35,25 +35,16 @@
             </el-row>
             <el-row justify="center">
               <el-button-group style="padding: 8px">
-                <el-button
-                  class="semester-tab-button"
-                  color="#17a2b8"
-                  style="color: white"
+                <el-button class="semester-tab-button" color="#17a2b8" style="color: white"
                   >הוספת שורה
                 </el-button>
-                <el-button class="semester-tab-button" type="primary"
-                  >חיפוש קורסים
-                </el-button>
+                <el-button class="semester-tab-button" type="primary">חיפוש קורסים </el-button>
               </el-button-group>
             </el-row>
           </el-col>
           <el-col
             :span="4"
-            style="
-              min-width: 224px !important;
-              max-width: 300px;
-              padding-right: 24px;
-            "
+            style="min-width: 224px !important; max-width: 300px; padding-right: 24px"
           >
             <el-card shadow="never">
               <template #header>
@@ -65,11 +56,7 @@
                     <span style="margin-left: 4px">ממוצע:</span>
                   </el-col>
                   <el-col :span="14">
-                    <el-input
-                      :model-value="semester.average"
-                      class="semester-info-text"
-                      disabled
-                    />
+                    <el-input :model-value="semester.average" class="semester-info-text" disabled />
                   </el-col>
                 </el-row>
                 <el-row style="margin-top: 0.5rem">
@@ -77,11 +64,7 @@
                     <span style="margin-left: 4px">נקודות:</span>
                   </el-col>
                   <el-col :span="14">
-                    <el-input
-                      :model-value="semester.points"
-                      class="semester-info-text"
-                      disabled
-                    />
+                    <el-input :model-value="semester.points" class="semester-info-text" disabled />
                   </el-col>
                 </el-row>
               </div>
@@ -97,14 +80,9 @@
             variant="primary"
             @click="changeSemesterType(semester.name)"
           >
-            הפוך לסמסטר {{ semester.name.includes("קיץ") ? "רגיל" : "קיץ" }}
+            הפוך לסמסטר {{ semester.name.includes('קיץ') ? 'רגיל' : 'קיץ' }}
           </el-button>
-          <el-button
-            class="align-self-end"
-            plain
-            type="danger"
-            @click="removeSemester"
-          >
+          <el-button class="align-self-end" plain type="danger" @click="removeSemester">
             מחק סמסטר
           </el-button>
         </el-row>
@@ -113,90 +91,86 @@
   </el-card>
 </template>
 
+
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent } from 'vue'
 // import AppSemesterSummary from "@/components/SemesterSummary.vue";
-import AppSemesterTable from "@/components/SemesterTable.vue";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import { ElMessage, ElMessageBox } from "element-plus/es";
-import { USER_STORE } from "@/store/constants";
-import { useStore } from "@/use/useStore";
-import { Semester } from "@/store/classes/semester";
+import AppSemesterTable from '@/components/SemesterTable.vue'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+import { ElMessage, ElMessageBox } from 'element-plus/es'
+import { USER_STORE } from '@/store/constants'
+import { useStore } from '@/use/useStore'
+import { Semester } from '@/store/classes/semester'
 
 export default defineComponent({
-  name: "SemestersTabView",
+  name: 'SemestersTabView',
   components: { AppSemesterTable },
   setup() {
-    const store = useStore();
+    const store = useStore()
     const activeSemester = computed({
       get(): string {
-        return (
-          +store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER] + 1
-        ).toString();
+        return (+store.getters[USER_STORE.GETTERS.ACTIVE_SEMESTER] + 1).toString()
       },
       set(value: string) {
-        console.log(value);
-        store.commit(USER_STORE.MUTATIONS.setActiveSemester, +value - 1);
+        console.log(value)
+        store.commit(USER_STORE.MUTATIONS.setActiveSemester, +value - 1)
       },
-    });
+    })
     const removeSemester = () => {
-      ElMessageBox.confirm("למחוק סמסטר זה?", {
-        confirmButtonText: "כן",
-        cancelButtonText: "לא",
-        type: "warning",
-        icon: "none",
+      ElMessageBox.confirm('למחוק סמסטר זה?', {
+        confirmButtonText: 'כן',
+        cancelButtonText: 'לא',
+        type: 'warning',
+        icon: 'none',
       })
         .then(() => {
-          store.commit(USER_STORE.MUTATIONS.removeSemester);
-          store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
+          store.commit(USER_STORE.MUTATIONS.removeSemester)
+          store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
           ElMessage({
-            type: "success",
-            message: "סמסטר נמחק בהצלחה",
-          });
+            type: 'success',
+            message: 'סמסטר נמחק בהצלחה',
+          })
         })
         .catch(() => {
           ElMessage({
-            type: "info",
-            message: "המחיקה בוטלה",
-          });
-        });
-    };
+            type: 'info',
+            message: 'המחיקה בוטלה',
+          })
+        })
+    }
     const semesters = computed<Semester[]>(() => {
-      return store.getters[USER_STORE.GETTERS.SEMESTERS];
-    });
+      return store.getters[USER_STORE.GETTERS.SEMESTERS]
+    })
     const newTab = () => {
-      store.commit(USER_STORE.MUTATIONS.addSemester, 1);
-    };
+      store.commit(USER_STORE.MUTATIONS.addSemester, 1)
+    }
     const changeSemesterType = (semester_name) => {
-      if (semester_name.includes("קיץ")) {
-        changeToRegular();
+      if (semester_name.includes('קיץ')) {
+        changeToRegular()
       } else {
-        changeToSummer();
+        changeToSummer()
       }
-    };
+    }
     const changeToSummer = () => {
-      store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
+      store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
     const changeToRegular = () => {
-      store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType);
-      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
-    };
-    const handleSemesterEdit = (
-      targetName: string,
-      action: "remove" | "add"
-    ) => {
-      if (action === "add") {
-        store.commit(USER_STORE.MUTATIONS.addSemester, 1);
-      } else if (action === "remove") {
-        removeSemester();
+      store.commit(USER_STORE.MUTATIONS.changeActiveSemesterType)
+      store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync)
+    }
+    const handleSemesterEdit = (targetName: string, action: 'remove' | 'add') => {
+      if (action === 'add') {
+        store.commit(USER_STORE.MUTATIONS.addSemester, 1)
+      } else if (action === 'remove') {
+        removeSemester()
       }
-    };
+    }
     const changeActiveSemester = (element) => {
-      store.commit(USER_STORE.MUTATIONS.setActiveSemester, element.props.name);
-    };
+      store.commit(USER_STORE.MUTATIONS.setActiveSemester, element.props.name)
+    }
     return {
       changeActiveSemester,
       handleSemesterEdit,
@@ -205,34 +179,33 @@ export default defineComponent({
       removeSemester,
       newTab,
       changeSemesterType,
-    };
+    }
   },
   mounted() {
-    const store = useStore();
-    const authentication_status = localStorage.getItem("authenticated");
-    const user = firebase.auth().currentUser;
+    const store = useStore()
+    const authentication_status = localStorage.getItem('authenticated')
+    const user = firebase.auth().currentUser
     if (user == null) {
-      if (authentication_status === "false") {
-        const user_data = localStorage.getItem("saved_session_data");
+      if (authentication_status === 'false') {
+        const user_data = localStorage.getItem('saved_session_data')
         if (user_data == null) {
-          return;
+          return
         }
-        if (typeof user_data === "object") {
-          store.commit(USER_STORE.MUTATIONS.fetchUserInfo, user_data);
+        if (typeof user_data === 'object') {
+          store.commit(USER_STORE.MUTATIONS.fetchUserInfo, user_data)
         } else {
-          const session_data = localStorage.getItem("saved_session_data");
+          const session_data = localStorage.getItem('saved_session_data')
           if (session_data != null) {
-            store.commit(
-              USER_STORE.MUTATIONS.fetchUserInfo,
-              JSON.parse(session_data)
-            );
+            store.commit(USER_STORE.MUTATIONS.fetchUserInfo, JSON.parse(session_data))
           }
         }
       }
     }
   },
-});
+})
 </script>
+
+
 <style>
 div.el-tabs__header {
   display: flex;
@@ -263,10 +236,8 @@ div.el-tabs__header {
 
 .el-tabs--card > .el-tabs__header .el-tabs__item {
   border-bottom: 1px solid #e5e4ed !important;
-  transition: color var(--el-transition-duration)
-      var(--el-transition-function-ease-in-out-bezier),
-    padding var(--el-transition-duration)
-      var(--el-transition-function-ease-in-out-bezier);
+  transition: color var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier),
+    padding var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
 }
 
 span.el-tabs__new-tab {
@@ -355,3 +326,23 @@ div.el-tabs__item {
   font-family: Alef, Roboto, Helvetica, Arial, sans-serif !important;
 }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

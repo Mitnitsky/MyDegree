@@ -21,30 +21,28 @@
       @click="infoCardVisible = true"
     >
       © Created by:
-      <a href="#" style="color: dodgerblue" @click="infoCardVisible = true"
-        >Vladimir Mitnitsky</a
-      >
+      <a href="#" style="color: dodgerblue" @click="infoCardVisible = true">Vladimir Mitnitsky</a>
     </span>
     <my-info-card :set-visibility="setVisibility" :visible="infoCardVisible" />
   </div>
 </template>
 <script lang="ts">
-import MyInfoCard from "./MyInfoCard.vue";
-import { defineComponent, ref } from "vue";
+import MyInfoCard from './MyInfoCard.vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: "DpFooter",
+  name: 'DpFooter',
   components: { MyInfoCard },
 
   setup() {
-    const infoCardVisible = ref(false);
+    const infoCardVisible = ref(false)
     const setVisibility = (status: boolean) => {
-      infoCardVisible.value = status;
-    };
+      infoCardVisible.value = status
+    }
     return {
       infoCardVisible,
       setVisibility,
-    };
+    }
   },
-});
+})
 </script>

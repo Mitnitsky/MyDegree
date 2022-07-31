@@ -13,10 +13,7 @@
           <header-nav-bar />
         </el-header>
         <el-main>
-          <div
-            class="container-fluid"
-            style="justify-content: center !important"
-          >
+          <div class="container-fluid" style="justify-content: center !important">
             <!--            <el-row>-->
             <!--              <el-col span="6" offset="6">-->
             <!--                <autocomplete-->
@@ -44,18 +41,18 @@
   </el-config-provider>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import { ElConfigProvider } from "element-plus";
+import { defineComponent, reactive, ref } from 'vue'
+import { ElConfigProvider } from 'element-plus'
 
-import He from "element-plus/lib/locale/lang/he";
-import HeaderNavBar from "@/components/HeaderNavBar.vue";
-import { JsonCourse } from "@/store/classes/json_course_db";
-import DpFooter from "@/components/Footer.vue";
-import DegreeSummary from "@/components/DegreeSummary.vue";
-import SemestersTabView from "@/components/SemestersTabView.vue";
+import He from 'element-plus/lib/locale/lang/he'
+import HeaderNavBar from '@/components/HeaderNavBar.vue'
+import { JsonCourse } from '@/store/classes/json_course_db'
+import DpFooter from '@/components/Footer.vue'
+import DegreeSummary from '@/components/DegreeSummary.vue'
+import SemestersTabView from '@/components/SemestersTabView.vue'
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     ElConfigProvider,
     HeaderNavBar,
@@ -64,11 +61,11 @@ export default defineComponent({
     SemestersTabView,
   },
   setup() {
-    let json_courses;
+    let json_courses
     const c: JsonCourse = {
-      full_name: "",
-      name: "",
-      number: "",
+      full_name: '',
+      name: '',
+      number: '',
       points: 0,
       prerequisites: [],
       linked: [],
@@ -77,68 +74,62 @@ export default defineComponent({
       inclusive: [],
       including: [],
       followed_by: [],
-    };
-    const course = reactive(c);
-    const options = ref([]);
-    const textPart = ref("");
-    const courseSelected = ref(false);
-    const showInfo = ref(false);
-    if (localStorage.getItem("courses")) {
+    }
+    const course = reactive(c)
+    const options = ref([])
+    const textPart = ref('')
+    const courseSelected = ref(false)
+    const showInfo = ref(false)
+    if (localStorage.getItem('courses')) {
       json_courses =
-        typeof localStorage.getItem("courses") === "object"
-          ? localStorage.getItem("courses")
-          : JSON.parse(localStorage.getItem("courses") ?? "");
+        typeof localStorage.getItem('courses') === 'object'
+          ? localStorage.getItem('courses')
+          : JSON.parse(localStorage.getItem('courses') ?? '')
       if (!json_courses.version || json_courses.version < 7.0) {
-        json_courses = require("./data/courses.json");
-        localStorage.setItem("courses", JSON.stringify(json_courses));
+        json_courses = require('./data/courses.json')
+        localStorage.setItem('courses', JSON.stringify(json_courses))
       }
     } else {
-      json_courses = require("./data/courses.json");
-      localStorage.setItem("courses", JSON.stringify(json_courses));
+      json_courses = require('./data/courses.json')
+      localStorage.setItem('courses', JSON.stringify(json_courses))
     }
     const getItems = (text) => {
-      textPart.value = text;
+      textPart.value = text
       if (text.length < 2) {
-        options.value = [];
-        return;
+        options.value = []
+        return
       }
-      options.value = json_courses.courses.filter((course) =>
-        course.full_name.includes(text)
-      );
-    };
+      options.value = json_courses.courses.filter((course) => course.full_name.includes(text))
+    }
     const displayCourse = (course) => {
-      const start_of_highlight_index = course.full_name.indexOf(textPart.value);
-      const end_of_highlight_index =
-        start_of_highlight_index + textPart.value.length;
+      const start_of_highlight_index = course.full_name.indexOf(textPart.value)
+      const end_of_highlight_index = start_of_highlight_index + textPart.value.length
       return (
-        "<span>" +
+        '<span>' +
         course.full_name.substring(0, start_of_highlight_index) +
-        "</span>" +
-        "<mark>" +
-        course.full_name.substring(
-          start_of_highlight_index,
-          end_of_highlight_index
-        ) +
-        "</mark>" +
-        "<span>" +
+        '</span>' +
+        '<mark>' +
+        course.full_name.substring(start_of_highlight_index, end_of_highlight_index) +
+        '</mark>' +
+        '<span>' +
         course.full_name.substring(end_of_highlight_index) +
-        "</span>"
-      );
-    };
+        '</span>'
+      )
+    }
     const selectedCourse = (c: JsonCourse) => {
-      courseSelected.value = true;
-      course.full_name = c.full_name;
-      course.name = c.name;
-      course.number = c.number;
-      course.points = c.points;
-      course.prerequisites = c.prerequisites;
-      course.linked = c.linked;
-      course.identical = c.identical;
-      course.overlapping = c.overlapping;
-      course.inclusive = c.inclusive;
-      course.including = c.including;
-      course.followed_by = c.followed_by;
-    };
+      courseSelected.value = true
+      course.full_name = c.full_name
+      course.name = c.name
+      course.number = c.number
+      course.points = c.points
+      course.prerequisites = c.prerequisites
+      course.linked = c.linked
+      course.identical = c.identical
+      course.overlapping = c.overlapping
+      course.inclusive = c.inclusive
+      course.including = c.including
+      course.followed_by = c.followed_by
+    }
 
     return {
       showInfo,
@@ -150,24 +141,24 @@ export default defineComponent({
       getItems,
       options,
       locale: He,
-    };
+    }
   },
-});
+})
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unused-vars
-const rtlcss = require("rtlcss");
+const rtlcss = require('rtlcss')
 </script>
 
 <style>
-@import "./fonts/Alef/stylesheet.css";
+@import './fonts/Alef/stylesheet.css';
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none !important;
   margin: 0;
 }
 
 /*//Firefox fix of input fields */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield; /* Firefox arrows on numeric fields */
 }
 
@@ -177,7 +168,7 @@ input[type="number"] {
   select {
     -moz-appearance: none !important;
     background: transparent
-      url("data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==")
+      url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==')
       left center no-repeat !important;
     background-position: calc(5px) center !important;
   }

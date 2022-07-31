@@ -5,16 +5,16 @@ import {
   UserActions,
   UserGetters,
   UserMutations,
-} from "./enums";
+} from './enums'
 
 export const USER_STORE = {
   GETTERS: UserGetters,
   MUTATIONS: UserMutations,
   ACTIONS: UserActions,
-};
+}
 
 export const AUTH_STORE = {
   GETTERS: AuthGetters,
   MUTATIONS: AuthMutations,
   ACTIONS: AuthActions,
-};
+}

@@ -11,17 +11,12 @@
             color: #495057 !important;
           "
         >
-          <p style="color: #495057; margin-bottom: 0; font-weight: bold">
-            סיכום סמסטר
-          </p>
+          <p style="color: #495057; margin-bottom: 0; font-weight: bold">סיכום סמסטר</p>
         </b-card-header>
         <b-card-body>
           <b-row>
             <b-col align-self="center" sm="3" style="margin: 4px">
-              <label
-                :for="
-                  'semester' + $store.state.user.active_semester + 'average'
-                "
+              <label :for="'semester' + $store.state.user.active_semester + 'average'"
                 >ממוצע:
               </label>
             </b-col>
@@ -29,8 +24,7 @@
               <b-input
                 :id="'semester' + $store.state.user.active_semester + 'average'"
                 v-model.number="
-                  $store.state.user.semesters[$store.state.user.active_semester]
-                    .average
+                  $store.state.user.semesters[$store.state.user.active_semester].average
                 "
                 max="100"
                 min="0"
@@ -48,8 +42,7 @@
           </b-row>
           <b-row class="mt-2">
             <b-col align-self="center" sm="3" style="margin: 4px">
-              <label
-                :for="'semester' + $store.state.user.active_semester + 'points'"
+              <label :for="'semester' + $store.state.user.active_semester + 'points'"
                 >נקודות:
               </label>
             </b-col>
@@ -57,8 +50,7 @@
               <b-input
                 :id="'semester' + $store.state.user.active_semester + 'points'"
                 v-model.number="
-                  $store.state.user.semesters[$store.state.user.active_semester]
-                    .points
+                  $store.state.user.semesters[$store.state.user.active_semester].points
                 "
                 max="100"
                 min="0"
@@ -82,6 +74,6 @@
 
 <script>
 export default {
-  name: "SemesterSummary",
-};
+  name: 'SemesterSummary',
+}
 </script>

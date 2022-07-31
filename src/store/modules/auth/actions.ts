@@ -1,4 +1,4 @@
-import { ActionTree } from "vuex";
-import { AuthState, IRootState } from "@/store/interfaces";
+import { ActionTree } from 'vuex'
+import { AuthState, IRootState } from '@/store/interfaces'
 
-export const actions: ActionTree<AuthState, IRootState> = {};
+export const actions: ActionTree<AuthState, IRootState> = {}

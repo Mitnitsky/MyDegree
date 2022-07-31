@@ -1,5 +1,5 @@
-import { UserState } from "@/store/interfaces";
-import { default_course_types_obj } from "@/store/classes/course_types";
+import { UserState } from '@/store/interfaces'
+import { default_course_types_obj } from '@/store/classes/course_types'
 
 export const state: UserState = {
   summer_semesters: 0,
@@ -12,4 +12,4 @@ export const state: UserState = {
   english_exemption: false,
   semesters: [],
   course_types: default_course_types_obj,
-};
+}

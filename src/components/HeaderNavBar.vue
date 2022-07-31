@@ -14,12 +14,7 @@
         </el-icon>
         <span style="margin-right: 4px">כניסה</span></el-menu-item
       >
-      <el-dialog
-        v-model="loggedInDialogVisible"
-        :modal="false"
-        center
-        title="כניסה"
-      >
+      <el-dialog v-model="loggedInDialogVisible" :modal="false" center title="כניסה">
         <header-authentication :close-auth-modal="close_auth_modal" />
       </el-dialog>
     </template>
@@ -29,9 +24,7 @@
           <el-icon>
             <avatar />
           </el-icon>
-          <span style="margin-right: 4px; margin-left: 4px"
-            >שלום {{ username }}</span
-          >
+          <span style="margin-right: 4px; margin-left: 4px">שלום {{ username }}</span>
         </template>
         <el-menu-item index="1-1">
           <el-icon>
@@ -52,9 +45,7 @@
         <el-icon>
           <download />
         </el-icon>
-        <span style="margin-right: 4px"
-          >יבוא קורסים מ-Students</span
-        ></el-menu-item
+        <span style="margin-right: 4px">יבוא קורסים מ-Students</span></el-menu-item
       >
       <el-menu-item index="2-2" @click="gradesDialogVisible = true">
         <el-icon>
@@ -67,9 +58,7 @@
         <el-icon>
           <download />
         </el-icon>
-        <span style="margin-right: 4px"
-          >יבוא סמסטר מ-CheeseFork</span
-        ></el-menu-item
+        <span style="margin-right: 4px">יבוא סמסטר מ-CheeseFork</span></el-menu-item
       >
 
       <el-menu-item index="2-4" @click="jsonImportDialogVisible = true">
@@ -90,17 +79,13 @@
         <el-icon>
           <download />
         </el-icon>
-        <span style="margin-right: 4px"
-          >יצוא קורסים לקובץ-JSON (ללא ציונים)</span
-        >
+        <span style="margin-right: 4px">יצוא קורסים לקובץ-JSON (ללא ציונים)</span>
       </el-menu-item>
       <el-menu-item index="3-2" @click="exportAsJson(true)">
         <el-icon>
           <download />
         </el-icon>
-        <span style="margin-right: 4px"
-          >יצוא קורסים לקובץ-JSON (עם ציונים)</span
-        >
+        <span style="margin-right: 4px">יצוא קורסים לקובץ-JSON (עם ציונים)</span>
       </el-menu-item>
     </el-sub-menu>
     <el-menu-item index="4" @click="categoriesDialogVisible = true">
@@ -121,23 +106,11 @@
       "
     >
       <span style="font-size: 20px">My Degree</span>
-      <img
-        alt=""
-        src="../assets/main_icon_white.svg"
-        style="height: 36px; margin-right: 5px"
-      />
+      <img alt="" src="../assets/main_icon_white.svg" style="height: 36px; margin-right: 5px" />
     </el-menu-item>
-    <el-dialog
-      v-model="gradesDialogVisible"
-      :modal="false"
-      center
-      title="Tips"
-      width="30%"
-    >
+    <el-dialog v-model="gradesDialogVisible" :modal="false" center title="Tips" width="30%">
       <template #header>
-        <span class="dialog-title" style="font-weight: bold">
-          יבוא קורסים וציונים מ-UG
-        </span>
+        <span class="dialog-title" style="font-weight: bold"> יבוא קורסים וציונים מ-UG </span>
       </template>
       <el-row justify="center">
         <el-popover :width="350" placement="top" title="הוראות" trigger="click">
@@ -148,9 +121,7 @@
             <p class="popover-body-text">
               יש לסמן את כל התוכן באמצעות CTRL+A
               <br />
-              <a
-                href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1"
-                target="_blank"
+              <a href="https://techmvs.technion.ac.il/cics/wmn/wmngrad?ORD=1" target="_blank"
                 >באתר ציונים</a
               >
               ולהעתיק אותו לתיבת הטקסט בחלון זה
@@ -171,22 +142,13 @@
         />
       </el-row>
       <el-row justify="center">
-        <el-button type="primary" @click="importCourseFromUG"
-          >יבוא קורסים
-        </el-button>
+        <el-button type="primary" @click="importCourseFromUG">יבוא קורסים </el-button>
       </el-row>
     </el-dialog>
 
-    <el-dialog
-      v-model="studentsDialogVisible"
-      :modal="false"
-      center
-      width="30%"
-    >
+    <el-dialog v-model="studentsDialogVisible" :modal="false" center width="30%">
       <template #header>
-        <span class="dialog-title" style="font-weight: bold">
-          יבוא קורסים מ-Students
-        </span>
+        <span class="dialog-title" style="font-weight: bold"> יבוא קורסים מ-Students </span>
       </template>
       <el-row justify="center">
         <el-popover :width="350" placement="top" title="הוראות" trigger="click">
@@ -197,9 +159,7 @@
             <p class="popover-body-text">
               יש לסמן את כל התוכן באמצעות CTRL+A
               <br />
-              <a
-                href="https://students.technion.ac.il/local/tcurricular/grades"
-                target="_blank"
+              <a href="https://students.technion.ac.il/local/tcurricular/grades" target="_blank"
                 >באתר ציונים</a
               >
               ולהעתיק אותו לתיבת הטקסט בחלון זה
@@ -220,30 +180,16 @@
         />
       </el-row>
       <el-row justify="center">
-        <el-button type="primary" @click="importCourseFromStudents"
-          >יבוא קורסים
-        </el-button>
+        <el-button type="primary" @click="importCourseFromStudents">יבוא קורסים </el-button>
       </el-row>
     </el-dialog>
 
-    <el-dialog
-      v-model="cheeseforkDialogVisible"
-      :modal="false"
-      center
-      width="30%"
-    >
+    <el-dialog v-model="cheeseforkDialogVisible" :modal="false" center width="30%">
       <template #header>
-        <span class="dialog-title" style="font-weight: bold">
-          יבוא סמסטר מ-CheeseFork
-        </span>
+        <span class="dialog-title" style="font-weight: bold"> יבוא סמסטר מ-CheeseFork </span>
       </template>
       <el-row justify="center">
-        <el-popover
-          :width="350"
-          placement="left"
-          title="הוראות"
-          trigger="click"
-        >
+        <el-popover :width="350" placement="left" title="הוראות" trigger="click">
           <template #reference>
             <el-button plain type="info">הוראות </el-button>
           </template>
@@ -270,22 +216,13 @@
         />
       </el-row>
       <el-row justify="center">
-        <el-button type="primary" @click="importCoursesFromCF"
-          >יבוא קורסים
-        </el-button>
+        <el-button type="primary" @click="importCoursesFromCF">יבוא קורסים </el-button>
       </el-row>
     </el-dialog>
 
-    <el-dialog
-      v-model="jsonImportDialogVisible"
-      :modal="false"
-      center
-      width="30%"
-    >
+    <el-dialog v-model="jsonImportDialogVisible" :modal="false" center width="30%">
       <template #header>
-        <span class="dialog-title" style="font-weight: bold">
-          יבוא נתונים מקובץ JSON
-        </span>
+        <span class="dialog-title" style="font-weight: bold"> יבוא נתונים מקובץ JSON </span>
       </template>
       <el-row justify="center">
         <el-input
@@ -298,22 +235,13 @@
         />
       </el-row>
       <el-row justify="center">
-        <el-button type="primary" @click="importCoursesFromJSON"
-          >יבוא קורסים
-        </el-button>
+        <el-button type="primary" @click="importCoursesFromJSON">יבוא קורסים </el-button>
       </el-row>
     </el-dialog>
 
-    <el-dialog
-      v-model="categoriesDialogVisible"
-      :modal="false"
-      center
-      width="40%"
-    >
+    <el-dialog v-model="categoriesDialogVisible" :modal="false" center width="40%">
       <template #header>
-        <span class="dialog-title" style="font-weight: bold">
-          שינוי קטגוריות קורסים
-        </span>
+        <span class="dialog-title" style="font-weight: bold"> שינוי קטגוריות קורסים </span>
       </template>
       <el-row justify="center">
         <el-table :data="course_types">
@@ -364,31 +292,25 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, WritableComputedRef } from "vue";
-import HeaderAuthentication from "@/components/HeaderAuthentication.vue";
+import { computed, defineComponent, ref, WritableComputedRef } from 'vue'
+import HeaderAuthentication from '@/components/HeaderAuthentication.vue'
 import {
   parseCheeseFork,
   parseGraduateInformation,
   parseStudentsSiteGrades,
-} from "@/store/extensions/converter";
+} from '@/store/extensions/converter'
 
-import { auth, db } from "@/main";
-import { useStore } from "@/use/useStore";
-import { AUTH_STORE, USER_STORE } from "@/store/constants";
-import ElDialog from "element-plus/es/components/dialog";
-import { ElMessage, ElMessageBox } from "element-plus";
-import {
-  Avatar,
-  Collection,
-  Download,
-  Right,
-  Upload,
-} from "@element-plus/icons-vue";
-import { stateConverter } from "@/firestore/firestoreconverter";
-import { CourseType } from "@/store/classes/course_types";
+import { auth, db } from '@/main'
+import { useStore } from '@/use/useStore'
+import { AUTH_STORE, USER_STORE } from '@/store/constants'
+import ElDialog from 'element-plus/es/components/dialog'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Avatar, Collection, Download, Right, Upload } from '@element-plus/icons-vue'
+import { stateConverter } from '@/firestore/firestoreconverter'
+import { CourseType } from '@/store/classes/course_types'
 
 export default defineComponent({
-  name: "HeaderNavBar",
+  name: 'HeaderNavBar',
   components: {
     Upload,
     Collection,
@@ -399,218 +321,206 @@ export default defineComponent({
   },
   setup() {
     enum HeaderModal {
-      UG = "UG",
-      STUDENTS = "STUDENTS",
-      CHEESEFORK = "CHEESEFORK",
-      CATEGORY_CHANGE = "CATEGORY_CHANGE",
-      JSON_IMPORT_GRADES = "JSON_IMPORT_GRADES",
+      UG = 'UG',
+      STUDENTS = 'STUDENTS',
+      CHEESEFORK = 'CHEESEFORK',
+      CATEGORY_CHANGE = 'CATEGORY_CHANGE',
+      JSON_IMPORT_GRADES = 'JSON_IMPORT_GRADES',
     }
 
-    const message = ref("");
-    const input_data = ref("");
-    const json_text = ref("");
-    const wrongInput = ref(false);
-    const loggedInDialogVisible = ref(false);
-    const gradesDialogVisible = ref(false);
-    const studentsDialogVisible = ref(false);
-    const cheeseforkDialogVisible = ref(false);
-    const categoriesDialogVisible = ref(false);
-    const jsonImportDialogVisible = ref(false);
-    const store = useStore();
+    const message = ref('')
+    const input_data = ref('')
+    const json_text = ref('')
+    const wrongInput = ref(false)
+    const loggedInDialogVisible = ref(false)
+    const gradesDialogVisible = ref(false)
+    const studentsDialogVisible = ref(false)
+    const cheeseforkDialogVisible = ref(false)
+    const categoriesDialogVisible = ref(false)
+    const jsonImportDialogVisible = ref(false)
+    const store = useStore()
     const close_auth_modal = () => {
-      loggedInDialogVisible.value = false;
-    };
+      loggedInDialogVisible.value = false
+    }
     const username: WritableComputedRef<string> = computed({
       get(): string {
-        return store.getters[AUTH_STORE.GETTERS.USERNAME];
+        return store.getters[AUTH_STORE.GETTERS.USERNAME]
       },
       set(username: string): void {
-        store.commit(AUTH_STORE.MUTATIONS.setUserName, username);
+        store.commit(AUTH_STORE.MUTATIONS.setUserName, username)
       },
-    });
+    })
     const course_types = computed<CourseType[]>(() => {
-      return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
-    });
+      return store.getters[USER_STORE.GETTERS.COURSE_TYPES]
+    })
     const logged: WritableComputedRef<boolean> = computed({
       get(): boolean {
-        return store.getters[AUTH_STORE.GETTERS.LOGGED];
+        return store.getters[AUTH_STORE.GETTERS.LOGGED]
       },
       set(logged: boolean): void {
-        store.commit(AUTH_STORE.MUTATIONS.setLoggedStatus, logged);
+        store.commit(AUTH_STORE.MUTATIONS.setLoggedStatus, logged)
       },
-    });
+    })
     const handleClose = (done: () => void) => {
-      ElMessageBox.confirm("Are you sure to close this dialog?")
+      ElMessageBox.confirm('Are you sure to close this dialog?')
         .then(() => {
-          done();
+          done()
         })
         .catch(() => {
           // catch error
-        });
-    };
+        })
+    }
     const changeCategoryName = (index, event) => {
-      store.commit(USER_STORE.MUTATIONS.changeCategoryName, [
-        event.target.value,
-        index,
-      ]);
-    };
+      store.commit(USER_STORE.MUTATIONS.changeCategoryName, {
+        name: event.target.value,
+        index: index,
+      })
+    }
     const deleteCategory = (index) => {
-      ElMessageBox.confirm("למחוק קטגוריה?", {
-        confirmButtonText: "כן",
-        cancelButtonText: "לא",
-        icon: "none",
-        type: "warning",
+      ElMessageBox.confirm('למחוק קטגוריה?', {
+        confirmButtonText: 'כן',
+        cancelButtonText: 'לא',
+        icon: 'none',
+        type: 'warning',
       })
         .then(() => {
-          store.commit(USER_STORE.MUTATIONS.deleteCourseType, index);
+          store.commit(USER_STORE.MUTATIONS.deleteCourseType, index)
         })
         .catch(() => {
           // catch error
-        });
-    };
+        })
+    }
     const hideInvalidInput = () => {
-      wrongInput.value = false;
-    };
+      wrongInput.value = false
+    }
     const signOut = () => {
-      auth.signOut();
-      localStorage.setItem("authenticated", "false");
-      window.localStorage.removeItem("saved_session_data");
-      logged.value = false;
-      store.commit(USER_STORE.MUTATIONS.clearUserData);
-    };
+      auth.signOut()
+      localStorage.setItem('authenticated', 'false')
+      window.localStorage.removeItem('saved_session_data')
+      logged.value = false
+      store.commit(USER_STORE.MUTATIONS.clearUserData)
+    }
     const exportAsJson = (with_grades) => {
-      store.commit(USER_STORE.MUTATIONS.exportSemesters, with_grades);
-    };
+      store.commit(USER_STORE.MUTATIONS.exportSemesters, with_grades)
+    }
     const addCategory = () => {
-      ElMessageBox.prompt("הכנס שם קטגוריה:", "הוספת קטגוריה", {
-        confirmButtonText: "הוסף",
-        icon: "none",
+      ElMessageBox.prompt('הכנס שם קטגוריה:', 'הוספת קטגוריה', {
+        confirmButtonText: 'הוסף',
+        icon: 'none',
       }).then(({ value }) => {
-        const types = store.getters[USER_STORE.GETTERS.COURSE_TYPES];
+        const types = store.getters[USER_STORE.GETTERS.COURSE_TYPES]
         for (let i = 0; i < types.length; i++) {
           if (types[i].name === value) {
-            wrongInput.value = true;
+            wrongInput.value = true
             ElMessage({
-              type: "info",
+              type: 'info',
               message: `קטוגריה עם שם כזה קיימת כבר!`,
-            });
-            return;
+            })
+            return
           }
         }
-        store.commit(USER_STORE.MUTATIONS.addCourseType, value);
-        hideModal(HeaderModal.CATEGORY_CHANGE);
+        store.commit(USER_STORE.MUTATIONS.addCourseType, value)
+        hideModal(HeaderModal.CATEGORY_CHANGE)
         ElMessage({
-          type: "success",
+          type: 'success',
           message: `קטוגריה הוספה בהצלחה!`,
-        });
-      });
-    };
+        })
+      })
+    }
     const importCourseFromUG = () => {
-      return importCoursesFromSite("UG");
-    };
+      return importCoursesFromSite('UG')
+    }
     const importCourseFromStudents = () => {
-      return importCoursesFromSite("Students");
-    };
+      return importCoursesFromSite('Students')
+    }
     const importCoursesFromSite = (site) => {
-      if (message.value !== "") {
-        ElMessageBox.confirm(
-          "יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?",
-          "אזהרה",
-          {
-            confirmButtonText: "כן",
-            cancelButtonText: "לא",
-            type: "warning",
-            icon: "none",
-          }
-        )
+      if (message.value !== '') {
+        ElMessageBox.confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?', 'אזהרה', {
+          confirmButtonText: 'כן',
+          cancelButtonText: 'לא',
+          type: 'warning',
+          icon: 'none',
+        })
           .then(() => {
-            let semesters_exemption_summerIndexes;
-            if (site === "UG") {
-              semesters_exemption_summerIndexes = parseGraduateInformation(
-                message.value
-              );
-            } else if (site === "Students") {
-              semesters_exemption_summerIndexes = parseStudentsSiteGrades(
-                message.value
-              );
+            let semesters_exemption_summerIndexes
+            if (site === 'UG') {
+              semesters_exemption_summerIndexes = parseGraduateInformation(message.value)
+            } else if (site === 'Students') {
+              semesters_exemption_summerIndexes = parseStudentsSiteGrades(message.value)
             }
             store.dispatch(USER_STORE.ACTIONS.loadUserDataFromSite, {
               semesters: semesters_exemption_summerIndexes.semesters,
               exemption: semesters_exemption_summerIndexes.english_exemption,
-              summer_semesters_indexes:
-                semesters_exemption_summerIndexes.summer_semesters_indexes,
-            });
-            message.value = "";
-            if (site === "UG") {
-              hideModal(HeaderModal.UG);
-            } else if (site === "Students") {
-              hideModal(HeaderModal.STUDENTS);
+              summer_semesters_indexes: semesters_exemption_summerIndexes.summer_semesters_indexes,
+            })
+            message.value = ''
+            if (site === 'UG') {
+              hideModal(HeaderModal.UG)
+            } else if (site === 'Students') {
+              hideModal(HeaderModal.STUDENTS)
             }
             ElMessage({
-              type: "success",
-              message: "יבוא הושלם",
-            });
+              type: 'success',
+              message: 'יבוא הושלם',
+            })
           })
           .catch(() => {
             ElMessage({
-              type: "info",
-              message: "יבוא נכשל",
-            });
-          });
+              type: 'info',
+              message: 'יבוא נכשל',
+            })
+          })
       }
-    };
+    }
     const importCoursesFromCF = () => {
-      if (input_data.value !== "") {
-        const courses_list = parseCheeseFork(input_data.value);
-        store.dispatch(USER_STORE.ACTIONS.addNewSemesterFromData, courses_list);
-        input_data.value = "";
-        hideModal(HeaderModal.CHEESEFORK);
+      if (input_data.value !== '') {
+        const courses_list = parseCheeseFork(input_data.value)
+        store.dispatch(USER_STORE.ACTIONS.addNewSemesterFromData, courses_list)
+        input_data.value = ''
+        hideModal(HeaderModal.CHEESEFORK)
       }
-    };
+    }
     const importCoursesFromJSON = () => {
-      if (json_text.value !== "") {
-        ElMessageBox.confirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?", {
-          confirmButtonText: "כן",
-          cancelButtonText: "לא",
-          type: "warning",
-          icon: "none",
+      if (json_text.value !== '') {
+        ElMessageBox.confirm('יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?', {
+          confirmButtonText: 'כן',
+          cancelButtonText: 'לא',
+          type: 'warning',
+          icon: 'none',
         })
           .then(() => {
-            store.commit(
-              USER_STORE.MUTATIONS.importCoursesFromJson,
-              json_text.value
-            );
-            store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-            json_text.value = "";
-            hideModal(HeaderModal.JSON_IMPORT_GRADES);
+            store.commit(USER_STORE.MUTATIONS.importCoursesFromJson, json_text.value)
+            store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+            json_text.value = ''
+            hideModal(HeaderModal.JSON_IMPORT_GRADES)
             ElMessage({
-              type: "success",
-              message: "יבוא הושלם",
-            });
+              type: 'success',
+              message: 'יבוא הושלם',
+            })
           })
           .catch(() => {
             ElMessage({
-              type: "info",
-              message: "יבוא נכשל",
-            });
-          });
+              type: 'info',
+              message: 'יבוא נכשל',
+            })
+          })
       }
-    };
+    }
     const hideModal = (modal: HeaderModal) => {
       if (modal == HeaderModal.UG) {
-        gradesDialogVisible.value = false;
+        gradesDialogVisible.value = false
       } else if (modal == HeaderModal.CATEGORY_CHANGE) {
-        gradesDialogVisible.value = false;
+        gradesDialogVisible.value = false
       } else if (modal == HeaderModal.CHEESEFORK) {
-        cheeseforkDialogVisible.value = false;
+        cheeseforkDialogVisible.value = false
       } else if (modal == HeaderModal.JSON_IMPORT_GRADES) {
-        jsonImportDialogVisible.value = false;
+        jsonImportDialogVisible.value = false
       } else if (modal == HeaderModal.STUDENTS) {
-        studentsDialogVisible.value = false;
+        studentsDialogVisible.value = false
       } else {
-        console.log("Wrong header modal passed!");
+        console.log('Wrong header modal passed!')
       }
-    };
+    }
     return {
       course_types,
       message,
@@ -637,55 +547,56 @@ export default defineComponent({
       importCourseFromStudents,
       importCoursesFromCF,
       importCoursesFromJSON,
-    };
+    }
   },
   mounted() {
-    const store = useStore();
+    const store = useStore()
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.loggedInDialogVisible = false;
-        localStorage.setItem("authenticated", "true");
-        this.logged = true;
-        this.username = user.displayName ? user.displayName : "";
-        if (this.$refs["auth-modal"]) {
-          (this.$refs["auth-modal"] as typeof ElDialog).close();
+        this.loggedInDialogVisible = false
+        localStorage.setItem('authenticated', 'true')
+        this.logged = true
+        this.username = user.displayName ? user.displayName : ''
+        if (this.$refs['auth-modal']) {
+          const a = this.$refs['auth-modal'] as typeof ElDialog
+          a.close()
         }
-        const uid = user.uid;
-        db.collection("users")
+        const uid = user.uid
+        db.collection('users')
           .withConverter(stateConverter)
           .doc(uid)
           .get()
           .then((doc) => {
             if (doc.exists) {
-              store.commit(USER_STORE.MUTATIONS.fetchUserInfo, doc.data());
-              store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
+              store.commit(USER_STORE.MUTATIONS.fetchUserInfo, doc.data())
+              store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
             } else {
-              db.collection("users")
+              db.collection('users')
                 .withConverter(stateConverter)
                 .doc(uid)
                 .set(store.state.user.state)
                 .then((result) => {
-                  result;
+                  result
                 })
                 .catch((error) => {
                   // eslint-disable-next-line no-console
-                  console.log("ErrorHeader - " + error.message);
-                });
+                  console.log('ErrorHeader - ' + error.message)
+                })
             }
-            window.localStorage.removeItem("saved_session_data");
+            window.localStorage.removeItem('saved_session_data')
           })
           .catch((error) => {
             // eslint-disable-next-line no-console
-            console.log("ErrorHeader2 - " + error.message);
-          });
+            console.log('ErrorHeader2 - ' + error.message)
+          })
       }
-    });
+    })
   },
-});
+})
 </script>
 
 <style>
-@import "../fonts/Alef/stylesheet.css";
+@import '../fonts/Alef/stylesheet.css';
 
 .el-sub-menu__title {
   font-size: 16px !important;
@@ -741,8 +652,7 @@ div.el-dialog__header {
 
 div.el-popper.el-popover {
   padding: 0;
-  border: 1px solid;
-  border-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
   border-radius: 5px;
 }
 

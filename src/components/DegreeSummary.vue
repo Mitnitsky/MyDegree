@@ -1,19 +1,13 @@
 <template>
   <el-row justify="center" style="min-width: 500px">
     <el-collapse style="margin: 5px" @change="collapsed = !collapsed">
-      <el-collapse-item
-        :title="collapsed ? 'הראה סיכום תואר' : 'הסתר סיכום תואר'"
-      >
+      <el-collapse-item :title="collapsed ? 'הראה סיכום תואר' : 'הסתר סיכום תואר'">
         <el-row>
           <el-col :span="1" />
           <el-col :span="10">
             <el-card
               :body-style="{ padding: '20px !important' }"
-              style="
-                height: 100%;
-                max-width: 590px !important;
-                min-width: 340px !important;
-              "
+              style="height: 100%; max-width: 590px !important; min-width: 340px !important"
             >
               <template #header>
                 <span style="font-weight: 700 !important">סיכום תואר</span>
@@ -27,10 +21,7 @@
                     placement="top-start"
                     type="text"
                   >
-                    <el-input
-                      class="first-disabled-element"
-                      model-value="נקודות תואר"
-                    />
+                    <el-input class="first-disabled-element" model-value="נקודות תואר" />
                   </el-tooltip>
                 </el-col>
                 <el-col :span="16">
@@ -53,10 +44,7 @@
               </el-row>
               <el-row class="input-group mb-2">
                 <el-col :span="8">
-                  <el-input
-                    class="first-disabled-element"
-                    model-value="ממוצע תואר"
-                  />
+                  <el-input class="first-disabled-element" model-value="ממוצע תואר" />
                 </el-col>
                 <el-col :span="16">
                   <el-input
@@ -80,10 +68,7 @@
                     placement="top-start"
                     type="text"
                   >
-                    <el-input
-                      class="first-disabled-element"
-                      model-value="נקודות בוצעו"
-                    />
+                    <el-input class="first-disabled-element" model-value="נקודות בוצעו" />
                   </el-tooltip>
                 </el-col>
                 <el-col :span="16">
@@ -108,10 +93,7 @@
                     placement="top-start"
                     type="text"
                   >
-                    <el-input
-                      class="first-disabled-element"
-                      model-value="נקודות נותרו"
-                    />
+                    <el-input class="first-disabled-element" model-value="נקודות נותרו" />
                   </el-tooltip>
                 </el-col>
                 <el-col :span="16">
@@ -136,10 +118,7 @@
                     placement="top-start"
                     type="text"
                   >
-                    <el-input
-                      class="first-disabled-element"
-                      model-value="נותרו לשבץ"
-                    />
+                    <el-input class="first-disabled-element" model-value="נותרו לשבץ" />
                   </el-tooltip>
                 </el-col>
                 <el-col :span="16">
@@ -161,16 +140,10 @@
           <el-col :span="10">
             <el-card
               :body-style="{ padding: '20px !important' }"
-              style="
-                height: 100%;
-                max-width: 590px !important;
-                min-width: 340px !important;
-              "
+              style="height: 100%; max-width: 590px !important; min-width: 340px !important"
             >
               <template #header>
-                <span style="font-weight: 700 !important"
-                  >ניתוח סוגי קורסים</span
-                >
+                <span style="font-weight: 700 !important">ניתוח סוגי קורסים</span>
               </template>
               <el-row class="input-group">
                 <el-col :span="8" />
@@ -192,10 +165,7 @@
 
               <template v-for="(type, index) in sortCourseTypes(course_types)">
                 <el-row
-                  v-if="
-                    type.name !== 'פטור' ||
-                    (type.name === 'פטור' && type.total_points > 0)
-                  "
+                  v-if="type.name !== 'פטור' || (type.name === 'פטור' && type.total_points > 0)"
                   :key="index"
                   class="input-group"
                 >
@@ -205,7 +175,7 @@
                         >סה"כ נקודות משובצות: {{ type.total_points }}<br />
                         נקודות עם ציון: {{ type.points_done }}
                         <br v-if="type.average > 0" />
-                        {{ type.average > 0 ? "ממוצע " + type.average : "" }}
+                        {{ type.average > 0 ? 'ממוצע ' + type.average : '' }}
                       </template>
                       <el-input
                         :model-value="type.name"
@@ -224,9 +194,7 @@
                   </el-col>
                   <el-col :span="type.name !== 'פטור' ? 8 : 16">
                     <template v-if="type.name !== 'פטור'">
-                      <el-tooltip
-                        content="יש למלא שדה זה בהתאם למסלול הלימודים"
-                      >
+                      <el-tooltip content="יש למלא שדה זה בהתאם למסלול הלימודים">
                         <el-input
                           :model-value="type.points_required"
                           class="last-input-element"
@@ -250,11 +218,7 @@
 
               <el-row class="input-group">
                 <el-tooltip content="נקודות יורדות מהחובה אוטומטית">
-                  <el-checkbox
-                    id="checkbox-1"
-                    v-model.number="english_exemption"
-                    name="checkbox-1"
-                  >
+                  <el-checkbox id="checkbox-1" v-model.number="english_exemption" name="checkbox-1">
                     פטור מאנגלית
                   </el-checkbox>
                 </el-tooltip>
@@ -268,88 +232,88 @@
   </el-row>
 </template>
 <script lang="ts">
-import { useStore } from "@/use/useStore";
-import { USER_STORE } from "@/store/constants";
-import { computed, defineComponent, ref } from "vue";
-import { CourseType } from "@/store/classes/course_types";
+import { useStore } from '@/use/useStore'
+import { USER_STORE } from '@/store/constants'
+import { computed, defineComponent, ref } from 'vue'
+import { CourseType } from '@/store/classes/course_types'
 
 export default defineComponent({
-  name: "DegreeSummary",
+  name: 'DegreeSummary',
 
   setup() {
-    const store = useStore();
-    const collapsed = ref(true);
-    const buttonText = ref("Show summary");
-    const inputIsWrong = ref("inputIsWrong");
+    const store = useStore()
+    const collapsed = ref(true)
+    const buttonText = ref('Show summary')
+    const inputIsWrong = ref('inputIsWrong')
     const degree_average = computed<number>({
       get(): number {
-        return store.getters[USER_STORE.GETTERS.DEGREE_AVERAGE];
+        return store.getters[USER_STORE.GETTERS.DEGREE_AVERAGE]
       },
       set(average: number): void {
-        store.commit(USER_STORE.MUTATIONS.setDegreeAverage, average);
+        store.commit(USER_STORE.MUTATIONS.setDegreeAverage, average)
       },
-    });
+    })
     const degree_points = computed<number>({
       get(): number {
-        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS];
+        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS]
       },
       set(average: number): void {
-        store.commit(USER_STORE.MUTATIONS.setDegreePoints, average);
+        store.commit(USER_STORE.MUTATIONS.setDegreePoints, average)
       },
-    });
+    })
     const degree_points_done = computed<number>({
       get(): number {
-        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_DONE];
+        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_DONE]
       },
       set(average: number): void {
-        store.commit(USER_STORE.MUTATIONS.setDegreePointsDone, average);
+        store.commit(USER_STORE.MUTATIONS.setDegreePointsDone, average)
       },
-    });
+    })
     const degree_points_left = computed<number>({
       get(): number {
-        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_LEFT];
+        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_LEFT]
       },
       set(average: number): void {
-        store.commit(USER_STORE.MUTATIONS.setDegreePointsLeft, average);
+        store.commit(USER_STORE.MUTATIONS.setDegreePointsLeft, average)
       },
-    });
+    })
     const degree_points_to_choose = computed<number>({
       get(): number {
-        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_TO_CHOOSE];
+        return store.getters[USER_STORE.GETTERS.DEGREE_POINTS_TO_CHOOSE]
       },
       set(average: number): void {
-        store.commit(USER_STORE.MUTATIONS.setDegreePointsToChoose, average);
+        store.commit(USER_STORE.MUTATIONS.setDegreePointsToChoose, average)
       },
-    });
+    })
     const english_exemption = computed<boolean>({
       get(): boolean {
-        return store.getters[USER_STORE.GETTERS.ENGLISH_EXEMPTION];
+        return store.getters[USER_STORE.GETTERS.ENGLISH_EXEMPTION]
       },
       set(status: boolean): void {
-        store.commit(USER_STORE.MUTATIONS.setExemptionStatus, status);
+        store.commit(USER_STORE.MUTATIONS.setExemptionStatus, status)
       },
-    });
+    })
     const course_types = computed<CourseType[]>(() => {
-      return store.getters[USER_STORE.GETTERS.COURSE_TYPES];
-    });
+      return store.getters[USER_STORE.GETTERS.COURSE_TYPES]
+    })
     const updateInfo = () => {
-      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
-    };
+      store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester)
+    }
     const sortCourseTypes = (course_types) => {
-      const sorted_course_types: CourseType[] = [];
-      let exemption_course_type: CourseType | null = null;
+      const sorted_course_types: CourseType[] = []
+      let exemption_course_type: CourseType | null = null
       for (const type of course_types) {
-        if (type.name.includes("פטור")) {
-          exemption_course_type = type;
+        if (type.name.includes('פטור')) {
+          exemption_course_type = type
         } else {
-          sorted_course_types.push(type);
+          sorted_course_types.push(type)
         }
       }
       if (exemption_course_type) {
-        sorted_course_types.push(exemption_course_type);
+        sorted_course_types.push(exemption_course_type)
       }
-      return sorted_course_types;
-    };
+      return sorted_course_types
+    }
     return {
       degree_average,
       degree_points_done,
@@ -363,9 +327,9 @@ export default defineComponent({
       inputIsWrong,
       updateInfo,
       sortCourseTypes,
-    };
+    }
   },
-});
+})
 </script>
 
 <style>
@@ -424,8 +388,8 @@ div.disabled-inputs > input.el-input__inner {
 }
 </style>
 <style scoped>
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -475,89 +439,73 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /*Thanks to Vucko at https://stackoverflow.com/questions/42677620/bootstrap-4-input-group-rtl-issue*/
-[dir="rtl"] .input-group-addon:not(:last-child) {
+[dir='rtl'] .input-group-addon:not(:last-child) {
   border-right: 1px solid rgba(0, 0, 0, 0.15);
   border-left: 0;
 }
 
-[dir="rtl"] .input-group-text:not(:last-child) {
+[dir='rtl'] .input-group-text:not(:last-child) {
   border-right: 1px solid rgba(0, 0, 0, 0.15);
   border-left: 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:last-child),
-[dir="rtl"] .input-group-text:not(:last-child),
-[dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn-group:not(:last-child)
-  > .btn,
-[dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn:not(:last-child):not(.dropdown-toggle),
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+[dir='rtl'] .input-group .form-control:not(:last-child),
+[dir='rtl'] .input-group-text:not(:last-child),
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn-group:not(:last-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn:not(:last-child):not(.dropdown-toggle),
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn-group > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .dropdown-toggle {
   border-radius: 0 0.25rem 0.25rem 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:last-child),
-[dir="rtl"] .input-group-addon:not(:last-child),
-[dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn-group:not(:last-child)
-  > .btn,
-[dir="rtl"]
-  .input-group-btn:not(:first-child)
-  > .btn:not(:last-child):not(.dropdown-toggle),
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .dropdown-toggle {
+[dir='rtl'] .input-group .form-control:not(:last-child),
+[dir='rtl'] .input-group-addon:not(:last-child),
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn-group:not(:last-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn:not(:last-child):not(.dropdown-toggle),
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn-group > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .dropdown-toggle {
   border-radius: 0 0.25rem 0.25rem 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child),
-[dir="rtl"] .input-group-addon:not(:first-child),
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
-[dir="rtl"]
-  .input-group-btn:not(:last-child)
-  > .btn-group:not(:first-child)
-  > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child),
+[dir='rtl'] .input-group-addon:not(:first-child),
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn-group > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .dropdown-toggle,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn-group:not(:first-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child),
-[dir="rtl"] .input-group-text:not(:first-child),
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .btn-group > .btn,
-[dir="rtl"] .input-group-btn:not(:first-child) > .dropdown-toggle,
-[dir="rtl"]
-  .input-group-btn:not(:last-child)
-  > .btn-group:not(:first-child)
-  > .btn,
-[dir="rtl"] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child),
+[dir='rtl'] .input-group-text:not(:first-child),
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .btn-group > .btn,
+[dir='rtl'] .input-group-btn:not(:first-child) > .dropdown-toggle,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn-group:not(:first-child) > .btn,
+[dir='rtl'] .input-group-btn:not(:last-child) > .btn:not(:first-child) {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
-[dir="rtl"] .form-control + .input-group-addon:not(:first-child) {
+[dir='rtl'] .form-control + .input-group-addon:not(:first-child) {
   border-left: 1px solid rgba(0, 0, 0, 0.15);
   border-right: 0;
 }
 
-[dir="rtl"] .form-control + .input-group-text:not(:first-child) {
+[dir='rtl'] .form-control + .input-group-text:not(:first-child) {
   border-left: 1px solid rgba(0, 0, 0, 0.15);
   border-right: 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child):not(:last-child),
+[dir='rtl'] .input-group .input-group-addon:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child):not(:last-child),
+[dir='rtl'] .input-group .input-group-text:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
@@ -569,13 +517,13 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-addon:not(:first-child):not(:last-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child):not(:last-child),
+[dir='rtl'] .input-group .input-group-addon:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
-[dir="rtl"] .input-group .form-control:not(:first-child):not(:last-child),
-[dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
+[dir='rtl'] .input-group .form-control:not(:first-child):not(:last-child),
+[dir='rtl'] .input-group .input-group-text:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
