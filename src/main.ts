@@ -21,49 +21,51 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faArrowDown,
   faArrowUp,
-  faBroom,
   faBan,
-  faSun,
+  faBroom,
+  faChartBar,
+  faCheck,
   faDownload,
   faEllipsisV,
   faEnvelope,
   faFileImport,
   faMinus,
-  faChartBar,
-  faTrash,
   faShareSquare,
-  faCheck,
   faSignInAlt,
   faSignOutAlt,
   faSlidersH,
+  faSun,
+  faTrash,
   faUpload,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { firebaseConfig } from "@/firebaseconfig";
 
-library.add(faUserCircle);
-library.add(faCheck);
-library.add(faBan);
-library.add(faShareSquare);
-library.add(faEllipsisV);
-library.add(faSun);
-library.add(faSignInAlt);
-library.add(faBroom);
-library.add(faMinus);
-library.add(faArrowUp);
-library.add(faArrowDown);
-library.add(faDownload);
-library.add(faEllipsisV);
-library.add(faSlidersH);
-library.add(faChartBar);
-library.add(faTrash);
-library.add(faUpload);
-library.add(faSignOutAlt);
-library.add(faFileImport);
-library.add(faEnvelope);
-library.add(faLinkedin);
-library.add(faGithub);
+library.add(
+  faUserCircle,
+  faCheck,
+  faBan,
+  faShareSquare,
+  faEllipsisV,
+  faSun,
+  faSignInAlt,
+  faBroom,
+  faMinus,
+  faArrowUp,
+  faArrowDown,
+  faDownload,
+  faEllipsisV,
+  faSlidersH,
+  faChartBar,
+  faTrash,
+  faUpload,
+  faSignOutAlt,
+  faFileImport,
+  faEnvelope,
+  faLinkedin,
+  faGithub
+);
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
@@ -78,6 +80,6 @@ app.use(ElementPlus, {
   locale: He,
 });
 app.use(VueFinalModal());
-app.component("Autocomplete", Autocomplete);
+app.component("AutoComplete", Autocomplete);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.mount("#app");

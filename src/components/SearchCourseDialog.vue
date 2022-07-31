@@ -28,12 +28,12 @@
       <div class="p-2">
         <autocomplete
           id="auto-input"
-          aria-label="חיפוש קורסים"
-          placeholder="הקלד חלק משם או מספר קורס"
-          style="text-align: right"
           :auto-select="true"
           :get-result-value="getResultValue"
           :search="search"
+          aria-label="חיפוש קורסים"
+          placeholder="הקלד חלק משם או מספר קורס"
+          style="text-align: right"
           @submit="courseChosen"
         />
         <b-card
@@ -66,9 +66,9 @@
           <div class="row justify-content-center mb-2">
             <b-toast
               id="added-course"
+              auto-hide-delay="5000"
               static
               variant="primary"
-              auto-hide-delay="5000"
             >
               <div class="row" style="padding: 10px">
                 <p style="font-size: larger">
@@ -225,29 +225,29 @@
               <div v-if="selected_semester_grade_stats" class="mt-3 ml-2 mr-2">
                 <b-table
                   v-if="selected_semester_grade_stats"
-                  bordered
-                  small
-                  fixed
-                  :items="selected_semester_grade_stats"
                   :fields="fields"
+                  :items="selected_semester_grade_stats"
+                  bordered
+                  fixed
                   head-variant="Light"
+                  small
                 />
                 <b-img
                   v-if="histogram_img_link"
-                  rounded="true"
                   :src="histogram_img_link"
                   class="mb-2"
-                  style="cursor: zoom-in"
                   fluid
+                  rounded="true"
+                  style="cursor: zoom-in"
                   @click="$bvModal.show('histogram-modal')"
                 />
-                <b-modal id="histogram-modal" centered size="lg" hide-footer>
+                <b-modal id="histogram-modal" centered hide-footer size="lg">
                   <b-img
                     v-if="histogram_img_link"
-                    rounded="true"
-                    size="xl"
                     :src="histogram_img_link"
                     fluid-grow
+                    rounded="true"
+                    size="xl"
                   />
                 </b-modal>
               </div>
@@ -312,8 +312,8 @@
                   v-for="(linked, inner_index) in selected_course.linked"
                   :id="parseInt(inner_index) + '_link'"
                   :key="linked"
-                  href="#"
                   :style="{ color: checkIfExists(linked, 'linked') }"
+                  href="#"
                   @click="findPrerequisites($event)"
                 >
                   {{ linked }}
@@ -424,8 +424,8 @@
                   v-for="including in selected_course.including"
                   :key="including"
                   :style="{ color: checkIfExists(including, 'other') }"
-                  href="#"
                   :v-b-popover="'Popover!'"
+                  href="#"
                   @click="findPrerequisites($event)"
                 >
                   {{ including }}
@@ -568,7 +568,7 @@ export default {
           this.selected_course.name.includes("גופני")
         )
       ) {
-        let course_number_and_answer = {
+        const course_number_and_answer = {
           course_number: this.selected_course.number,
           answer: "",
         };
@@ -580,7 +580,7 @@ export default {
           course_number_and_answer.answer !== false &&
           course_number_and_answer.answer !== -1
         ) {
-          let message =
+          const message =
             "הקורס קיים בסמסטר " +
             course_number_and_answer.answer +
             ", להוסיף בכל זאת?";
@@ -602,7 +602,7 @@ export default {
             })
             .then((v) => {
               if (v === true) {
-                let selected_course_and_added_index = {
+                const selected_course_and_added_index = {
                   course: this.selected_course,
                   added_index: this.last_added_course_index,
                 };
@@ -617,7 +617,7 @@ export default {
               }
             });
         } else {
-          let selected_course_and_added_index = {
+          const selected_course_and_added_index = {
             course: this.selected_course,
             added_index: this.last_added_course_index,
           };
@@ -631,7 +631,7 @@ export default {
           this.$bvToast.show("added-course");
         }
       } else {
-        let selected_course_and_added_index = {
+        const selected_course_and_added_index = {
           course: this.selected_course,
           added_index: this.last_added_course_index,
         };
@@ -653,7 +653,7 @@ export default {
       );
     },
     findPrerequisites(event) {
-      let course_name = event.target.innerText.split(":")[0];
+      const course_name = event.target.innerText.split(":")[0];
       this.courseChosen(
         this.options.filter((course) => {
           return course.full_name.includes(course_name);
@@ -671,8 +671,8 @@ export default {
     },
     collapseHistogram(fetch) {
       if (fetch) {
-        let self = this;
-        let update = this.updateURL;
+        const self = this;
+        const update = this.updateURL;
         $.getJSON(
           `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
           function (doc) {
@@ -692,16 +692,16 @@ export default {
       this.$root.$emit("bv::toggle::collapse", "collapse-histograms");
     },
     updateURL(event) {
-      let event_payload = event[0];
+      const event_payload = event[0];
       this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
     },
     checkIfExists(course_full_name, type) {
-      let course_name = course_full_name.split(":")[1];
+      const course_name = course_full_name.split(":")[1];
       if (course_name.includes("השלמות")) {
         return "black";
       }
-      let course_number = course_full_name.split(":")[0];
-      let course_number_answer_semester = {
+      const course_number = course_full_name.split(":")[0];
+      const course_number_answer_semester = {
         course_number: course_number,
         answer: "",
         semester: -1,

@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { UserState, IRootState } from "@/store/interfaces";
+import { IRootState, UserState } from "@/store/interfaces";
 import { getters } from "@/store/modules/user/getters";
 import { actions } from "@/store/modules/user/actions";
 import { mutations } from "@/store/modules/user/mutations";

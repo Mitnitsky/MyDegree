@@ -11,21 +11,21 @@ import "../../node_modules/firebaseui/dist/firebaseui.css";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Authentication",
+  name: "HeaderAuthentication",
   props: {
-    close_auth_modal: {
+    closeAuthModal: {
       type: Function,
       required: true,
     },
   },
   setup(props) {
     return {
-      hide_auth_modal: props.close_auth_modal,
+      hide_auth_modal: props.closeAuthModal,
     };
   },
   mounted() {
-    let hide_auth_modal = this.hide_auth_modal;
-    let uiConfig = {
+    const hide_auth_modal = this.hide_auth_modal;
+    const uiConfig = {
       signInFlow: "popup",
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,

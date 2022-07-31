@@ -1,10 +1,10 @@
 import {
-  UserGetters,
-  UserMutations,
-  UserActions,
   AuthActions,
   AuthGetters,
   AuthMutations,
+  UserActions,
+  UserGetters,
+  UserMutations,
 } from "./enums";
 
 export const USER_STORE = {

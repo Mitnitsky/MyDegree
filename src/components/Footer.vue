@@ -10,7 +10,6 @@
     "
   >
     <span
-      @click="infoCardVisible = true"
       style="
         text-align: center;
         position: relative;
@@ -19,13 +18,14 @@
         -webkit-transform: translateY(-25%);
         transform: translateY(-25%);
       "
+      @click="infoCardVisible = true"
     >
       © Created by:
-      <a @click="infoCardVisible = true" href="#" style="color: dodgerblue"
+      <a href="#" style="color: dodgerblue" @click="infoCardVisible = true"
         >Vladimir Mitnitsky</a
       >
     </span>
-    <my-info-card :visible="infoCardVisible" :set-visibility="setVisibility" />
+    <my-info-card :set-visibility="setVisibility" :visible="infoCardVisible" />
   </div>
 </template>
 <script lang="ts">

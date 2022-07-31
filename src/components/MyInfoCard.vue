@@ -1,17 +1,17 @@
 <template>
   <el-dialog
     v-model="visibility"
-    custom-class="info-dialog"
-    style="max-width: 550px !important"
     :show-close="false"
     center
+    custom-class="info-dialog"
+    style="max-width: 550px !important"
   >
     <el-container class="info-container">
       <el-aside class="border-round-left info-side" width="275px">
         <img
           class="border-round-left"
-          width="275"
           src="../assets/logo_transparent.png"
+          width="275"
         />
       </el-aside>
       <el-container class="nested-info">

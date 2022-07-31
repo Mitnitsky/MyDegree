@@ -13,7 +13,7 @@ import {
   default_course_types_obj,
 } from "@/store/classes/course_types";
 // v9 compat packages are API compatible with v8 code
-import { db, auth } from "@/main";
+import { auth, db } from "@/main";
 import {
   semesterDataConverter,
   stateConverter,

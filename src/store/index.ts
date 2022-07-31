@@ -1,8 +1,7 @@
-import { createStore } from "vuex";
+import { createStore, Module, ModuleTree } from "vuex";
 import { IRootState } from "@/store/interfaces";
 import { AuthStoreModuleTypes } from "./modules/auth/types";
 import { UserStoreModuleTypes } from "./modules/user/types";
-import { Module, ModuleTree } from "vuex";
 import authModule from "./modules/auth";
 import userModule from "./modules/user";
 

@@ -1,7 +1,8 @@
 import { ActionTree } from "vuex";
-import firebase from "firebase/compat";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 import { USER_STORE } from "@/store/constants";
-import { IRootState, UserState, UserActionsTypes } from "@/store/interfaces";
+import { IRootState, UserActionsTypes, UserState } from "@/store/interfaces";
 import { Semester } from "@/store/classes/semester";
 
 export const actions: ActionTree<UserState, IRootState> & UserActionsTypes = {
@@ -22,8 +23,8 @@ export const actions: ActionTree<UserState, IRootState> & UserActionsTypes = {
     { commit },
     semesters_exemption_summerIndexes: {
       semesters: Semester[];
-      exemption: boolean;
-      summer_semesters_indexes: number[];
+      english_exemption: boolean;
+      summer_semester_indexes: number[];
     }
   ) {
     commit(USER_STORE.MUTATIONS.clearUserData);
@@ -33,11 +34,11 @@ export const actions: ActionTree<UserState, IRootState> & UserActionsTypes = {
     );
     commit(
       USER_STORE.MUTATIONS.setExemptionStatus,
-      semesters_exemption_summerIndexes.exemption
+      semesters_exemption_summerIndexes.english_exemption
     );
     commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
     const summer_semesters_indexes =
-      semesters_exemption_summerIndexes.summer_semesters_indexes;
+      semesters_exemption_summerIndexes.summer_semester_indexes;
     for (let i = 0; i < summer_semesters_indexes.length; i++) {
       commit(
         USER_STORE.MUTATIONS.changeSemesterType,

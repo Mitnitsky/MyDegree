@@ -1,5 +1,5 @@
 import { MutationTree } from "vuex";
-import { AuthState, AuthMutationsTypes } from "@/store/interfaces";
+import { AuthMutationsTypes, AuthState } from "@/store/interfaces";
 import { AUTH_STORE } from "@/store/constants";
 
 export const mutations: MutationTree<AuthState> & AuthMutationsTypes = {

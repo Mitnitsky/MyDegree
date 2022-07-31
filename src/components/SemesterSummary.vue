@@ -1,8 +1,6 @@
 <template>
-  <div class="container"
-       style="max-width: 300px">
-    <div class="col align-self-start"
-         style="padding: 0 0">
+  <div class="container" style="max-width: 300px">
+    <div class="col align-self-start" style="padding: 0 0">
       <b-card no-body>
         <b-card-header
           class="text-center"
@@ -19,14 +17,12 @@
         </b-card-header>
         <b-card-body>
           <b-row>
-            <b-col sm="3"
-                   align-self="center"
-                   style="margin: 4px">
+            <b-col align-self="center" sm="3" style="margin: 4px">
               <label
                 :for="
                   'semester' + $store.state.user.active_semester + 'average'
                 "
-              >ממוצע:
+                >ממוצע:
               </label>
             </b-col>
             <b-col sm="8">
@@ -51,12 +47,10 @@
             </b-col>
           </b-row>
           <b-row class="mt-2">
-            <b-col sm="3"
-                   align-self="center"
-                   style="margin: 4px">
+            <b-col align-self="center" sm="3" style="margin: 4px">
               <label
                 :for="'semester' + $store.state.user.active_semester + 'points'"
-              >נקודות:
+                >נקודות:
               </label>
             </b-col>
             <b-col sm="8">
@@ -88,6 +82,6 @@
 
 <script>
 export default {
-  name: "SemesterSummary"
+  name: "SemesterSummary",
 };
 </script>

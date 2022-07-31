@@ -1,39 +1,43 @@
 <template>
   <el-row justify="center" style="min-width: 500px">
-    <el-collapse style="margin: 5px;"
-                 @change="collapsed = !collapsed">
+    <el-collapse style="margin: 5px" @change="collapsed = !collapsed">
       <el-collapse-item
         :title="collapsed ? 'הראה סיכום תואר' : 'הסתר סיכום תואר'"
       >
         <el-row>
           <el-col :span="1" />
           <el-col :span="10">
-            <el-card style="height: 100%;max-width: 590px !important; min-width: 340px !important;"
-                     :body-style="{ padding: '20px !important' }">
+            <el-card
+              :body-style="{ padding: '20px !important' }"
+              style="
+                height: 100%;
+                max-width: 590px !important;
+                min-width: 340px !important;
+              "
+            >
               <template #header>
                 <span style="font-weight: 700 !important">סיכום תואר</span>
               </template>
-              <el-row class="input-group mb-2"
-                      style="margin-top: 46px;">
+              <el-row class="input-group mb-2" style="margin-top: 46px">
                 <el-col :span="8">
                   <el-tooltip
                     class="box-item"
-                    effect="dark"
                     content="כל הנקודות שיש לבצע בתואר"
+                    effect="dark"
                     placement="top-start"
                     type="text"
                   >
                     <el-input
-                      model-value="נקודות תואר"
                       class="first-disabled-element"
+                      model-value="נקודות תואר"
                     />
                   </el-tooltip>
                 </el-col>
                 <el-col :span="16">
                   <el-tooltip
                     class="box-item"
-                    effect="dark"
                     content="יש למלא שדה זה בהתאם למסלול הלימודים"
+                    effect="dark"
                     placement="top-start"
                   >
                     <el-input
@@ -50,8 +54,8 @@
               <el-row class="input-group mb-2">
                 <el-col :span="8">
                   <el-input
-                    model-value="ממוצע תואר"
                     class="first-disabled-element"
+                    model-value="ממוצע תואר"
                   />
                 </el-col>
                 <el-col :span="16">
@@ -71,14 +75,14 @@
                 <el-col :span="8">
                   <el-tooltip
                     class="box-item"
-                    effect="dark"
                     content="נקודות עם ציון\פטור\בינטארי בתואר"
+                    effect="dark"
                     placement="top-start"
                     type="text"
                   >
                     <el-input
-                      model-value="נקודות בוצעו"
                       class="first-disabled-element"
+                      model-value="נקודות בוצעו"
                     />
                   </el-tooltip>
                 </el-col>
@@ -99,14 +103,14 @@
                 <el-col :span="8">
                   <el-tooltip
                     class="box-item"
-                    effect="dark"
                     content="כל הנקודות הדרושות בתואר פחות הנקודות שבוצעו"
+                    effect="dark"
                     placement="top-start"
                     type="text"
                   >
                     <el-input
-                      model-value="נקודות נותרו"
                       class="first-disabled-element"
+                      model-value="נקודות נותרו"
                     />
                   </el-tooltip>
                 </el-col>
@@ -127,14 +131,14 @@
                 <el-col :span="8">
                   <el-tooltip
                     class="box-item"
-                    effect="dark"
                     content="כל הנקודות הדרושות בתואר פחות הנקודות שקיימות בתכנון התואר"
+                    effect="dark"
                     placement="top-start"
                     type="text"
                   >
                     <el-input
-                      model-value="נותרו לשבץ"
                       class="first-disabled-element"
+                      model-value="נותרו לשבץ"
                     />
                   </el-tooltip>
                 </el-col>
@@ -155,25 +159,33 @@
           </el-col>
           <el-col :span="2" />
           <el-col :span="10">
-            <el-card style="height: 100%;max-width: 590px !important; min-width: 340px !important;"
-                     :body-style="{ padding: '20px !important' }">
+            <el-card
+              :body-style="{ padding: '20px !important' }"
+              style="
+                height: 100%;
+                max-width: 590px !important;
+                min-width: 340px !important;
+              "
+            >
               <template #header>
-                <span style="font-weight: 700 !important">ניתוח סוגי קורסים</span>
+                <span style="font-weight: 700 !important"
+                  >ניתוח סוגי קורסים</span
+                >
               </template>
               <el-row class="input-group">
                 <el-col :span="8" />
                 <el-col :span="8">
                   <el-input
                     class="disabled-inputs first-disabled-element"
-                    type="text"
                     model-value="נותרו"
+                    type="text"
                   />
                 </el-col>
                 <el-col :span="8">
                   <el-input
                     class="disabled-inputs last-disabled-element"
-                    type="text"
                     model-value="מתוך"
+                    type="text"
                   />
                 </el-col>
               </el-row>
@@ -181,43 +193,44 @@
               <template v-for="(type, index) in sortCourseTypes(course_types)">
                 <el-row
                   v-if="
-                  type.name !== 'פטור' ||
-                  (type.name === 'פטור' && type.total_points > 0)
-                "
+                    type.name !== 'פטור' ||
+                    (type.name === 'פטור' && type.total_points > 0)
+                  "
                   :key="index"
                   class="input-group"
                 >
                   <el-col :span="8">
                     <el-tooltip>
                       <template #content
-                      >סה"כ נקודות משובצות: {{ type.total_points }}<br />
-                       נקודות עם ציון: {{ type.points_done }}
+                        >סה"כ נקודות משובצות: {{ type.total_points }}<br />
+                        נקודות עם ציון: {{ type.points_done }}
                         <br v-if="type.average > 0" />
-                       {{ type.average > 0 ? "ממוצע " + type.average : "" }}
+                        {{ type.average > 0 ? "ממוצע " + type.average : "" }}
                       </template>
                       <el-input
+                        :model-value="type.name"
                         class="disabled-inputs first-disabled-element"
                         type="text"
-                        :model-value="type.name"
                       />
                     </el-tooltip>
                   </el-col>
-                  <el-col v-if="type.name !== 'פטור'"
-                          :span="8">
+                  <el-col v-if="type.name !== 'פטור'" :span="8">
                     <el-input
-                      class="disabled-inputs middle-disabled-element"
-                      type="text"
-                      disabled
                       :model-value="type.points_left"
+                      class="disabled-inputs middle-disabled-element"
+                      disabled
+                      type="text"
                     />
                   </el-col>
                   <el-col :span="type.name !== 'פטור' ? 8 : 16">
                     <template v-if="type.name !== 'פטור'">
-                      <el-tooltip content="יש למלא שדה זה בהתאם למסלול הלימודים">
+                      <el-tooltip
+                        content="יש למלא שדה זה בהתאם למסלול הלימודים"
+                      >
                         <el-input
+                          :model-value="type.points_required"
                           class="last-input-element"
                           type="text"
-                          :model-value="type.points_required"
                         />
                       </el-tooltip>
                     </template>
@@ -257,7 +270,7 @@
 <script lang="ts">
 import { useStore } from "@/use/useStore";
 import { USER_STORE } from "@/store/constants";
-import { ref, computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { CourseType } from "@/store/classes/course_types";
 
 export default defineComponent({
@@ -323,9 +336,9 @@ export default defineComponent({
       store.commit(USER_STORE.MUTATIONS.reCalcCurrentSemester);
     };
     const sortCourseTypes = (course_types) => {
-      let sorted_course_types: CourseType[] = [];
+      const sorted_course_types: CourseType[] = [];
       let exemption_course_type: CourseType | null = null;
-      for (let type of course_types) {
+      for (const type of course_types) {
         if (type.name.includes("פטור")) {
           exemption_course_type = type;
         } else {
@@ -360,9 +373,11 @@ span.el-checkbox__label {
   padding-left: 0;
   padding-right: 8px;
 }
-.el-collapse-item__header{
+
+.el-collapse-item__header {
   font-weight: 700 !important;
 }
+
 div.middle-disabled-element > input.el-input__inner {
   text-align: center;
   cursor: default !important;
@@ -401,7 +416,8 @@ div.disabled-inputs > input.el-input__inner {
   align-content: center;
   margin-bottom: 8px;
 }
-.el-collapse-item__header{
+
+.el-collapse-item__header {
   display: block !important;
   align-content: center !important;
   text-align: center !important;
@@ -562,7 +578,8 @@ input[type="number"]::-webkit-outer-spin-button {
 [dir="rtl"] .input-group .input-group-text:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
-.mb-2{
+
+.mb-2 {
   margin-bottom: 8px;
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
   <el-card style="justify-content: center">
     <el-tabs
-      @tab-click="changeActiveSemester"
-      style="font-size: 16px !important"
-      dir="rtl"
-      justify="end"
-      type="card"
       addable
       class="demo-tabs"
+      dir="rtl"
+      justify="end"
+      style="font-size: 16px !important"
+      type="card"
       @edit="handleSemesterEdit"
+      @tab-click="changeActiveSemester"
     >
       <el-tab-pane
-        justify="end"
-        dir="rtl"
         v-for="(semester, index) in semesters"
         :key="index"
         :label="'סמסטר ' + semester.name"
         :name="index"
+        dir="rtl"
+        justify="end"
       >
         <template #label>
           <span style="margin-left: 4px">
@@ -66,9 +66,9 @@
                   </el-col>
                   <el-col :span="14">
                     <el-input
+                      :model-value="semester.average"
                       class="semester-info-text"
                       disabled
-                      :model-value="semester.average"
                     />
                   </el-col>
                 </el-row>
@@ -78,9 +78,9 @@
                   </el-col>
                   <el-col :span="14">
                     <el-input
+                      :model-value="semester.points"
                       class="semester-info-text"
                       disabled
-                      :model-value="semester.points"
                     />
                   </el-col>
                 </el-row>
@@ -91,18 +91,18 @@
         <el-row justify="end" style="margin-top: 10px">
           <el-button
             class="align-self-end"
-            style="margin-left: 4px"
             color="#17A2B8"
-            variant="primary"
             plain
+            style="margin-left: 4px"
+            variant="primary"
             @click="changeSemesterType(semester.name)"
           >
             הפוך לסמסטר {{ semester.name.includes("קיץ") ? "רגיל" : "קיץ" }}
           </el-button>
           <el-button
             class="align-self-end"
-            type="danger"
             plain
+            type="danger"
             @click="removeSemester"
           >
             מחק סמסטר
@@ -209,18 +209,18 @@ export default defineComponent({
   },
   mounted() {
     const store = useStore();
-    let authentication_status = localStorage.getItem("authenticated");
+    const authentication_status = localStorage.getItem("authenticated");
     const user = firebase.auth().currentUser;
     if (user == null) {
       if (authentication_status === "false") {
-        let user_data = localStorage.getItem("saved_session_data");
+        const user_data = localStorage.getItem("saved_session_data");
         if (user_data == null) {
           return;
         }
         if (typeof user_data === "object") {
           store.commit(USER_STORE.MUTATIONS.fetchUserInfo, user_data);
         } else {
-          let session_data = localStorage.getItem("saved_session_data");
+          const session_data = localStorage.getItem("saved_session_data");
           if (session_data != null) {
             store.commit(
               USER_STORE.MUTATIONS.fetchUserInfo,

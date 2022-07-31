@@ -1,9 +1,9 @@
 import {
-  Course,
   CharCompare,
   compareByNumericField,
-  is_courses_array_sorted,
+  Course,
   createCourseFromDBEntry,
+  is_courses_array_sorted,
 } from "./course";
 import { MathRound10 } from "../extensions/rounder";
 
@@ -15,6 +15,13 @@ export class Semester {
   points = 0.0;
   courses: Course[] = [];
 
+  constructor(name: string, empty_courses: number) {
+    this.name = name;
+    for (let i = 0; i < empty_courses; i++) {
+      this.courses.push(new Course());
+    }
+  }
+
   toString(): string {
     return (
       this.name +
@@ -25,13 +32,6 @@ export class Semester {
       "\n" +
       this.courses.join("\n")
     );
-  }
-
-  constructor(name: string, empty_courses: number) {
-    this.name = name;
-    for (let i = 0; i < empty_courses; i++) {
-      this.courses.push(new Course());
-    }
   }
 
   addCourse(): void {

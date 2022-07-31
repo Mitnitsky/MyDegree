@@ -1,15 +1,19 @@
 import {
-  AuthState,
-  AuthMutationsTypes,
+  AuthActionsTypes,
   AuthGettersTypes,
-  AuthActionsTypes
+  AuthMutationsTypes,
+  AuthState,
 } from "@/store/interfaces";
-import { Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
+import { CommitOptions, DispatchOptions, Store as VuexStore } from "vuex";
 
-export type AuthStoreModuleTypes<S = AuthState> = Omit<VuexStore<S>,
-  "commit" | "getters" | "dispatch"> & {
-  commit<K extends keyof AuthMutationsTypes,
-    P extends Parameters<AuthMutationsTypes[K]>[1]>(
+export type AuthStoreModuleTypes<S = AuthState> = Omit<
+  VuexStore<S>,
+  "commit" | "getters" | "dispatch"
+> & {
+  commit<
+    K extends keyof AuthMutationsTypes,
+    P extends Parameters<AuthMutationsTypes[K]>[1]
+  >(
     key: K,
     payload?: P,
     options?: CommitOptions

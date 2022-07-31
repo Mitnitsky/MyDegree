@@ -1,6 +1,5 @@
 import { GetterTree } from "vuex";
-import { AuthState, IRootState } from "@/store/interfaces";
-import { AuthGettersTypes } from "@/store/interfaces";
+import { AuthGettersTypes, AuthState, IRootState } from "@/store/interfaces";
 import { AUTH_STORE } from "@/store/constants";
 
 export const getters: GetterTree<AuthState, IRootState> & AuthGettersTypes = {

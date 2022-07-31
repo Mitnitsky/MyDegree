@@ -1,39 +1,42 @@
 <template>
   <el-table :data="semester.courses">
     <el-table-column
-      header-align="center"
-      prop="category"
-      label="קטגוריה"
-      :min-width="75"
-      style="width: 15% !important"
       :header-cell-class-name="
-        (row, column, rowIndex, columnIndex) => {
+        (_) => {
           return 'table-header-row-class';
         }
       "
+      :min-width="75"
+      header-align="center"
+      label="קטגוריה"
+      prop="category"
+      style="width: 15% !important"
     >
       <template #default="scope">
         <select
           v-model.number.lazy="scope.row.type"
-          class="form-control courseType"
           :style="{ backgroundColor: choose_colors[scope.row.type % 10] }"
+          class="form-control courseType"
           @change.stop="updateField('type')"
         >
-          <template v-for="(type, i) in course_types" :key="i">
-            <option :style="{ backgroundColor: choose_colors[i] }" :value="i">
-              {{ type.name }}
-            </option>
-          </template>
+          <option
+            v-for="(type, i) in course_types"
+            :key="i"
+            :style="{ backgroundColor: choose_colors[i] }"
+            :value="i"
+          >
+            {{ type.name }}
+          </option>
         </select>
       </template>
     </el-table-column>
     <el-table-column
+      :min-width="75"
       header-align="center"
-      prop="number"
       label="מספר קורס"
+      prop="number"
       sortable
       style="width: 15% !important"
-      :min-width="75"
     >
       <template #default="scope">
         <el-input
@@ -42,19 +45,19 @@
           max="9999999"
           min="0"
           step="1"
-          type="number"
           style=""
+          type="number"
           @change="updateField('number', scope.row.number, scope.$index)"
         />
       </template>
     </el-table-column>
     <el-table-column
+      :min-width="200"
       header-align="center"
-      prop="name"
       label="שם קורס"
+      prop="name"
       sortable
       style="width: 40% !important"
-      :min-width="200"
     >
       <template #default="scope">
         <el-input
@@ -66,12 +69,12 @@
       </template>
     </el-table-column>
     <el-table-column
+      :min-width="60"
       header-align="center"
-      prop="points"
       label="נקודות"
+      prop="points"
       sortable
       style="width: 12% !important"
-      :min-width="60"
     >
       <template #default="scope">
         <el-input
@@ -87,12 +90,12 @@
       </template>
     </el-table-column>
     <el-table-column
+      :min-width="60"
       header-align="center"
-      prop="grade"
       label="ציון"
+      prop="grade"
       sortable
       style="width: 12% !important"
-      :min-width="60"
     >
       <template #default="scope">
         <el-input
@@ -110,23 +113,23 @@
         />
         <el-input
           v-else
-          model-value="✔"
-          :readonly="true"
           :input-style="{ color: 'green', cursor: 'default' }"
+          :readonly="true"
           class="form-control courseGrade"
+          model-value="✔"
         />
       </template>
     </el-table-column>
     <el-table-column
-      header-align="center"
       :min-width="30"
+      header-align="center"
       style="width: 6% !important; max-width: 60px !important"
     >
       <template #default="scope">
         <el-dropdown
+          placement="bottom-end"
           style="width: 100% !important; justify-content: center"
           @command="handleRowCommand"
-          placement="bottom-end"
         >
           <el-button>
             <font-awesome-icon icon="ellipsis-v" size="sm" />
@@ -156,22 +159,22 @@
               >
                 <font-awesome-icon
                   :icon="scope.row.binary ? 'ban' : 'check'"
-                  size="sm"
                   :style="{
                     visibility: scope.row.binary,
                     color: scope.row.binary ? 'red' : 'green',
                     marginLeft: '5px',
                   }"
+                  size="sm"
                 />
                 {{ scope.row.binary ? "בטל" : "סמן" }} עובר בינארי
               </el-dropdown-item>
               <el-dropdown-item
-                divided
                 :command="{
                   name: 'clean-row',
                   index: scope.$index,
                   status: !scope.row.binary,
                 }"
+                divided
               >
                 <font-awesome-icon
                   icon="broom"
@@ -195,12 +198,12 @@
                 הסר שורה
               </el-dropdown-item>
               <el-dropdown-item
+                v-if="semestersNumber > 1"
                 :command="{
                   name: 'moveSemester',
                   index: scope.$index,
                   status: !scope.row.binary,
                 }"
-                v-if="semestersNumber > 1"
                 divided
               >
                 <font-awesome-icon
@@ -247,7 +250,7 @@
           </template>
         </el-dropdown>
         <el-dialog v-model="moveToSemesterDialogVisible">
-          <template #title>
+          <template #header>
             <span class="dialog-title" style="font-weight: bold">
               העבר קורס: {{ selectedCourseNameForAction }} ל סמסטר
             </span>
@@ -255,9 +258,9 @@
           <el-option
             v-for="name in semestersNames"
             :key="name"
+            :disable="name === activeSemestersNumber"
             :label="name"
             :value="name"
-            :disable="name === activeSemestersNumber"
           />
         </el-dialog>
       </template>
@@ -294,37 +297,37 @@ export default defineComponent({
     const histogramVisibilityState = ref(false);
     const moveToSemesterDialogVisible = ref(false);
     let selectedCourseNameForAction = "";
-    const fields = [
-      {
-        key: "students",
-        label: "סטודנטים",
-      },
-      {
-        key: "passFail",
-        label: "נכשל/עובר",
-      },
-      {
-        key: "passPercent",
-        label: "אחוז עוברים",
-      },
-      {
-        key: "min",
-        label: "ציון מינימלי",
-      },
-      {
-        key: "max",
-        label: "ציון מקסימלי",
-      },
-      {
-        key: "average",
-        label: "ממוצע",
-      },
-      {
-        key: "median",
-        label: "חציון",
-      },
-    ];
-    let forceUpdate = ref(() => {
+    // const fields = [
+    //   {
+    //     key: "students",
+    //     label: "סטודנטים",
+    //   },
+    //   {
+    //     key: "passFail",
+    //     label: "נכשל/עובר",
+    //   },
+    //   {
+    //     key: "passPercent",
+    //     label: "אחוז עוברים",
+    //   },
+    //   {
+    //     key: "min",
+    //     label: "ציון מינימלי",
+    //   },
+    //   {
+    //     key: "max",
+    //     label: "ציון מקסימלי",
+    //   },
+    //   {
+    //     key: "average",
+    //     label: "ממוצע",
+    //   },
+    //   {
+    //     key: "median",
+    //     label: "חציון",
+    //   },
+    // ];
+    const forceUpdate = ref(() => {
       console.log("");
     });
     const searchDialogShown = ref(false);
@@ -335,9 +338,9 @@ export default defineComponent({
       return store.getters[USER_STORE.GETTERS.SEMESTERS].length;
     });
     const semestersNames = computed(() => {
-      let semesterNames: string[] = [];
+      const semesterNames: string[] = [];
       for (const semester in store.getters[USER_STORE.GETTERS.SEMESTERS]) {
-        let s = semester as unknown as Semester;
+        const s = semester as unknown as Semester;
         semesterNames.push(s.name);
       }
       return semesterNames;
@@ -356,7 +359,7 @@ export default defineComponent({
       store.dispatch(USER_STORE.ACTIONS.updateSemesterAsync);
     };
     const showHistorgram = (course_index) => {
-      let course_number = props.semester?.courses[course_index].number;
+      const course_number = props.semester?.courses[course_index].number;
       $.getJSON(
         `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
         (doc) => {
@@ -378,7 +381,7 @@ export default defineComponent({
       histogramVisibilityState.value = false;
     };
     const updateURL = (options: Option[], course_number: string) => {
-      let option = options[0];
+      const option = options[0];
       histogram_img_link.value = `https://michael-maltsev.github.io/technion-histograms/${course_number}/${option.semester_number}/${option.entry_name}.png`;
     };
     const moveToSemester = (course_index) => {

@@ -48,11 +48,12 @@ import { defineComponent, reactive, ref } from "vue";
 import { ElConfigProvider } from "element-plus";
 
 import He from "element-plus/lib/locale/lang/he";
-import HeaderNavBar from "@/components/Header.vue";
+import HeaderNavBar from "@/components/HeaderNavBar.vue";
 import { JsonCourse } from "@/store/classes/json_course_db";
 import DpFooter from "@/components/Footer.vue";
 import DegreeSummary from "@/components/DegreeSummary.vue";
 import SemestersTabView from "@/components/SemestersTabView.vue";
+
 export default defineComponent({
   name: "App",
   components: {
@@ -64,7 +65,7 @@ export default defineComponent({
   },
   setup() {
     let json_courses;
-    let c: JsonCourse = {
+    const c: JsonCourse = {
       full_name: "",
       name: "",
       number: "",
@@ -106,8 +107,8 @@ export default defineComponent({
       );
     };
     const displayCourse = (course) => {
-      let start_of_highlight_index = course.full_name.indexOf(textPart.value);
-      let end_of_highlight_index =
+      const start_of_highlight_index = course.full_name.indexOf(textPart.value);
+      const end_of_highlight_index =
         start_of_highlight_index + textPart.value.length;
       return (
         "<span>" +
@@ -172,6 +173,7 @@ input[type="number"] {
 
 @supports (-moz-appearance: none) {
   /*Firefox spin-box fix*/
+  /*noinspection ALL*/
   select {
     -moz-appearance: none !important;
     background: transparent
@@ -180,6 +182,7 @@ input[type="number"] {
     background-position: calc(5px) center !important;
   }
 }
+
 .footer-fixed-bottom {
   position: fixed;
   right: 0;
@@ -191,6 +194,7 @@ input[type="number"] {
   padding: 0 !important;
   max-height: 40px;
 }
+
 .dropdown-item {
   text-align: right !important;
 }
