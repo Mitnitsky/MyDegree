@@ -19,14 +19,19 @@ function parseCourseLine(course: Course, parts: string[]) {
       .replace("לא השלים", "")
       .trim()
   );
+  if (isNaN(course.grade)) {
+    course.grade = 0;
+  }
 }
 
-export function parseStudentsSiteGrades(
-  grades_copy_str: string
-): [Semester[], boolean, number[]] {
+export function parseStudentsSiteGrades(grades_copy_str: string): {
+  semesters: Semester[];
+  english_exemption: boolean;
+  summer_semester_indexes: number[];
+} {
   const grades_copy = grades_copy_str.split("\n");
   const raw_semesters: string[][] = [[]];
-  let index = 0;
+  let semesters_index = 0;
   let found_first_semester = false;
   let english_exemption = false;
   let exempted_courses_part_found = false;
@@ -66,48 +71,52 @@ export function parseStudentsSiteGrades(
         }
         found_first_semester = true;
       }
-    } else {
-      if (includesOneOf(line, "קיץ", "חורף", "אביב")) {
-        index += 1;
-        if (line.includes("קיץ")) {
-          summer_semester_indexes.push(index);
-        }
-        raw_semesters.push([]);
-        continue;
+      continue;
+    }
+    if (includesOneOf(line, "קיץ", "חורף", "אביב")) {
+      semesters_index += 1;
+      if (line.includes("קיץ")) {
+        summer_semester_indexes.push(semesters_index);
       }
-      if (
-        !includesOneOf(
-          line,
-          "ציון",
-          "ממוצע",
-          "הצלחות",
-          "לא השלים",
-          'סה"כ',
-          "ממוצע סמסטר",
-          "הצלחות סמסטר",
-          "נקודות רישום:"
-        ) &&
-        line.length > 0
-      ) {
-        raw_semesters[index].push(line);
-      }
+      raw_semesters.push([]);
+      continue;
+    }
+    if (
+      !includesOneOf(
+        line,
+        "ציון",
+        "ממוצע",
+        "הצלחות",
+        "לא השלים",
+        'סה"כ',
+        "ממוצע סמסטר",
+        "הצלחות סמסטר",
+        "נקודות רישום:"
+      ) &&
+      line.length > 0
+    ) {
+      raw_semesters[semesters_index].push(line);
     }
   }
-  index = 1;
+  semesters_index = 1;
+  const exemption_type_index = 3;
+  const exempted_course_name_index = 1;
   for (const rawSemester of raw_semesters) {
     const courses: Course[] = [];
-    if (index === 1 && exempted_courses.length > 0) {
+    if (semesters_index === 1 && exempted_courses.length > 0) {
       for (const exempted_course of exempted_courses) {
-        const parts = exempted_course.split("\t");
-        if (parts.length !== 4) {
+        const exempted_course_parts = exempted_course.split("\t");
+        if (exempted_course_parts.length !== 4) {
           continue;
         }
         if (
-          parts[3].includes("פטור עם ניקוד") &&
-          !parts[1].includes("אנגלית")
+          exempted_course_parts[exemption_type_index].includes(
+            "פטור עם ניקוד"
+          ) &&
+          !exempted_course_parts[exempted_course_name_index].includes("אנגלית")
         ) {
           const course = new Course();
-          parseCourseLine(course, parts);
+          parseCourseLine(course, exempted_course_parts);
           courses.push(course);
         }
       }
@@ -131,10 +140,15 @@ export function parseStudentsSiteGrades(
         }
       }
     }
-    semesters[index].courses = courses;
-    index += 1;
+    const semester = new Semester(semesters_index.toString(), 0);
+    semester.courses = courses;
+    semester.calculatePoints();
+    semester.calculateAverage();
+    semester.sortCoursesByField("number");
+    semesters.push(semester);
+    semesters_index += 1;
   }
-  return [semesters, english_exemption, summer_semester_indexes];
+  return { semesters, english_exemption, summer_semester_indexes };
 }
 
 function createCourseFromParts(course: Course, parts: string[]) {
