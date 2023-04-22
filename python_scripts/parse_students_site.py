@@ -59,10 +59,10 @@ def get_all_courses_numbers():
                 pass
         while True:
             try:
-                faculties = driver.find_elements(By.XPATH, "//li[contains(@aria-hidden, 'false')]")
+                faculties = driver.find_elements(By.XPATH, "//li[contains(@aria-selected, 'false')]")
                 if len(faculties) == 1:  # skipping dummy text first element
                     break
-                for faculty in faculties[1:]:
+                for faculty in faculties[0:]:
                     faculty.click()
                     down_arrow.click()
             except Exception as _:
@@ -72,8 +72,11 @@ def get_all_courses_numbers():
         while True:
             try:
                 courses.extend(get_all_courses_from_page(driver))
-                next_page = driver.find_element(By.XPATH, "//a[contains(@aria-label, 'Next')]")
-                next_page.click()
+                next_page = driver.find_elements(By.XPATH, "//a[contains(@class, 'page-link')]")
+                if "»" in next_page[-1].text:
+                    next_page[-1].click()
+                else:
+                    break
             except NoSuchElementException as _:
                 break
             except Exception as e:
