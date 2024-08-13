@@ -285,7 +285,7 @@ export function parseCheeseFork(courses) {
       typeof localStorage.getItem("courses") === "object"
         ? localStorage.getItem("courses")
         : JSON.parse(localStorage.getItem("courses"));
-    if (!json_courses.version || json_courses.version < 9.0) {
+    if (!json_courses.version || json_courses.version < 12.0) {
       json_courses = require("../../data/courses.json");
       localStorage.setItem("courses", JSON.stringify(json_courses));
     }

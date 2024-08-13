@@ -1,3 +1,5 @@
+import time
+
 import requests
 from bs4 import BeautifulSoup, NavigableString
 import re
@@ -57,14 +59,20 @@ def get_all_courses_numbers():
                 break
             except NoSuchElementException as _:
                 pass
+        time.sleep(5)
         while True:
             try:
                 faculties = driver.find_elements(By.XPATH, "//li[contains(@aria-selected, 'false')]")
-                if len(faculties) == 1:  # skipping dummy text first element
+                if len(faculties) == 0:  # skipping dummy text first element
                     break
                 for faculty in faculties[0:]:
-                    faculty.click()
-                    down_arrow.click()
+                    if 'ניתן לבחור' not in faculty.accessible_name or not len(faculty.accessible_name) == 0:
+                        print(faculty.accessible_name)
+                        faculty.click()
+                        time.sleep(0.2)
+                        down_arrow.click()
+                        time.sleep(0.2)
+                        break
             except Exception as _:
                 pass
         search_button = driver.find_element(By.XPATH, "//input[contains(@name, 'submitbutton')]")
@@ -100,8 +108,8 @@ def get_points_from_grad(soup):
 
 
 def get_name_and_number_from_students(soup):
-    span = soup.find("h1")
-    name = span.text
+    title = soup.find("title")
+    name = title.text
     return name
 
 

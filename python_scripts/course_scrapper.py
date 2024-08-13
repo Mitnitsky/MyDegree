@@ -8,7 +8,6 @@ from db_helpers import *
 from parse_students_site import *
 from course import Course
 
-
 def prepare_package(semester, faculty):
     """Preparing package with given semester and faculty in order to get courses from UG
 
@@ -93,7 +92,6 @@ def get_course_info(course_number):
     temp_course.set_number(course_number)
     return temp_course
 
-
 # Function which updates the Courses database
 def update_db_from_ug(db):
     init_db(db)
@@ -118,7 +116,7 @@ def convert_db_to_json(db):
     types = ['linked', 'identical', 'overlapping', 'inclusive', 'including', "followed_by"]
     courses = extract_all_courses_with_types_from_db(db, types)
     find_all_courses_followed_by(courses)
-    with open('db/courses.json', 'w') as courses_file:
+    with open('db/courses.json', 'w',encoding='utf-8') as courses_file:
         courses_file.write(json.dumps({"courses": courses}, indent=4, ensure_ascii=False))
 
 
