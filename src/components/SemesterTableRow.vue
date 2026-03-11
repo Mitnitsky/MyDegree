@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>
+    <td style="width: 15%">
       <select
         v-model.number.lazy="course_copy.type"
         :select-on-tab="true"
@@ -8,9 +8,8 @@
         :style="{ backgroundColor: choose_colors[course.type % 10] }"
         @change.stop="updateField('type')"
       >
-        <template v-for="(type, index_2) in course_types">
+        <template v-for="(type, index_2) in course_types" :key="index_2">
           <option
-            :key="index_2"
             :style="{ backgroundColor: choose_colors[index_2] }"
             :value="index_2"
           >
@@ -19,7 +18,7 @@
         </template>
       </select>
     </td>
-    <td style="min-width: 90px">
+    <td style="width: 15%">
       <input
         v-model.number.lazy="course_copy.number"
         class="form-control courseNumber"
@@ -30,7 +29,7 @@
         @change="updateField('number')"
       />
     </td>
-    <td style="min-width: 250px; padding-right: 0">
+    <td style="width: 40%; padding-right: 0">
       <input
         v-model.lazy="course_copy.name"
         class="form-control courseName"
@@ -38,7 +37,7 @@
         @change="updateField('name')"
       />
     </td>
-    <td style="min-width: 60px">
+    <td style="width: 12%">
       <input
         v-model.number.lazy="course_copy.points"
         :class="[course.points >= 0 ? '' : InputIsWrong]"
@@ -50,7 +49,7 @@
         @change="updateField('points')"
       />
     </td>
-    <td style="min-width: 60px">
+    <td style="width: 12%">
       <input
         v-if="course.binary === false || course.binary === undefined"
         v-model.number.lazy="course_copy.grade"
@@ -71,11 +70,11 @@
         class="form-control courseGrade"
       />
     </td>
-    <td class="text-center" style="min-width: 45px">
+    <td class="text-center" style="width: 6%">
       <b-dropdown
         id="dropdown-1"
         v-b-tooltip.hover.v-secondary
-        dropleft
+        dropstart
         variant="outline-secondary"
       >
         <template #button-content>
@@ -138,7 +137,7 @@
         <b-dropdown-divider />
         <b-dropdown-item
           v-if="$store.state.user.semesters.length > 1"
-          @click="$bvModal.show('course-move-' + index)"
+          @click="showCourseMoveModal = true"
         >
           <font-awesome-icon
             icon="share-square"
@@ -169,7 +168,7 @@
       </b-dropdown>
     </td>
     <b-modal
-      :id="'course-move-' + index"
+      v-model="showCourseMoveModal"
       centered
       header-bg-variant="dark"
       header-text-variant="light"
@@ -198,7 +197,7 @@
       </b-list-group>
     </b-modal>
     <b-modal
-      :id="'histogram-' + index"
+      v-model="showHistogramModal"
       centered
       hide-backdrop
       size="xl"
@@ -281,15 +280,21 @@
             class="mb-2"
             style="cursor: zoom-in"
             fluid
-            @click="$bvModal.show('histogram-modal')"
+            @click="showHistogramImageModal = true"
           />
-          <b-modal id="histogram-modal" centered size="lg" hide-footer>
+          <b-modal
+            v-model="showHistogramImageModal"
+            centered
+            size="lg"
+            hide-footer
+          >
             <b-img
               v-if="histogram_img_link"
               rounded="true"
               size="xl"
               :src="histogram_img_link"
-              fluid-grow
+              fluid
+              class="w-100"
             />
           </b-modal>
         </div>
@@ -334,6 +339,9 @@ export default {
       selected_semester_grade_stats: null,
       course_info: null,
       histogram_img_link: null,
+      showHistogramModal: false,
+      showHistogramImageModal: false,
+      showCourseMoveModal: false,
       fields: [
         {
           key: "students",
@@ -412,10 +420,10 @@ export default {
           }
         }
       );
-      this.$bvModal.show("histogram-" + this.index);
+      this.showHistogramModal = true;
     },
     hideHistogram() {
-      this.$bvModal.hide("histogram-" + this.index);
+      this.showHistogramModal = false;
     },
     updateURL(event) {
       let event_payload = event[0];
@@ -424,7 +432,6 @@ export default {
     setCourseBinaryState(state) {
       this.course_copy.binary = state;
       this.updateField("binary");
-      this.$forceUpdate();
     },
     updateField(field) {
       let value = this.course_copy[field];

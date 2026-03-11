@@ -1,5 +1,5 @@
 <template>
-  <b-card dir="rtl" no-body style="min-height: 410px">
+  <b-card dir="rtl" no-body style="min-height: 410px; overflow-x: hidden">
     <div class="justify-content-center">
       <div
         class="row justify-content-between"
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="p-2">
-        <autocomplete
+        <app-autocomplete
           id="auto-input"
           aria-label="חיפוש קורסים"
           placeholder="הקלד חלק משם או מספר קורס"
@@ -64,11 +64,11 @@
             </b-button>
           </div>
           <div class="row justify-content-center mb-2">
-            <b-toast
-              id="added-course"
-              static
-              variant="primary"
-              auto-hide-delay="5000"
+            <div
+              v-if="showAddedToast"
+              class="alert alert-primary"
+              role="alert"
+              style="width: 90%"
             >
               <div class="row" style="padding: 10px">
                 <p style="font-size: larger">
@@ -90,7 +90,7 @@
                   בטל הוספה
                 </p>
               </div>
-            </b-toast>
+            </div>
           </div>
           <b-button
             v-if="collapsedHistogram"
@@ -98,6 +98,7 @@
             variant="outline-secondary"
             @click="
               collapsedHistogram = !collapsedHistogram;
+              showHistograms = true;
               collapseHistogram(true);
             "
           >
@@ -109,7 +110,7 @@
             variant="secondary"
             @click="
               collapsedHistogram = !collapsedHistogram;
-              collapseHistogram(false);
+              showHistograms = false;
             "
           >
             היסטוגרמות &Uarr;
@@ -124,7 +125,7 @@
             variant="outline-secondary"
             @click="
               collapsedPrereq = !collapsedPrereq;
-              collapsePrerequisites();
+              showPrereqCourses = true;
             "
           >
             קורסי קדם/צמודים&Darr;
@@ -139,7 +140,7 @@
             variant="secondary"
             @click="
               collapsedPrereq = !collapsedPrereq;
-              collapsePrerequisites();
+              showPrereqCourses = false;
             "
           >
             קורסי קדם/צמודים&Uarr;
@@ -150,7 +151,7 @@
             variant="outline-secondary"
             @click="
               collapsedFollowed = !collapsedFollowed;
-              collapseFollowedBy();
+              showFollowedBy = true;
             "
           >
             קורסי המשך&Darr;
@@ -161,7 +162,7 @@
             variant="secondary"
             @click="
               collapsedFollowed = !collapsedFollowed;
-              collapseFollowedBy();
+              showFollowedBy = false;
             "
           >
             קורסי המשך&Uarr;
@@ -173,7 +174,7 @@
             variant="outline-secondary"
             @click="
               collapsedExtraInfo = !collapsedExtraInfo;
-              collapseExtraInfo();
+              showExtraInfo = true;
             "
           >
             מידע נוסף &Darr;
@@ -184,12 +185,12 @@
             variant="secondary"
             @click="
               collapsedExtraInfo = !collapsedExtraInfo;
-              collapseExtraInfo();
+              showExtraInfo = false;
             "
           >
             מידע נוסף &Uarr;
           </b-button>
-          <b-collapse id="collapse-histograms">
+          <b-collapse :model-value="showHistograms">
             <b-card
               header-bg-variant="dark"
               header-text-variant="white"
@@ -239,21 +240,27 @@
                   class="mb-2"
                   style="cursor: zoom-in"
                   fluid
-                  @click="$bvModal.show('histogram-modal')"
+                  @click="showHistogramImageModal = true"
                 />
-                <b-modal id="histogram-modal" centered size="lg" hide-footer>
+                <b-modal
+                  v-model="showHistogramImageModal"
+                  centered
+                  size="lg"
+                  hide-footer
+                >
                   <b-img
                     v-if="histogram_img_link"
                     rounded="true"
                     size="xl"
                     :src="histogram_img_link"
-                    fluid-grow
+                    fluid
+                    class="w-100"
                   />
                 </b-modal>
               </div>
             </b-card>
           </b-collapse>
-          <b-collapse id="collapse-prereq-courses">
+          <b-collapse :model-value="showPrereqCourses">
             <b-card
               v-if="selected_course.prerequisites[0].length > 0"
               v-model="selected_course.prerequisites"
@@ -334,7 +341,7 @@
             </b-card>
           </b-collapse>
 
-          <b-collapse id="collapse-followed-by">
+          <b-collapse :model-value="showFollowedBy">
             <b-card
               v-if="selected_course.followed_by.length > 0"
               v-model="selected_course.followed_by"
@@ -367,7 +374,7 @@
               </b-list-group>
             </b-card>
           </b-collapse>
-          <b-collapse id="collapse-additional-info">
+          <b-collapse :model-value="showExtraInfo">
             <b-card
               v-if="selected_course.overlapping.length > 0"
               v-model="selected_course.overlapping"
@@ -440,7 +447,7 @@
 </template>
 
 <script>
-import Autocomplete from "@trevoreyre/autocomplete-vue";
+import AppAutocomplete from "@/components/AppAutocomplete";
 import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
 import $ from "jquery";
 
@@ -463,9 +470,10 @@ if (localStorage.getItem("courses")) {
 export default {
   name: "SearchCourseDialog",
   components: {
-    Autocomplete,
+    AppAutocomplete,
   },
 
+  emits: ["close"],
   data() {
     return {
       show: false,
@@ -475,6 +483,12 @@ export default {
       collapsedHistogram: true,
       grab: "grab",
       bgc: "transparent",
+      showHistograms: false,
+      showPrereqCourses: false,
+      showFollowedBy: false,
+      showExtraInfo: false,
+      showAddedToast: false,
+      showHistogramImageModal: false,
       selected_semester_grade_stats: null,
       course_info: null,
       last_added_course_index: null,
@@ -527,7 +541,7 @@ export default {
   },
   methods: {
     hideSearchModal() {
-      this.$modal.hide("search");
+      this.$emit("close");
     },
     search(input) {
       if (input.length < 2) {
@@ -545,21 +559,28 @@ export default {
       this.histogram_img_link = null;
       this.selected_semester_grade_stats = null;
       if (!this.collapsedHistogram) {
-        this.collapseHistogram(false);
-        this.collapsedHistogram = !this.collapsedHistogram;
+        this.showHistograms = false;
+        this.collapsedHistogram = true;
       }
       if (!this.collapsedExtraInfo) {
-        this.collapseExtraInfo();
-        this.collapsedExtraInfo = !this.collapsedExtraInfo;
+        this.showExtraInfo = false;
+        this.collapsedExtraInfo = true;
       }
       if (!this.collapsedFollowed) {
-        this.collapseFollowedBy();
-        this.collapsedFollowed = !this.collapsedFollowed;
+        this.showFollowedBy = false;
+        this.collapsedFollowed = true;
       }
       if (!this.collapsedPrereq) {
-        this.collapsePrerequisites();
-        this.collapsedPrereq = !this.collapsedPrereq;
+        this.showPrereqCourses = false;
+        this.collapsedPrereq = true;
       }
+    },
+    showToast() {
+      this.showAddedToast = true;
+      if (this._toastTimeout) clearTimeout(this._toastTimeout);
+      this._toastTimeout = setTimeout(() => {
+        this.showAddedToast = false;
+      }, 5000);
     },
     addCourse() {
       if (
@@ -581,38 +602,20 @@ export default {
             "הקורס קיים בסמסטר " +
             course_number_and_answer.answer +
             ", להוסיף בכל זאת?";
-          this.$bvModal
-            .msgBoxConfirm(message, {
-              title: "אזהרה",
-              headerBgVariant: "dark",
-              headerTextVariant: "white",
-              size: "sm",
-              buttonSize: "md",
-              cancelDisabled: "true",
-              okVariant: "danger",
-              okTitle: "כן",
-              autoFocusButton: "ok",
-              cancelTitle: "לא",
-              footerClass: "p-2",
-              hideHeaderClose: true,
-              centered: true,
-            })
-            .then((v) => {
-              if (v === true) {
-                let selected_course_and_added_index = {
-                  course: this.selected_course,
-                  added_index: this.last_added_course_index,
-                };
-                this.$store.commit(
-                  "addCourseWithDataReturningIndex",
-                  selected_course_and_added_index
-                );
-                this.last_added_course_index =
-                  selected_course_and_added_index.added_index;
-                this.$store.commit("reCalcCurrentSemester");
-                this.$bvToast.show("added-course");
-              }
-            });
+          if (window.confirm(message)) {
+            let selected_course_and_added_index = {
+              course: this.selected_course,
+              added_index: this.last_added_course_index,
+            };
+            this.$store.commit(
+              "addCourseWithDataReturningIndex",
+              selected_course_and_added_index
+            );
+            this.last_added_course_index =
+              selected_course_and_added_index.added_index;
+            this.$store.commit("reCalcCurrentSemester");
+            this.showToast();
+          }
         } else {
           let selected_course_and_added_index = {
             course: this.selected_course,
@@ -625,7 +628,7 @@ export default {
           this.last_added_course_index =
             selected_course_and_added_index.added_index;
           this.$store.commit("reCalcCurrentSemester");
-          this.$bvToast.show("added-course");
+          this.showToast();
         }
       } else {
         let selected_course_and_added_index = {
@@ -639,11 +642,11 @@ export default {
         this.last_added_course_index =
           selected_course_and_added_index.added_index;
         this.$store.commit("reCalcCurrentSemester");
-        this.$bvToast.show("added-course");
+        this.showToast();
       }
     },
     removeLastAddedCourse() {
-      this.$bvToast.hide("added-course");
+      this.showAddedToast = false;
       this.$store.commit("removeCourse", this.last_added_course_index);
     },
     findPrerequisites(event) {
@@ -653,15 +656,6 @@ export default {
           return course.full_name.includes(course_name);
         })[0]
       );
-    },
-    collapseExtraInfo() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-additional-info");
-    },
-    collapseFollowedBy() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-followed-by");
-    },
-    collapsePrerequisites() {
-      this.$root.$emit("bv::toggle::collapse", "collapse-prereq-courses");
     },
     collapseHistogram(fetch) {
       if (fetch) {
@@ -683,7 +677,6 @@ export default {
           }
         );
       }
-      this.$root.$emit("bv::toggle::collapse", "collapse-histograms");
     },
     updateURL(event) {
       let event_payload = event[0];

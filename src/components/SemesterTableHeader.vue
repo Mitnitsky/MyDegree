@@ -1,48 +1,44 @@
 <template>
-  <thead class="thead-light">
+  <thead style="background-color: rgb(233, 236, 239)">
     <tr style="font-family: Alef, serif">
-      <th scope="col" style="width: 15%">קטגוריה</th>
+      <th scope="col">קטגוריה</th>
       <th
-        v-b-tooltip.hover.v-secondary
+        v-b-tooltip.hover.body
         class="clickAbleHeader"
         scope="col"
-        style="width: 15%"
         title="לחץ למיון"
         @click="sortBy('number')"
       >
         מספר קורס
       </th>
       <th
-        v-b-tooltip.hover.v-secondary
+        v-b-tooltip.hover.body
         class="clickAbleHeader"
         scope="col"
-        style="width: 40%"
         title="לחץ למיון"
         @click="sortBy('name')"
       >
         שם קורס
       </th>
       <th
-        v-b-tooltip.hover.v-secondary
+        v-b-tooltip.hover.body
         class="clickAbleHeader"
         scope="col"
-        style="width: 12%"
         title="לחץ למיון"
         @click="sortBy('points')"
       >
         נקודות
       </th>
       <th
-        v-b-tooltip.hover.v-secondary
+        v-b-tooltip.hover.body
         class="clickAbleHeader"
         scope="col"
-        style="width: 12%"
         title="לחץ למיון"
         @click="sortBy('grade')"
       >
         ציון
       </th>
-      <th scope="col" style="width: 6%" />
+      <th scope="col" />
     </tr>
   </thead>
 </template>
@@ -61,7 +57,8 @@ export default {
 <style scoped>
 th {
   color: #495057;
-  background-color: #e9ecef;
+  background-color: rgb(233, 236, 239) !important;
+  --bs-table-accent-bg: rgb(233, 236, 239) !important;
   border-color: #dee2e6;
   text-align: center;
 }

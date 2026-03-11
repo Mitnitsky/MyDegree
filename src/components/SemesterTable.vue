@@ -16,8 +16,7 @@
       </table>
     </div>
     <div
-      class="row justify-content-md-center"
-      style="justify-content: center !important"
+      class="d-flex justify-content-center"
     >
       <b-button-group class="mx-1" style="direction: ltr">
         <b-button
@@ -34,16 +33,16 @@
         >
           חיפוש קורסים
         </b-button>
-        <modal
-          :max-height="800"
-          :min-height="380"
-          width="800"
-          height="auto"
-          name="search"
+        <b-modal
+          v-model="showSearchModal"
+          size="xl"
+          hide-footer
+          hide-header
           scrollable
+          body-class="p-0"
         >
-          <search-course-dialog />
-        </modal>
+          <search-course-dialog @close="showSearchModal = false" />
+        </b-modal>
       </b-button-group>
     </div>
   </div>
@@ -53,7 +52,6 @@
 import SemesterTableRow from "@/components/SemesterTableRow";
 import SemesterHeader from "@/components/SemesterTableHeader";
 import SearchCourseDialog from "./SearchCourseDialog";
-import Vue from "vue";
 
 export default {
   name: "SemesterTable",
@@ -71,6 +69,7 @@ export default {
       headerTextVariant: "light",
       headerBgVariant: "dark",
       alignment: "flex-end",
+      showSearchModal: false,
     };
   },
   methods: {
@@ -82,29 +81,14 @@ export default {
           (index === 0 && direction === "up")
         )
       ) {
-        if (direction === "up") {
-          let temp = this.semester.courses[index - 1];
-          Vue.set(
-            this.semester.courses,
-            index - 1,
-            this.semester.courses[index]
-          );
-          Vue.set(this.semester.courses, index, temp);
-        } else if (direction === "down") {
-          let temp = this.semester.courses[index + 1];
-          Vue.set(
-            this.semester.courses,
-            index + 1,
-            this.semester.courses[index]
-          );
-          Vue.set(this.semester.courses, index, temp);
-        }
+        // Uses store mutation to swap courses (avoiding direct prop mutation)
+        this.$store.commit("moveCourse", { index, direction });
       }
       this.$store.commit("reCalcCurrentSemester");
       this.$store.dispatch("updateSemesterAsync");
     },
     showModal() {
-      this.$modal.show("search");
+      this.showSearchModal = true;
     },
     addRow() {
       this.$store.commit("addCourse");
@@ -112,29 +96,11 @@ export default {
     },
     removeLastRow() {
       if (this.semester.courses.length > 0) {
-        this.$bvModal
-          .msgBoxConfirm("למחוק שורה בעלת תוכן?", {
-            title: "אזהרה",
-            size: "sm",
-            headerBgVariant: "dark",
-            headerTextVariant: "white",
-            buttonSize: "md",
-            cancelDisabled: "true",
-            okVariant: "danger",
-            okTitle: "כן",
-            cancelTitle: "לא",
-            autoFocusButton: "ok",
-            footerClass: "p-2",
-            hideHeaderClose: true,
-            centered: true,
-          })
-          .then((v) => {
-            if (v === true) {
-              this.$store.commit("removeLastRow");
-              this.$store.commit("reCalcCurrentSemester");
-              this.$store.dispatch("updateSemesterAsync");
-            }
-          });
+        if (window.confirm("למחוק שורה בעלת תוכן?")) {
+          this.$store.commit("removeLastRow");
+          this.$store.commit("reCalcCurrentSemester");
+          this.$store.dispatch("updateSemesterAsync");
+        }
       }
     },
   },

@@ -26,7 +26,7 @@
               </label>
             </b-col>
             <b-col sm="8">
-              <b-input
+              <b-form-input
                 :id="'semester' + $store.state.user.active_semester + 'average'"
                 v-model.number="
                   $store.state.user.semesters[$store.state.user.active_semester]
@@ -54,7 +54,7 @@
               </label>
             </b-col>
             <b-col sm="8">
-              <b-input
+              <b-form-input
                 :id="'semester' + $store.state.user.active_semester + 'points'"
                 v-model.number="
                   $store.state.user.semesters[$store.state.user.active_semester]
