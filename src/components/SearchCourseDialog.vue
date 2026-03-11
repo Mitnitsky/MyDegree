@@ -200,7 +200,10 @@
               <template #header>
                 <strong class="mb-0">היסטוגרמות</strong>
               </template>
-              <div v-if="course_info.length > 0" class="col mt-2">
+              <div v-if="histogram_loading" class="row justify-content-center mt-3 mb-3">
+                <b-spinner variant="primary" label="טוען היסטוגרמות..." />
+              </div>
+              <div v-else-if="course_info && course_info.length > 0" class="col mt-2">
                 <p v-if="selected_semester_grade_stats">
                   <strong>{{
                     selected_semester_grade_stats[0].semester_name
@@ -220,7 +223,7 @@
                   @change="updateURL($event)"
                 />
               </div>
-              <div v-else class="mt-2 mb-2 mr-2 ml-2">
+              <div v-else-if="!histogram_loading" class="mt-2 mb-2 mr-2 ml-2">
                 <strong>אין היסטוגרמות זמינות</strong>
               </div>
               <div v-if="selected_semester_grade_stats" class="mt-3 ml-2 mr-2">
@@ -448,8 +451,7 @@
 
 <script>
 import AppAutocomplete from "@/components/AppAutocomplete";
-import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
-import $ from "jquery";
+import { convertJsonToProperSelectBoxFormat, fetchHistogramIndexAsync, buildHistogramImageUrl } from "@/store/extensions/histogramFunctions";
 
 let json_courses;
 
@@ -535,6 +537,8 @@ export default {
         followed_by: "",
       },
       histogram_img_link: null,
+      histogram_loading: false,
+      resolved_histogram_number: null,
       remove: json_courses,
       options: json_courses.courses,
     };
@@ -661,10 +665,12 @@ export default {
       if (fetch) {
         let self = this;
         let update = this.updateURL;
-        $.getJSON(
-          `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/index.json`,
-          function (doc) {
-            self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
+        this.histogram_loading = true;
+        this.course_info = null;
+        fetchHistogramIndexAsync(this.selected_course.number).then(
+          function (result) {
+            self.resolved_histogram_number = result.resolvedNumber;
+            self.course_info = convertJsonToProperSelectBoxFormat(result.data).sort(
               function (a, b) {
                 return b.semester_number - a.semester_number;
               }
@@ -674,13 +680,18 @@ export default {
                 self.course_info[0].options[0].value;
               update(self.selected_semester_grade_stats);
             }
+            self.histogram_loading = false;
+          },
+          function () {
+            self.histogram_loading = false;
           }
         );
       }
     },
     updateURL(event) {
       let event_payload = event[0];
-      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.selected_course.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
+      const courseNum = this.resolved_histogram_number || this.selected_course.number;
+      this.histogram_img_link = buildHistogramImageUrl(courseNum, event_payload.semester_number, event_payload.entry_name);
     },
     checkIfExists(course_full_name, type) {
       let course_name = course_full_name.split(":")[1];

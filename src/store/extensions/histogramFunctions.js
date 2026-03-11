@@ -69,15 +69,74 @@ export function convertJsonToProperSelectBoxFormat(json_obj) {
   });
 }
 
+// Returns course number variants to try (original, then zero-padded 8-digit forms)
+export function getCourseNumberVariants(courseNumber) {
+  const num = String(courseNumber);
+  const variants = [num];
+
+  if (num.length < 8) {
+    // e.g. 234123 → 00234123
+    variants.push(num.padStart(8, "0"));
+
+    if (num.length === 6) {
+      // e.g. 234123 → 02340123  (split into two 3-digit halves, pad each to 4)
+      const firstHalf = num.slice(0, 3);
+      const secondHalf = num.slice(3);
+      variants.push("0" + firstHalf + "0" + secondHalf);
+    }
+  }
+
+  return variants;
+}
+
+const HISTOGRAM_BASE_URL =
+  "https://michael-maltsev.github.io/technion-histograms";
+
+// Async fetch with retry across course number variants.
+// Returns a jQuery promise resolving to { data, resolvedNumber }.
+export function fetchHistogramIndexAsync(courseNumber) {
+  const variants = getCourseNumberVariants(courseNumber);
+
+  function tryVariant(index) {
+    if (index >= variants.length) {
+      return $.Deferred().reject().promise();
+    }
+
+    const variant = variants[index];
+    const url = `${HISTOGRAM_BASE_URL}/${variant}/index.json`;
+
+    return $.getJSON(url).then(
+      function (doc) {
+        return { data: doc, resolvedNumber: variant };
+      },
+      function () {
+        return tryVariant(index + 1);
+      }
+    );
+  }
+
+  return tryVariant(0);
+}
+
+export function buildHistogramImageUrl(resolvedNumber, semesterNumber, entryName) {
+  return `${HISTOGRAM_BASE_URL}/${resolvedNumber}/${semesterNumber}/${entryName}.png`;
+}
+
 export function getHistogramForCourseNumber(course_number) {
+  const variants = getCourseNumberVariants(course_number);
   let json = null;
-  $.ajax({
-    dataType: "json",
-    url: `https://michael-maltsev.github.io/technion-histograms/${course_number}/index.json`,
-    async: false,
-    success: function (doc) {
-      json = doc;
-    },
-  });
+
+  for (const variant of variants) {
+    $.ajax({
+      dataType: "json",
+      url: `${HISTOGRAM_BASE_URL}/${variant}/index.json`,
+      async: false,
+      success: function (doc) {
+        json = doc;
+      },
+    });
+    if (json !== null) break;
+  }
+
   return convertJsonToProperSelectBoxFormat(json);
 }
