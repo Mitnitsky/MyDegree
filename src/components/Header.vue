@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="sm" type="dark" variant="dark">
+  <b-navbar toggleable="sm" variant="dark" class="navbar-dark" data-bs-theme="dark">
     <b-navbar-toggle target="nav-collapse" />
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav align="start">
@@ -21,7 +21,7 @@
             right
             style="font-size: 18px; color: lightgray"
           >
-            <template slot="button-content">
+            <template #button-content>
               <span style="margin-left: 5px">שלום {{ user_name }}</span>
             </template>
             <b-dropdown-item href="#" @click="signOut">
@@ -44,7 +44,6 @@
         </template>
         <template v-else>
           <font-awesome-icon
-            v-b-modal.modal-1
             icon="sign-in-alt"
             rotation="180"
             size="lg"
@@ -53,13 +52,19 @@
               margin-left: 5px;
               font-size: 20px;
               margin-top: 10px;
+              cursor: pointer;
             "
+            @click="showAuthModal = true"
           />
-          <b-nav-item v-b-modal.modal-1 href="#" style="color: lightgray">
+          <b-nav-item
+            href="#"
+            style="color: lightgray"
+            @click="showAuthModal = true"
+          >
             כניסה
           </b-nav-item>
           <b-modal
-            id="modal-1"
+            v-model="showAuthModal"
             ref="auth-modal"
             header-bg-variant="primary"
             header-text-variant="white"
@@ -71,10 +76,9 @@
           >
             <authentication />
             <b-button
-              block
-              class="mt-3"
+              class="mt-3 w-100"
               variant="outline-primary"
-              @click="hideModal('auth-modal')"
+              @click="showAuthModal = false"
             >
               סגור
             </b-button>
@@ -94,9 +98,9 @@
           "
         />
         <b-nav-item
+          v-b-modal.modal-import-from-ug
           href="#"
           style="font-size: 18px; color: lightgray"
-          @click="$bvModal.show('modal-import-from-ug')"
         >
           יבוא קורסים מ-UG
         </b-nav-item>
@@ -191,9 +195,9 @@
           "
         />
         <b-nav-item
+          v-b-modal.modal-import-from-students
           href="#"
           style="font-size: 18px; color: lightgray"
-          @click="$bvModal.show('modal-import-from-students')"
         >
           יבוא קורסים מ-Students
         </b-nav-item>
@@ -293,9 +297,9 @@
           "
         />
         <b-nav-item
+          v-b-modal.modal-cf-import
           href="#"
           style="font-size: 18px; color: lightgray"
-          @click="$bvModal.show('modal-cf-import')"
         >
           יבוא סמסטר מ-CheeseFork
         </b-nav-item>
@@ -388,9 +392,9 @@
           "
         />
         <b-nav-item
+          v-b-modal.modal-course-types
           href="#"
           style="font-size: 18px; color: lightgray"
-          @click="$bvModal.show('modal-course-types')"
         >
           שינוי קטגוריות קורסים
         </b-nav-item>
@@ -699,15 +703,18 @@ export default {
       message: "",
       input_data: "",
       json_text: "",
-      user_name: this.$store.state.user_name,
-      logged: this.$store.state.logged,
+      user_name: "",
+      logged: false,
       wrongInput: false,
+      showAuthModal: false,
     };
   },
   computed: {
     ...mapFields(["course_types"]),
   },
   mounted() {
+    this.user_name = this.$store.state.user_name;
+    this.logged = this.$store.state.logged;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem("authenticated", "true");
@@ -715,7 +722,7 @@ export default {
         this.user = user;
         this.user_name = user.displayName;
         if (this.$refs["auth-modal"]) {
-          this.$refs["auth-modal"].hide();
+          this.showAuthModal = false;
         }
         let uid = firebase.auth().currentUser.uid;
         firebase
@@ -752,27 +759,9 @@ export default {
       this.$store.commit("changeCategoryName", [event.target.value, index]);
     },
     deleteCategory(index) {
-      this.$bvModal
-        .msgBoxConfirm("למחוק קטגוריה?", {
-          title: "אזהרה",
-          autoFocusButton: "ok",
-          headerBgVariant: "dark",
-          headerTextVariant: "white",
-          size: "sm",
-          buttonSize: "md",
-          cancelDisabled: "true",
-          okVariant: "danger",
-          okTitle: "כן",
-          cancelTitle: "לא",
-          footerClass: "p-2",
-          hideHeaderClose: true,
-          centered: true,
-        })
-        .then((v) => {
-          if (v === true) {
-            this.$store.commit("deleteCourseType", index);
-          }
-        });
+      if (window.confirm("למחוק קטגוריה?")) {
+        this.$store.commit("deleteCourseType", index);
+      }
     },
     hideInvalidInput() {
       this.wrongInput = false;
@@ -788,7 +777,6 @@ export default {
         }
       }
       this.$store.commit("addCourseType", new_category_name);
-      this.hideModal("modal-add-course-type");
     },
     exportAsJson(with_grades) {
       this.$store.commit("exportSemesters", with_grades);
@@ -801,48 +789,25 @@ export default {
     },
     importCoursesFromSite(site) {
       if (this.message !== "") {
-        this.$bvModal
-          .msgBoxConfirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?", {
-            title: "אזהרה",
-            headerBgVariant: "dark",
-            autoFocusButton: "ok",
-            headerTextVariant: "white",
-            size: "sm",
-            buttonSize: "md",
-            cancelDisabled: "true",
-            okVariant: "danger",
-            okTitle: "כן",
-            cancelTitle: "לא",
-            footerClass: "p-2",
-            hideHeaderClose: true,
-            centered: true,
-          })
-          .then((v) => {
-            if (v === true) {
-              let semesters_exemption_summerIndexes;
-              if (site === "UG") {
-                semesters_exemption_summerIndexes = parseGraduateInformation(
-                  this.message
-                );
-              } else if (site === "Students") {
-                semesters_exemption_summerIndexes = parseStudentsSiteGrades(
-                  this.message
-                );
-              }
-              this.$store.dispatch("loadUserDataFromSite", {
-                semesters: semesters_exemption_summerIndexes["semesters"],
-                exemption: semesters_exemption_summerIndexes["exemption"],
-                summer_semesters_indexes:
-                  semesters_exemption_summerIndexes["summer_semesters_indexes"],
-              });
-              this.message = "";
-              if (site === "UG") {
-                this.hideModal("modal-import-from-ug");
-              } else if (site === "Students") {
-                this.hideModal("modal-import-from-students");
-              }
-            }
+        if (window.confirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?")) {
+          let semesters_exemption_summerIndexes;
+          if (site === "UG") {
+            semesters_exemption_summerIndexes = parseGraduateInformation(
+              this.message
+            );
+          } else if (site === "Students") {
+            semesters_exemption_summerIndexes = parseStudentsSiteGrades(
+              this.message
+            );
+          }
+          this.$store.dispatch("loadUserDataFromSite", {
+            semesters: semesters_exemption_summerIndexes["semesters"],
+            exemption: semesters_exemption_summerIndexes["exemption"],
+            summer_semesters_indexes:
+              semesters_exemption_summerIndexes["summer_semesters_indexes"],
           });
+          this.message = "";
+        }
       }
     },
     importCoursesFromCF() {
@@ -855,30 +820,11 @@ export default {
     },
     importCoursesFromJSON() {
       if (this.json_text !== "") {
-        this.$bvModal
-          .msgBoxConfirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?", {
-            title: "אזהרה",
-            headerBgVariant: "dark",
-            headerTextVariant: "white",
-            size: "sm",
-            buttonSize: "md",
-            autoFocusButton: "ok",
-            cancelDisabled: "true",
-            okVariant: "danger",
-            okTitle: "כן",
-            cancelTitle: "לא",
-            footerClass: "p-2",
-            hideHeaderClose: true,
-            centered: true,
-          })
-          .then((v) => {
-            if (v === true) {
-              this.$store.commit("importCoursesFromJson", this.json_text);
-              this.$store.commit("reCalcCurrentSemester");
-              this.json_text = "";
-              this.hideModal("modal-import-from-json");
-            }
-          });
+        if (window.confirm("יבוא קורסים ימחק כל תוכן הקיים באתר, להמשיך?")) {
+          this.$store.commit("importCoursesFromJson", this.json_text);
+          this.$store.commit("reCalcCurrentSemester");
+          this.json_text = "";
+        }
       }
     },
     signOut() {
@@ -887,11 +833,6 @@ export default {
       window.localStorage.removeItem("saved_session_data");
       this.logged = false;
       this.$store.commit("clearUserData");
-    },
-    hideModal(modalName) {
-      if (this.$refs[modalName]) {
-        this.$refs[modalName].hide();
-      }
     },
   },
 };

@@ -2,9 +2,9 @@
   <div>
     <b-navbar fixed="bottom" type="dark" variant="dark">
       <div
+        v-b-modal.contactInfo-modal
         class="mx-auto"
-        style="color: lightgray"
-        @click="$bvModal.show('contactInfo-modal')"
+        style="color: lightgray; cursor: pointer"
       >
         © Created by: <a href="#">Vladimir Mitnitsky</a>
       </div>

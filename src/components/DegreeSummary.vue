@@ -5,7 +5,6 @@
   >
     <b-button
       v-if="collapsed"
-      v-b-toggle.collapse-summary
       style="margin: 5px"
       variant="outline-dark"
       @click="collapsed = !collapsed"
@@ -14,15 +13,14 @@
     </b-button>
     <b-button
       v-if="!collapsed"
-      v-b-toggle.collapse-summary
       style="margin: 5px"
       variant="outline-dark"
       @click="collapsed = !collapsed"
     >
       הסתר סיכום תואר &Uarr;
     </b-button>
-    <b-collapse id="collapse-summary">
-      <b-card-group deck>
+    <b-collapse id="collapse-summary" v-model="showSummary">
+      <b-card-group class="d-flex gap-3">
         <div class="container justify-content-center mt-1">
           <div class="row justify-content-center">
             <div class="col" style="max-width: 590px; min-width: 480px">
@@ -46,10 +44,7 @@
                     <input
                       v-model.number="degree_points"
                       v-b-tooltip.hover.v-dark
-                      class="
-                        form-control
-                        degree-summary degree-summary-number degree-input-field
-                      "
+                      class="form-control degree-summary degree-summary-number degree-input-field"
                       max="9999999"
                       min="0"
                       step="0.5"
@@ -66,11 +61,7 @@
                     >
                     <input
                       v-model.number="degree_average"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       max="100"
                       min="0"
@@ -90,11 +81,7 @@
                     >
                     <input
                       v-model.number="degree_points_done"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -112,11 +99,7 @@
                     >
                     <input
                       v-model.number="degree_points_left"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -134,11 +117,7 @@
                     >
                     <input
                       v-model.number="degree_points_to_choose"
-                      class="
-                        form-control
-                        degree-summary degree-summary-number
-                        disabled-input
-                      "
+                      class="form-control degree-summary degree-summary-number disabled-input"
                       disabled="disabled"
                       readonly
                       step="0.5"
@@ -222,12 +201,7 @@
                     <input
                       v-if="type.name !== 'פטור'"
                       v-model.number="type.points_left"
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary
-                        disabled-input
-                      "
+                      class="input-group-append form-control degree-summary disabled-input"
                       dir="ltr"
                       disabled="disabled"
                       readonly
@@ -238,12 +212,7 @@
                       v-else
                       v-model.number="type.total_points"
                       v-b-tooltip.hover.top.v-dark="'נקודות פטור קיימות'"
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary
-                        disabled-input
-                      "
+                      class="input-group-append form-control degree-summary disabled-input"
                       style="cursor: default"
                       dir="ltr"
                       readonly
@@ -253,11 +222,7 @@
                       v-if="type.name !== 'פטור'"
                       v-model.number="type.points_required"
                       v-b-tooltip.hover.left.v-dark
-                      class="
-                        input-group-append
-                        form-control
-                        degree-summary degree-summary-number degree-input-field
-                      "
+                      class="input-group-append form-control degree-summary degree-summary-number degree-input-field"
                       dir="ltr"
                       max="9999999"
                       min="0"
@@ -307,6 +272,14 @@ export default {
     };
   },
   computed: {
+    showSummary: {
+      get() {
+        return !this.collapsed;
+      },
+      set(val) {
+        this.collapsed = !val;
+      },
+    },
     ...mapFields([
       "token",
       "active_semester",

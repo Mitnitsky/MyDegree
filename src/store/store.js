@@ -1,5 +1,4 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import * as Semester from "./classes/semester";
 import {
   calculateAverage,
@@ -34,8 +33,6 @@ if (localStorage.getItem("courses")) {
   json_courses = require("../data/courses.json");
   localStorage.setItem("courses", JSON.stringify(json_courses));
 }
-
-Vue.use(Vuex);
 
 function updateUserData(state) {
   if (localStorage.getItem("authenticated") === "true") {
@@ -265,7 +262,7 @@ function calculateUserInfo(state) {
   updateUserData(state);
 }
 
-export const store = new Vuex.Store({
+export const store = createStore({
   state: {
     logged: false,
     user_name: "",
@@ -545,7 +542,7 @@ export const store = new Vuex.Store({
     exportSemesters: (state, with_grades) => {
       let copy = JSON.stringify(state.user.semesters);
       copy = JSON.parse(copy);
-      if(!with_grades) {
+      if (!with_grades) {
         for (let sem of copy) {
           for (let course of sem.courses) {
             course.grade = 0;
@@ -553,7 +550,7 @@ export const store = new Vuex.Store({
           calculatePoints(sem);
           calculateAverage(sem);
         }
-      };
+      }
       let data = JSON.stringify(copy, undefined, 2);
       saveJSON(data, "courses.json");
     },

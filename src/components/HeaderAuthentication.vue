@@ -9,7 +9,7 @@ import * as firebaseui from "firebaseui";
 import "../../node_modules/firebaseui/dist/firebaseui.css";
 
 export default {
-  name: "Authentication",
+  name: "HeaderAuthentication",
   mounted() {
     let uiConfig = {
       signInFlow: "popup",

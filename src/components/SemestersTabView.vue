@@ -1,6 +1,6 @@
 <template>
   <b-card class="shadow bg-white rounded" no-body style="margin: 10px 20px">
-    <b-tabs pills card v-model="active_semester">
+    <b-tabs pills card v-model="active_semester" active-nav-item-class="bg-primary text-white" nav-wrapper-class="semester-tabs-header">
       <b-tab
         v-for="(semester, index) in $store.state.user.semesters"
         :key="index"
@@ -51,30 +51,26 @@
       </b-tab>
 
       <!-- New Tab Button (Using tabs slot) -->
-      <template slot="tabs-end">
+      <template #tabs-end>
         <b-nav-item href="#" @click.prevent="newTab">
           <b>+</b>
         </b-nav-item>
       </template>
 
       <!-- Render this if no tabs -->
-      <div
-        slot="empty"
-        class="
-          container
-          justify-content-md-center
-          alert alert-secondary
-          text-center text-muted
-        "
-      >
-        <h2>עוד לא נוספו סמסטרים</h2>
+      <template #empty>
+        <div
+          class="container justify-content-md-center alert alert-secondary text-center text-muted"
+        >
+          <h2>עוד לא נוספו סמסטרים</h2>
 
-        <br />
+          <br />
 
-        <b-button variant="outline-secondary" @click.prevent="newTab">
-          הוסף סמסטר
-        </b-button>
-      </div>
+          <b-button variant="outline-secondary" @click.prevent="newTab">
+            הוסף סמסטר
+          </b-button>
+        </div>
+      </template>
     </b-tabs>
   </b-card>
 </template>
@@ -119,27 +115,10 @@ export default {
   },
   methods: {
     removeSemester() {
-      this.$bvModal
-        .msgBoxConfirm("למחוק סמסטר זה?", {
-          title: "אזהרה",
-          size: "sm",
-          buttonSize: "md",
-          cancelDisabled: "true",
-          okVariant: "danger",
-          okTitle: "כן",
-          cancelTitle: "לא",
-          autoFocusButton: "ok",
-
-          footerClass: "p-2",
-          hideHeaderClose: true,
-          centered: true,
-        })
-        .then((v) => {
-          if (v === true) {
-            this.$store.commit("removeSemester");
-            this.$store.commit("reCalcCurrentSemester");
-          }
-        });
+      if (window.confirm("למחוק סמסטר זה?")) {
+        this.$store.commit("removeSemester");
+        this.$store.commit("reCalcCurrentSemester");
+      }
     },
 
     newTab() {
@@ -156,3 +135,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+:deep(.semester-tabs-header) {
+  min-height: 3.5rem;
+}
+</style>
