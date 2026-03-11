@@ -35,11 +35,12 @@
         </b-button>
         <b-modal
           v-model="showSearchModal"
-          size="xl"
+          size="lg"
           hide-footer
           hide-header
           scrollable
           body-class="p-0"
+          content-class="border-0"
         >
           <search-course-dialog @close="showSearchModal = false" />
         </b-modal>

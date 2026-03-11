@@ -1,5 +1,5 @@
 <template>
-  <b-card dir="rtl" no-body style="min-height: 410px; overflow-x: hidden">
+  <b-card dir="rtl" no-body class="border-0" style="min-height: 410px; overflow-x: hidden">
     <div class="justify-content-center">
       <div
         class="row justify-content-between"
