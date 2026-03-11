@@ -230,7 +230,10 @@
         header-text-variant="white"
         style="margin-bottom: 10px; direction: rtl !important"
       >
-        <div v-if="course_info && course_info.length > 0" class="col">
+        <div v-if="histogram_loading" class="row justify-content-center mt-3 mb-3">
+          <b-spinner variant="primary" label="טוען היסטוגרמות..." />
+        </div>
+        <div v-else-if="course_info && course_info.length > 0" class="col">
           <div class="row justify-content-center align-self">
             <p v-if="selected_semester_grade_stats" style="text-align: center">
               <strong>
@@ -254,7 +257,7 @@
             />
           </div>
         </div>
-        <div v-else class="row mt-2 mb-2 mr-2 ml-2">
+        <div v-else-if="!histogram_loading" class="row mt-2 mb-2 mr-2 ml-2">
           <strong>אין היסטוגרמות זמינות</strong>
         </div>
         <div
@@ -305,8 +308,7 @@
 <script>
 import { clearCourse } from "@/store/classes/course";
 import { createHelpers } from "vuex-map-fields";
-import $ from "jquery";
-import { convertJsonToProperSelectBoxFormat } from "@/store/extensions/histogramFunctions";
+import { convertJsonToProperSelectBoxFormat, fetchHistogramIndexAsync, buildHistogramImageUrl } from "@/store/extensions/histogramFunctions";
 
 const { mapFields } = createHelpers({
   getterType: "getUserField",
@@ -339,6 +341,8 @@ export default {
       selected_semester_grade_stats: null,
       course_info: null,
       histogram_img_link: null,
+      histogram_loading: false,
+      resolved_histogram_number: null,
       showHistogramModal: false,
       showHistogramImageModal: false,
       showCourseMoveModal: false,
@@ -405,10 +409,12 @@ export default {
     showHistorgram() {
       let self = this;
       let update = this.updateURL;
-      $.getJSON(
-        `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/index.json`,
-        function (doc) {
-          self.course_info = convertJsonToProperSelectBoxFormat(doc).sort(
+      this.histogram_loading = true;
+      this.course_info = null;
+      fetchHistogramIndexAsync(this.course_copy.number).then(
+        function (result) {
+          self.resolved_histogram_number = result.resolvedNumber;
+          self.course_info = convertJsonToProperSelectBoxFormat(result.data).sort(
             function (a, b) {
               return b.semester_number - a.semester_number;
             }
@@ -418,6 +424,10 @@ export default {
               self.course_info[0].options[0].value;
             update(self.selected_semester_grade_stats);
           }
+          self.histogram_loading = false;
+        },
+        function () {
+          self.histogram_loading = false;
         }
       );
       this.showHistogramModal = true;
@@ -427,7 +437,8 @@ export default {
     },
     updateURL(event) {
       let event_payload = event[0];
-      this.histogram_img_link = `https://michael-maltsev.github.io/technion-histograms/${this.course_copy.number}/${event_payload.semester_number}/${event_payload.entry_name}.png`;
+      const courseNum = this.resolved_histogram_number || this.course_copy.number;
+      this.histogram_img_link = buildHistogramImageUrl(courseNum, event_payload.semester_number, event_payload.entry_name);
     },
     setCourseBinaryState(state) {
       this.course_copy.binary = state;
