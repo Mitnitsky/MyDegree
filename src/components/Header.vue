@@ -68,6 +68,7 @@
             ref="auth-modal"
             header-bg-variant="primary"
             header-text-variant="white"
+            header-class="cf-header"
             hide-footer
             hide-header-close
             ok-title="סגור"
@@ -111,6 +112,7 @@
           content-class="shadow"
           header-bg-variant="dark"
           header-text-variant="white"
+          header-class="cf-header"
           hide-backdrop
           hide-footer
           ok-title="הוסף קורסים"
@@ -118,27 +120,6 @@
           size="md"
           title="יבוא קורסים וציונים מ-UG"
         >
-          <template #modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right">
-                <h5 class="modal-title">יבוא קורסים וציונים מ-UG</h5>
-              </div>
-              <div
-                class="col-lg-1"
-                style="width: 5%; text-align: left; align-items: flex-end"
-              >
-                <b-button
-                  aria-label="Close"
-                  class="close text-light"
-                  style="margin-right: 5px"
-                  type="button"
-                  @click="close()"
-                >
-                  ×
-                </b-button>
-              </div>
-            </div>
-          </template>
           <div class="row justify-content-center">
             <b-button id="popover-button-variant" variant="outline-primary">
               הוראות
@@ -208,6 +189,7 @@
           content-class="shadow"
           header-bg-variant="dark"
           header-text-variant="white"
+          header-class="cf-header"
           hide-backdrop
           hide-footer
           ok-title="הוסף קורסים"
@@ -215,27 +197,6 @@
           size="md"
           title="יבוא קורסים וציונים מ-Students"
         >
-          <template #modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right">
-                <h5 class="modal-title">יבוא קורסים וציונים מ-Students</h5>
-              </div>
-              <div
-                class="col-lg-1"
-                style="width: 5%; text-align: left; align-items: flex-end"
-              >
-                <b-button
-                  aria-label="Close"
-                  class="close text-light"
-                  style="margin-right: 5px"
-                  type="button"
-                  @click="close()"
-                >
-                  ×
-                </b-button>
-              </div>
-            </div>
-          </template>
           <div class="row justify-content-center">
             <b-button id="popover-button-variant-2" variant="outline-primary">
               הוראות
@@ -310,6 +271,7 @@
           content-class="shadow"
           header-bg-variant="dark"
           header-text-variant="white"
+          header-class="cf-header"
           hide-backdrop
           hide-footer
           ok-title="הוסף קורסים"
@@ -317,27 +279,6 @@
           size="md"
           title="יבוא סמסטר מ-CheeseFork"
         >
-          <template #modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right">
-                <h5 class="modal-title">יבוא סמסטר מ-CheeseFork</h5>
-              </div>
-              <div
-                class="col-lg-1"
-                style="width: 5%; text-align: left; align-items: flex-end"
-              >
-                <b-button
-                  aria-label="Close"
-                  class="close text-light"
-                  style="margin-right: 5px"
-                  type="button"
-                  @click="close()"
-                >
-                  ×
-                </b-button>
-              </div>
-            </div>
-          </template>
           <div class="row justify-content-center">
             <b-button id="popover-cf-variant" variant="outline-primary">
               הוראות
@@ -405,33 +346,13 @@
           content-class="shadow"
           header-bg-variant="dark"
           header-text-variant="white"
+          header-class="cf-header"
           hide-backdrop
           hide-footer
           ok-disabled
           size="md"
           title="שינוי קטגוריות קורסים"
         >
-          <template #modal-header="{ close }">
-            <div class="row" style="width: 100%">
-              <div class="col-lg-11" style="text-align: right">
-                <h5 class="modal-title">שינוי קטגוריות קורסים</h5>
-              </div>
-              <div
-                class="col-lg-1"
-                style="width: 5%; text-align: left; align-items: flex-end"
-              >
-                <b-button
-                  class="close text-light"
-                  style="margin-right: 5px"
-                  type="button"
-                  aria-label="Close"
-                  @click="close()"
-                >
-                  ×
-                </b-button>
-              </div>
-            </div>
-          </template>
           <table class="table table-sm">
             <thead class="thead-dark">
               <tr>
@@ -500,32 +421,12 @@
               content-class="shadow"
               header-bg-variant="dark"
               header-text-variant="white"
+              header-class="cf-header"
               hide-footer
               ok-disabled
               size="sm"
               title="הוספת קטגוריה"
             >
-              <template #modal-header="{ close }">
-                <div class="row" style="width: 100%">
-                  <div class="col" style="text-align: right">
-                    <h5 class="modal-title">הוספת קטגוריה</h5>
-                  </div>
-                  <div
-                    class="col-2"
-                    style="width: 5%; text-align: left; align-items: flex-end"
-                  >
-                    <b-button
-                      aria-label="Close"
-                      class="close text-light"
-                      style="margin-right: 5px"
-                      type="button"
-                      @click="close()"
-                    >
-                      ×
-                    </b-button>
-                  </div>
-                </div>
-              </template>
               <div class="input-group-prepend" style="width: 100%">
                 <input
                   id="new_category_name"
@@ -618,6 +519,7 @@
               content-class="shadow"
               header-bg-variant="dark"
               header-text-variant="white"
+              header-class="cf-header"
               hide-backdrop
               hide-footer
               ok-title="הוסף קורסים"
@@ -625,27 +527,6 @@
               size="md"
               title="יבוא נתונים מקובץ JSON"
             >
-              <template #modal-header="{ close }">
-                <div class="row" style="width: 100%">
-                  <div class="col-lg-11" style="text-align: right">
-                    <h5 class="modal-title">יבוא נתונים מקובץ JSON</h5>
-                  </div>
-                  <div
-                    class="col-lg-1"
-                    style="width: 5%; text-align: left; align-items: flex-end"
-                  >
-                    <b-button
-                      aria-label="Close"
-                      class="close text-light"
-                      style="margin-right: 5px"
-                      type="button"
-                      @click="close()"
-                    >
-                      ×
-                    </b-button>
-                  </div>
-                </div>
-              </template>
               <b-form-textarea
                 id="import-text-json"
                 v-model="json_text"
@@ -872,4 +753,15 @@ span.navbar-text {
 /*.navbar-custom .navbar-text {*/
 /*  color: green;*/
 /*}*/
+</style>
+
+<style>
+.cf-header {
+  justify-content: space-between;
+}
+
+.cf-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+  margin-left: 0 !important;
+}
 </style>
