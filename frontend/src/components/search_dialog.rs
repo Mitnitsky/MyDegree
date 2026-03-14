@@ -48,13 +48,15 @@ pub fn SearchCourseDialog() -> impl IntoView {
             el::div().class("search-dialog")
                 .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
                 .child((
-                    // Header
-                    el::div().class("d-flex justify-content-between align-items-center mb-3").child((
+                    // Header (sticky)
+                    el::div().class("d-flex justify-content-between align-items-center").child((
                         el::h5().class("mb-0").child("חיפוש קורסים"),
                         el::button().class("btn btn-sm btn-outline-secondary")
                             .on(ev::click, move |_| state.show_search_modal.set(false))
                             .child(el::i().class("fas fa-times")),
                     )),
+                    // Scrollable body
+                    el::div().child((
 
                     // Search input
                     el::div().class("position-relative mb-3").child((
@@ -238,6 +240,7 @@ pub fn SearchCourseDialog() -> impl IntoView {
                             ))
                         })
                     },
+                    )),
                 )),
         )
 }

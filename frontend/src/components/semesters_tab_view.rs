@@ -92,7 +92,7 @@ pub fn SemestersTabView() -> impl IntoView {
                     } else if active < semesters.len() {
                         let is_summer = semesters[active].is_summer();
                         let toggle_text = if is_summer { "הפוך לסמסטר רגיל" } else { "הפוך לסמסטר קיץ" };
-                        el::div().child((
+                        el::div().class("semester-fade-in").child((
                             el::div().class("row justify-content-md-center").child((
                                 el::div().class("col-xl-10").attr("style", "margin-bottom: 10px;").child(
                                     SemesterTable(),

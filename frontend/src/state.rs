@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use wasm_bindgen::JsCast;
 use degree_core::course::{CourseDB, CourseType};
 use degree_core::degree::UserState;
 use degree_core::semester::Semester;
@@ -15,6 +16,7 @@ pub struct AppState {
     pub user_name: RwSignal<String>,
     pub course_db: StoredValue<CourseDB>,
     pub show_search_modal: RwSignal<bool>,
+    pub show_histogram_modal: RwSignal<Option<String>>,
     pub toast_message: RwSignal<Option<String>>,
 }
 
@@ -45,6 +47,7 @@ impl AppState {
             user_name: RwSignal::new(String::new()),
             course_db: StoredValue::new(course_db),
             show_search_modal: RwSignal::new(false),
+            show_histogram_modal: RwSignal::new(None),
             toast_message: RwSignal::new(None),
         };
 
@@ -139,6 +142,19 @@ impl AppState {
         self.user.update(|u| {
             u.active_semester = index;
         });
+        // Restart fade-in animation after Leptos re-renders
+        let restart = wasm_bindgen::closure::Closure::once_into_js(move || {
+            if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                if let Ok(Some(el)) = doc.query_selector(".semester-fade-in") {
+                    if let Some(html_el) = el.dyn_ref::<web_sys::HtmlElement>() {
+                        let _ = html_el.class_list().remove_1("semester-fade-in");
+                        let _ = html_el.offset_height();
+                        let _ = html_el.class_list().add_1("semester-fade-in");
+                    }
+                }
+            }
+        });
+        let _ = web_sys::window().unwrap().request_animation_frame(restart.unchecked_ref());
     }
 
     pub fn active_semester_index(&self) -> usize {

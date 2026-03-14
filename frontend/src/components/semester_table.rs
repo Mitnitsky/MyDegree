@@ -3,8 +3,6 @@ use leptos::html as el;
 use leptos::ev;
 use wasm_bindgen::JsCast;
 use crate::state::AppState;
-use crate::components::SearchCourseDialog;
-use crate::components::histogram_viewer::{HistogramViewer, HistogramViewerProps};
 
 fn semester_table_header() -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
@@ -342,7 +340,6 @@ fn drop_zone_row(position: usize) -> impl IntoView {
 fn semester_table_row(index: usize) -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
     let show_menu = RwSignal::new(false);
-    let show_histogram_modal = RwSignal::new(false);
 
     let course = Memo::new(move |_| {
         state.user.with(|u| {
@@ -441,6 +438,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
         el::td().attr("style", "width: 15%;").child(
             el::select()
                 .class("form-select form-select-sm")
+                .attr("style", "text-align: center; text-align-last: center;")
                 .on(ev::change, move |e| {
                     let val = event_target_value(&e);
                     state.update_course_field(index, "type", &val);
@@ -500,18 +498,33 @@ fn semester_table_row(index: usize) -> impl IntoView {
         ),
         // Grade
         el::td().attr("style", "width: 80px;").child(
-            el::input()
-                .attr("type", "number")
-                .class("form-control form-control-sm text-center")
-                .attr("style", "direction: ltr;")
-                .attr("min", "0")
-                .attr("max", "100")
-                .prop("value", move || {
-                    course.with(|c| c.as_ref().map(|c| (c.grade as i64).to_string()).unwrap_or_default())
-                })
-                .on(ev::change, move |e| {
-                    state.update_course_field(index, "grade", &event_target_value(&e));
-                }),
+            move || {
+                let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
+                if is_binary {
+                    el::input()
+                        .attr("type", "text")
+                        .class("form-control form-control-sm text-center")
+                        .attr("style", "color: green; cursor: default;")
+                        .attr("readonly", "")
+                        .prop("value", "✔")
+                        .attr("title", "עובר בינארי")
+                        .into_any()
+                } else {
+                    el::input()
+                        .attr("type", "number")
+                        .class("form-control form-control-sm text-center")
+                        .attr("style", "direction: ltr;")
+                        .attr("min", "0")
+                        .attr("max", "100")
+                        .prop("value", move || {
+                            course.with(|c| c.as_ref().map(|c| (c.grade as i64).to_string()).unwrap_or_default())
+                        })
+                        .on(ev::change, move |e| {
+                            state.update_course_field(index, "grade", &event_target_value(&e));
+                        })
+                        .into_any()
+                }
+            },
         ),
         // Actions dropdown
         el::td().class("text-center").attr("style", "width: 6%; vertical-align: middle;").child(
@@ -532,7 +545,10 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                     el::a().class("dropdown-item").attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
-                                            show_histogram_modal.set(true);
+                                            let num = course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default());
+                                            if !num.is_empty() {
+                                                state.show_histogram_modal.set(Some(num));
+                                            }
                                             show_menu.set(false);
                                         })
                                         .child((el::i().class("fas fa-chart-bar").attr("style", "color: dodgerblue; margin-left: 5px;"), " הצג היסטוגרמות")),
@@ -588,36 +604,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
         ),
     ));
 
-    // Return both the row and the histogram modal
-    (
-        row,
-        move || {
-            show_histogram_modal.get().then(|| {
-                let num = course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default());
-                if num.is_empty() {
-                    return None;
-                }
-                Some(el::div()
-                    .class("search-overlay")
-                    .on(ev::click, move |_| show_histogram_modal.set(false))
-                    .child(
-                        el::div()
-                            .class("search-dialog")
-                            .attr("style", "max-width: 900px;")
-                            .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
-                            .child((
-                                el::div().class("d-flex justify-content-between align-items-center mb-3").child((
-                                    el::h5().class("mb-0").child("היסטוגרמות"),
-                                    el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_histogram_modal.set(false))
-                                        .child(el::i().class("fas fa-times")),
-                                )),
-                                HistogramViewer(HistogramViewerProps { course_number: num }),
-                            )),
-                    ))
-            })
-        },
-    )
+    row
 }
 
 #[component]
@@ -656,9 +643,6 @@ pub fn SemesterTable() -> impl IntoView {
                     .child("חיפוש קורסים"),
             )),
         ),
-        move || {
-            state.show_search_modal.get().then(SearchCourseDialog)
-        },
     ))
 }
 

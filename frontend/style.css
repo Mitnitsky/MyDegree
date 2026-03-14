@@ -160,13 +160,23 @@ thead th:hover {
 .search-dialog {
     background: #fff;
     border-radius: 8px;
-    padding: 24px;
     width: 90%;
     max-width: 800px;
     min-width: 600px;
     max-height: 80vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.search-dialog > :first-child {
+    padding: 16px 24px;
+    border-bottom: 1px solid #dee2e6;
+    flex-shrink: 0;
+}
+.search-dialog > :nth-child(2) {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1 1 auto;
 }
 
 /* Toast notification */
@@ -349,4 +359,19 @@ tr.drag-fade-out {
 /* Preview during drag: rows transition smoothly */
 tr.course-row {
     transition: transform 0.75s ease, opacity 0.75s ease;
+}
+
+/* Semester swap fade-in animation */
+@keyframes semesterFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.semester-fade-in {
+    animation: semesterFadeIn 0.75s cubic-bezier(.36,.07,.19,.97) both;
 }
