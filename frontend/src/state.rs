@@ -1,8 +1,10 @@
 use leptos::prelude::*;
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use degree_core::course::{CourseDB, CourseType};
 use degree_core::degree::UserState;
 use degree_core::semester::Semester;
+use crate::firebase;
 
 /// Loaded once at startup from the embedded courses.json.
 static COURSES_JSON: &str = include_str!("../../src/data/courses.json");
@@ -10,10 +12,9 @@ static COURSES_JSON: &str = include_str!("../../src/data/courses.json");
 #[derive(Clone, Copy)]
 pub struct AppState {
     pub user: RwSignal<UserState>,
-    #[allow(dead_code)]
     pub logged: RwSignal<bool>,
-    #[allow(dead_code)]
     pub user_name: RwSignal<String>,
+    pub uid: RwSignal<Option<String>>,
     pub course_db: StoredValue<CourseDB>,
     pub show_search_modal: RwSignal<bool>,
     pub show_histogram_modal: RwSignal<Option<String>>,
@@ -45,6 +46,7 @@ impl AppState {
             user: RwSignal::new(user),
             logged: RwSignal::new(false),
             user_name: RwSignal::new(String::new()),
+            uid: RwSignal::new(None),
             course_db: StoredValue::new(course_db),
             show_search_modal: RwSignal::new(false),
             show_histogram_modal: RwSignal::new(None),
@@ -58,17 +60,27 @@ impl AppState {
 
         // Auto-save to localStorage on every change
         let user_signal = state.user;
+        let uid_signal = state.uid;
+        let logged_signal = state.logged;
         Effect::new(move |_| {
             let user = user_signal.get();
             if let Ok(json) = serde_json::to_string(&user) {
                 if let Some(window) = web_sys::window() {
                     if let Ok(Some(storage)) = window.local_storage() {
                         let _ = storage.set_item("saved_session_data", &json);
-                        let _ = storage.set_item("authenticated", "false");
+                    }
+                }
+                // Also save to Firestore if authenticated
+                if logged_signal.get_untracked() {
+                    if let Some(uid) = uid_signal.get_untracked() {
+                        let _ = firebase::firestore_set(&uid, &json);
                     }
                 }
             }
         });
+
+        // Initialize Firebase auth listener
+        state.init_auth();
 
         state
     }
@@ -369,5 +381,125 @@ impl AppState {
             });
             self.recalculate();
         }
+    }
+
+    /// Initialize Firebase auth state listener.
+    /// On sign-in: loads user data from Firestore.
+    /// On sign-out: clears auth state.
+    fn init_auth(&self) {
+        let logged = self.logged;
+        let user_name = self.user_name;
+        let uid_signal = self.uid;
+        let user_signal = self.user;
+        let course_db = self.course_db;
+        let toast = self.toast_message;
+
+        let cb = Closure::new(move |json: Option<String>| {
+            match json {
+                Some(json_str) => {
+                    // Parse auth user info
+                    if let Ok(auth_user) = serde_json::from_str::<firebase::AuthUser>(&json_str) {
+                        let uid = auth_user.uid.clone();
+                        logged.set(true);
+                        user_name.set(auth_user.display_name);
+                        uid_signal.set(Some(uid.clone()));
+
+                        // Store auth flag in localStorage
+                        if let Some(window) = web_sys::window() {
+                            if let Ok(Some(storage)) = window.local_storage() {
+                                let _ = storage.set_item("authenticated", "true");
+                            }
+                        }
+
+                        // Load user data from Firestore
+                        let promise = firebase::firestore_get(&uid);
+                        let future = wasm_bindgen_futures::JsFuture::from(promise);
+                        leptos::task::spawn_local(async move {
+                            match future.await {
+                                Ok(val) => {
+                                    web_sys::console::log_1(
+                                        &format!("Firestore get result: is_string={}, is_null={}, is_undefined={}, type={:?}",
+                                            val.as_string().is_some(),
+                                            val.is_null(),
+                                            val.is_undefined(),
+                                            val.js_typeof()
+                                        ).into()
+                                    );
+                                    // val may be a JS string or null
+                                    let json_opt = val.as_string().or_else(|| {
+                                        // If JS returned something other than a string, try to stringify it
+                                        if !val.is_null() && !val.is_undefined() {
+                                            js_sys::JSON::stringify(&val).ok().and_then(|s| s.as_string())
+                                        } else {
+                                            None
+                                        }
+                                    });
+                                    if let Some(json) = json_opt {
+                                        let preview: String = json.chars().take(200).collect();
+                                        web_sys::console::log_1(
+                                            &format!("Firestore data (first 200 chars): {}", preview).into()
+                                        );
+                                        match serde_json::from_str::<UserState>(&json) {
+                                            Ok(cloud_user) => {
+                                                user_signal.set(cloud_user);
+                                                user_signal.update(|u| {
+                                                    course_db.with_value(|db| u.recalculate(db));
+                                                });
+                                                web_sys::console::log_1(&"✅ Loaded user data from Firestore".into());
+                                            }
+                                            Err(e) => {
+                                                web_sys::console::warn_1(
+                                                    &format!("Failed to parse Firestore data: {}", e).into()
+                                                );
+                                            }
+                                        }
+                                    } else {
+                                        web_sys::console::log_1(&"No Firestore document found — uploading local state".into());
+                                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                            let _ = firebase::firestore_set(&uid_signal.get_untracked().unwrap_or_default(), &json);
+                                        }
+                                    }
+                                }
+                                Err(e) => {
+                                    web_sys::console::warn_1(
+                                        &format!("Firestore read failed: {:?}", e).into()
+                                    );
+                                }
+                            }
+                        });
+                    }
+                }
+                None => {
+                    // Signed out
+                    logged.set(false);
+                    user_name.set(String::new());
+                    uid_signal.set(None);
+                    if let Some(window) = web_sys::window() {
+                        if let Ok(Some(storage)) = window.local_storage() {
+                            let _ = storage.set_item("authenticated", "false");
+                        }
+                    }
+                }
+            }
+        });
+
+        firebase::on_auth_change(&cb);
+        // Leak the closure so it lives for the duration of the app
+        cb.forget();
+    }
+
+    pub fn sign_out(&self) {
+        firebase::sign_out_user();
+        self.logged.set(false);
+        self.user_name.set(String::new());
+        self.uid.set(None);
+        self.user.set(UserState::default());
+        if let Some(window) = web_sys::window() {
+            if let Ok(Some(storage)) = window.local_storage() {
+                let _ = storage.set_item("authenticated", "false");
+                let _ = storage.remove_item("saved_session_data");
+            }
+        }
+        self.show_toast("התנתקת בהצלחה");
     }
 }

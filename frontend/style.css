@@ -203,11 +203,20 @@ thead th:hover {
 .app-header {
     background-color: #343a40;
     color: #fff;
-    padding: 10px 20px;
+    padding: 0;
+}
+.app-header .container-fluid {
+    padding: 0;
 }
 .app-header a {
     color: #fff;
     text-decoration: none;
+}
+.nav-divider {
+    width: 2px;
+    background-color: #6c757d;
+    align-self: stretch;
+    margin: 0 2px;
 }
 
 /* Footer */

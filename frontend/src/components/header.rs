@@ -61,12 +61,67 @@ pub fn Header() -> impl IntoView {
         }
     };
 
+    let show_auth_modal = RwSignal::new(false);
+
+    // Auto-close auth modal when user logs in
+    Effect::new(move |_| {
+        if state.logged.get() {
+            show_auth_modal.set(false);
+        }
+    });
+
     el::div().child((
         // Navbar
         el::nav()
             .class("navbar navbar-expand-lg navbar-dark bg-dark app-header")
             .child(
                 el::div().class("container-fluid").child((
+                    // Auth buttons (rightmost in RTL)
+                    el::div().class("d-flex align-items-center").attr("style", "padding: 0 12px;").child(
+                        move || {
+                            if state.logged.get() {
+                                let name = state.user_name.get();
+                                let display = if name.is_empty() { "שלום".to_string() } else { format!("שלום {}", name) };
+                                // Bootstrap dropdown with account icon + name
+                                el::div().class("nav-item dropdown").child((
+                                    el::a()
+                                        .class("nav-link dropdown-toggle")
+                                        .attr("href", "#")
+                                        .attr("role", "button")
+                                        .attr("data-bs-toggle", "dropdown")
+                                        .attr("aria-expanded", "false")
+                                        .attr("style", "color: lightgray;")
+                                        .child((
+                                            el::i().class("fas fa-user-circle").attr("style", "margin-left: 5px;"),
+                                            display,
+                                        )),
+                                    el::ul().class("dropdown-menu")
+                                        .attr("style", "text-align: right;")
+                                        .child(
+                                            el::li().child(
+                                                el::a().class("dropdown-item").attr("href", "#")
+                                                    .on(ev::click, move |_| state.sign_out())
+                                                    .child((
+                                                        el::i().class("fas fa-sign-out-alt").attr("style", "margin-left: 5px;"),
+                                                        "יציאה",
+                                                    )),
+                                            ),
+                                        ),
+                                )).into_any()
+                            } else {
+                                el::a().class("nav-link")
+                                    .attr("href", "#")
+                                    .attr("style", "color: lightgray;")
+                                    .on(ev::click, move |_| show_auth_modal.set(true))
+                                    .child((
+                                        el::i().class("fas fa-sign-in-alt fa-flip-horizontal").attr("style", "margin-left: 5px;"),
+                                        "כניסה",
+                                    )).into_any()
+                            }
+                        },
+                    ),
+                    // Divider
+                    el::div().class("nav-divider"),
                     el::div().class("navbar-nav me-auto").child((
                         // Import/Export dropdown
                         el::div().class("nav-item dropdown").child((
@@ -110,6 +165,8 @@ pub fn Header() -> impl IntoView {
                                     ),
                                 )),
                         )),
+                        // Divider
+                        el::div().class("nav-divider"),
                         // Categories link
                         el::div().class("nav-item").child(
                             el::a().class("nav-link").attr("href", "#")
@@ -119,7 +176,7 @@ pub fn Header() -> impl IntoView {
                     )),
                     el::a().class("navbar-brand")
                         .attr("href", "#")
-                        .attr("style", "padding-top: 5px; padding-bottom: 0; margin-left: 5px;")
+                        .attr("style", "padding: 8px 10px; margin: 0;")
                         .child((
                             "My Degree ",
                             el::i().class("fas fa-graduation-cap ms-2"),
@@ -289,6 +346,39 @@ pub fn Header() -> impl IntoView {
                                             .child("הוסף"),
                                     )),
                                 )),
+                            )),
+                    )
+            })
+        },
+
+        // Auth modal
+        move || {
+            show_auth_modal.get().then(|| {
+                // Trigger FirebaseUI after DOM is rendered
+                let start_ui = wasm_bindgen::closure::Closure::once_into_js(move || {
+                    crate::firebase::start_auth_ui("firebaseui-auth-container");
+                });
+                let _ = web_sys::window().unwrap().set_timeout_with_callback_and_timeout_and_arguments_0(
+                    start_ui.unchecked_ref(),
+                    100,
+                );
+
+                el::div().class("search-overlay")
+                    .on(ev::click, move |_| show_auth_modal.set(false))
+                    .child(
+                        el::div().class("search-dialog")
+                            .attr("style", "max-width: 500px; min-width: 350px;")
+                            .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                            .child((
+                                el::div().class("d-flex justify-content-between align-items-center").child((
+                                    el::h5().class("mb-0").child("כניסה"),
+                                    el::button().class("btn btn-sm btn-outline-secondary")
+                                        .on(ev::click, move |_| show_auth_modal.set(false))
+                                        .child(el::i().class("fas fa-times")),
+                                )),
+                                el::div().child(
+                                    el::div().id("firebaseui-auth-container"),
+                                ),
                             )),
                     )
             })

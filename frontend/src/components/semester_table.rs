@@ -472,7 +472,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
         el::td().child(
             el::input()
                 .attr("type", "text")
-                .class("form-control form-control-sm")
+                .class("form-control form-control-sm text-center")
                 .prop("value", move || {
                     course.with(|c| c.as_ref().map(|c| c.name.clone()).unwrap_or_default())
                 })
