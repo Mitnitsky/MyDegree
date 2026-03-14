@@ -3,6 +3,14 @@ name = "course-scraper"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "course-scraper"
+path = "src/main.rs"
+
+[[bin]]
+name = "merge-courses"
+path = "src/merge.rs"
+
 [dependencies]
 scraper = "0.22"
 rusqlite = { version = "0.32", features = ["bundled"] }
@@ -14,3 +22,4 @@ futures = "0.3"
 clap = { version = "4", features = ["derive"] }
 indicatif = "0.17"
 sha2 = "0.10"
+degree-core = { path = "../../degree-core" }

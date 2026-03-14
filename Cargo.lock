@@ -370,6 +370,7 @@ name = "course-scraper"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "degree-core",
  "futures",
  "indicatif",
  "regex",

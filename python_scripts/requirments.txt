@@ -1,4 +1,0 @@
-beautifulsoup4==4.10.0
-requests==2.27.1
-selenium==4.1.0
-html5lib==1.1
