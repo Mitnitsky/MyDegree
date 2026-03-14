@@ -7,7 +7,7 @@ target = "index.html"
 dist = "dist"
 
 [watch]
-ignore = ["firebase_bridge.js"]
+ignore = ["firebase_bridge.js", "bootstrap.purged.css"]
 
 # Bundle Firebase v10 modular SDK before Trunk processes JS assets
 [[hooks]]

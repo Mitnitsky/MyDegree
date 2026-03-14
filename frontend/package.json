@@ -2,12 +2,13 @@
   "private": true,
   "description": "Firebase SDK bundling for MyDegree frontend",
   "scripts": {
-    "build": "npx esbuild firebase_bridge_src.mjs --bundle --minify --format=iife --outfile=firebase_bridge.js"
+    "build": "npx esbuild firebase_bridge_src.mjs --bundle --minify --format=iife --outfile=firebase_bridge.js && npx purgecss --config purgecss.config.cjs"
   },
   "dependencies": {
     "firebase": "^10.14.0"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.24.0",
+    "purgecss": "^8.0.0"
   }
 }

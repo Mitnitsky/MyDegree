@@ -34,3 +34,4 @@ frontend/firebase_bridge.js
 # Rust build artifacts
 /target/
 /frontend/dist/
+frontend/bootstrap.purged.css
