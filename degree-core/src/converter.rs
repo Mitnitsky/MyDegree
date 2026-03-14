@@ -18,7 +18,7 @@ mod tests {
 
     fn sample_db() -> CourseDB {
         CourseDB {
-            version: 12.0,
+            content_hash: None,
             courses: vec![
                 CourseDBEntry {
                     full_name: "14003: סטטיסטיקה".into(),

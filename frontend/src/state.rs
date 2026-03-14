@@ -20,11 +20,24 @@ pub struct AppState {
 
 impl AppState {
     pub fn new() -> Self {
-        let course_db: CourseDB =
-            serde_json::from_str(COURSES_JSON).expect("Failed to parse courses.json");
+        // Parse bundled courses.json with graceful fallback
+        let course_db = CourseDB::from_json(COURSES_JSON)
+            .expect("courses.json is completely unparseable — cannot start");
+        let bundled_hash = course_db.compute_content_hash();
 
-        // Try to load saved session from localStorage
-        let user = Self::load_from_storage().unwrap_or_default();
+        // Check if cached session data is stale (course DB changed since last visit)
+        let session_stale = Self::is_session_stale(&bundled_hash);
+
+        // Try to load saved session from localStorage (skip if DB changed)
+        let user = if session_stale {
+            web_sys::console::log_1(
+                &"Course DB changed — clearing stale session cache".into(),
+            );
+            Self::save_content_hash(&bundled_hash);
+            UserState::default()
+        } else {
+            Self::load_from_storage().unwrap_or_default()
+        };
 
         let state = Self {
             user: RwSignal::new(user),
@@ -34,6 +47,11 @@ impl AppState {
             show_search_modal: RwSignal::new(false),
             toast_message: RwSignal::new(None),
         };
+
+        // Persist content hash on first run
+        if !session_stale {
+            Self::save_content_hash(&bundled_hash);
+        }
 
         // Auto-save to localStorage on every change
         let user_signal = state.user;
@@ -52,11 +70,47 @@ impl AppState {
         state
     }
 
+    /// Check if bundled course DB hash differs from the one stored in localStorage.
+    fn is_session_stale(bundled_hash: &str) -> bool {
+        let window = match web_sys::window() {
+            Some(w) => w,
+            None => return false,
+        };
+        let storage = match window.local_storage() {
+            Ok(Some(s)) => s,
+            _ => return false,
+        };
+        match storage.get_item("course_db_hash") {
+            Ok(Some(stored)) => stored != bundled_hash,
+            // No hash stored yet — first visit, not stale
+            _ => false,
+        }
+    }
+
+    fn save_content_hash(hash: &str) {
+        if let Some(window) = web_sys::window() {
+            if let Ok(Some(storage)) = window.local_storage() {
+                let _ = storage.set_item("course_db_hash", hash);
+            }
+        }
+    }
+
     fn load_from_storage() -> Option<UserState> {
         let window = web_sys::window()?;
         let storage = window.local_storage().ok()??;
         let json = storage.get_item("saved_session_data").ok()??;
-        serde_json::from_str(&json).ok()
+        match serde_json::from_str(&json) {
+            Ok(user) => Some(user),
+            Err(e) => {
+                // Deserialization failed — data is corrupted or schema changed.
+                // Clear it and start fresh.
+                web_sys::console::warn_1(
+                    &format!("Failed to deserialize saved session, starting fresh: {}", e).into(),
+                );
+                let _ = storage.remove_item("saved_session_data");
+                None
+            }
+        }
     }
 
     pub fn recalculate(&self) {
@@ -119,6 +173,32 @@ impl AppState {
     pub fn move_course(&self, index: usize, direction: &str) {
         self.user.update(|u| {
             u.move_course(index, direction);
+        });
+        self.recalculate();
+    }
+
+    /// Move a course via drag-and-drop, possibly between semesters.
+    pub fn move_course_drag(&self, src_sem: usize, src_idx: usize, dst_sem: usize, dst_idx: usize) {
+        self.user.update(|u| {
+            let course = {
+                let sem = match u.semesters.get_mut(src_sem) {
+                    Some(s) => s,
+                    None => return,
+                };
+                if src_idx >= sem.courses.len() {
+                    return;
+                }
+                sem.courses.remove(src_idx)
+            };
+            if let Some(dst) = u.semesters.get_mut(dst_sem) {
+                // After removing from source, adjust target index if same semester
+                let insert_at = if src_sem == dst_sem && src_idx < dst_idx {
+                    (dst_idx - 1).min(dst.courses.len())
+                } else {
+                    dst_idx.min(dst.courses.len())
+                };
+                dst.courses.insert(insert_at, course);
+            }
         });
         self.recalculate();
     }

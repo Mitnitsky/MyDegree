@@ -15,9 +15,11 @@
     font-style: normal;
 }
 
+html {
+    min-width: 965px;
+}
 body {
     font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
-    min-width: 965px !important;
     direction: rtl;
     background-color: #f8f9fa;
 }
@@ -300,4 +302,51 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .navbar-dark .dropdown-menu .dropdown-divider {
     border-color: #dee2e6 !important;
+}
+
+/* Degree summary slide animation */
+.summary-collapse-wrapper {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.4s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+.summary-collapse-wrapper > div {
+    overflow: hidden;
+}
+.summary-collapse-wrapper.summary-collapsed {
+    grid-template-rows: 0fr;
+    opacity: 0;
+}
+.summary-collapse-wrapper.summary-collapsed > div {
+    overflow: hidden;
+}
+
+/* Drag and drop rows */
+.drop-zone-row {
+    position: relative;
+}
+.drop-zone-row td {
+    height: 6px;
+    padding: 0 !important;
+    transition: height 0.25s ease, background-color 0.25s ease;
+}
+.drop-zone-row.drag-over td {
+    height: 30px !important;
+    background-color: rgba(13, 110, 253, 0.2);
+}
+tr.dragging {
+    opacity: 0.25;
+}
+/* Fade out on drop — Telegram-style collapse */
+tr.drag-fade-out {
+    opacity: 0 !important;
+    transform: scaleY(0.3);
+    transform-origin: center;
+    transition: opacity 0.3s cubic-bezier(.36,.07,.19,.97),
+                transform 0.3s cubic-bezier(.36,.07,.19,.97) !important;
+}
+/* Preview during drag: rows transition smoothly */
+tr.course-row {
+    transition: transform 0.75s ease, opacity 0.75s ease;
 }

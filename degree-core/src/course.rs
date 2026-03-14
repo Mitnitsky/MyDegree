@@ -126,8 +126,47 @@ pub struct CourseDBEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CourseDB {
-    pub version: f64,
+    /// Content hash for cache invalidation. Auto-computed from course data.
+    /// Replaces the old manual `version` number.
+    #[serde(default)]
+    pub content_hash: Option<String>,
     pub courses: Vec<CourseDBEntry>,
+}
+
+impl CourseDB {
+    /// Compute a deterministic content hash from all course data.
+    /// Any change to courses (added, removed, renamed, repointed) produces a different hash.
+    pub fn compute_content_hash(&self) -> String {
+        use std::collections::hash_map::DefaultHasher;
+        use std::hash::{Hash, Hasher};
+        let mut hasher = DefaultHasher::new();
+        self.courses.len().hash(&mut hasher);
+        for course in &self.courses {
+            course.number.hash(&mut hasher);
+            course.name.hash(&mut hasher);
+            course.points.to_bits().hash(&mut hasher);
+        }
+        format!("{:016x}", hasher.finish())
+    }
+
+    /// Deserialize from JSON with graceful fallback.
+    /// Handles both new format (content_hash) and old format (version number).
+    /// If deserialization fails entirely, returns None.
+    pub fn from_json(json: &str) -> Option<Self> {
+        // Try direct deserialization first (handles content_hash field)
+        if let Ok(db) = serde_json::from_str::<CourseDB>(json) {
+            return Some(db);
+        }
+        // Fallback: try parsing as a generic object with a "courses" array
+        // This handles old format with "version": 12.0 or any unexpected field
+        let val: serde_json::Value = serde_json::from_str(json).ok()?;
+        let courses_val = val.get("courses")?;
+        let courses: Vec<CourseDBEntry> = serde_json::from_value(courses_val.clone()).ok()?;
+        Some(CourseDB {
+            content_hash: None,
+            courses,
+        })
+    }
 }
 
 #[cfg(test)]
@@ -157,5 +196,41 @@ mod tests {
         assert_eq!(types.len(), 6);
         assert_eq!(types[0].name, "חובה");
         assert_eq!(types[1].name, "פטור");
+    }
+
+    #[test]
+    fn test_from_json_new_format() {
+        let json = r#"{"content_hash":"abc123","courses":[]}"#;
+        let db = CourseDB::from_json(json).unwrap();
+        assert_eq!(db.content_hash, Some("abc123".to_string()));
+        assert!(db.courses.is_empty());
+    }
+
+    #[test]
+    fn test_from_json_old_version_format() {
+        let json = r#"{"version":12.0,"courses":[]}"#;
+        let db = CourseDB::from_json(json).unwrap();
+        // Old format has no content_hash — falls through to fallback parser
+        assert!(db.courses.is_empty());
+    }
+
+    #[test]
+    fn test_from_json_no_version_field() {
+        let json = r#"{"courses":[]}"#;
+        let db = CourseDB::from_json(json).unwrap();
+        assert_eq!(db.content_hash, None);
+    }
+
+    #[test]
+    fn test_from_json_garbage_returns_none() {
+        assert!(CourseDB::from_json("not json at all").is_none());
+    }
+
+    #[test]
+    fn test_content_hash_deterministic() {
+        let db = CourseDB { content_hash: None, courses: vec![] };
+        let h1 = db.compute_content_hash();
+        let h2 = db.compute_content_hash();
+        assert_eq!(h1, h2);
     }
 }

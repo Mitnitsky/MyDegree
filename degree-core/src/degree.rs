@@ -334,7 +334,7 @@ mod tests {
 
     fn empty_db() -> CourseDB {
         CourseDB {
-            version: 12.0,
+            content_hash: None,
             courses: vec![],
         }
     }

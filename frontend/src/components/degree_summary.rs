@@ -17,24 +17,23 @@ pub fn DegreeSummary() -> impl IntoView {
                 .attr("style", "margin: 5px;")
                 .on(ev::click, move |_| collapsed.update(|v| *v = !*v))
                 .child(move || if collapsed.get() { "הראה סיכום תואר ↓" } else { "הסתר סיכום תואר ↑" }),
-            move || {
-                (!collapsed.get()).then(|| {
+            el::div()
+                .class("summary-collapse-wrapper")
+                .class(("summary-collapsed", move || collapsed.get()))
+                .child(
                     el::div().class("d-flex gap-3").child(
                         el::div().class("container justify-content-center mt-1").child(
                             el::div().class("row justify-content-center").child((
-                                // Left card: degree summary
                                 el::div().class("col").attr("style", "max-width: 590px; min-width: 480px;").child(
                                     degree_summary_card(state),
                                 ),
-                                // Right card: course type analysis
                                 el::div().class("col").attr("style", "max-width: 590px; min-width: 480px;").child(
                                     course_types_card(state),
                                 ),
                             )),
                         ),
-                    )
-                })
-            },
+                    ),
+                ),
         ))
 }
 

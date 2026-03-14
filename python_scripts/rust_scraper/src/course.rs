@@ -39,5 +39,26 @@ impl Course {
 /// Top-level wrapper matching `{"courses": [...]}`.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CoursesJson {
+    /// Content hash for cache invalidation. Computed from all course data.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub content_hash: Option<String>,
     pub courses: Vec<Course>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub number_aliases: Option<std::collections::HashMap<String, String>>,
+}
+
+impl CoursesJson {
+    /// Compute a deterministic content hash (same algorithm as degree-core).
+    pub fn compute_content_hash(&self) -> String {
+        use std::collections::hash_map::DefaultHasher;
+        use std::hash::{Hash, Hasher};
+        let mut hasher = DefaultHasher::new();
+        self.courses.len().hash(&mut hasher);
+        for course in &self.courses {
+            course.number.hash(&mut hasher);
+            course.name.hash(&mut hasher);
+            course.points.to_bits().hash(&mut hasher);
+        }
+        format!("{:016x}", hasher.finish())
+    }
 }

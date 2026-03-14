@@ -44,6 +44,11 @@ struct Args {
     /// Also reads HTTP_PROXY / HTTPS_PROXY env vars.
     #[arg(long)]
     proxy: Option<String>,
+
+    /// Tor control port for automatic circuit rotation (e.g. 9051).
+    /// Requires Tor running with ControlPort enabled.
+    #[arg(long)]
+    tor_control_port: Option<u16>,
 }
 
 #[tokio::main]
@@ -53,6 +58,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut client = SapClient::new(args.cache_dir.clone(), args.concurrency, args.verbose);
     client.set_proxy(args.proxy.clone());
+    if let Some(port) = args.tor_control_port {
+        client.set_tor_control_port(port);
+    }
 
     let semesters_to_fetch = resolve_semesters(&client, &args.year_and_semester).await?;
     eprintln!(
@@ -119,7 +127,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(parent) = args.output.parent() {
         std::fs::create_dir_all(parent)?;
     }
-    let wrapper = CoursesJson { courses };
+    let mut wrapper = CoursesJson {
+        content_hash: None,
+        courses,
+        number_aliases: None,
+    };
+    wrapper.content_hash = Some(wrapper.compute_content_hash());
     let json = serde_json::to_string_pretty(&wrapper)?;
     std::fs::write(&args.output, json)?;
 
@@ -194,6 +207,7 @@ async fn resolve_semesters(
 }
 
 /// Fetch raw SAP course data for one semester. Returns a map of OTJID → raw JSON.
+/// Uses buffer_unordered for concurrency control with automatic Tor circuit rotation.
 async fn fetch_semester_raw(
     client: &SapClient,
     year: i64,
@@ -213,7 +227,6 @@ async fn fetch_semester_raw(
             .unwrap(),
     );
 
-    // Use buffer_unordered to truly limit concurrent curl processes.
     let results: Vec<_> = stream::iter(course_ids.iter().map(|cid| {
         let cid = cid.clone();
         let query = build_course_query(year, semester, &cid);

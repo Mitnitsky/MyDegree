@@ -1,20 +1,27 @@
 use regex::Regex;
 use sha2::{Digest, Sha256};
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use tokio::time::{sleep, Duration};
 
 const REQUEST_TIMEOUT_SECS: u64 = 60;
+/// Rotate Tor circuit every N non-cached requests to avoid IP bans
+const ROTATE_EVERY: u64 = 100;
 
-/// Shared SAP client that handles batch OData requests with caching and retries.
+/// Shared SAP client that handles OData batch requests with caching, retries,
+/// and automatic Tor circuit rotation.
 pub struct SapClient {
     cache_dir: Option<PathBuf>,
     proxy: Option<String>,
     verbose: bool,
+    /// Tor control port (e.g. 9051). If set, sends NEWNYM signal to rotate circuits.
+    tor_control_port: Option<u16>,
+    /// Count of non-cached requests sent (for rotation scheduling)
+    request_count: AtomicU64,
 }
 
 impl SapClient {
     pub fn new(cache_dir: Option<PathBuf>, _concurrency: usize, verbose: bool) -> Self {
-        // Pick up proxy from explicit arg or env vars (like the Python script)
         let proxy = std::env::var("HTTPS_PROXY")
             .or_else(|_| std::env::var("HTTP_PROXY"))
             .ok()
@@ -24,6 +31,8 @@ impl SapClient {
             cache_dir,
             proxy,
             verbose,
+            tor_control_port: None,
+            request_count: AtomicU64::new(0),
         }
     }
 
@@ -31,6 +40,11 @@ impl SapClient {
         if let Some(p) = proxy.filter(|s| !s.is_empty()) {
             self.proxy = Some(p);
         }
+    }
+
+    /// Enable Tor circuit rotation via the control port.
+    pub fn set_tor_control_port(&mut self, port: u16) {
+        self.tor_control_port = Some(port);
     }
 
     fn cache_path(&self, query: &str) -> Option<PathBuf> {
@@ -51,22 +65,127 @@ impl SapClient {
         Some(dir.join(format!("{}_{:x}.json", safe, hash)))
     }
 
-    /// Send a single OData batch request (with cache + retry).
+    fn read_cache(&self, query: &str) -> Option<serde_json::Value> {
+        let path = self.cache_path(query)?;
+        if !path.exists() {
+            return None;
+        }
+        let data = std::fs::read_to_string(&path).ok()?;
+        serde_json::from_str(&data).ok()
+    }
+
+    fn write_cache(&self, query: &str, value: &serde_json::Value) {
+        if let Some(path) = self.cache_path(query) {
+            let _ = std::fs::write(
+                &path,
+                serde_json::to_string_pretty(value).unwrap_or_default(),
+            );
+        }
+    }
+
+    /// Rotate Tor circuit by sending NEWNYM to the control port.
+    async fn maybe_rotate_circuit(&self) {
+        let count = self.request_count.fetch_add(1, Ordering::Relaxed);
+        if count > 0 && count % ROTATE_EVERY == 0 {
+            self.rotate_circuit_now().await;
+        }
+    }
+
+    /// Force a Tor circuit rotation right now.
+    async fn rotate_circuit_now(&self) {
+        let port = match self.tor_control_port {
+            Some(p) => p,
+            None => return,
+        };
+
+        if self.verbose {
+            eprintln!("Rotating Tor circuit...");
+        }
+
+        // Send NEWNYM via Tor control port
+        let cmd = format!(
+            "printf 'AUTHENTICATE\\r\\nSIGNAL NEWNYM\\r\\nQUIT\\r\\n' | nc -w5 localhost {}",
+            port
+        );
+        let _ = tokio::process::Command::new("sh")
+            .arg("-c")
+            .arg(&cmd)
+            .output()
+            .await;
+
+        // Wait for new circuit to be established
+        sleep(Duration::from_secs(5)).await;
+
+        if self.verbose {
+            // Verify new IP
+            if let Ok(output) = tokio::process::Command::new("curl")
+                .args(["--proxy", "socks5h://127.0.0.1:9050", "-s", "https://api.ipify.org"])
+                .output()
+                .await
+            {
+                let ip = String::from_utf8_lossy(&output.stdout);
+                eprintln!("New Tor IP: {}", ip.trim());
+            }
+        }
+    }
+
+    /// Send a single OData GET via a $batch POST (with cache + retry).
     pub async fn send_request(
         &self,
         query: &str,
         allow_empty: bool,
     ) -> Result<serde_json::Value, String> {
+        // Check cache first
+        if let Some(cached) = self.read_cache(query) {
+            return Ok(cached);
+        }
+
+        self.maybe_rotate_circuit().await;
+
         let max_retries = 10;
         let mut delay = 2u64;
         for attempt in 1..=max_retries {
-            match self.send_request_once(query, allow_empty).await {
-                Ok(v) => return Ok(v),
+            // Small delay between requests to be polite
+            sleep(Duration::from_millis(300)).await;
+
+            match self.send_request_once(query).await {
+                Ok(val) => {
+                    // Check for WAF block (HTML response instead of multipart)
+                    if let Some(s) = val.as_str() {
+                        if s.contains("Request Rejected") {
+                            eprintln!("WAF blocked request, rotating circuit...");
+                            self.rotate_circuit_now().await;
+                            delay = 5;
+                            continue;
+                        }
+                    }
+
+                    if !allow_empty && val == serde_json::json!({"d": {"results": []}}) {
+                        self.write_cache(query, &val);
+                        return Ok(val);
+                    }
+                    self.write_cache(query, &val);
+                    return Ok(val);
+                }
                 Err(e) => {
-                    eprintln!(
-                        "Error (attempt {}/{}): {} for {}",
-                        attempt, max_retries, e, query
-                    );
+                    let is_connection_error = e.contains("exit exit status: 52")
+                        || e.contains("exit exit status: 56")
+                        || e.contains("Connection reset")
+                        || e.contains("empty response");
+
+                    if is_connection_error && self.tor_control_port.is_some() {
+                        eprintln!(
+                            "Connection error (attempt {}/{}), rotating Tor circuit: {}",
+                            attempt, max_retries, e
+                        );
+                        self.rotate_circuit_now().await;
+                    } else {
+                        eprintln!(
+                            "Error (attempt {}/{}): {} for {}",
+                            attempt, max_retries, e, query
+                        );
+                    }
+
                     if attempt == max_retries {
                         return Err(format!("Failed after {} retries: {}", max_retries, e));
                     }
@@ -78,35 +197,38 @@ impl SapClient {
         unreachable!()
     }
 
+    /// Low-level: send one `$batch` POST with a single GET sub-request.
     async fn send_request_once(
         &self,
         query: &str,
-        allow_empty: bool,
     ) -> Result<serde_json::Value, String> {
-        // Check cache first
-        if let Some(path) = self.cache_path(query) {
-            if path.exists() {
-                let data = std::fs::read_to_string(&path).map_err(|e| e.to_string())?;
-                return serde_json::from_str(&data).map_err(|e| e.to_string());
-            }
-        }
-
         if self.verbose {
             eprintln!("Sending request: {}", query);
         }
-
-        // Delay between requests to avoid rate-limiting
-        sleep(Duration::from_millis(500)).await;
 
         let url =
             "https://portalex.technion.ac.il/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/$batch?sap-client=700";
 
         let body = format!(
-            "--batch_1d12-afbf-e3c7\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET {} HTTP/1.1\r\nsap-cancel-on-close: true\r\nX-Requested-With: X\r\nsap-contextid-accept: header\r\nAccept: application/json\r\nAccept-Language: he\r\nDataServiceVersion: 2.0\r\nMaxDataServiceVersion: 2.0\r\n\r\n\r\n--batch_1d12-afbf-e3c7--\r\n",
+            "--batch_1d12-afbf-e3c7\r\n\
+             Content-Type: application/http\r\n\
+             Content-Transfer-Encoding: binary\r\n\
+             \r\n\
+             GET {} HTTP/1.1\r\n\
+             sap-cancel-on-close: true\r\n\
+             X-Requested-With: X\r\n\
+             sap-contextid-accept: header\r\n\
+             Accept: application/json\r\n\
+             Accept-Language: he\r\n\
+             DataServiceVersion: 2.0\r\n\
+             MaxDataServiceVersion: 2.0\r\n\
+             \r\n\
+             \r\n\
+             --batch_1d12-afbf-e3c7--\r\n",
             query
         );
 
-        // Write body to a temp file to avoid shell escaping issues with \r\n
+        // Write body to temp file to avoid shell escaping issues with \r\n
         let tmp_dir = std::env::temp_dir();
         let unique_id = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
@@ -116,22 +238,33 @@ impl SapClient {
         std::fs::write(&body_file, body.as_bytes()).map_err(|e| e.to_string())?;
         let body_arg = format!("@{}", body_file.display());
 
-        // Use curl as HTTP backend — the SAP server rejects reqwest/native-tls
-        // TLS fingerprint but accepts curl's LibreSSL handshake.
         let mut args = vec![
             "-s".to_string(),
-            "--max-time".to_string(), REQUEST_TIMEOUT_SECS.to_string(),
-            "-X".to_string(), "POST".to_string(), url.to_string(),
-            "-H".to_string(), "Content-Type: multipart/mixed;boundary=batch_1d12-afbf-e3c7".to_string(),
-            "-H".to_string(), "Accept: multipart/mixed".to_string(),
-            "-H".to_string(), "Accept-Language: he".to_string(),
-            "-H".to_string(), "DataServiceVersion: 2.0".to_string(),
-            "-H".to_string(), "MaxDataServiceVersion: 2.0".to_string(),
-            "-H".to_string(), "X-Requested-With: X".to_string(),
-            "-H".to_string(), "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36".to_string(),
-            "-H".to_string(), "Origin: https://portalex.technion.ac.il".to_string(),
-            "-H".to_string(), "Referer: https://portalex.technion.ac.il/ovv/".to_string(),
-            "--data-binary".to_string(), body_arg,
+            "--max-time".to_string(),
+            REQUEST_TIMEOUT_SECS.to_string(),
+            "-X".to_string(),
+            "POST".to_string(),
+            url.to_string(),
+            "-H".to_string(),
+            "Content-Type: multipart/mixed;boundary=batch_1d12-afbf-e3c7".to_string(),
+            "-H".to_string(),
+            "Accept: multipart/mixed".to_string(),
+            "-H".to_string(),
+            "Accept-Language: he".to_string(),
+            "-H".to_string(),
+            "DataServiceVersion: 2.0".to_string(),
+            "-H".to_string(),
+            "MaxDataServiceVersion: 2.0".to_string(),
+            "-H".to_string(),
+            "X-Requested-With: X".to_string(),
+            "-H".to_string(),
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36".to_string(),
+            "-H".to_string(),
+            "Origin: https://portalex.technion.ac.il".to_string(),
+            "-H".to_string(),
+            "Referer: https://portalex.technion.ac.il/ovv/".to_string(),
+            "--data-binary".to_string(),
+            body_arg,
         ];
 
         if let Some(proxy) = &self.proxy {
@@ -157,37 +290,24 @@ impl SapClient {
             return Err("curl returned empty response".to_string());
         }
 
+        // Check for WAF block
+        if text.contains("Request Rejected") || text.contains("F5_Logo") {
+            return Err("WAF blocked request".to_string());
+        }
+
+        // Parse multipart response — extract the JSON from the single sub-response
         let text = text.replace("\r\n", "\n");
         let chunks: Vec<&str> = text.trim().split("\n\n").collect();
         if chunks.len() < 3 {
             return Err(format!(
                 "Invalid response: expected 3+ chunks, got {}. Response: {}",
                 chunks.len(),
-                &text[..text.len().min(500)]
+                &text[..text.len().min(300)]
             ));
         }
 
         let json_str = chunks[2].split('\n').next().unwrap_or("");
-        if self.verbose {
-            eprintln!("Got {} bytes", json_str.len());
-        }
-
-        let result: serde_json::Value =
-            serde_json::from_str(json_str).map_err(|e| e.to_string())?;
-
-        if !allow_empty && result == serde_json::json!({"d": {"results": []}}) {
-            return Err("Empty response".to_string());
-        }
-
-        // Write cache
-        if let Some(path) = self.cache_path(query) {
-            let _ = std::fs::write(
-                &path,
-                serde_json::to_string_pretty(&result).unwrap_or_default(),
-            );
-        }
-
-        Ok(result)
+        serde_json::from_str(json_str).map_err(|e| format!("JSON parse error: {}", e))
     }
 }
 
