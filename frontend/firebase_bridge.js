@@ -1,17 +1,9 @@
 // firebase_bridge.js — thin JS shim called from Rust via wasm-bindgen
-
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAzamvDrN5BeMsm3lCxnAuW0v-M0hc9HxI",
-  authDomain: "degree-planer.firebaseapp.com",
-  projectId: "degree-planer",
-  storageBucket: "degree-planer.appspot.com",
-  messagingSenderId: "267979518498",
-  appId: "1:267979518498:web:default",
-};
+// Firebase config is loaded from firebase_config.js (gitignored) via window.FIREBASE_CONFIG.
 
 // Initialize Firebase (idempotent)
 if (!firebase.apps.length) {
-  firebase.initializeApp(FIREBASE_CONFIG);
+  firebase.initializeApp(window.FIREBASE_CONFIG);
 }
 
 // ── Auth ──────────────────────────────────────────────
