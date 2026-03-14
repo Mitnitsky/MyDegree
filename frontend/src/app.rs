@@ -38,7 +38,7 @@ pub fn App() -> impl IntoView {
 fn app_content() -> impl IntoView {
     el::div()
         .id("app")
-        .attr("style", "font-family: Alef, Roboto, Helvetica, Arial, sans-serif; min-width: 965px !important;")
+        .attr("style", "font-family: Alef, Roboto, Helvetica, Arial, sans-serif; min-width: 1250px !important;")
         .child((
             Header(),
             el::div().class("container-fluid").child((
