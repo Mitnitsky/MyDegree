@@ -4,7 +4,7 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 extern "C" {
-    /// Start FirebaseUI auth widget in the given DOM element ID.
+    /// Start auth widget in the given DOM element ID.
     #[wasm_bindgen(js_name = startAuthUI)]
     pub fn start_auth_ui(element_id: &str);
 
@@ -32,5 +32,4 @@ pub struct AuthUser {
     pub uid: String,
     #[serde(rename = "displayName")]
     pub display_name: String,
-    pub email: String,
 }

@@ -27,6 +27,10 @@ python_scripts/db/venv
 # Firebase config (contains API keys)
 frontend/firebase_config.js
 
+# Node.js (Firebase SDK bundling)
+frontend/node_modules/
+frontend/firebase_bridge.js
+
 # Rust build artifacts
 /target/
 /frontend/dist/

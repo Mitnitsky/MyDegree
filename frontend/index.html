@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyDegree — מעקב תואר</title>
 
-    <!-- Preconnect to CDN origins for faster resource fetching -->
-    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <!-- Preconnect to Bootstrap CDN -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
     <!-- Bootstrap 5 RTL -->
@@ -19,15 +18,9 @@
     <link data-trunk rel="rust" data-wasm-opt="z" />
 </head>
 <body>
-    <!-- Firebase v8 compat SDK (deferred — not needed until auth) -->
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <!-- FirebaseUI (deferred) -->
-    <script defer src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
     <!-- Firebase config (gitignored — copy firebase_config.example.js to get started) -->
     <script data-trunk src="firebase_config.js"></script>
-    <!-- Firebase bridge (our glue code) -->
+    <!-- Firebase v10 modular SDK (bundled by esbuild, tree-shaken) -->
     <script data-trunk src="firebase_bridge.js"></script>
     <!-- Bootstrap 5 JS (deferred — modals/dropdowns not needed at first paint) -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

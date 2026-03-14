@@ -354,7 +354,7 @@ pub fn Header() -> impl IntoView {
         // Auth modal
         move || {
             show_auth_modal.get().then(|| {
-                // Trigger FirebaseUI after DOM is rendered
+                // Trigger auth widget after DOM is rendered
                 let start_ui = wasm_bindgen::closure::Closure::once_into_js(move || {
                     crate::firebase::start_auth_ui("firebaseui-auth-container");
                 });
@@ -367,7 +367,7 @@ pub fn Header() -> impl IntoView {
                     .on(ev::click, move |_| show_auth_modal.set(false))
                     .child(
                         el::div().class("search-dialog")
-                            .attr("style", "max-width: 500px; min-width: 350px;")
+                            .attr("style", "max-width: 420px; min-width: 320px;")
                             .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
                             .child((
                                 el::div().class("d-flex justify-content-between align-items-center").child((

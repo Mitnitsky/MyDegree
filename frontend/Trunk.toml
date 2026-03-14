@@ -5,3 +5,12 @@ port = 8080
 [build]
 target = "index.html"
 dist = "dist"
+
+[watch]
+ignore = ["firebase_bridge.js"]
+
+# Bundle Firebase v10 modular SDK before Trunk processes JS assets
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = ["-c", "npm run build --prefix ."]
