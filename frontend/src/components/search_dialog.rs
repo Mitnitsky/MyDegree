@@ -11,9 +11,14 @@ pub fn SearchCourseDialog() -> impl IntoView {
     let selected_index = RwSignal::new(Option::<usize>::None);
     let show_list = RwSignal::new(true);
 
+    // true when showing fuzzy (edit-distance) results instead of exact matches
+    let is_fuzzy = RwSignal::new(false);
+    let fuzzy_query = RwSignal::new(String::new());
+
     let filtered_courses = Memo::new(move |_| {
         let query = search_text.get();
         if query.len() < 2 {
+            is_fuzzy.set(false);
             return vec![];
         }
         state.course_db.with_value(|db| {
@@ -34,10 +39,11 @@ pub fn SearchCourseDialog() -> impl IntoView {
 
             if !exact.is_empty() || !is_numeric || query.len() < 3 {
                 exact.truncate(50);
+                is_fuzzy.set(false);
                 return exact;
             }
 
-            // Fuzzy fallback: numeric queries with edit distance ≤ 2 on course number
+            // Fuzzy fallback: numeric queries with edit distance ≤ 3 on course number
             let mut fuzzy: Vec<(usize, String, f64, u32)> = db.courses
                 .iter()
                 .enumerate()
@@ -48,6 +54,8 @@ pub fn SearchCourseDialog() -> impl IntoView {
                 .collect();
             fuzzy.sort_by_key(|&(_, _, _, d)| d);
             fuzzy.truncate(50);
+            is_fuzzy.set(!fuzzy.is_empty());
+            fuzzy_query.set(query);
             fuzzy.into_iter().map(|(i, name, pts, _)| (i, name, pts)).collect()
         })
     });
@@ -95,9 +103,25 @@ pub fn SearchCourseDialog() -> impl IntoView {
                         move || {
                             let courses = filtered_courses.get();
                             let visible = show_list.get();
+                            let fuzzy = is_fuzzy.get();
+                            let fq = fuzzy_query.get();
                             (!courses.is_empty() && visible).then(|| {
-                                el::div().class("autocomplete-list").child(
+                                el::div().class("autocomplete-list").child((
+                                    fuzzy.then(|| {
+                                        el::div()
+                                            .attr("style", "padding: 6px 10px; color: #856404; background: #fff3cd; border-bottom: 1px solid #eee; font-size: 0.9em;")
+                                            .child("קורס לא נמצא. האם התכוונת ל?")
+                                    }),
                                     courses.into_iter().map(|(idx, full_name, points)| {
+                                        let display_name = if fuzzy {
+                                            // Extract the course number from full_name (before ':')
+                                            let number = full_name.split(':').next().unwrap_or("").trim();
+                                            let rest = full_name.split_once(':').map(|(_, r)| r).unwrap_or("");
+                                            let highlighted = diff_highlight(&fq, number);
+                                            format!("{}:{}", highlighted, rest)
+                                        } else {
+                                            full_name.clone()
+                                        };
                                         el::div().class("autocomplete-item")
                                             .attr("style", "display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; cursor: pointer;")
                                             .on(ev::mousedown, move |e: web_sys::MouseEvent| {
@@ -106,13 +130,13 @@ pub fn SearchCourseDialog() -> impl IntoView {
                                                 show_list.set(false);
                                             })
                                             .child((
-                                                el::span().child(full_name),
+                                                el::span().inner_html(display_name),
                                                 el::span().class("badge bg-secondary")
                                                     .attr("style", "margin-right: 8px; white-space: nowrap;")
                                                     .child(format!("{} נק'", points)),
                                             ))
                                     }).collect::<Vec<_>>(),
-                                )
+                                ))
                             })
                         },
                     )),
@@ -359,4 +383,72 @@ fn edit_distance_bounded(a: &str, b: &str, max_dist: u32) -> Option<u32> {
 
     let d = prev[n];
     if d <= max_dist { Some(d) } else { None }
+}
+
+/// Produce HTML highlighting the diff between query and target strings.
+/// Uses Levenshtein backtrace: additions (lightgreen), removals (red), changes (yellow).
+fn diff_highlight(query: &str, target: &str) -> String {
+    let a: Vec<char> = query.chars().collect();
+    let b: Vec<char> = target.chars().collect();
+    let (m, n) = (a.len(), b.len());
+
+    // Build full DP matrix
+    let mut dp = vec![vec![0u32; n + 1]; m + 1];
+    for i in 0..=m { dp[i][0] = i as u32; }
+    for j in 0..=n { dp[0][j] = j as u32; }
+    for i in 1..=m {
+        for j in 1..=n {
+            let cost = if a[i - 1] == b[j - 1] { 0 } else { 1 };
+            dp[i][j] = (dp[i - 1][j] + 1)
+                .min(dp[i][j - 1] + 1)
+                .min(dp[i - 1][j - 1] + cost);
+        }
+    }
+
+    // Backtrace to get edit operations
+    #[derive(Clone)]
+    enum Op { Match(char), Insert(char), Delete, Replace(char) }
+    let mut ops = Vec::new();
+    let (mut i, mut j) = (m, n);
+    while i > 0 || j > 0 {
+        if i > 0 && j > 0 && a[i - 1] == b[j - 1] {
+            ops.push(Op::Match(b[j - 1]));
+            i -= 1; j -= 1;
+        } else if i > 0 && j > 0 && dp[i][j] == dp[i - 1][j - 1] + 1 {
+            // Substitution
+            ops.push(Op::Replace(b[j - 1]));
+            i -= 1; j -= 1;
+        } else if j > 0 && dp[i][j] == dp[i][j - 1] + 1 {
+            // Insertion in target
+            ops.push(Op::Insert(b[j - 1]));
+            j -= 1;
+        } else {
+            // Deletion from query
+            ops.push(Op::Delete);
+            i -= 1;
+        }
+    }
+    ops.reverse();
+
+    // Render HTML
+    let mut html = String::new();
+    for op in &ops {
+        match op {
+            Op::Match(c) => html.push(*c),
+            Op::Insert(c) => {
+                html.push_str("<span style='background:#90ee90'>");
+                html.push(*c);
+                html.push_str("</span>");
+            }
+            Op::Delete => {
+                html.push_str("<span style='background:#f8d7da;text-decoration:line-through'>·</span>");
+            }
+            Op::Replace(c) => {
+                html.push_str("<span style='background:#fff3cd'>");
+                html.push(*c);
+                html.push_str("</span>");
+            }
+        }
+    }
+    html
 }
