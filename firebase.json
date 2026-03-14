@@ -1,10 +1,9 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
       "**/python_scripts/**"
     ],
     "rewrites": [

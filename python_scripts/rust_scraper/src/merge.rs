@@ -1,7 +1,7 @@
 //! merge-courses: Clone michael-maltsev/technion-sap-info-fetcher gh-pages,
 //! parse the semester JSON files, convert to our CourseDB format, merge with
 //! an existing old DB (deduplicating 6→8 digit numbers), compute number_aliases
-//! for search, compute content_hash, and write the merged output.
+//! for search, and write the merged output.
 //!
 //! Usage:
 //!   merge-courses --old-db path/to/old/courses.json -o path/to/merged/courses.json
@@ -216,11 +216,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut courses_list: Vec<CourseDBEntry> = merged.into_values().collect();
     courses_list.sort_by(|a, b| a.number.cmp(&b.number));
 
-    let mut db = CourseDB {
-        content_hash: None,
+    let db = CourseDB {
         courses: courses_list,
     };
-    db.content_hash = Some(db.compute_content_hash());
 
     // Serialize with number_aliases as an extra field
     let mut output = serde_json::to_value(&db)?;
@@ -235,10 +233,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     std::fs::write(&args.output, &json)?;
 
     eprintln!(
-        "Wrote {} courses to {} (hash: {})",
+        "Wrote {} courses to {}",
         db.courses.len(),
         args.output.display(),
-        db.content_hash.as_deref().unwrap_or("none")
     );
 
     // 9. Cleanup

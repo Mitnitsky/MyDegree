@@ -3,6 +3,9 @@ name = "frontend"
 version = "0.1.0"
 edition = "2021"
 
+[build-dependencies]
+serde_json = "1"
+
 [dependencies]
 degree-core = { path = "../degree-core" }
 leptos = { version = "0.7", features = ["csr"] }

@@ -39,13 +39,25 @@ pub fn bool_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<bool,
     }
 }
 
+/// Deserialize a String that may be stored as a number (e.g. `1` instead of `"1"`).
+pub fn string_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<String, D::Error> {
+    let val = serde_json::Value::deserialize(deserializer)?;
+    match &val {
+        serde_json::Value::String(s) => Ok(s.clone()),
+        serde_json::Value::Number(n) => Ok(n.to_string()),
+        serde_json::Value::Bool(b) => Ok(b.to_string()),
+        serde_json::Value::Null => Ok(String::new()),
+        _ => Err(serde::de::Error::custom("expected string or number")),
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Course {
     #[serde(default, rename = "existsInDB", deserialize_with = "bool_from_any")]
     pub exists_in_db: bool,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "string_from_any")]
     pub name: String,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "string_from_any")]
     pub number: String,
     #[serde(default, deserialize_with = "f64_from_any")]
     pub points: f64,
@@ -100,6 +112,7 @@ impl Course {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CourseType {
+    #[serde(default, deserialize_with = "string_from_any")]
     pub name: String,
     #[serde(default, deserialize_with = "f64_from_any")]
     pub total_points: f64,
@@ -163,46 +176,13 @@ pub struct CourseDBEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CourseDB {
-    /// Content hash for cache invalidation. Auto-computed from course data.
-    /// Replaces the old manual `version` number.
-    #[serde(default)]
-    pub content_hash: Option<String>,
     pub courses: Vec<CourseDBEntry>,
 }
 
 impl CourseDB {
-    /// Compute a deterministic content hash from all course data.
-    /// Any change to courses (added, removed, renamed, repointed) produces a different hash.
-    pub fn compute_content_hash(&self) -> String {
-        use std::collections::hash_map::DefaultHasher;
-        use std::hash::{Hash, Hasher};
-        let mut hasher = DefaultHasher::new();
-        self.courses.len().hash(&mut hasher);
-        for course in &self.courses {
-            course.number.hash(&mut hasher);
-            course.name.hash(&mut hasher);
-            course.points.to_bits().hash(&mut hasher);
-        }
-        format!("{:016x}", hasher.finish())
-    }
-
-    /// Deserialize from JSON with graceful fallback.
-    /// Handles both new format (content_hash) and old format (version number).
-    /// If deserialization fails entirely, returns None.
+    /// Deserialize from JSON. Extra fields (e.g. legacy "version") are ignored by serde.
     pub fn from_json(json: &str) -> Option<Self> {
-        // Try direct deserialization first (handles content_hash field)
-        if let Ok(db) = serde_json::from_str::<CourseDB>(json) {
-            return Some(db);
-        }
-        // Fallback: try parsing as a generic object with a "courses" array
-        // This handles old format with "version": 12.0 or any unexpected field
-        let val: serde_json::Value = serde_json::from_str(json).ok()?;
-        let courses_val = val.get("courses")?;
-        let courses: Vec<CourseDBEntry> = serde_json::from_value(courses_val.clone()).ok()?;
-        Some(CourseDB {
-            content_hash: None,
-            courses,
-        })
+        serde_json::from_str::<CourseDB>(json).ok()
     }
 }
 
@@ -236,38 +216,22 @@ mod tests {
     }
 
     #[test]
-    fn test_from_json_new_format() {
+    fn test_from_json_with_extra_fields() {
+        // Extra fields like "content_hash" or "version" are ignored by serde
         let json = r#"{"content_hash":"abc123","courses":[]}"#;
         let db = CourseDB::from_json(json).unwrap();
-        assert_eq!(db.content_hash, Some("abc123".to_string()));
         assert!(db.courses.is_empty());
     }
 
     #[test]
-    fn test_from_json_old_version_format() {
-        let json = r#"{"version":12.0,"courses":[]}"#;
-        let db = CourseDB::from_json(json).unwrap();
-        // Old format has no content_hash — falls through to fallback parser
-        assert!(db.courses.is_empty());
-    }
-
-    #[test]
-    fn test_from_json_no_version_field() {
+    fn test_from_json_minimal() {
         let json = r#"{"courses":[]}"#;
         let db = CourseDB::from_json(json).unwrap();
-        assert_eq!(db.content_hash, None);
+        assert!(db.courses.is_empty());
     }
 
     #[test]
     fn test_from_json_garbage_returns_none() {
         assert!(CourseDB::from_json("not json at all").is_none());
-    }
-
-    #[test]
-    fn test_content_hash_deterministic() {
-        let db = CourseDB { content_hash: None, courses: vec![] };
-        let h1 = db.compute_content_hash();
-        let h2 = db.compute_content_hash();
-        assert_eq!(h1, h2);
     }
 }

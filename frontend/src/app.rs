@@ -7,9 +7,35 @@ use crate::components::histogram_viewer::{HistogramViewer, HistogramViewerProps}
 
 #[component]
 pub fn App() -> impl IntoView {
-    let state = AppState::new();
-    provide_context(state);
+    let state_resource = LocalResource::new(|| AppState::load());
 
+    move || {
+        match state_resource.get() {
+            None => {
+                // Loading spinner
+                el::div()
+                    .class("d-flex justify-content-center align-items-center")
+                    .attr("style", "height: 100vh; font-family: Alef, Roboto, Helvetica, Arial, sans-serif;")
+                    .child(
+                        el::div().class("text-center").child((
+                            el::div().class("spinner-border text-primary mb-3")
+                                .attr("role", "status")
+                                .child(el::span().class("visually-hidden").child("טוען...")),
+                            el::div().child("טוען נתוני קורסים..."),
+                        ))
+                    )
+                    .into_any()
+            }
+            Some(state) => {
+                let state: AppState = *state;
+                provide_context(state);
+                app_content().into_any()
+            }
+        }
+    }
+}
+
+fn app_content() -> impl IntoView {
     el::div()
         .id("app")
         .attr("style", "font-family: Alef, Roboto, Helvetica, Arial, sans-serif; min-width: 965px !important;")

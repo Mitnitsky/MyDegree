@@ -6,8 +6,8 @@ use degree_core::degree::UserState;
 use degree_core::semester::Semester;
 use crate::firebase;
 
-/// Loaded once at startup from the embedded courses.json.
-static COURSES_JSON: &str = include_str!("../courses.json");
+/// Hash of courses.json, computed at build time by build.rs.
+const COURSES_HASH: &str = env!("COURSES_HASH");
 
 #[derive(Clone, Copy)]
 pub struct AppState {
@@ -22,22 +22,10 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new() -> Self {
-        // Parse bundled courses.json with graceful fallback
-        let course_db = CourseDB::from_json(COURSES_JSON)
-            .expect("courses.json is completely unparseable — cannot start");
-        let bundled_hash = course_db.compute_content_hash();
-
-        // Check if cached session data is stale (course DB changed since last visit)
-        let session_stale = Self::is_session_stale(&bundled_hash);
-
-        // Try to load saved session from localStorage (skip if DB changed)
-        let user = if session_stale {
-            Self::save_content_hash(&bundled_hash);
-            UserState::default()
-        } else {
-            Self::load_from_storage().unwrap_or_default()
-        };
+    /// Load the course DB (from localStorage cache or network), then build the full state.
+    pub async fn load() -> Self {
+        let course_db = Self::load_course_db().await;
+        let user = Self::load_from_storage().unwrap_or_default();
 
         let state = Self {
             user: RwSignal::new(user),
@@ -49,11 +37,6 @@ impl AppState {
             show_histogram_modal: RwSignal::new(None),
             toast_message: RwSignal::new(None),
         };
-
-        // Persist content hash on first run
-        if !session_stale {
-            Self::save_content_hash(&bundled_hash);
-        }
 
         // Auto-save to localStorage on every change
         let user_signal = state.user;
@@ -82,29 +65,49 @@ impl AppState {
         state
     }
 
-    /// Check if bundled course DB hash differs from the one stored in localStorage.
-    fn is_session_stale(bundled_hash: &str) -> bool {
-        let window = match web_sys::window() {
-            Some(w) => w,
-            None => return false,
-        };
-        let storage = match window.local_storage() {
-            Ok(Some(s)) => s,
-            _ => return false,
-        };
-        match storage.get_item("course_db_hash") {
-            Ok(Some(stored)) => stored != bundled_hash,
-            // No hash stored yet — first visit, not stale
-            _ => false,
+    /// Try localStorage cache first, fall back to network fetch.
+    async fn load_course_db() -> CourseDB {
+        // Check if we have a cached copy with matching hash
+        if let Some(cached) = Self::load_cached_courses() {
+            return cached;
+        }
+
+        // Fetch from network
+        let json = Self::fetch_courses_json().await
+            .expect("Failed to fetch courses.json");
+        let db = CourseDB::from_json(&json)
+            .expect("courses.json is unparseable");
+
+        // Cache in localStorage
+        Self::cache_courses(&json);
+
+        db
+    }
+
+    fn load_cached_courses() -> Option<CourseDB> {
+        let window = web_sys::window()?;
+        let storage = window.local_storage().ok()??;
+        let stored_hash = storage.get_item("courses_hash").ok()??;
+        if stored_hash != COURSES_HASH {
+            return None;
+        }
+        let json = storage.get_item("courses_json").ok()??;
+        CourseDB::from_json(&json)
+    }
+
+    fn cache_courses(json: &str) {
+        if let Some(window) = web_sys::window() {
+            if let Ok(Some(storage)) = window.local_storage() {
+                let _ = storage.set_item("courses_hash", COURSES_HASH);
+                let _ = storage.set_item("courses_json", json);
+            }
         }
     }
 
-    fn save_content_hash(hash: &str) {
-        if let Some(window) = web_sys::window() {
-            if let Ok(Some(storage)) = window.local_storage() {
-                let _ = storage.set_item("course_db_hash", hash);
-            }
-        }
+    async fn fetch_courses_json() -> Option<String> {
+        let resp = gloo_net::http::Request::get("/courses.json")
+            .send().await.ok()?;
+        resp.text().await.ok()
     }
 
     fn load_from_storage() -> Option<UserState> {

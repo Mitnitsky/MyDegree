@@ -127,12 +127,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(parent) = args.output.parent() {
         std::fs::create_dir_all(parent)?;
     }
-    let mut wrapper = CoursesJson {
-        content_hash: None,
+    let wrapper = CoursesJson {
         courses,
         number_aliases: None,
     };
-    wrapper.content_hash = Some(wrapper.compute_content_hash());
     let json = serde_json::to_string_pretty(&wrapper)?;
     std::fs::write(&args.output, json)?;
 

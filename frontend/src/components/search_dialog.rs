@@ -18,7 +18,10 @@ pub fn SearchCourseDialog() -> impl IntoView {
         }
         state.course_db.with_value(|db| {
             let query_lower = query.to_lowercase();
-            db.courses
+            let is_numeric = query.chars().all(|c| c.is_ascii_digit());
+
+            // Exact substring matches first
+            let mut exact: Vec<(usize, String, f64)> = db.courses
                 .iter()
                 .enumerate()
                 .filter(|(_, c)| {
@@ -26,9 +29,26 @@ pub fn SearchCourseDialog() -> impl IntoView {
                         || c.number.contains(&query)
                         || c.full_name.to_lowercase().contains(&query_lower)
                 })
-                .take(50)
                 .map(|(i, c)| (i, c.full_name.clone(), c.points))
-                .collect::<Vec<_>>()
+                .collect();
+
+            if !exact.is_empty() || !is_numeric || query.len() < 3 {
+                exact.truncate(50);
+                return exact;
+            }
+
+            // Fuzzy fallback: numeric queries with edit distance ≤ 2 on course number
+            let mut fuzzy: Vec<(usize, String, f64, u32)> = db.courses
+                .iter()
+                .enumerate()
+                .filter_map(|(i, c)| {
+                    let dist = edit_distance_bounded(&query, &c.number, 3)?;
+                    Some((i, c.full_name.clone(), c.points, dist))
+                })
+                .collect();
+            fuzzy.sort_by_key(|&(_, _, _, d)| d);
+            fuzzy.truncate(50);
+            fuzzy.into_iter().map(|(i, name, pts, _)| (i, name, pts)).collect()
         })
     });
 
@@ -302,4 +322,41 @@ fn relation_card(
             .attr("style", "margin-bottom: 7px;")
             .child(items),
     ))
+}
+
+/// Levenshtein edit distance with early cutoff.
+/// Returns `Some(distance)` if distance ≤ max_dist, otherwise `None`.
+fn edit_distance_bounded(a: &str, b: &str, max_dist: u32) -> Option<u32> {
+    let a: Vec<char> = a.chars().collect();
+    let b: Vec<char> = b.chars().collect();
+    let (m, n) = (a.len(), b.len());
+
+    if m.abs_diff(n) > max_dist as usize {
+        return None;
+    }
+
+    let mut prev = vec![0u32; n + 1];
+    let mut curr = vec![0u32; n + 1];
+    for j in 0..=n {
+        prev[j] = j as u32;
+    }
+
+    for i in 1..=m {
+        curr[0] = i as u32;
+        let mut row_min = curr[0];
+        for j in 1..=n {
+            let cost = if a[i - 1] == b[j - 1] { 0 } else { 1 };
+            curr[j] = (prev[j] + 1)
+                .min(curr[j - 1] + 1)
+                .min(prev[j - 1] + cost);
+            row_min = row_min.min(curr[j]);
+        }
+        if row_min > max_dist {
+            return None;
+        }
+        std::mem::swap(&mut prev, &mut curr);
+    }
+
+    let d = prev[n];
+    if d <= max_dist { Some(d) } else { None }
 }

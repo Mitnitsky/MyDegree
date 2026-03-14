@@ -1,10 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-use crate::course::{Course, CourseDBEntry, EXEMPTION_INDEX, f64_from_any};
+use crate::course::{Course, CourseDBEntry, EXEMPTION_INDEX, f64_from_any, string_from_any};
 use crate::utils::math_round_10;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Semester {
+    #[serde(default, deserialize_with = "string_from_any")]
     pub name: String,
     #[serde(default, deserialize_with = "f64_from_any")]
     pub average: f64,

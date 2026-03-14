@@ -13,7 +13,6 @@ Fetches course data from [michael-maltsev/technion-sap-info-fetcher](https://git
 - Newer semesters override older entries for the same course number
 - Converts old 5-6 digit course numbers to 8-digit format when merging with an old DB
 - Generates `number_aliases` map for backward-compatible search
-- Computes `content_hash` for cache invalidation
 
 **Usage:**
 
@@ -35,7 +34,6 @@ merge-courses -o /tmp/courses.json --keep-clone
 
 ```json
 {
-  "content_hash": "abc123...",
   "courses": [
     {
       "number": "02340123",
