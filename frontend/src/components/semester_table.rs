@@ -459,13 +459,22 @@ fn semester_table_row(index: usize) -> impl IntoView {
         el::td().attr("style", "width: 100px;").child(
             el::input()
                 .attr("type", "text")
+                .attr("inputmode", "numeric")
+                .attr("pattern", "[0-9]*")
                 .class("form-control form-control-sm text-center")
                 .attr("style", "direction: ltr;")
                 .prop("value", move || {
                     course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default())
                 })
+                .on(ev::input, move |e| {
+                    let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
+                    if let Some(input) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+                        input.set_value(&val);
+                    }
+                })
                 .on(ev::change, move |e| {
-                    state.update_course_field(index, "number", &event_target_value(&e));
+                    let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
+                    state.update_course_field(index, "number", &val);
                 }),
         ),
         // Course name

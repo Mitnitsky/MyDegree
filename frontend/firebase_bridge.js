@@ -1,77 +1,111 @@
 // firebase_bridge.js — thin JS shim called from Rust via wasm-bindgen
 // Firebase config is loaded from firebase_config.js (gitignored) via window.FIREBASE_CONFIG.
+// Firebase SDK scripts are loaded with `defer`, so we wait for them before initializing.
 
-// Initialize Firebase (idempotent)
-if (!firebase.apps.length) {
-  firebase.initializeApp(window.FIREBASE_CONFIG);
-}
+// Promise that resolves once Firebase SDK is ready.
+window._firebaseReady = new Promise(function (resolve) {
+  function tryInit() {
+    if (typeof firebase !== "undefined" && firebase.apps !== undefined) {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(window.FIREBASE_CONFIG);
+      }
+      resolve();
+    } else {
+      setTimeout(tryInit, 50);
+    }
+  }
+  // If already loaded (e.g. scripts not deferred), init immediately
+  tryInit();
+});
 
 // ── Auth ──────────────────────────────────────────────
+
+// Lazy-load FirebaseUI CSS on first auth modal open
+var _firebaseUICSSLoaded = false;
+function ensureFirebaseUICSS() {
+  if (_firebaseUICSSLoaded) return;
+  _firebaseUICSSLoaded = true;
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css";
+  document.head.appendChild(link);
+}
 
 // Start FirebaseUI inside the given DOM element ID.
 // Returns nothing — auth result is delivered via onAuthChange.
 window.startAuthUI = function (elementId) {
-  const uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: function () {
-        return false; // don't redirect
+  ensureFirebaseUICSS();
+  window._firebaseReady.then(function () {
+    var uiConfig = {
+      signInFlow: "popup",
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: function () {
+          return false; // don't redirect
+        },
       },
-    },
-    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-  };
-  let ui = firebaseui.auth.AuthUI.getInstance();
-  if (!ui) {
-    ui = new firebaseui.auth.AuthUI(firebase.auth());
-  }
-  ui.start("#" + elementId, uiConfig);
+      credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+    };
+    var ui = firebaseui.auth.AuthUI.getInstance();
+    if (!ui) {
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
+    }
+    ui.start("#" + elementId, uiConfig);
+  });
 };
 
 // Register a callback for auth state changes.
 // `cb` receives a JSON string: { uid, displayName, email } or null.
 window.onAuthChange = function (cb) {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      cb(JSON.stringify({
-        uid: user.uid,
-        displayName: user.displayName || "",
-        email: user.email || "",
-      }));
-    } else {
-      cb(null);
-    }
+  window._firebaseReady.then(function () {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        cb(JSON.stringify({
+          uid: user.uid,
+          displayName: user.displayName || "",
+          email: user.email || "",
+        }));
+      } else {
+        cb(null);
+      }
+    });
   });
 };
 
 window.signOutUser = function () {
-  return firebase.auth().signOut();
+  return window._firebaseReady.then(function () {
+    return firebase.auth().signOut();
+  });
 };
 
 // ── Firestore ─────────────────────────────────────────
 
 // Read user document. Returns a Promise<string|null> (JSON string or null if not found).
 window.firestoreGet = function (uid) {
-  return firebase.firestore().collection("users").doc(uid)
-    .get()
-    .then(function (doc) {
-      if (doc.exists) {
-        return JSON.stringify(doc.data());
-      }
-      return null;
-    });
+  return window._firebaseReady.then(function () {
+    return firebase.firestore().collection("users").doc(uid)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          return JSON.stringify(doc.data());
+        }
+        return null;
+      });
+  });
 };
 
 // Write user document. `jsonData` is a JSON string.
 // Returns a Promise<void>.
 window.firestoreSet = function (uid, jsonData) {
-  var data = JSON.parse(jsonData);
-  return firebase.firestore().collection("users").doc(uid)
-    .set(data)
-    .catch(function (err) {
-      console.error("firestoreSet error:", err);
-    });
+  return window._firebaseReady.then(function () {
+    var data = JSON.parse(jsonData);
+    return firebase.firestore().collection("users").doc(uid)
+      .set(data)
+      .catch(function (err) {
+        console.error("firestoreSet error:", err);
+      });
+  });
 };
