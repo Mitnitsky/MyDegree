@@ -1,22 +1,59 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, Deserializer};
 
 pub const EXEMPTION_INDEX: usize = 1;
 
+/// Deserialize an f64 that may be stored as a string (e.g. "33.0") or a number.
+pub fn f64_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<f64, D::Error> {
+    let val = serde_json::Value::deserialize(deserializer)?;
+    match &val {
+        serde_json::Value::Number(n) => n.as_f64().ok_or_else(|| serde::de::Error::custom("invalid number")),
+        serde_json::Value::String(s) => s.parse::<f64>().map_err(serde::de::Error::custom),
+        serde_json::Value::Null => Ok(0.0),
+        _ => Err(serde::de::Error::custom("expected number or string")),
+    }
+}
+
+/// Deserialize a usize that may be stored as a string (e.g. "2") or a number.
+pub fn usize_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<usize, D::Error> {
+    let val = serde_json::Value::deserialize(deserializer)?;
+    match &val {
+        serde_json::Value::Number(n) => n.as_u64().map(|u| u as usize).ok_or_else(|| serde::de::Error::custom("invalid usize")),
+        serde_json::Value::String(s) => s.parse::<usize>().map_err(serde::de::Error::custom),
+        serde_json::Value::Null => Ok(0),
+        _ => Err(serde::de::Error::custom("expected number or string")),
+    }
+}
+
+/// Deserialize a bool that may be stored as a string (e.g. "true") or a bool.
+pub fn bool_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<bool, D::Error> {
+    let val = serde_json::Value::deserialize(deserializer)?;
+    match &val {
+        serde_json::Value::Bool(b) => Ok(*b),
+        serde_json::Value::String(s) => match s.as_str() {
+            "true" | "1" => Ok(true),
+            _ => Ok(false),
+        },
+        serde_json::Value::Number(n) => Ok(n.as_i64().unwrap_or(0) != 0),
+        serde_json::Value::Null => Ok(false),
+        _ => Err(serde::de::Error::custom("expected bool or string")),
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Course {
-    #[serde(default, rename = "existsInDB")]
+    #[serde(default, rename = "existsInDB", deserialize_with = "bool_from_any")]
     pub exists_in_db: bool,
     #[serde(default)]
     pub name: String,
     #[serde(default)]
     pub number: String,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub points: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub grade: f64,
-    #[serde(default, rename = "type")]
+    #[serde(default, rename = "type", deserialize_with = "usize_from_any")]
     pub course_type: usize,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "bool_from_any")]
     pub binary: bool,
 }
 
@@ -64,15 +101,15 @@ impl Course {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CourseType {
     pub name: String,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub total_points: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub points_left: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub points_required: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub points_done: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub average: f64,
 }
 

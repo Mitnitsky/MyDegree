@@ -7,7 +7,7 @@ use degree_core::semester::Semester;
 use crate::firebase;
 
 /// Loaded once at startup from the embedded courses.json.
-static COURSES_JSON: &str = include_str!("../../src/data/courses.json");
+static COURSES_JSON: &str = include_str!("../courses.json");
 
 #[derive(Clone, Copy)]
 pub struct AppState {
@@ -33,9 +33,6 @@ impl AppState {
 
         // Try to load saved session from localStorage (skip if DB changed)
         let user = if session_stale {
-            web_sys::console::log_1(
-                &"Course DB changed — clearing stale session cache".into(),
-            );
             Self::save_content_hash(&bundled_hash);
             UserState::default()
         } else {
@@ -417,17 +414,7 @@ impl AppState {
                         leptos::task::spawn_local(async move {
                             match future.await {
                                 Ok(val) => {
-                                    web_sys::console::log_1(
-                                        &format!("Firestore get result: is_string={}, is_null={}, is_undefined={}, type={:?}",
-                                            val.as_string().is_some(),
-                                            val.is_null(),
-                                            val.is_undefined(),
-                                            val.js_typeof()
-                                        ).into()
-                                    );
-                                    // val may be a JS string or null
                                     let json_opt = val.as_string().or_else(|| {
-                                        // If JS returned something other than a string, try to stringify it
                                         if !val.is_null() && !val.is_undefined() {
                                             js_sys::JSON::stringify(&val).ok().and_then(|s| s.as_string())
                                         } else {
@@ -435,17 +422,12 @@ impl AppState {
                                         }
                                     });
                                     if let Some(json) = json_opt {
-                                        let preview: String = json.chars().take(200).collect();
-                                        web_sys::console::log_1(
-                                            &format!("Firestore data (first 200 chars): {}", preview).into()
-                                        );
                                         match serde_json::from_str::<UserState>(&json) {
                                             Ok(cloud_user) => {
                                                 user_signal.set(cloud_user);
                                                 user_signal.update(|u| {
                                                     course_db.with_value(|db| u.recalculate(db));
                                                 });
-                                                web_sys::console::log_1(&"✅ Loaded user data from Firestore".into());
                                             }
                                             Err(e) => {
                                                 web_sys::console::warn_1(
@@ -454,7 +436,7 @@ impl AppState {
                                             }
                                         }
                                     } else {
-                                        web_sys::console::log_1(&"No Firestore document found — uploading local state".into());
+                                        // No document yet — upload current local state
                                         if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
                                             let _ = firebase::firestore_set(&uid_signal.get_untracked().unwrap_or_default(), &json);
                                         }

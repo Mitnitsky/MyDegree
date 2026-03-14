@@ -3,27 +3,27 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 use crate::converter::find_course;
-use crate::course::{CourseDB, CourseType, EXEMPTION_INDEX, default_course_types};
+use crate::course::{CourseDB, CourseType, EXEMPTION_INDEX, default_course_types, f64_from_any, usize_from_any, bool_from_any};
 use crate::semester::Semester;
 use crate::utils::math_round_10;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserState {
-    #[serde(default)]
+    #[serde(default, deserialize_with = "usize_from_any")]
     pub summer_semesters: usize,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "usize_from_any")]
     pub active_semester: usize,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_average: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_points: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_points_done: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_points_left: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_points_to_choose: f64,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "bool_from_any")]
     pub english_exemption: bool,
     #[serde(default)]
     pub semesters: Vec<Semester>,
