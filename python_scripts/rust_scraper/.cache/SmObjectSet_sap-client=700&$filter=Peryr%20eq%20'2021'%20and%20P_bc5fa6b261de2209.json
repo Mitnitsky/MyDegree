@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מעבדה הנדסית",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00140005",
+        "Points": "1.50000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מעבדה פקולטית בסיסית למכניקת מוצקים: תכונות חומרים, מדידי עבור, מאמצים משולבים, בעיות בכפיפה, פוטואלסטיות, קריסה.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140005',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140005',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

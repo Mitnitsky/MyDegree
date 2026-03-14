@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "עבוד תמונה לצורכי מיפוי",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00140855",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008191',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "שגיא",
+              "LastName": "פילין",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "",
+              "Otjid": "P 00008191",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008191',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008191',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008191',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "שיטות הרכשת תמונה דיגיטלית. מבנה תמונה דיגיטלית ומרחבי צבע. שיפור תמונה מבוסס היסטוגרמה. מסננים ליניאריים ושיטות החלקה והדגשת סיפים. מסננים לא ליניאריים. התמרות פורייה ומרחב התדר אל מול מרחב התמונה. התמרות גיאומטריות גלובליות ומקומיות ומוזאיקת תמונות. מבנים פירמידליים ושילוב תמונות. יסודות הראיה הממוחשבת. זיהוי סיפים, נקודות עניין וסגמנטציה. עיבוד תמונות בינאריות. יסודות זיהוי תבניות בתמונות.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140855',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140855',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "סדרות עתיות וחיזוי",
+        "OrgText": "הפקולטה למדעי הנתונים וההחלטות",
+        "Otjid": "SM00960425",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "דוד",
+              "LastName": "עזריאל",
+              "OrgId": "00002190",
+              "OrgText": "הפקולטה להנדסת תעשייה וניהול",
+              "OrgUrl": "",
+              "Otjid": "P 00015612",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "סטציונריות, אוטו-קורלציה, תהליכים אוטו-רגרסיים וממוצעים נעים. אמידת פרמטרים. משוואות יול-וולקר ואמידה ע\"י ניראות מקסימלית, חיזוי, הצגה ספקטרלית, אמידת הספקטרום.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00960425',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00960425',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

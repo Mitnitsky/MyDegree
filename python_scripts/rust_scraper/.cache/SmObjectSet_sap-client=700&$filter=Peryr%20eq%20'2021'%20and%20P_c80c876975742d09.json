@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תרמודינמיקה מתקדמת 1",
+        "OrgText": "הפקולטה להנדסת מכונות",
+        "Otjid": "SM00380715",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "פיתוח אכסיומטי מדויק של התרמודינמיקה הקלסית תוך הדגשת המבנה ההגיוני של המקצוע. חוקי התרמודינמיקה: חוק ראשון, חוק שני, חוק האפס ועקרון המצב. עבודה וחום, אנרגיה, טמפרטורה, אנטרופיה וזמינות. יחסי מכסוול, משוואות מצב. שימושים למערכות סגורות ופתוחות, חד-רכיביות ורב-רכיביות.  קריטריונים לשווי-משקל ויציבות.  שווי-משקל של מערכות הטרוגניות. תערובות ותמיסות. ריאקציות כימיות ושווי-משקל כימי.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00380715',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00380715',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

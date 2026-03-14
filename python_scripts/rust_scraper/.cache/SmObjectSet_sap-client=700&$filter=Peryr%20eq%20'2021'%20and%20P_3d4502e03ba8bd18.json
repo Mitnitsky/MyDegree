@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מידות אינפורמציה ושימושיהן",
+        "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+        "Otjid": "SM00480931",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000003166',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יגאל",
+              "LastName": "ששון",
+              "OrgId": "00002050",
+              "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+              "OrgUrl": "",
+              "Otjid": "P 00003166",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000003166',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000003166',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000003166',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס מציג מידות אינפורמציה קלאסיות ומוכללות ובוחן מספר אפליקציות שלהן במדעי הנתונים, סטטיסטיקה, הסתברות וקומבינטוריקה. הקורס מתייחס במחציתו הראשונה למידות האינפורמציה הקלאסיות של שאנון ושימושיהן, ובמחציתו השניה - הקורס עוסק באינפורמציית פישר, ובמידות אינפורמציה מוכללות ושימושיהן. \r\n תוצאות למידה: \r\n 1. הסטודנט יחשף למגוון של מידות אינפורמציה קלאסיות ומוכללות, ויכיר שימושים מגוונים במדעי הנתונים, סטטיסטיקה, הסתברות וקומבינטוריקה.\r\n 2. הסטודנט יהיה מסוגל לחשוב על שילוב מידות אינפורמציה לצורך פתרון בעיות בתחום מדעי הנתונים, ועל שימוש במידות אינפורמציה לצורך פתרון בעיות מתמטיות. הכרת מידות אינפורמציה ושימושיהן רלוונטית לדיסיפליונות שונות בשטחים של הנדסת חשמל , מדעי המחשב, מתמטיקה ופיזיקה.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00480931',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00480931',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

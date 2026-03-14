@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "חומרים מתקדמים לבוטכנולוגיה ומזון",
+        "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+        "Otjid": "SM00660247",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015600',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "בעז",
+              "LastName": "מזרחי",
+              "OrgId": "00002080",
+              "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+              "OrgUrl": "",
+              "Otjid": "P 00015600",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015600',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015600',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015600',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "חומרים חדישים והשימוש שלהם בתעשיית הביוטכנולוגיה והמזון.סקירה של קבוצות החומרים העיקריות בתעשייה תוך התמקדותבאיפיון שלהם ובשיטות המגוונות להשפיע על תכונותיהם. התמקדות בחומרים מרוכבים, חומרים בהשראת הטבע, חומרים חכמים, חומרים אנטי בקטריאלים ובעלי פני שטח פעילים. תוצאות למידה:בסיום הקורס הסטודנטים: 1. יכירו את קבוצות החומרים העיקריות בתעשיית המזון והתרופות וידעו לאפיין אותם. 2. יבינו כיצד חומרים דומים יכולים להיות בעלי שימושים שונים. 3. יכירו שיטות מתקדמות לעיבוד חומרים אכילים לתעשיות המזון והתרופות. 4.  יבינו את חשיבות המחקר לפיתוח חומרים חדישים בתעשיות המזון והתרופות.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660247',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660247',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

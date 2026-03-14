@@ -1,0 +1,565 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": [
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771459200000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160101",
+              "OfferNo": "001",
+              "Otjid": "CE50002532",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב1_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD09482F3D489C179F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771459200000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160101",
+              "OfferNo": "002",
+              "Otjid": "CE50002532",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0505",
+              "RoomOtjid": "G 00200505",
+              "Seark": "",
+              "Short": "מב1_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC7682B466BA05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD09482F3D489C179F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771459200000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160101",
+              "OfferNo": "003",
+              "Otjid": "CE50002532",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0507",
+              "RoomOtjid": "G 00200507",
+              "Seark": "",
+              "Short": "מב1_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC7682B466DA05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD09482F3D489C179F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771459200000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160101",
+              "OfferNo": "004",
+              "Otjid": "CE50002532",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='004')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0508",
+              "RoomOtjid": "G 00200508",
+              "Seark": "",
+              "Short": "מב1_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC7682B466FA05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD09482F3D489C179F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='004')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='004')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771459200000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160101",
+              "OfferNo": "005",
+              "Otjid": "CE50002532",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='005')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0506",
+              "RoomOtjid": "G 00200506",
+              "Seark": "",
+              "Short": "מב1_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC7682B4671A05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD09482F3D489C179F5",
+              "ZzExclusiveExtraTimeSt": "X",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='005')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002532',Peryr='2025',Perid='200',OfferNo='005')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260310235959",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT13H00M00S",
+              "ExamDate": "/Date(1773619200000)/",
+              "ExamEndTime": "PT16H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160101",
+              "OfferNo": "001",
+              "Otjid": "CE50002531",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "20260310235959",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב2_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0949D6E1F0AC559F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260310000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT13H00M00S",
+              "ExamDate": "/Date(1773619200000)/",
+              "ExamEndTime": "PT16H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160101",
+              "OfferNo": "002",
+              "Otjid": "CE50002531",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "20260310000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0508",
+              "RoomOtjid": "G 00200508",
+              "Seark": "",
+              "Short": "מב2_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7FCA2C382CE7A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949D6E1F0AC559F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260310000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT13H00M00S",
+              "ExamDate": "/Date(1773619200000)/",
+              "ExamEndTime": "PT16H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160101",
+              "OfferNo": "003",
+              "Otjid": "CE50002531",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "20260310000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0509",
+              "RoomOtjid": "G 00200509",
+              "Seark": "",
+              "Short": "מב2_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7FCA2C382CE9A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949D6E1F0AC559F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260310000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT13H00M00S",
+              "ExamDate": "/Date(1773619200000)/",
+              "ExamEndTime": "PT16H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160101",
+              "OfferNo": "004",
+              "Otjid": "CE50002531",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='004')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "2.00000",
+              "PointsMaximum": "2.00000",
+              "PointsMinimum": "2.00000",
+              "RegisDateEnd": "20260310000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0507",
+              "RoomOtjid": "G 00200507",
+              "Seark": "",
+              "Short": "מב2_00160101",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7FCA2C382CEBA09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949D6E1F0AC559F5",
+              "ZzExclusiveExtraTimeSt": "X",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+              "ZzSmOtjid": "SM00160101",
+              "ZzSmShort": "מק-00160101",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='004')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE50002531',Peryr='2025',Perid='200',OfferNo='004')"
+              }
+            }
+          ]
+        },
+        "Name": "נ.נ. בה. מבנים: מבנים לתרחישי אש",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00160101",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000061782',Peryr='2025',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "מוסטפא",
+              "LastName": "מחאמיד",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "https://ugportal.technion.ac.il/wp-content/uploads/2024/02/01-%D7%94%D7%A0%D7%93%D7%A1%D7%94-%D7%90%",
+              "Otjid": "P 00061782",
+              "Perid": "200",
+              "Peryr": "2025",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000061782',Peryr='2025',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000061782',Peryr='2025',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000061782',Peryr='2025',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": [
+            {
+              "Bracket": "(",
+              "DependentModuleId": "00160101",
+              "LineNumber": "001",
+              "ModuleId": "00140153",
+              "ModuleName": "מבני בטון 1",
+              "ModuleShort": "מק-00140153",
+              "Operator": "AND",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='001')"
+              }
+            },
+            {
+              "Bracket": "",
+              "DependentModuleId": "00160101",
+              "LineNumber": "002",
+              "ModuleId": "00140150",
+              "ModuleName": "מבני פלדה 1",
+              "ModuleShort": "מק-00140150",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='002')"
+              }
+            },
+            {
+              "Bracket": ")",
+              "DependentModuleId": "00160101",
+              "LineNumber": "003",
+              "ModuleId": "00000000",
+              "ModuleName": "",
+              "ModuleShort": "",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160101',LineNumber='003')"
+              }
+            }
+          ]
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס סוקר את בעיית האש במבנים וחשיבותה של בטיחות האש בבניינים. הקורס מציג את הגורמים לאש! התפתחות האש ושלביה השונים! הפרמטרים המשפיעים על עמידות רכיבים מבניים בפני אש! ותקנים וסטנדרטים. כמו כן! הקורס מתרכז בהבנה ובניתוח התנהגות מבנים תחת אש! תכונות העמידות של המבנים! שיטות לבדיקת עמידות באש כולל שיטות ניסויים ושיטות חישוב. הקורס כולל גם תכנון מבנים שונים לאש! כולל: מבני פלדה! בטון! ומבני מעץ. מטרות הקורת הינן: להבין את התנהגות מבנים וחומרי בניה תחת השפעות אש! לרכוש ניסיון מקיף על מושגי תכנון עמידות באש! ללמוד סוגיות בסיסיות של תכנון בטיחות אש! ליישם שיטות תכנון מבנים לעמידות באש.\r\n תוצאות למידה: עם השלמת הקורס בהצלחה! הסטודנטיות והסטודנטים יהיו מסוגלים  לחשב/לקבוע:\r\n 1.יחסי זמן-טמפרטורה עבור אש וטמפרטורות גבוהות.\r\n 2.עוצמת/ עמידות באש מקבילה.\r\n 3.תכונות חומרים בטמפרטורות גבוהות.\r\n 4.פרופילי טמפרטורה באלמנטים.\r\n 5.עמידות באש של מבני פלדה! בטון ומבנים מורכבים באמצעות שיטות ידניות ותוכנות מחשב.\r\n 6.עמידות אש שלמבני עץ.\r\n",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160101',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160101',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

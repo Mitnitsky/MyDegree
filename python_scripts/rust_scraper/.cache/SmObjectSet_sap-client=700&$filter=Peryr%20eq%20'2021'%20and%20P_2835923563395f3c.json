@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "פרקים בהיסטוריה ופילוסופיה מראשית המחשוב ועד לאינטרנט",
+        "OrgText": "המחלקה ללימודים הומניסטיים ואמנות",
+        "Otjid": "SM03260000",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000069578',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "גסטין אריק",
+              "LastName": "סמית",
+              "OrgId": "00002200",
+              "OrgText": "המחלקה ללימודים הומניסטיים ואמנות",
+              "OrgUrl": "",
+              "Otjid": "P 00069578",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000069578',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000069578',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000069578',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מהו בעצם מחשב. מהו האינטרנט. כמה רחוק בעבר נוכל לאתר את האותות המבשרים של הטכנולוגיות שאנו לוקחים כיום כמובנות מאליהן. אילו מחויבויות פילוסופיות הובילו לפיתוח טכנולוגיות אלה. ומה נוכל ללמוד מההיסטוריה ומהפילוסופיה של המחשוב על האתגרים האתיים והפוליטיים שהמציאות הטכנולוגית החדשה מציבה בפנינו. בקורס נלמד טקסטים מרכזיים היסטוריים (מליבניץ, פסקל, באבג', לובלייס, טיורינג ואחרים), כמו גם ספרות מדעית עכשווית על פילוסופיה של בינה מלאכותית, אתיקה של IA ונושאים קשורים נוספים.\r\n תוצאות למידה: בסיום הקורס הסטודנטים:\r\n 1. יכירו טוב יותראת ההיסטוריה של החישוביות ומדע המידע, כמו גם על תקדימים ביולוגיים וטכנולוגיים של מערכות תקשורת מורכבות.\r\n 2. יערכו היכרות עם מבחר מכת ביהם של מייסדי תורת המידע כלייבניץ, פסקל, בבאג , לאבלנס, וטיורינג.\r\n 3. ילמדו על השפעת ההיסטוריה של אינטרנט על דילמות וסוגיות עכשויות.                                               \r\n",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03260000',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03260000',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

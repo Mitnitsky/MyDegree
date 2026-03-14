@@ -1,0 +1,427 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": [
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771718400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160828",
+              "OfferNo": "001",
+              "Otjid": "CE00035774",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב1_00160828",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD093EA8CA67E6039F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "עקרונות בהערכת שווי מקרקעין",
+              "ZzSmOtjid": "SM00160828",
+              "ZzSmShort": "מק-00160828",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771718400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160828",
+              "OfferNo": "002",
+              "Otjid": "CE00035774",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0508",
+              "RoomOtjid": "G 00200508",
+              "Seark": "",
+              "Short": "מב1_00160828",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC994FE28D1A05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093EA8CA67E6039F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "עקרונות בהערכת שווי מקרקעין",
+              "ZzSmOtjid": "SM00160828",
+              "ZzSmShort": "מק-00160828",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1771718400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00160828",
+              "OfferNo": "003",
+              "Otjid": "CE00035774",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0507",
+              "RoomOtjid": "G 00200507",
+              "Seark": "",
+              "Short": "מב1_00160828",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3EC994FE28D3A05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093EA8CA67E6039F5",
+              "ZzExclusiveExtraTimeSt": "M",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן /וללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "עקרונות בהערכת שווי מקרקעין",
+              "ZzSmOtjid": "SM00160828",
+              "ZzSmShort": "מק-00160828",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035774',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260318235959",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1774310400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160828",
+              "OfferNo": "001",
+              "Otjid": "CE00033134",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260318235959",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב2_00160828",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0949DB6ADC94499F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "עקרונות בהערכת שווי מקרקעין",
+              "ZzSmOtjid": "SM00160828",
+              "ZzSmShort": "מק-00160828",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260318000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1774310400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00160828",
+              "OfferNo": "002",
+              "Otjid": "CE00033134",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260318000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "001-0535",
+              "RoomOtjid": "G 00010535",
+              "Seark": "",
+              "Short": "מב2_00160828",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7FE77E0125C7A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949DB6ADC94499F5",
+              "ZzExclusiveExtraTimeSt": "M",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן /וללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "עקרונות בהערכת שווי מקרקעין",
+              "ZzSmOtjid": "SM00160828",
+              "ZzSmShort": "מק-00160828",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033134',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            }
+          ]
+        },
+        "Name": "עקרונות בהערכת שווי מקרקעין",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00160828",
+        "Points": "4.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000029688',Peryr='2025',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "אייל",
+              "LastName": "סלינג'ר",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "https://ugportal.technion.ac.il/wp-content/uploads/2024/02/01-%D7%94%D7%A0%D7%93%D7%A1%D7%94-%D7%90%",
+              "Otjid": "P 00029688",
+              "Perid": "200",
+              "Peryr": "2025",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000029688',Peryr='2025',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000029688',Peryr='2025',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000029688',Peryr='2025',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": [
+            {
+              "Achievements": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Achievements"
+                }
+              },
+              "Category": "",
+              "CategoryText": "",
+              "CreditsPrereqsDescription": "",
+              "CreditsPrereqsHeadline": "",
+              "Descr": "",
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Events"
+                }
+              },
+              "Exams": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Exams"
+                }
+              },
+              "IgnoreFilterFlag": false,
+              "ModuleChoicesDescription": "",
+              "ModuleChoicesHeadline": "",
+              "Name": "עקרונות בהערכת שווי מקרקעין",
+              "ObjectiveDescription": "",
+              "ObjectiveHeadline": "",
+              "OrgId": "00000000",
+              "OrgText": "",
+              "Organizations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Organizations"
+                }
+              },
+              "Otjid": "SM02070022",
+              "Partof": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Partof"
+                }
+              },
+              "Perid": "000",
+              "Peryr": "0000",
+              "Points": "0.00000",
+              "PointsMaximum": "0.00000",
+              "PointsMinimum": "0.00000",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Responsible"
+                }
+              },
+              "ScaleDescription": "",
+              "ScaleId": "",
+              "SeObjectSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SeObjectSet"
+                }
+              },
+              "Seark": "",
+              "Short": "מק-02070022",
+              "SmOfferedPeriodSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmOfferedPeriodSet"
+                }
+              },
+              "SmPrereq": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmPrereq"
+                }
+              },
+              "SmRelations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelations"
+                }
+              },
+              "SmRelationsReverse": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelationsReverse"
+                }
+              },
+              "StudyContentDescription": "",
+              "StudyContentHeadline": "",
+              "Unit": "",
+              "WeeklyHours": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/WeeklyHours"
+                }
+              },
+              "ZzAcademicLevel": "0000",
+              "ZzAcademicLevelText": "",
+              "ZzCgOtjid": "",
+              "ZzMaxRecommendedPerid": "0000",
+              "ZzMinRecommendedPerid": "0000",
+              "ZzOfferpattern": "",
+              "ZzOfferpatternText": "",
+              "ZzPersonalized": false,
+              "ZzPoVersion": "",
+              "ZzRecommendedPeridUnit": "0000",
+              "ZzRelationship": "מכיל",
+              "ZzRelationshipKey": "BZCC",
+              "ZzScOtjid": "",
+              "ZzSemesterNote": "",
+              "ZzSemesterNoteLabel": "",
+              "ZzSmLanguage": "",
+              "ZzSmLanguageText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02070022',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+              }
+            }
+          ]
+        },
+        "StudyContentDescription": "שיטות שונות בהערכת שווי מקרקעין. נושאים: יחידות מדידה בהערכת שווי מקרקעין, עקרונות שווי, ניתוח מרכיבי שווי, ניתוח סוגי שווי, כתיבת דו\"ח שומה, הערכת מקרקעין ביעוד למגורים, הערכת מקרקעין מניבים, נכסים חקלאיים. מקומם של עקרונות שומה בשומת מקרקעין, חבילת הזכויות, סוגיות בהערכת שווים של נכסים לצרכי ציבור והגישות העקרוניות לפתרונן, נכסים מיוחדים -הגדרות, מאפיינים, גישות עקרוניות.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160828',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160828',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

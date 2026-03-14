@@ -1,0 +1,970 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": [
+            {
+              "Category": "בוחן אמצע 1",
+              "CategoryCode": "MI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT18H30M00S",
+              "ExamDate": "/Date(1767484800000)/",
+              "ExamEndTime": "PT20H30M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "בוחן 1 00140104",
+              "OfferNo": "001",
+              "Otjid": "CE00010223",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "בו1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0A7BA91B2E46939FF",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "בוחן אמצע 1",
+              "CategoryCode": "MI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT18H30M00S",
+              "ExamDate": "/Date(1767484800000)/",
+              "ExamEndTime": "PT20H30M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "בוחן 1 00140104",
+              "OfferNo": "002",
+              "Otjid": "CE00010223",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0507",
+              "RoomOtjid": "G 00200507",
+              "Seark": "",
+              "Short": "בו1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0ABCD35956975BA02",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0A7BA91B2E46939FF",
+              "ZzExclusiveExtraTimeSt": "X",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            },
+            {
+              "Category": "בוחן אמצע 1",
+              "CategoryCode": "MI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT18H30M00S",
+              "ExamDate": "/Date(1767484800000)/",
+              "ExamEndTime": "PT20H30M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "בוחן 1 00140104",
+              "OfferNo": "003",
+              "Otjid": "CE00010223",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0508",
+              "RoomOtjid": "G 00200508",
+              "Seark": "",
+              "Short": "בו1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0ABCD35956975DA02",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0A7BA91B2E46939FF",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "בוחן אמצע 1",
+              "CategoryCode": "MI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT18H30M00S",
+              "ExamDate": "/Date(1767484800000)/",
+              "ExamEndTime": "PT20H30M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "בוחן 1 00140104",
+              "OfferNo": "004",
+              "Otjid": "CE00010223",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='004')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0509",
+              "RoomOtjid": "G 00200509",
+              "Seark": "",
+              "Short": "בו1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0ABCD35956975FA02",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0A7BA91B2E46939FF",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='004')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00010223',Peryr='2025',Perid='200',OfferNo='004')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1769990400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00140104",
+              "OfferNo": "001",
+              "Otjid": "CE00035897",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD093E8B50DCF7519F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1769990400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00140104",
+              "OfferNo": "002",
+              "Otjid": "CE00035897",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='002')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0506",
+              "RoomOtjid": "G 00200506",
+              "Seark": "",
+              "Short": "מב1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3D25D42442C7A05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093E8B50DCF7519F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='002')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1769990400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00140104",
+              "OfferNo": "003",
+              "Otjid": "CE00035897",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0507",
+              "RoomOtjid": "G 00200507",
+              "Seark": "",
+              "Short": "מב1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3D25D42442C9A05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093E8B50DCF7519F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1769990400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00140104",
+              "OfferNo": "004",
+              "Otjid": "CE00035897",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='004')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0508",
+              "RoomOtjid": "G 00200508",
+              "Seark": "",
+              "Short": "מב1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3D25D42442CBA05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093E8B50DCF7519F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='004')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='004')"
+              }
+            },
+            {
+              "Category": "מבחן מועד א",
+              "CategoryCode": "FI",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0",
+              "DregDateStart": "0",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1769990400000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד א 00140104",
+              "OfferNo": "005",
+              "Otjid": "CE00035897",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='005')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "0",
+              "RegisDateStart": "0",
+              "RoomName": "020-0509",
+              "RoomOtjid": "G 00200509",
+              "Seark": "",
+              "Short": "מב1_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B3D25D42442CDA05",
+              "ZzExamOfferParentGuid": "005056B8E2331FD093E8B50DCF7519F5",
+              "ZzExclusiveExtraTimeSt": "X",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": false,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='005')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00035897',Peryr='2025',Perid='200',OfferNo='005')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260228235959",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1772668800000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00140104",
+              "OfferNo": "001",
+              "Otjid": "CE00033571",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='001')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260228235959",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "",
+              "RoomOtjid": "G 00000000",
+              "Seark": "",
+              "Short": "מב2_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0949CBA0BD5CC99F5",
+              "ZzExamOfferParentGuid": "",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='001')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260228000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1772668800000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00140104",
+              "OfferNo": "003",
+              "Otjid": "CE00033571",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='003')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260228000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0405",
+              "RoomOtjid": "G 00200405",
+              "Seark": "",
+              "Short": "מב2_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7E5765880F43A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949CBA0BD5CC99F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='003')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='003')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260228000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1772668800000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00140104",
+              "OfferNo": "004",
+              "Otjid": "CE00033571",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='004')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260228000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0406",
+              "RoomOtjid": "G 00200406",
+              "Seark": "",
+              "Short": "מב2_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7E5765880F45A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949CBA0BD5CC99F5",
+              "ZzExclusiveExtraTimeSt": "",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים ללא תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='004')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='004')"
+              }
+            },
+            {
+              "Category": "מבחן מועד ב",
+              "CategoryCode": "FB",
+              "DregDateEnd": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 20260228000000",
+              "DregDateStart": "20260201000000",
+              "ExamBegTime": "PT09H00M00S",
+              "ExamDate": "/Date(1772668800000)/",
+              "ExamEndTime": "PT12H00M00S",
+              "ExamType": "מבחן בכתב",
+              "Name": "מבחן מועד ב 00140104",
+              "OfferNo": "005",
+              "Otjid": "CE00033571",
+              "Perid": "200",
+              "Person": "",
+              "PersonOtjid": "",
+              "Persons": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='005')/Persons"
+                }
+              },
+              "Peryr": "2025",
+              "Points": "4.00000",
+              "PointsMaximum": "4.00000",
+              "PointsMinimum": "4.00000",
+              "RegisDateEnd": "20260228000000",
+              "RegisDateStart": "20260201000000",
+              "RoomName": "020-0407",
+              "RoomOtjid": "G 00200407",
+              "Seark": "",
+              "Short": "מב2_00140104",
+              "Unit": "CP",
+              "ZzApprovedTools": "",
+              "ZzDName": "",
+              "ZzDOtjid": "",
+              "ZzExamOfferGuid": "005056B8E2331FD0B7E5765880F47A09",
+              "ZzExamOfferParentGuid": "005056B8E2331FD0949CBA0BD5CC99F5",
+              "ZzExclusiveExtraTimeSt": "X",
+              "ZzExclusiveExtraTimeStT": "לסטודנטים עם תוספת זמן",
+              "ZzHeldDigital": false,
+              "ZzOnlineRegPossible": true,
+              "ZzSeComment": "",
+              "ZzSmName": "תורת החוזק 1",
+              "ZzSmOtjid": "SM00140104",
+              "ZzSmShort": "מק-00140104",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='005')",
+                "type": "NVIAS_CDIR_DATA_SRV.CeObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/CeObjectSet(Otjid='CE00033571',Peryr='2025',Perid='200',OfferNo='005')"
+              }
+            }
+          ]
+        },
+        "Name": "תורת החוזק 1",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00140104",
+        "Points": "4.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000030117',Peryr='2025',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יורי",
+              "LastName": "קרינסקי",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "https://ugportal.technion.ac.il/wp-content/uploads/2024/02/01-%D7%94%D7%A0%D7%93%D7%A1%D7%94-%D7%90%",
+              "Otjid": "P 00030117",
+              "Perid": "200",
+              "Peryr": "2025",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000030117',Peryr='2025',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000030117',Peryr='2025',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000030117',Peryr='2025',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": [
+            {
+              "Bracket": "(",
+              "DependentModuleId": "00140104",
+              "LineNumber": "001",
+              "ModuleId": "00140102",
+              "ModuleName": "מבוא למכניקה הנדסית",
+              "ModuleShort": "מק-00140102",
+              "Operator": "",
+              "Perid": "200",
+              "Peryr": "2025",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00140104',LineNumber='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00140104',LineNumber='001')"
+              }
+            },
+            {
+              "Bracket": ")",
+              "DependentModuleId": "00140104",
+              "LineNumber": "002",
+              "ModuleId": "00000000",
+              "ModuleName": "",
+              "ModuleShort": "",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00140104',LineNumber='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00140104',LineNumber='002')"
+              }
+            }
+          ]
+        },
+        "SmRelations": {
+          "results": [
+            {
+              "Achievements": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Achievements"
+                }
+              },
+              "Category": "",
+              "CategoryText": "",
+              "CreditsPrereqsDescription": "",
+              "CreditsPrereqsHeadline": "",
+              "Descr": "",
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Events"
+                }
+              },
+              "Exams": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Exams"
+                }
+              },
+              "IgnoreFilterFlag": false,
+              "ModuleChoicesDescription": "",
+              "ModuleChoicesHeadline": "",
+              "Name": "מבוא למכניקה הנדסית ותורת החוזק",
+              "ObjectiveDescription": "",
+              "ObjectiveHeadline": "",
+              "OrgId": "00000000",
+              "OrgText": "",
+              "Organizations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Organizations"
+                }
+              },
+              "Otjid": "SM00140136",
+              "Partof": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Partof"
+                }
+              },
+              "Perid": "000",
+              "Peryr": "0000",
+              "Points": "0.00000",
+              "PointsMaximum": "0.00000",
+              "PointsMinimum": "0.00000",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Responsible"
+                }
+              },
+              "ScaleDescription": "",
+              "ScaleId": "",
+              "SeObjectSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SeObjectSet"
+                }
+              },
+              "Seark": "",
+              "Short": "מק-00140136",
+              "SmOfferedPeriodSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmOfferedPeriodSet"
+                }
+              },
+              "SmPrereq": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmPrereq"
+                }
+              },
+              "SmRelations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelations"
+                }
+              },
+              "SmRelationsReverse": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelationsReverse"
+                }
+              },
+              "StudyContentDescription": "",
+              "StudyContentHeadline": "",
+              "Unit": "",
+              "WeeklyHours": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/WeeklyHours"
+                }
+              },
+              "ZzAcademicLevel": "0000",
+              "ZzAcademicLevelText": "",
+              "ZzCgOtjid": "",
+              "ZzMaxRecommendedPerid": "0000",
+              "ZzMinRecommendedPerid": "0000",
+              "ZzOfferpattern": "",
+              "ZzOfferpatternText": "",
+              "ZzPersonalized": false,
+              "ZzPoVersion": "",
+              "ZzRecommendedPeridUnit": "0000",
+              "ZzRelationship": "מכיל",
+              "ZzRelationshipKey": "BZCC",
+              "ZzScOtjid": "",
+              "ZzSemesterNote": "",
+              "ZzSemesterNoteLabel": "",
+              "ZzSmLanguage": "",
+              "ZzSmLanguageText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140136',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+              }
+            },
+            {
+              "Achievements": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Achievements"
+                }
+              },
+              "Category": "",
+              "CategoryText": "",
+              "CreditsPrereqsDescription": "",
+              "CreditsPrereqsHeadline": "",
+              "Descr": "",
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Events"
+                }
+              },
+              "Exams": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Exams"
+                }
+              },
+              "IgnoreFilterFlag": false,
+              "ModuleChoicesDescription": "",
+              "ModuleChoicesHeadline": "",
+              "Name": "מכניקה יישומית 2",
+              "ObjectiveDescription": "",
+              "ObjectiveHeadline": "",
+              "OrgId": "00000000",
+              "OrgText": "",
+              "Organizations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Organizations"
+                }
+              },
+              "Otjid": "SM00150008",
+              "Partof": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Partof"
+                }
+              },
+              "Perid": "000",
+              "Peryr": "0000",
+              "Points": "0.00000",
+              "PointsMaximum": "0.00000",
+              "PointsMinimum": "0.00000",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/Responsible"
+                }
+              },
+              "ScaleDescription": "",
+              "ScaleId": "",
+              "SeObjectSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SeObjectSet"
+                }
+              },
+              "Seark": "",
+              "Short": "מק-00150008",
+              "SmOfferedPeriodSet": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmOfferedPeriodSet"
+                }
+              },
+              "SmPrereq": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmPrereq"
+                }
+              },
+              "SmRelations": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelations"
+                }
+              },
+              "SmRelationsReverse": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/SmRelationsReverse"
+                }
+              },
+              "StudyContentDescription": "",
+              "StudyContentHeadline": "",
+              "Unit": "",
+              "WeeklyHours": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')/WeeklyHours"
+                }
+              },
+              "ZzAcademicLevel": "0000",
+              "ZzAcademicLevelText": "",
+              "ZzCgOtjid": "",
+              "ZzMaxRecommendedPerid": "0000",
+              "ZzMinRecommendedPerid": "0000",
+              "ZzOfferpattern": "",
+              "ZzOfferpatternText": "",
+              "ZzPersonalized": false,
+              "ZzPoVersion": "",
+              "ZzRecommendedPeridUnit": "0000",
+              "ZzRelationship": "אין קרדיט נוסף",
+              "ZzRelationshipKey": "AZEC",
+              "ZzScOtjid": "",
+              "ZzSemesterNote": "",
+              "ZzSemesterNoteLabel": "",
+              "ZzSmLanguage": "",
+              "ZzSmLanguageText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00150008',Peryr='0000',Perid='000',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+              }
+            }
+          ]
+        },
+        "StudyContentDescription": "מבוא. מאמץ ועיבור במשיכה ולחיצה. פיתול חתכים שונים, כפיפת קורות אלסטיות והומוגניות. גזירה בשעת כפיפה, מרכז הגזירה. טרנספורמצית המאמץ והעיבור, שקיעות בעזרת המשוואה הדיפרצניאלית של הקו האלסטי, פתרון מבנים בלתי מסוימים. מושגים ראשונים של קריסה אלסטית.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140104',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00140104',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תכן מעגלים אנלוגיים",
+        "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+        "Otjid": "SM00460187",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000060046',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "רוני",
+              "LastName": "אל בחר",
+              "OrgId": "00002050",
+              "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+              "OrgUrl": "",
+              "Otjid": "P 00060046",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000060046',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000060046',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000060046',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "\"תכנון מעגלים: שיטת תכנון ע\"פ העקרון של אי-תאום אימפדנסים. מגברים רחבי סרט.  טכניקה של \"הזנת קדימה\" ) FEED FORWARD ( להרחבת רוחבהסרט.  תאים סטנדרטיים ב-VLSI. משוב: השיטה הטופולוגית לניתוח מגברי משוב. אחידות חוקי משוב מקבילי וטורי, תוך נצול הדואליות הקיימת ביניהם. הגדרת הרגישות של מגבר להפרעות חיצוניות והשימוש במשוב לשם הקטנתה. הקטנת ה-CMRR ) COMMON MODE REJECTION RATIO ( של מגברי הפרש ע\"י משוב. תכנון מגברי משוב לתגובה מונוטונית בנוכחות השהיה בעניבה, תוך שמוש בשיטת ROOT-LOCUS. הגדרת המושג \"משוב מדגיש\" והשלכותיו על תכנון מגברים. הטכניקה הטרנסליניארית של גילברט: תכנון מגברים לפי שיטה זו. מכפל אנלוגי. ממוש של סיכום וקטורים ופונקציות אי- לינאריות אחר ן זרם: מעתיקי זרם. אינטגרטור זרם. מגבר בעל משוב זרם אמיתי בכניסה ודרגת יציאה של זרם. נושאים של רעש: רעש בדיודות, טרנזיסטורים ומגברים. תכן מגברי קדם לרעש נמוך.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00460187',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00460187',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

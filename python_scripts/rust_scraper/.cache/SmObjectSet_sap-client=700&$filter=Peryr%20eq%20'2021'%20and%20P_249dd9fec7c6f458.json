@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "קינטיקת טרנספורמציות בחומרים",
+        "OrgText": "הפקולטה למדע והנדסה של חומרים",
+        "Otjid": "SM03150052",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005250',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יוג'ין",
+              "LastName": "רבקין",
+              "OrgId": "00002040",
+              "OrgText": "הפקולטה למדע והנדסה של חומרים",
+              "OrgUrl": "",
+              "Otjid": "P 00005250",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005250',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005250',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005250',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הכח המניע לטרנספורמציות במוצקים. אנרגית גיבס ופוטנציאל כימי. שינויי מבנה גבישי, הרכב ושינויים מורפולוגיים. מעברים מסיביים. מעברים דיפוזיוניים. קינטיקה פנומנולוגית. מעברים פולימורפיים. נוקלאציה הומוגנית והטרוגנית. השפעת שינוי נפח. התבדלות מתמיסות מוצקות. התבדלות קוהרנטית ולא קוהרנטית. מבנה NETTATSNNAMDIW. פרוק ספינודלי. תופעת ההתגסות. פאזות מטסטביליות. מעברים סלולריים ואוטקטואידיים. החלמה וגיבוש מחדש, גידול גרעינים. מעברים ללא דיפוזיה, טרנספורמציה מרטנסיטית.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03150052',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03150052',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

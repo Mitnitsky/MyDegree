@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "פרויקט תכן מוצר חדש 1",
+        "OrgText": "הפקולטה להנדסת מכונות",
+        "Otjid": "SM00340353",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "ביצוע פרויקט הנדסי מקיף, החל מהגדרת הצורך ומפרט הדרישות, דרך תכן קונספטואלי ומפורט, ועד לבנית אב טפוס, בחינתו במעבדה ומסירתו ללקוח.בפרויקט יועסק צוות של 2-3 סטודנטים במשך 2 סמסטרים רצופים. הצוות יונחה ע\"י מנלה מקצועי ומנוסה. הצוות יעמוד בקשר עם הלקוח, יציג סקרי תיכון ויסכם את עבודתו בדו\"ח כולל. יושם דגש על מחזור תכן ובניה שלם תוך שמוש במדעי ההנדסה ובשיטות תכן עדכניות.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00340353',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00340353',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

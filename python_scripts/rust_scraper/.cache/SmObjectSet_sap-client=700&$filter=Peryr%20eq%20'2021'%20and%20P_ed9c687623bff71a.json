@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "נושאים נבחרים בארכיטקטורה 2",
+        "OrgText": "הפקולטה לארכיטקטורה ובינוי ערים",
+        "Otjid": "SM02060914",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הסילבוס יקבע ע'י המורה באישור הועדה לפני תחילת הסמסטר בו ינתן המקצוע. סמסטר א' תשע\"ז: הקשרים היסטוריים, חברתיים וכלכליים סמסטר ב' תשע\"ט: הסטוריה של העיר - פרקים נבחרים במאה העשרים. סמסטר ב' תש\"ף:  המוזיאון כאתר. סמסטר ב' תשפ\"א: מחקר באמצעות סטודיו: כיצד לפתח ולפרסם דיון אקדמי.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02060914',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02060914',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מכניקה של חומרים מרוכבים 1",
+        "OrgText": "הפקולטה להנדסת מכונות",
+        "Otjid": "SM00360093",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000007695',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "עיסאם",
+              "LastName": "תותרי",
+              "OrgId": "00002030",
+              "OrgText": "הפקולטה להנדסת מכונות",
+              "OrgUrl": "",
+              "Otjid": "P 00007695",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000007695',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000007695',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000007695',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "סוגי חומרים מרוכבים, יישומים, אנאיזוטרופיה וחוק הוק: מהחומר הכללי ביותר ועד לחומר איזוטרופי, מודולים הנדסיים וטנזור הקשיחות. מיקרומכניקה של חומרים מרוכבים, תכונות אפקטיביות ואנרגיה של תווך הטרוגני, אלמנט נפח אופייני, גבולות של וויט - רויס, דוגמאות לחישוב מודולים אפקטיביים של חומרים מרוכבים. טרנספורמציה של טנזור הקשיחות, מצב מישורי, אינוריאנטים של תכונות השכבה הבודדת, כיוונים ראשיים (מקומיים) וכיוונים גלובלים. תכונות מכניות של שכבות מודבקות, טנזור הקשיחות של שכבות מודבקות, הנחות קינמטיות, משוואות קונסטיטוטיביות. תנאי שפה, דוגמאות לפתרונות מדויקים, אנרגיה ושיטות קירוב, דיוק הפתרון. מאמצים היגרותרמיים וקבועי חומר. חוזק, קריטריונים ואופני כשל של שכבה בודדת  וחומרים מרוכבים שכבתיים. תוצאות למידה: בסיום הקורס הסטודנט ידע: 1. מהו חומר מרוכב, ממה הוא עשוי, איך הוא מתנהג, יישומים, מתאמים והגבלות. 2. איך ההרכב והתכונות המכניות של המרכיבים משפיעים על התכונות המכניות וההתנהגות של החומר המרוכב. 3. ידע בעבודה על התנהגות מכנית של חומרים מרוכבים במיוחד על פולימרים משוריינים עם סיבים. 4. איך חומר מרוכב יתנהג תחת עומסים מכנים והיגרותרמיים. 5. ירכוש כלים כיצדלחשב תכונות מכניות אפקטיביות של חומר מרוכב. 6. לבחור שורה של חומרים גולמיים לשכבה, סדר הדבקת שכבות בפלטות ותכנון מבנה הפלטות המתאיםביותר ליישומי",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00360093',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00360093',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

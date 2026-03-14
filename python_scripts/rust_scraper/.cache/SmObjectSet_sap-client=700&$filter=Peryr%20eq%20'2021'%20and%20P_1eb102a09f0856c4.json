@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "עיבוד שפה טבעית",
+        "OrgText": "הפקולטה למדעי הנתונים וההחלטות",
+        "Otjid": "SM00970215",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005020',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "כרמל",
+              "LastName": "דומשלק",
+              "OrgId": "00002190",
+              "OrgText": "הפקולטה להנדסת תעשייה וניהול",
+              "OrgUrl": "",
+              "Otjid": "P 00005020",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005020',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005020',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000005020',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס יכסה מגוון מודלים חישוביים ואלגוריתמים, בעיקר מתחום הלמידה החישובית, להבנת טקסטים הכתובים בשפה אנושית. בפרט יכוסו נושאים כמו:זיהוי חלקי דיבר, זיהוי ישויות, ניתוח תחבירי וסמנטיקה. הקורס יתמקד הן במשימות עיבוד השפה והן באלגוריתמי למידה חישובית רלוונטיים בפרטבתחום של למידת מבנה ומודלים גרפיים הסתברותיים. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1.לנסח את המשימות השונות שעל אלגוריתם לפתור בכדי להבין טקסט. 2.לתכנן ולממש בתוכנה אלגוריתמים ללמידת מודלי שפה מרקוביים. 3.לתכנן ולממש בתוכנה אלגוריתמים למשימות תיוג סדרתיכמו זיהוי חלקי דיבר וזיהוי ישויות. 4.לתכנן ולממש בתוכנה אלגוריתמים למשימות למידת מבנה מורכב (למשל עץ) לשם פתרון בעיות כמו ניתוח תחבי רי סטטיסטי (ניתוח תלויות וניתוח ביטויים) 5.לתכנן ולממש אלגוריתמים ללמידת משמעות של מילים, ביטויים ומשפטים בשיטות וקטוריות. 6.לתכנן ולממש אלגוריתמי תכנון דינאמי, אלגוריתמי הסקה במודלים גרפיים ואלגוריתמי שערוך פרמטרים לשם פתרון בעיות של למידת מבנה של משפטים ומסמכים.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970215',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970215',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

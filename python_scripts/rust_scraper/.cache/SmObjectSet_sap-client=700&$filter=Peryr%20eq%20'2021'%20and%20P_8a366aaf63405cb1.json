@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "פרויקט מתקדם בחומרים",
+        "OrgText": "הפקולטה למדע והנדסה של חומרים",
+        "Otjid": "SM03150014",
+        "Points": "4.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הסטודנטים יבצעו מחקר ניסויי או עיוני באחד מתחומי הנדסת החומרים בהנחיית חבר סגל (אפשרי בשיתוף עם התעשייה). על הסטודנט למצוא נושא מחקר לפני תחילת הסמסטר. היקף המחקר הינו 8 שעות שבועיות במשך סמסטר אחד. בסוף הסמסטר על הסטודנטים להציג את עבודתם בפוסטר באירוע כלל פקולטי ולהגיש דו\"ח מסכם.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03150014',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03150014',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תרמודינמיקה בהנדסת ביוטכנולוגיה ומזון",
+        "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+        "Otjid": "SM00640106",
+        "Points": "4.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יואב",
+              "LastName": "ליבני",
+              "OrgId": "00002080",
+              "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+              "OrgUrl": "",
+              "Otjid": "P 00008176",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מושגי יסוד וחזרה על חוקי התרמודינמיקה, חישובי חום עבודה ושינויים בתכונות בתהליכים מנתיים ובתהליכי זרימה. הפיכות תהליכים וניצולת מכונות חום, תכונות תרמודינמיות של חומרים טהורים, ובפרט מים במצבי צבירה שונים. גזים אידיאליים וראליים, תהליכי דחיסה ותערובות גזים. תכונות תרמודינמיות של תערובות גז-אד, ובפרט של אויר ואדי מים (פסיכרומטריה) וניתוח תהליכי ייבוש והלחה. התנהגות מוצר באריזה קשיחה. משאבות חום ותהליכי קירור ומיזוג. מודל השריג והתאוריה הרגילה של התמיסות. שיווי משקל בין פאזות, פוגסיות, פוטנציאל כימי, תמיסות אידיאליות ואמיתיות, חוק ראול וחוק הנרי, ושינויים בהרכב הפאזות בעת איוד וזיקוק. תכונות קוליגטיביות, תהליכי קירור והקפאה.",
+        "ZzAcademicLevel": "0001",
+        "ZzAcademicLevelText": "לימודי הסמכה",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00640106',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00640106',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

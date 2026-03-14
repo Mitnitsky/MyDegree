@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תכנון מנגנונים למדעי הנתונים",
+        "OrgText": "הפקולטה למדעי הנתונים וההחלטות",
+        "Otjid": "SM00970245",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004214',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "משה",
+              "LastName": "טננהולץ",
+              "OrgId": "00002190",
+              "OrgText": "הפקולטה להנדסת תעשייה וניהול",
+              "OrgUrl": "",
+              "Otjid": "P 00004214",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004214',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004214',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004214',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס יציג את המדע והטכנולוגיה העומדים מאחורי מנגנוני הפרסום וקידום המכירות באינטרנט, המהווים את החמצן ההכרחי לקיומו. יילמדו נושאי פרסום מקוון, פרסום במנועי חיפוש, פרסום על ידי עמיתים, מערכות כיוון לקוחות, עקרונות אסטרטגיים במערכות אופטימיזצית-חיפוש, ומערכות המלצה עם משתתפים אסטרטגיים. תוצאות למידה: בסיום הקורס הסטודנט ידע: ליישם מנגנונים אלגוריתמיים לפרסום מקוון לצורותיו השונות.\r\n להשתמש בסודות של טכנולוגיית קידום תוכן באינטרנט.\r\n ליישם כלי אנליזה אסטרטגית למדעי הנתונים בהקשר תחרותי.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970245',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970245',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מבוא לניתוח השקעות בשוק הנדל\"ן",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00160630",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064726',Peryr='2025',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "ענת",
+              "LastName": "זיצ'ק-פנחס",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "https://ugportal.technion.ac.il/wp-content/uploads/2024/02/01-%D7%94%D7%A0%D7%93%D7%A1%D7%94-%D7%90%",
+              "Otjid": "P 00064726",
+              "Perid": "200",
+              "Peryr": "2025",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064726',Peryr='2025',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "אינג'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064726',Peryr='2025',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064726',Peryr='2025',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": [
+            {
+              "Bracket": "(",
+              "DependentModuleId": "00160630",
+              "LineNumber": "001",
+              "ModuleId": "00140603",
+              "ModuleName": "כלכלה הנדסית",
+              "ModuleShort": "מק-00140603",
+              "Operator": "",
+              "Perid": "200",
+              "Peryr": "2025",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160630',LineNumber='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160630',LineNumber='001')"
+              }
+            },
+            {
+              "Bracket": ")",
+              "DependentModuleId": "00160630",
+              "LineNumber": "002",
+              "ModuleId": "00000000",
+              "ModuleName": "",
+              "ModuleShort": "",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160630',LineNumber='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00160630',LineNumber='002')"
+              }
+            }
+          ]
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "דרך הפעולה של שווקי הנדל\"ן - השטחים (קביעת דמי השכירות) , נכסי הנדל\"ן (הערכת שווי), ופיתוח הנדל\"ן (פרויקטי בניה), מבוא למודלים בסיסיים בתחום הכלכלה האורבנית. מאפייני הסקטורים השונים של שוק הנדל\"ן (מסחרי, הארחה, קמעונאי, ולוגיסטיקה) תוך התמקדות במאפייני הניתוח של שוק הדיור שיקולים במימון ובמיסוי השקעה בנדל\"ן. בניית תוכנית עסקית לפרויקט ההשקעה, המתבססת על בחינות רגישות שונות.\r\n תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל:\r\n 1. לנתח את מערכת הביקוש וההיצע בשוק הנדל\"ן\r\n 2. להבין את המאפיינים של קביעת שימושי קרקע בערים.\r\n 3. להבין את שיקולי המימון והמיסוי בבואו לנתח השקעה בשוקי הנדל\"ן.\r\n 4. להכין תוכנית עסקית לפרויקט השקעה בנדל\"ן.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "הקורס מוגבל ל20 סטודנטים.יות עם עדיפות לתארים מתקדמים.",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160630',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00160630',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "חדשנות רפואית במודל ביודזיין 2",
+        "OrgText": "הפקולטה להנדסה ביו-רפואית",
+        "Otjid": "SM03360025",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הסטודנטים יבחרו, יאפיינו ויבססו צורך קליני ויחלו בסיעור מוחות לגבי פתרונות טכנולוגיים אפשריים. בהמשך, הסטודנטים יעריכו את הפתרונות הטכנולוגיים שהוצעו ויבחרו בפתרון מוביל אותו יפתחו באמצעות בניית אבותי-טיפוס, הפחתת הסיכון הטכני, אסטרטגיות לטיפול בדרישות ספציפיות לבריאות (רגולציה, שיפוי) ואסטרטגיה עסקית (קניין רוחני, מימון, מסחור).\r\n תוצאות למידה\r\n הקורס מספק מבוא אינטנסיבי לתהליך של חדשנות טכנולוגית בתחום הרפואי. כחלק מצוות רב-תחומי של פרוייקט, ילמד התלמיד: כיצד לזהות צורך קליני משמעותי ללא פתרון קיים.\r\n לתכנן פתרון טכנולוגי ולייצר אב-טיפוס כדי לענות על הצורך הרפואי שזוהה.\r\n להכין תכנית להבאת הפתרון לשוק (כולל התייחסות גיוס מימון, קניין רוחני, רגולציה, שיפו י ומודלים עסקיים).\r\n",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360025',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360025',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "נושאים ברגרסיה",
+        "OrgText": "הפקולטה למדעי הנתונים וההחלטות",
+        "Otjid": "SM00960415",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "דוד",
+              "LastName": "עזריאל",
+              "OrgId": "00002190",
+              "OrgText": "הפקולטה להנדסת תעשייה וניהול",
+              "OrgUrl": "",
+              "Otjid": "P 00015612",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015612',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "לקורס יהיו שני חלקים. בחלק הראשון נעסוק ברגרסיה לינארית כאשר הנתונים הם לא לינארים ובחלק השני נעסוק ברגרסיה מממד גבוה. רשימת נושאיםמפורטת: האומד הלינארי הטוב ביותר, אומד ריבועים פחותים, משפט גאוס-מרקוב, התפלגות גבולית, בחירת מודלים בממד נמוך וגבוה, אומד EGDIR, משפט הקיום, אומד OSSAL, חסמי טעות של אומד .OSSAL בסוף הקורס הסטודנט אמור: 1. להכיר את התיאוריה הבסיסית של אומדי ריבועים פחותים במציאות לינארית ולא לינארית. 2. להשתמש בתוכנות מחשב סטנדרטיות על מנת לחשב אומדי ריבועים פחותים, רווחי סמך ובדיקת השערות. 3. לתכנת באופן בסיסי אומדים סטטיסטים שונים ולהשוות ביניהם באמצעות סימולציות. 4. להכיר את התיאוריה הבסיסית של בחירת מודלים ברגרסיה, של אומדי EGDIR ו.OS SAL 5. להשתמש בתוכנות מחשב סטנדרטיות על מנת לחשב אומדי אומדי EGDIR ו- OSSAL",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00960415',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00960415',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

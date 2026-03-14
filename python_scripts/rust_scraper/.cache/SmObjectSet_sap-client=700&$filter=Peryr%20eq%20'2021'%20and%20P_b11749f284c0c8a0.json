@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "בדיקות שמישות במערכות אינטראקטיביות",
+        "OrgText": "הפקולטה למדעי הנתונים וההחלטות",
+        "Otjid": "SM00970136",
+        "Points": "3.50000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015515',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "אבי",
+              "LastName": "פרוש",
+              "OrgId": "00002190",
+              "OrgText": "הפקולטה להנדסת תעשייה וניהול",
+              "OrgUrl": "",
+              "Otjid": "P 00015515",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015515',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "מר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015515',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015515',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "בדיקת שמישות וחוויית המשתמש עם מוצרים ושירותים אינטראקטיביים כחלק בלתי נפרד ממחזור החיים של המוצר. טכניקות הבדיקה מחולקות לשתי קטגוריות: הערכה ללא משתמשים ובחינה אמפירית עם שילוב ישיר של משתמשים עם המוצר. תעשה אבחנה בין בחינה מעצבת ובחינה מסכמת עם הפעילויות הבאות: תכן הבחינה, הכנה, הרצה, ניתוח ודיווח. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1. לזהות ולהסביר מושגי יסוד בבדיקות שמישות וחוויית משתמש. 2. לזהות ולהסביר מדדי שמישות וחוויית משתמש. 3. להסביר ולהריץ תהליך תכן והרצת בדיקת שמישות למוצר. 4. בהינתן מוצר, לנתח מצב ומשתמשים, ולבצע בדיקת שמישות למוצר. 5. לזהות ולהסביר היבטים מדעיים של בדיקות שמישות.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970136',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00970136',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

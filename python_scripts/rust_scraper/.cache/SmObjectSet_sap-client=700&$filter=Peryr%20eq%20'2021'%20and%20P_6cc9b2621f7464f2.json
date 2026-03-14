@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תבניות ריח: מבוא ויישומים",
+        "OrgText": "הפקולטה להנדסה כימית",
+        "Otjid": "SM00560394",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012210',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יואב",
+              "LastName": "ברוזה",
+              "OrgId": "00002070",
+              "OrgText": "הפקולטה להנדסה כימית",
+              "OrgUrl": "",
+              "Otjid": "P 00012210",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012210',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012210',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012210',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "כימיה של מולקולות ריח, מנגנוני היווצרות של מולקולות ריח-חומרים אורגניים נדיפים ונדיפים למחצה, תהליכים מטבוליים ושימושים קליניים-דיגום נשיפה, טכנולוגיות ושיטות זיהוי-מערכות אנליטיות וחיישנים, שימושים טכנולוגיים בתחומים נוספים- איכות סביבה, מזון, זיהוי פלילי.\r\n תוצאות למידה: בסיום המקצוע הסטודנט יהיה מסוגל: 1. לתאר ולפרש תהליכים ומולקולות כימיות הקשורות לריח. 2. להבין תהליכים תרמודינמיים ומנגנוני היווצרות של מולקולות נדיפות. 3. לנבא תהליכים היכולים להביא ליצירת מולקולות או סמנים נדיפים בקליניקה,בתעשיה ובסביבה. 4. להשוות ולהדגים מנגנוני חישה של ריח ושימושם באורגניזמים בטבע ובמיוחד בבני אדם. 5. להעריך ולנבא מסלולים מטבוליים לשימוש כסמנים קליניים במחלות. 6. להכיר ולהבין את המתודולוגיה של אנליזת נשימה ושימושיה. 7. לבחור טכנולוגיות אנליטיות או טכנולוגיות חישה לבדיקת חומרי ריח. 8. להבין ולנתח תוצאות סטטיסטיות של ספרות בתחום  9. לסכם ולנתח תוצאות מדעיות וכן להציג עבודה מדעית בפני קהל.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560394',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560394',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

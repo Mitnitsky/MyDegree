@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מידע בהתקני איחסון",
+        "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+        "Otjid": "SM00490063",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014078',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יובל",
+              "LastName": "קסוטו",
+              "OrgId": "00002050",
+              "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+              "OrgUrl": "",
+              "Otjid": "P 00014078",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014078',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014078',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014078',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "בעיות קומבינטוריות ואלגוריתמיות באחסון מידע: אלגוריתמי גישה: תורי פקודות ואופטימיזציה של מיקום ראש הקריאה.כתיבה, השמה מאולצת של מידע. טיפול אנליטי במערכות תרגום כתובות: מודלים קומבינטוריים, אופטימיזציה לשחיקה אחידה, אלגוריתמי גרפים להשמה מקובצת. יצוג מידע לגישה יעילה: זכרונות כתיבה יחידה, קידוד מרובה כתיבות.  אמינות מידע: מודלי שגיאות, יסודות קודים לתיקון שגיאות, שגיאות חד כיווניות, קודי מערך, אמינות מערכות אחסון. בעיות פתוחות: תאוריה קומבינטורית, בעיות אלגוריתמיות. תוצאות למידה: בסיום הקורס הסטודנט 1. יכיר את הטכניקות האלגוריתמיות והאנליטיות המאפשרות תכן של התקני אחסון מודרניים, לרבות זכרונות לא נדיפים ומערכות אחסון מרובות משתמשים. יהיה בעל סט כלים מק יף המאפשר תרומות מחקריות עמוקות ואפקטיביות.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00490063',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00490063',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

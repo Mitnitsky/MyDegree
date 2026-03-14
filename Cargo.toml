@@ -1,0 +1,3 @@
+[workspace]
+members = ["degree-core", "frontend", "python_scripts/rust_scraper"]
+resolver = "2"

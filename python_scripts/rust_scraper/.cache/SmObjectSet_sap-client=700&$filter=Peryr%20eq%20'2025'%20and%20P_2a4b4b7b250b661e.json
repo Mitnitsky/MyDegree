@@ -1,0 +1,67 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "טיפול מתקדם בשפכים",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00190310",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": [
+            {
+              "Bracket": "(",
+              "DependentModuleId": "00190310",
+              "LineNumber": "001",
+              "ModuleId": "00170022",
+              "ModuleName": "תהליכים ביולוגיים בהנדסת סביבתית",
+              "ModuleShort": "מק-00170022",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190310',LineNumber='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190310',LineNumber='001')"
+              }
+            },
+            {
+              "Bracket": ")",
+              "DependentModuleId": "00190310",
+              "LineNumber": "002",
+              "ModuleId": "00000000",
+              "ModuleName": "",
+              "ModuleShort": "",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190310',LineNumber='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190310',LineNumber='002')"
+              }
+            }
+          ]
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "איכות שפכים, הקשר בין מדדי איכות שונים. שיטות סילוק ואיכות קולחים נדרשת. סקירה כללית על תהליכי טיפול בשפכים. נושאים נבחרים בטיפול קדם וטיפול ראשוני. עקרונות הטיפול הביולוגי - שיקולים תרמודינמיים וקינטיקה. תהליכי הטיפול במצע מרחף: בוצה משופעלת לצורותיה. בריכות מאוורות, אגני חימצון. הרחקת חנקן בשיטות ביולוגיות. תהליכי הטיפול במצע קבוע: מרבגים ביולוגיים - וביו-דיסק. טיפול בבוצה: הוצאת מים, ייבושוסילוק סופי. טיפול פיסיקוכימי. השבת שפכים.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00190310',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00190310',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

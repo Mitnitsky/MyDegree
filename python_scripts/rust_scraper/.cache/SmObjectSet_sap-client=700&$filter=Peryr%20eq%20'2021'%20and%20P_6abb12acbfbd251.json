@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "פולימרים פורוזיביים",
+        "OrgText": "הפקולטה למדע והנדסה של חומרים",
+        "Otjid": "SM03180101",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004982',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "מיכאל",
+              "LastName": "סילברסטין",
+              "OrgId": "00002040",
+              "OrgText": "הפקולטה למדע והנדסה של חומרים",
+              "OrgUrl": "",
+              "Otjid": "P 00004982",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004982',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004982',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004982',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "יצירת פורות - גישות רעיוניות: עיצוב מאקרומולקולרי, הרכבה עצמית, המסה-הפרדה, הרכבת מוצקים כתבניות, הרכבת נוזלים כתבניות. פורוזיביות - גישות חקירה: חודרני, בלתי חודרני, הדמיה. פורוזיביות - השפעה על פולימרים. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1. לזהות אתקני המידה ואת המאפיינים המבניים במערכות של פולימרים פורוזיביים. 2. להעריך את היתרונות של פולימרים כחומרים פורוזיביים. 3. להבין את אסטרטגיות הסינתזה השונות. 4. ליישם את טכניקות האפיון המתאימות ולנתח את התוצאות. 5. לחזות את השפעת פורוזיביות הפולימר על ההתנהגות המכנית. 6. לתאר את השימוש בפולימרים פורוזיביים במגוון יישומים.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03180101',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03180101',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

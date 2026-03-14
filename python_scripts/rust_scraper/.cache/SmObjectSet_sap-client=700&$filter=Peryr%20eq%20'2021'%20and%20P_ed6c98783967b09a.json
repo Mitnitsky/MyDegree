@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תאי דלק",
+        "OrgText": "הפקולטה להנדסה כימית",
+        "Otjid": "SM00580126",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053383',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "דריו",
+              "LastName": "דקל",
+              "OrgId": "00002070",
+              "OrgText": "הפקולטה להנדסה כימית",
+              "OrgUrl": "",
+              "Otjid": "P 00053383",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053383',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053383',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053383',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס יינתן בשפה האנגלית, מיועד להציג את כל ההיבטים הקשורים לטכנולוגיית תאי דלק. הנושאים העיקריים אשר יידונו במהלך הסמסטר הינם: הקדמה לטכנולוגיית תאי דלק, יתרונות.חסרונות, השוואה מול בטריות, יישומים, מגבלות, חזית הטכנולוגיה העכשווית, סוגי תאי דלק, דלקים, מחמצנים,תגובות אלקטרוכימיות, מאפייני פעילות תאי דלק, חומרי מבנה התא, ממברנות, יונומרים, זרזים אלקטרוליטיים. תוצאות למידה: בסוף הקורס הסטודנט יהיה מסוגל: 1. להכיר את מבנה תאי הדלק. 2. להבין את הטכנולוגיה, היישומים, היתרונות והחסרונות אל מול טכנולוגיות מתחרות. 3. לנתח את האתגרים העכשוויים העומדים בפני הטכנולוגיה, בחזית המדע, ולהבין את המרכיבים ודרישות לפיתוח תא-דלק מוצלח.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00580126',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00580126',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

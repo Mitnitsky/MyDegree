@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מסע למערכת החינוך בישראל",
+        "OrgText": "חינוך למדע וטכנולוגיה",
+        "Otjid": "SM02160026",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000051953',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "שולמית",
+              "LastName": "קפון",
+              "OrgId": "00002220",
+              "OrgText": "חינוך למדע וטכנולוגיה",
+              "OrgUrl": "",
+              "Otjid": "P 00051953",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000051953',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000051953',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000051953',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הכרות עם פניה הרבות של מערכת החינוך בישראל, דרך סיורים בבתי ספר שפועלים במגזרים שונים, עם אוכלוסיות עם צרכים שונים, ועל פי תפיסות עולם שונות, מפגשים עם בעלי תפקידים שונים במערכת החינוך, קובעי מדיניות חינוכית, ובעלי אינטרסים מגוונים. הקורס בנוי מסיור מרוכז בן שלושה ימים, מפגש אחד בטכניון ועבודה סמינריונית. בסיום הקורס הסטודנטים: 1. ייחפשפו לפניה המגוונות של מערכת החינוך בישראל ויבינו את המורכבות, הפערים והאתגרים איתם מערכת החינוך צריכה להתמודד. 2. ידעו להסביר חלק מהתהליכים שהובילו להבדלים בהזדמנויות השונות שפתוחות בפני תלמידים בישראל. 3. יכתבו עבודה שבוחנת באופן מעמיק וביקורתי פן אחד של מערכת החינוך הישראלית אליו הם נחשפו בקורס.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160026',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160026',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

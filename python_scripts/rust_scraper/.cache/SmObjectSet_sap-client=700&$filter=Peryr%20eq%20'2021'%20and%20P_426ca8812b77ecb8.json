@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מיקרוספית אלקטרוניים של חומר רך",
+        "OrgText": "הפקולטה להנדסה כימית",
+        "Otjid": "SM00560120",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000001840',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "ישעיהו",
+              "LastName": "טלמון",
+              "OrgId": "00002070",
+              "OrgText": "הפקולטה להנדסה כימית",
+              "OrgUrl": "",
+              "Otjid": "P 00001840",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000001840',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופסור אמריטוס",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000001840',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000001840',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס עוסק באפיון חומרים רכים על ידי מיקרוסקופית אלקטרונים סורקת ומיקרוסקופית אלקטרונים חודרת וכולל:  הכרת הרכיבים השונים במיקרוסקופ אלקטרונים סורק ומיקרוסקופ אלקטרונים חודר, עקרונות יצירת תמונה במיקרוסקופיית אלקטרונים, האינטראקציה בין קרן האלקטרונים לדגם, שיטות להכנת דגמים למיקרוסקופית אלקטרונים של חומרים רכים עם דגש על מיקרוסקופית אלקטרונים בטמפרטורות קריוגניות, אפיון תלת-ממדי באמצעות טומוגרפיית אלקטרונים, אפיון הרכב כימי במיקרוסקופית אלקטרונים, יישומים. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל:\r\n 1. לתאר את המרכיביםהעיקריים של מיקרוסקופ אלקטרונים חודר ומיקרוסקופ אלקטרונים סורק, ולהבין כיצד הם תורמים ליצירת תמונה בשיטות הדימות השונות וע\"י הגלאים השונים במיקרוסקופים. 2. להבין את העקרונות שקובעים את הניגודיות ואת הרזולוציה במיקרוסקופית אלקטרונים. 3. להכיר מגוון שיטות הכנת דגמים למיקרוסקופית אלקטרונים של חומרים רכים עם דגש על מיקרוסקופית אלקטרונים בטמפרטורות קריוגניות, כולל מגבלות, ארטיפקטים ונזק הנגרם מקרןהאלקטרונים.\r\n 4. להבין את העקרונות המשמשים לאפיון תלת-ממדי במיקרוסקופ אלקטרונים חוזר.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560120',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560120',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

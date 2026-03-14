@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "שיטות מיקרוסקופיה מתקדמות במדעי החיים",
+        "OrgText": "הפקולטה לביולוגיה",
+        "Otjid": "SM01380049",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064226',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "אילה",
+              "LastName": "שיבר",
+              "OrgId": "00002340",
+              "OrgText": "הפקולטה לביולוגיה",
+              "OrgUrl": "",
+              "Otjid": "P 00064226",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064226',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064226',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000064226',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הכרת שיטות מיקרוסקופיית אור מתקדמות במחקר במדעי החיים, כולל הבנה מרחיבה של הטכנולוגיה והיישומים. הבנת קונספטים בסיסיים באופטיקה, בפלורוסנציה ובאנליזה ועיבוד תמונות. כפן משלים, יסקרו מגוון שיטות לסימון של מולקולות שונות (DNA, RNA, PROTEIN) לצורך זיהוי פלורסנטי בתאחי, בדגש על דוגמאות נבחרות ממחקרים עדכניים ברזולוציית ה-SINGLE MOLECULE.\r\nתוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1.להסביר ולפרש כיצד עובד מיקרוסקופ ולהפעיל באופן עצמאי את המיקרוסקופיים האופטיים לטובת מחקרו. 2. לתכנן ולבצע ניסויי הדמייה בביולוגיה של התא תוך הבנת כל הגורמים המשפיעים הן על הכנת הדוגמא והן על תהליך ההדמייה. 3.להשוות בין שיטות שונות לצביעת תאים והדמייתם תחת מיקרוסקופ ולהעריך איזה שיטה טובה יותר למחקרו. 4.להשוות בין שיטות מתקדמות של מיקרוסקופיה אופטית ולהעריך איזה שיטה טובה יותר למחקרו. 5. לנתח את התוצאותשהתקבלו מהמיקרוסקופיים בעזרת תוכנות אנליזה מתקדמות.",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM01380049',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM01380049',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

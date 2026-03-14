@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תכן פרמטרי באדריכלות",
+        "OrgText": "הפקולטה לארכיטקטורה ובינוי ערים",
+        "Otjid": "SM02060841",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "תיאוריות ומתודולוגיות של עיצוב פרמטרי באדריכלות: תכן פרמטרי כדרך חשיבה, אדריכלות קלאסית, מודלים פרמטריים של 'מציאת צורה', מודלים והסגנונות של אדריכלות דיגיטלית. התנסות עם מודלים פרמטריים ויישומם באמצעות ממשק משתמש של סביבת תכנון פרמטרית, הגדרת רכיבים, יחסים ופרמטרים. תוצאות למידה: בסיום הקורס הסטודנט ידע 1. לחקור וליישם מתודולוגיות וטכניקות של תכנון פרמטרי באדריכלות כדרך חשיבה תכנונית. 2. לפתח מודלים פרמטריים (כגון: מודלים מתימטיים, טרנספורמציות גיאומטריות, 'מציאת צורה', אלגוריתמים של יצירת צורה). 3. לשלוט בשפה פרמטרית (כגון גראסהופר: הגדרת רכיבים יחסים ופרמטרים) 4. לפתח פרויקט נסיוני אדריכלי פרמטרי- בקנה מידה מצומצם.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02060841',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02060841',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

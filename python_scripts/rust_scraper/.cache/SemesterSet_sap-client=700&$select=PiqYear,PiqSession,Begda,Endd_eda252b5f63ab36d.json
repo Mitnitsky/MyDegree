@@ -1,0 +1,248 @@
+{
+  "d": {
+    "results": [
+      {
+        "Begda": "/Date(1774396800000)/",
+        "Endda": "/Date(1787961600000)/",
+        "PiqSession": "201",
+        "PiqYear": "2025",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='201')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='201')"
+        }
+      },
+      {
+        "Begda": "/Date(1761696000000)/",
+        "Endda": "/Date(1793059200000)/",
+        "PiqSession": "208",
+        "PiqYear": "2025",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='208')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='208')"
+        }
+      },
+      {
+        "Begda": "/Date(1761696000000)/",
+        "Endda": "/Date(1774310400000)/",
+        "PiqSession": "200",
+        "PiqYear": "2025",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='200')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2025',PiqSession='200')"
+        }
+      },
+      {
+        "Begda": "/Date(1756080000000)/",
+        "Endda": "/Date(1761523200000)/",
+        "PiqSession": "207",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='207')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='207')"
+        }
+      },
+      {
+        "Begda": "/Date(1756080000000)/",
+        "Endda": "/Date(1761609600000)/",
+        "PiqSession": "202",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='202')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='202')"
+        }
+      },
+      {
+        "Begda": "/Date(1748476800000)/",
+        "Endda": "/Date(1755993600000)/",
+        "PiqSession": "206",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='206')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='206')"
+        }
+      },
+      {
+        "Begda": "/Date(1743292800000)/",
+        "Endda": "/Date(1755993600000)/",
+        "PiqSession": "201",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='201')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='201')"
+        }
+      },
+      {
+        "Begda": "/Date(1743292800000)/",
+        "Endda": "/Date(1748390400000)/",
+        "PiqSession": "205",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='205')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='205')"
+        }
+      },
+      {
+        "Begda": "/Date(1738454400000)/",
+        "Endda": "/Date(1744243200000)/",
+        "PiqSession": "215",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='215')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='215')"
+        }
+      },
+      {
+        "Begda": "/Date(1737244800000)/",
+        "Endda": "/Date(1744848000000)/",
+        "PiqSession": "217",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='217')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='217')"
+        }
+      },
+      {
+        "Begda": "/Date(1735776000000)/",
+        "Endda": "/Date(1743206400000)/",
+        "PiqSession": "204",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='204')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='204')"
+        }
+      },
+      {
+        "Begda": "/Date(1730592000000)/",
+        "Endda": "/Date(1735689600000)/",
+        "PiqSession": "203",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='203')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='203')"
+        }
+      },
+      {
+        "Begda": "/Date(1730592000000)/",
+        "Endda": "/Date(1743206400000)/",
+        "PiqSession": "200",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='200')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='200')"
+        }
+      },
+      {
+        "Begda": "/Date(1730592000000)/",
+        "Endda": "/Date(1761609600000)/",
+        "PiqSession": "208",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='208')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='208')"
+        }
+      },
+      {
+        "Begda": "/Date(1716768000000)/",
+        "Endda": "/Date(1730332800000)/",
+        "PiqSession": "201",
+        "PiqYear": "2023",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2023',PiqSession='201')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2023',PiqSession='201')"
+        }
+      },
+      {
+        "Begda": "/Date(1716681600000)/",
+        "Endda": "/Date(1738195200000)/",
+        "PiqSession": "214",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='214')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='214')"
+        }
+      },
+      {
+        "Begda": "/Date(1716681600000)/",
+        "Endda": "/Date(1736985600000)/",
+        "PiqSession": "216",
+        "PiqYear": "2024",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='216')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2024',PiqSession='216')"
+        }
+      },
+      {
+        "Begda": "/Date(1698105600000)/",
+        "Endda": "/Date(1716681600000)/",
+        "PiqSession": "200",
+        "PiqYear": "2023",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2023',PiqSession='200')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2023',PiqSession='200')"
+        }
+      },
+      {
+        "Begda": "/Date(1679356800000)/",
+        "Endda": "/Date(1691193600000)/",
+        "PiqSession": "201",
+        "PiqYear": "2022",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2022',PiqSession='201')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2022',PiqSession='201')"
+        }
+      },
+      {
+        "Begda": "/Date(1647734400000)/",
+        "Endda": "/Date(1659139200000)/",
+        "PiqSession": "201",
+        "PiqYear": "2021",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='201')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='201')"
+        }
+      },
+      {
+        "Begda": "/Date(1635033600000)/",
+        "Endda": "/Date(1666483200000)/",
+        "PiqSession": "208",
+        "PiqYear": "2021",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='208')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='208')"
+        }
+      },
+      {
+        "Begda": "/Date(1635033600000)/",
+        "Endda": "/Date(1647648000000)/",
+        "PiqSession": "200",
+        "PiqYear": "2021",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='200')",
+          "type": "NVIAS_CDIR_DATA_SRV.Semester",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SemesterSet(PiqYear='2021',PiqSession='200')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "אתיקה בהנדסה",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00180002",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000058633',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "נתן",
+              "LastName": "פנחס",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "",
+              "Otjid": "P 00058633",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000058633',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "ד\"ר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000058633',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000058633',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "קורס זה מיועד לסטודנטים להנדסה ומטרתו הכרה והבנת המושגים הבסיסיים באתיקה,התיאוריה וההיבטים המעשיים, שהם מרכיב מובנה בעבודה ההנדסית.החומר הנלמד יאפשר להבין את הקשר החשוב בין אתיקה להנדסה, יאפשר את יישום תיאוריית המוסר הקלאסית וההתנהגות הראויה של המהנדס ושילובם בתהליך קבלת החלטות אתיות. הקניית הידע, המיומנות והכרת הגישות והשיטות, יסייעו למהנדס בעבודתו המקצועית ההנדסית, בפרויקטים יישומיים ובמחקר. החברה המודרנית מציבה מידה רבה של אחריות על אנשי המקצוע שלה, ובפרט על קהילת המהנדסים. היא מחייבת אותם להתנהל באופן ייחודי והולם כפי שהחברה והקהילה הסכימה וקבלה על עצמה. ללימוד ולהבנת האתיקה המקצועית יש חשיבות רבה בתהליך ההכשרה וההתפתחות של הסטודנט לעיצובו כמהנדס מצליח ומקצועי ברמה גבוהה. לימוד האתיקה מסייע לתלמידים לפתח מיומנויות רלוונטיות בתחום התקשורת עם בעלי העניין, הצבת שיקולים נכונים, התבוננות חדה וחשיבה נכונה ולבסוף קבלת החלטות ראויות. מיומנויות אלה משפרות את יכולות הסטודנטים, מספקות כלים יעילים ומסייעות להם להתמודד עם היבטים אחרים של העבודה ההנדסית, כאינדיבידואל וגם בעבודה בצוות. לימוד האתיקה ההנדסית בקורס זה חשוב ומסייע לסטודנטים להתכונן לקראת החיים האמיתיים כמהנדסים ולקראת פיתוח הקריירה המקצועית העתידית. תכני הקורס בנויים ממספר שלבים: הראשון, יסודות האתיקה המקצועית ההנדסית. השני,היבטי",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00180002',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00180002',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

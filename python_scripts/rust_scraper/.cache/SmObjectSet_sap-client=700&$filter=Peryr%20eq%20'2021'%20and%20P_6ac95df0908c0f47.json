@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "ביואינפורמטיקה של סרטן",
+        "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+        "Otjid": "SM00660529",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "המהפכה בטכנולוגיה של הריצוף הגנטי בעשור האחרון, איפשרה ריצוף גנטי של עשרות אלפי גידולים סרטניים, הן של הדנ\"א והן של הרנ\"א שלהם. יוזמות ריצוף גדולות כגון AGCT) SALTA EMONEG RECNAC EHT), חוללו מהפכה בהבנתנו את הביולוגיה של הסרטן, ובטיפול לו זוכים החולים. בקורס הסטודנטים יקבלו הקדמה קצרה על התפתחות גידולים סרטניים וסקירה של הטכנולוגיות החדישות ( SGN - GNICNEUQES NOITARENEG TXEN ) של ריצוף גנטי של דנ\"א ורנ\"א. יינתן דגש כיצד ניתן יהיה להשתמש בטכנולוגיות הללו ובמסקנותיהן לצורך רפואה מותאמת אישית. תוצאות למידה: בסיום הקורס הסטודנטים:\r\n 1. יבינו את הבסיס של הכלים הביואינפורמטיקאים הנצרכים לצורך ניתוח של המידע המתקבל ממכשירי הריצוף.\r\n 2. ירכשו יכולת שימוש בכלים ה חישוביים הללו בסוגים שונים של דאטה.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660529',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660529',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

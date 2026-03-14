@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "ביומכניקה וחישה מכנית של תאים",
+        "OrgText": "הפקולטה להנדסת מכונות",
+        "Otjid": "SM00360090",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014103',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "שלי",
+              "LastName": "צליל",
+              "OrgId": "00002030",
+              "OrgText": "הפקולטה להנדסת מכונות",
+              "OrgUrl": "",
+              "Otjid": "P 00014103",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014103',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014103',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000014103',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מבוא לביומכניקה של תאים ביולוגיים בדגש על הבסיס הפיסיקלי של חישה מכנית ע\"י תאים: היכולת של תאים לחוש ולהגיב לגירויים מכניים ולתכונות מכניות של הסביבה. כלי מדידה ניסיוניים ומידול תיאורטי (המבוסס על מכניקה סטטיסטית ותהליכים סטוכסטיים) של מכניקה ברמה הננומטרית. מעברי פזה בממברנות ביולוגיות ובשלד התאי המושרים על ידי כוחות, צימוד מכני-כימי המאפשר שינוי קונפורמציה במולקולות בודדות ושבירת קשרים על ידי הפעלת כוחות, שיטות ניסוי למדידת כוחות ודפורמציות ברמה הננומטרית כולל: סקפטרוסקופית כוח של מולקולות בודדות, מיקרוסקופית כוח ( MFT ) וחיישנים מבוססי מעבר אנרגיה על ידי תהודה פלורסנטית. ( ( TERF תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1. להבין את ההבדל בין הת נהגות מכנית של מערכות מכניות קלאסיות ומערכות של ארגון עצמי כמו ממברנות ביולוגיות והשלד התאי. 2. להבין את החשיבות של כוחות סטוכסטייםברמת המולקולה הבודדת (עבור חיישנים מכניים של תאים ומנועים מולקולריים). 3. לגזור תכונות מאקרוסקופיות מהתנהגות של מולקולה בודדת. 4. לעקוב אחרי מודלים בסיסיים במכניקה סטטיסטית בתחום. 5. לקרוא באופן ביקורתי את הספרות המחקרית.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00360090',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00360090',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

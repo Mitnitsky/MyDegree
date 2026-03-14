@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "יזמות טכנולוגית בחינוך",
+        "OrgText": "חינוך למדע וטכנולוגיה",
+        "Otjid": "SM02160022",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "בקורס זה יבחנו תאוריות למידה ומודלים (לדוג' ביהביוריזם, תיאוריות קוגניטיביותת קונסטרקטיביזם) העומדים מאחורי טכנולוגיות חינוכיות בקונטקסט של מקרים שונים של חברות  HCETDE מהארץ ומהעולם (,HCTARCS GNINRAEL YFILPMA ועוד). בפרט יבחנו מודלים קיימים לחדשנות טכנולוגית בחינוך ודרכים לפיתוח, בחינה ומימוש  אפקטיבי של טכנולוגיה חינוכית בכיתה ומחוץ לה. תוצאות למידה: בסיום הקורס הסטודנטים יכירו את תאוריות הלמידה והמודלים העומדים בבסיס טכנולוגיות חינוכיות שונות. יכירו מגוון רחב של טכנולוגיות HCETDE מצליחות בבית הספר ומחוץ להם, וכן יכירו חברות שלא הצליחו לפרוץ ויבחנו את הסיבות לכך. יכירו את המכשולים בהכנסת טכנולוגיות חדשות למערכת החינוך , יכירו את תהליך הפיתוח, הערכה, ומימוש של טכנולוגיות HCETDE חדשה תוך התייחסות לתכני הקורס.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160022',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160022',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "התפתחויות בהוראת הביולוגיה",
+        "OrgText": "חינוך למדע וטכנולוגיה",
+        "Otjid": "SM02160116",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "התפתחויות חדשות בהוראת הביולוגיה: שילוב בעיות ביואתיות תוך שימוש בטיעונים כתהליך וכתוצר של ההוראה, שילוב מקורות לא פורמאליים בהוראה, שילוב כלים של מדע אותנטי להמחשת מהות המחקר המדעי הדציפלינארי, יצירת תחושת אוטונומיה ובעלות על תהליך הלמידה על ידי התחשבות בתחומי העניין של התלמידים. ניתוח מחקרים בתחום הוראת הביולוגיה ודרכים לשילוב מחקר עכשווי בביולוגיה בחטיבה העליונה, לשם צמצום הפער בין המדע למדע הבית ספרי.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160116',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160116',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

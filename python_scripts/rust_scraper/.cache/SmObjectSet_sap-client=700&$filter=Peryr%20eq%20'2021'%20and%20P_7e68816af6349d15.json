@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מרעיון קליני לפתרון בהנדסה ביו רפואית",
+        "OrgText": "הפקולטה להנדסה ביו-רפואית",
+        "Otjid": "SM03380002",
+        "Points": "1.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053696',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "ג'ואקים",
+              "LastName": "בהר",
+              "OrgId": "00000000",
+              "OrgText": "",
+              "OrgUrl": "",
+              "Otjid": "P 00053696",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053696',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053696',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000053696',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הסטודנטים יחשפו לבעיות בעולם הקליני ויציעו פתרונות ויישומים לבעיה.\r\n הקורס יכלול מפגש ראשוני בהם יחשפו הסטודנטים לסט בעיות ספציפיות בעולם הקליני. לאחר בחירת הבעיה, הסטודנטים יבקרו במחלקה להתרשם מהאמצעיים העומדים לרשותה. במהלך 3 ימים מרוכזים ייערך האקתון, בו הסטודנטים יעבדו על פתרון הבעיה וכן יחשפו להרצאות על בניית תוכנית עסקית. \r\n תוצאות למידה\r\n בסיום הקורס, הסטודנט יהיה מסוגל:\r\n 1. להבין את היתרונות של פתרונות דיגיטלים ויזמות בהנדסה ביו רפואית.\r\n 2.לבנות תוכנית עסקית לרעיונות ביו-רפואיים.\r\n",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03380002',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03380002',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "למידה, אינטיליגנציה והמוח",
+        "OrgText": "חינוך למדע וטכנולוגיה",
+        "Otjid": "SM02160016",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054614',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "ציפי",
+              "LastName": "הורוביץ-קראוס",
+              "OrgId": "00002220",
+              "OrgText": "חינוך למדע וטכנולוגיה",
+              "OrgUrl": "",
+              "Otjid": "P 00054614",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054614',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054614',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054614',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מוחנו שולט על יכולותינו הקוגניטיביות, יכולת הלמידה שלנו, תקינות המערכות התחושתיות והתנועתיות ועל יכולותינו לפרש את הסביבה החיצונית והפנימית באופן תקין. כל אלו מובילים לקביעת ה- QI (יכולת כללית) מילולית ושאינה מילולית. כשאחד התהליכים אינו פועל כשורה, מתקבלות מחלותנוירולוגיות, פסיכיאטריות ולקויות אחרות. בקורס נלמד על הפעילות המוחית המשוייכת ליכולות אלו והקשר שלהם ללמידה ולתפקוד היומיומי. בסיוםהקורס הסטודנט: 1. יכיר את האזורים המוחיים הפעילים בתהליך הלמידה. 2. יבין את תהליכי הלמידה בקרב ילדים ומבוגרים. 3. יבין את התפקוד המוחי המאפיין יכולות בבסיס הלמידה. 4. יבין את השפעתן של מחלות שונות על יכולות הלמידה.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160016',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160016',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

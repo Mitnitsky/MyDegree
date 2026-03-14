@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תכן ומימוש של מעגלים גנטיים",
+        "OrgText": "הפקולטה להנדסה ביו-רפואית",
+        "Otjid": "SM03360544",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס מתאר את היסודות המדעיים וההנדסיים לתכנון ובניית מעגלים ומערכות גנטיות בתאים חיים. הקורס מחולק לשלושה חלקים: בחלק הראשון הסטודנט ילמד למדל מערכות בקרה גנטיות שקיימות בטבע, כדוגמת מעגלים גנטיים עם חוג פתוח, משוב שלילי וחיובי וכן, ילמד על תהליכים ביולוגיים אקראיים. בחלק השני הסטודנט ילמד להשתמש בעקרונות הנדסיים, כמו תכנון ספרתי ואנלוגי, כדי לבנות מעגלים גנטיים. בחלק השלישי הסטודנט ילמד על שיטות שונות של יצירה ומדידה של מעגלים גנטיים. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל : 1. לבנות מודלים הנדסיים המאפשרים בניית מעגלים גנטיים בחיידקים. 2. לבנות מודלים ביופיזיקליים כדי למדל אותות ורעשים גנטיים ביולוגיים (שיטת מונטה-קרלו). 3. להשתמש בכלים אוטומט יים - כדי לתכנן פריימרים של RCP ולפענח ריצוף של ד.נ.א.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360544',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360544',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

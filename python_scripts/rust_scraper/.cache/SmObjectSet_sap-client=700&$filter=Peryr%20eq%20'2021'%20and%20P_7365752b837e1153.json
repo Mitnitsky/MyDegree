@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "פרויקט מתקדם בביוטכנולוגיה והנדסת מזון 1",
+        "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+        "Otjid": "SM00660013",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "יואב",
+              "LastName": "ליבני",
+              "OrgId": "00002080",
+              "OrgText": "הפקולטה להנדסת ביוטכנולוגיה ומזון",
+              "OrgUrl": "",
+              "Otjid": "P 00008176",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000008176',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "פרויקט המשך לקורס 066012 שיבשיל לביצוע ממשי. מטרת הפרויקט הקבוצתי לפתח מוצר חדש בתחום הביוטכנולוגיה או המזון משלב הרעיון ועד היישוםתוך שימוש הידע שרכשו בקורסי הבסיס. הצוותים יבצעו פרויקטים אינטגרטיביים שיכללו תיכנון המוצר, סקר ספרות, ניתוח כלכלי, ניתוח השוק, פילוח המתחרים, כתיבת תוכנית עסקית בסיסית. בסוף הפרויקט הסטודנטים יציגו את התוצר בפני מומחים מהתעשייה והאקדמיה. תוצאות למידה: בסיום הקורס, הסטודנט יהיה מסוגל: 1. להבין את האתגרים בפיתוח מוצר בתחום הביוטכ' והמזון. 2. לתכנן ולבצע ניסוי מדעי באופן עצמאי. 3. לנסח רעיונות ופתרונות בעזרת כלים חשיבתיים. 4. לפתח יכולת עבודה בצוות מקומי או בינלאומי ולפתח כישורי רשתות עסקיות. 5. להציג רעיון בצורה ממוקדת כמו גם סמינר באנגלית למומחים בתחום.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660013',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00660013',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

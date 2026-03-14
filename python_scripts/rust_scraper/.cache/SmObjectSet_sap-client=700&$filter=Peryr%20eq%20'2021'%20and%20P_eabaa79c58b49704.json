@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "ממברנות עקרונות וחומרים",
+        "OrgText": "הפקולטה להנדסה כימית",
+        "Otjid": "SM00560397",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "סקירת תהליכי ממברנות ועקרונותיהם הפיזיקליים. תהליכים: מים, הפקת אנרגיה, אלקטרוכימיה ואחרים. ממברנות ביולוגיות וסנתטיות, פולימרים וחומרים מתקדמים לממברנות. תרמודינמיקה ומנגנוני מעבר וסלקטיביות למולקולות ויונים בממברנות שונות. תופעות פני שטח בממברנה: אילוח, סוגיו והפחתתו. מודיפיקציה ואפיון ממברנות. תוצאות למידה: בסיום הקורס הסטודנט יהיה מסוגל: 1. להבין ולנתח מנגנוני הפרדה בתהליכי ממברנות שונים כולל מערכות אלקטרו- ממברנליות, הפקת אנרגיה, טיהור מים, הפרדת גזים וכו'. 2. להבין יתרונות ומגבלות בתהליכים קיימים ברמת מנגנונים פיזיקליים (תרמודינמיקה וקינטיקה). 3. לראות כיצד חומרים מתקדמים וביומימטיים יכולים לשפר ביצועי ממברנות. 4. להבין תופעות קיטוב ואילוח, השפעת ן על ביצועים ודרכים להתמודד איתן.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560397',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00560397',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

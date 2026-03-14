@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "קשיי למידה במתמטיקה ומדעים",
+        "OrgText": "חינוך למדע וטכנולוגיה",
+        "Otjid": "SM02160014",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015135',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "עינת",
+              "LastName": "הד-מצויינים",
+              "OrgId": "00002220",
+              "OrgText": "חינוך למדע וטכנולוגיה",
+              "OrgUrl": "",
+              "Otjid": "P 00015135",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015135',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015135',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015135',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס עוסק בגישות התיאורטיות העיקריות לקשיי למידה בבית הספר בכלל ובמקצועות המתמטיקה והמדעים בפרט, בכללן הגישה הפסיכולוגית, הגישה החברתית-פוליטית והגישה הביקורתית. הקורס יתייחס לקשיים מסוגים שונים, כולל לקויות למידה, נכויות ומגבלות פיסיות ונפשיות. דגש יושם על מחקרים מתחום הדיסציפלינה הצומחת של SEIDUTS YTILIBASID תוך התמקדות בנושאים של הדרה ושילוב במערכת החינוך. בסיום הקורס הסטודנטים יהיו מסוגלים: 1. לתאר את התיאוריות המרכזיות בתחום קשיי הלמידה. 2. לקשר בין תיאוריות מתחום ה-SEIDUTS YTILIBASID ופרקטיקות הנהוגות בבתי הספר בתחום שילוב התלמידים עם צרכים מיוחדים. 3. לגבש את עמדותיהם כלפי שילוב תלמידים עם צרכים מיוחדים ולבססן על סמך התיאוריות הנלמדות בקורס.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160014',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02160014',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

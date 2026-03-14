@@ -1,0 +1,34 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "נתוח תהליכים במערכת הראיה",
+        "OrgText": "הפקולטה להנדסה ביו-רפואית",
+        "Otjid": "SM03360214",
+        "Points": "2.50000",
+        "Responsible": {
+          "results": []
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הבסיס הפיסיולוגי של אותות במערכת הראיה: תגובות תאים בודדים ותגובות אוכלוסית תאים (פוטנציאלים ראייתיים מעוררים) לינאריות ואי-לינאריות במערכת הראיה, ברמה הפיסיולוגית והפיסיוכופיסיקלית. שימוש במחשב לשם דגימה, סינון, מיצוע, שמירה ועיבוד של אותות בראיה. שימוש בטכניקותשל ניתוח מערכות כגון:פונקציות תמסורת זמנית ומרחבית והתועלת בהן לפיסיולוגיה ולרפואה.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360214',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360214',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

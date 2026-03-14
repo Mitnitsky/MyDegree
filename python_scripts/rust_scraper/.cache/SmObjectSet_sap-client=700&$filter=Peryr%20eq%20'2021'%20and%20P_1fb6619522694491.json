@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "רגולציה ומחקר קליני במכשור רפואי",
+        "OrgText": "הפקולטה להנדסה ביו-רפואית",
+        "Otjid": "SM03360001",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000011382',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "שלמה",
+              "LastName": "הרפז",
+              "OrgId": "00002330",
+              "OrgText": "הפקולטה להנדסה ביו-רפואית",
+              "OrgUrl": "",
+              "Otjid": "P 00011382",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000011382',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "מר",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000011382',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000011382',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "רגולציה של מכשור רפואי בארה\"ב, אירופה וישראל. הערכה של מסלול רגולטורי ודרישות תכן בהתאם לשימוש המיועד. מערכת איכות. ניתוח סיכונים. בקרת ציוד רפואי רשום. מחקרים קליניים בבני אדם. מבנה ותכנון פרוטוקול מחקר, לוגיסטיקה,דרישות מקדימות וחוקיות למחקר קליני, הגשה וקבלת אישור מוועדת האתיקה (הלסינקי). תוצאות למידה: בסיום הקורס, הסטודנט:\r\n 1.יכיר מושגים יסודיים ברגולציה ומחקר קליני.\r\n2. יכיר את הדרישות בנוגע לתיעוד של תהליכי פיתוח של מכשור רפואי. \r\n 3. יהיה מסוגל לתכנן ולכתוב פרוטוקול מחקר קליני בסיסי. 4. ידע להכין בקשה למחקר קליני לוועדת הלסינקי בארץ.\r\n 5. ידע לקבוע מהי הקלסיפיקציה המתאימה למכשיר רפואי נתון.\r\n6. ידע להעריך חלופות למסלול רגולטורי נדרש למכשיר רפואי חדש .\r\n 7. יוכל לבחון באופן ביקורתי ישימות ופוטנציאל הצלחה של מחקר קליני על בסיס פרוטוקול המחקר.\r\n",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360001',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM03360001',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

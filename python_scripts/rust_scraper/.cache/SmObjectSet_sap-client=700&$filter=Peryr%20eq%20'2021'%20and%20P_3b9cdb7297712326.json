@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "ארכיטקטורות ומעגלים בשילוב ממריסטורים",
+        "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+        "Otjid": "SM00460265",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012660',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "שחר",
+              "LastName": "קוטינסקי",
+              "OrgId": "00002050",
+              "OrgText": "הפקולטה להנדסת חשמל ומחשבים",
+              "OrgUrl": "",
+              "Otjid": "P 00012660",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012660',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012660',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000012660',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "הקורס עוסק בהשפעה של טכנולוגיות חדישות על מערכות וארכיטקטורות. במהלך הקורס יידונו ממריסטורים - רכיבי זיכרון חדישים - בשלל רבדים כולל רמת הרכיב הבודד, התאוריה שמאחורי ממריסטורים והשימוש בממריסטורים כזכרונות לא נדיפים. כמו כן יתוארו השימושים בממריסטורים ביישומים ייחודיים כגון מעגלים לוגיים, רשתות נוירונים ומעגלים אנלוגיים וייסקרו ההשלכות של שימוש בממריסטורים על ארכיטקטורת מחשבים, כולל ארכיטקטורות במכונות שאינן מכונת פון-נוימן בנוסף יילמדו המשמעויות של שימוש בממריסטורים בתחומים מגוונים כגון תורת הקידוד ואבטחה.\r\n תוצאות למידה:1. יכולת ניתוח ההשפעה של טכנולוגיה על מערכת. 2. הבנת פעולת הממריסטורים בתאוריה ובמעשה ויכולת מעשית לפתח מודלים שונים. 3. כלים מעשיים לתכנון מעגלים המשולבים בממריסטור. 4. הכרות עם המשמעויות הארכיטקטוניות של שילוב ממריסטורים במחשבים. 5. הכרות עם מגוון נושאי המחקר בתחומים",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00460265',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00460265',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

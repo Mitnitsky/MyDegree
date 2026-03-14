@@ -1,0 +1,303 @@
+/* Alef font — copied to dist/fonts/ by Trunk */
+@font-face {
+    font-family: 'Alef';
+    src: url('fonts/Alef/Alef-Bold.woff') format('woff'),
+         url('fonts/Alef/Alef-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Alef';
+    src: url('fonts/Alef/Alef-Regular.woff') format('woff'),
+         url('fonts/Alef/Alef-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
+    min-width: 965px !important;
+    direction: rtl;
+    background-color: #f8f9fa;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Course type colors */
+.course-type-0 { background-color: #fff; }         /* חובה */
+.course-type-1 { background-color: #d4edda; }      /* פטור */
+.course-type-2 { background-color: #d1ecf1; }      /* מל"ג */
+.course-type-3 { background-color: #fff3cd; }       /* בחירה חופשית */
+.course-type-4 { background-color: #e2d9f3; }       /* רשימה א' */
+.course-type-5 { background-color: #f8d7da; }       /* רשימה ב' */
+
+/* Semester tabs */
+.semester-tab {
+    cursor: pointer;
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    background: #f8f9fa;
+    margin-left: 2px;
+}
+.semester-tab.active {
+    background: #fff;
+    border-bottom: 2px solid #fff;
+    font-weight: bold;
+}
+.semester-tab.summer {
+    background: #fff3cd;
+}
+.semester-tab.summer.active {
+    background: #fff;
+}
+
+/* Summary cards */
+.degree-summary-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    height: 100%;
+}
+
+.degree-summary-card > h5 {
+    background-color: #343a40;
+    color: #fff;
+    font-weight: bold;
+    padding: 12px 16px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+
+.degree-summary-card > .card-content {
+    padding: 16px;
+}
+
+/* Category name labels in degree summary */
+.category-label {
+    background-color: aliceblue;
+    cursor: default;
+    width: 33%;
+    flex: 0 0 33% !important;
+}
+
+/* Force input-group to single row */
+.input-group {
+    flex-wrap: nowrap !important;
+}
+
+/* Disabled/readonly inputs */
+.disabled-input {
+    background-color: whitesmoke !important;
+}
+
+/* Editable degree input hover */
+.degree-input-field:hover {
+    border-color: royalblue !important;
+}
+
+/* Degree summary number direction */
+.degree-summary {
+    text-align: center;
+}
+.degree-summary-number {
+    direction: ltr;
+    text-align: center;
+}
+
+/* Table styling */
+.semester-table th {
+    cursor: pointer;
+    user-select: none;
+}
+.semester-table th:hover {
+    background-color: #e9ecef;
+}
+
+/* Table header background — override Bootstrap RTL resets */
+thead th {
+    color: #495057 !important;
+    background-color: rgb(233, 236, 239) !important;
+    --bs-table-accent-bg: rgb(233, 236, 239) !important;
+    border-color: #dee2e6;
+    text-align: center;
+}
+
+thead th:hover {
+    color: cornflowerblue !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Search dialog overlay */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+.search-dialog {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    width: 90%;
+    max-width: 800px;
+    min-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Toast notification */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    z-index: 9999;
+    animation: fadeInOut 3s ease;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Header */
+.app-header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 20px;
+}
+.app-header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Footer */
+.app-footer {
+    background-color: #343a40;
+    color: #adb5bd;
+    padding: 15px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Row action buttons */
+.row-actions .btn {
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
+
+/* Autocomplete dropdown */
+.autocomplete-list {
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0 0 4px 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+}
+.autocomplete-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background-color: #e9ecef;
+}
+
+/* RTL input-group fixes (ported from original Vue DegreeSummary) */
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Fix RTL input-group: first child (input-group-text) gets right radius */
+[dir="rtl"] .input-group > .input-group-text:first-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+    border-right: 1px solid #dee2e6 !important;
+    border-left: 0 !important;
+}
+
+/* Fix RTL input-group: last child (form-control) gets left radius */
+[dir="rtl"] .input-group > .form-control:last-child,
+[dir="rtl"] .input-group > input:last-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+}
+
+/* Fix RTL input-group: first form-control (after text) gets no radius */
+[dir="rtl"] .input-group > .form-control:not(:first-child):not(:last-child),
+[dir="rtl"] .input-group > .input-group-text:not(:first-child):not(:last-child),
+[dir="rtl"] .input-group > input:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
+}
+
+/* Fix border doubling between adjacent elements in RTL */
+[dir="rtl"] .input-group > *:not(:first-child) {
+    margin-right: -1px;
+    margin-left: 0;
+}
+
+/* Category label width */
+.input-group > .input-group-prepend {
+    flex: 0 0 33%;
+}
+.input-group .input-group-text {
+    width: 100%;
+}
+
+/* Summary card header */
+.summary-card-header {
+    font-weight: bold !important;
+    text-align: center;
+}
+
+/* Fix dropdown menu text in dark navbar */
+.navbar-dark .dropdown-menu {
+    background-color: #fff !important;
+}
+.navbar-dark .dropdown-menu .dropdown-item {
+    color: #212529 !important;
+}
+.navbar-dark .dropdown-menu .dropdown-item:hover {
+    background-color: #e9ecef !important;
+    color: #212529 !important;
+}
+.navbar-dark .dropdown-menu .dropdown-divider {
+    border-color: #dee2e6 !important;
+}

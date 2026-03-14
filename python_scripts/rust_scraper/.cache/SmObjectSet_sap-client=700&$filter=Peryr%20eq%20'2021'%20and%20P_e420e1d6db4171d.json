@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תכן מערכות סרוו",
+        "OrgText": "הפקולטה להנדסת אווירונוטיקה וחלל",
+        "Otjid": "SM00860650",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054345',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "גיל",
+              "LastName": "יודילביץ",
+              "OrgId": "00002160",
+              "OrgText": "הפקולטה להנדסת אוירונאוטיקה וחלל",
+              "OrgUrl": "",
+              "Otjid": "P 00054345",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054345',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ\"ח",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054345',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000054345',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "מבוא לאוויוניקה ולמערכות סרוו. תיאור מערכת סרוו חשמלית, פיתוח משוואת הנע של מנוע זרם ישר עם מגנט קבוע עם מברשות וללא מברשות (.(CDLBבחירת רכיבים נוספים למערכת סרוו חשמלית כולל: תמסורות, מגברים ומדידים. תיאור מערכת סרוו הידראולית, הכרת מעגל הידראולי ומרכיביו. פיתוח משוואת הנע של בוכנה הידראולית ומימוש בקרת תנועה באמצעות שסתומי סרוו. תיאור מערכת סרוו פנאומטית. השוואה בין סוגי מערכות הסרוו השונים, כולל דוגמאות. עקרונות ודוגמאות של סגירת חוגי בקרה למערכות סרוו שונות.\r\n תוצאות למידה:\r\n בסיום הקורס הסטודנט ידע:\r\n 1. לפתור בעיות באמצעות משוואות התנועה של מנוע זרם ישר עם מגנט קבוע\r\n 2. לבחור את רכיבי מערכת הסרוו החשמלית: מנוע, תמסורת, מגבר, ומדידים\r\n 3. לפתור בעיות  באמצעות משוואות התנועה של בוכנה הידראולית בלי ועם שסתום סרוו\r\n 4. להתאים את סוג מערכת הסרוו המתאימה לצורך ההנדסי\r\n 5. לסגור חוגי בקרה שונים למערכות הסרוו השונות\r\n",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00860650',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00860650',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

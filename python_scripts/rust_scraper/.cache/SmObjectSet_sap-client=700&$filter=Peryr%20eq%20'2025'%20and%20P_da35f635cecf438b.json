@@ -1,0 +1,98 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "מנהור בקרקעות רכות",
+        "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+        "Otjid": "SM00190431",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000009501',Peryr='2025',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "אסף",
+              "LastName": "קלר",
+              "OrgId": "00002010",
+              "OrgText": "הפקולטה להנדסה אזרחית וסביבתית",
+              "OrgUrl": "https://ugportal.technion.ac.il/wp-content/uploads/2024/02/01-%D7%94%D7%A0%D7%93%D7%A1%D7%94-%D7%90%",
+              "Otjid": "P 00009501",
+              "Perid": "200",
+              "Peryr": "2025",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000009501',Peryr='2025',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000009501',Peryr='2025',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000009501',Peryr='2025',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": [
+            {
+              "Bracket": "(",
+              "DependentModuleId": "00190431",
+              "LineNumber": "001",
+              "ModuleId": "00140411",
+              "ModuleName": "הנדסת קרקע",
+              "ModuleShort": "מק-00140411",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190431',LineNumber='001')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190431',LineNumber='001')"
+              }
+            },
+            {
+              "Bracket": ")",
+              "DependentModuleId": "00190431",
+              "LineNumber": "002",
+              "ModuleId": "00000000",
+              "ModuleName": "",
+              "ModuleShort": "",
+              "Operator": "",
+              "Perid": "000",
+              "Peryr": "0000",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190431',LineNumber='002')",
+                "type": "NVIAS_CDIR_DATA_SRV.SmPrerequisites",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmPrerequisitesSet(DependentModuleId='00190431',LineNumber='002')"
+              }
+            }
+          ]
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "שיטות מנהור, יציבות המנהרה, פתרון אלסטי לתזוזות הקרקע עקב מנהור, פתרון אלסטו פלסטי לתזוזות הקרקע, שימוש בקשרים אמפירים ופתרונות מבוססי אנרגיה. התייחסות לאספקטים דו-מימדיים ותלת מימדיים של מידול. השפעת מנהור על צינורות קבורים ומנהרות סמוכות. השפעת המנהור על מבנים עיליים וקביעת קריטריוני מנהור למניעת נזק. תכנון מערכות בקרת ביצוע מבוססות שקיעות ועיבורים. מטרות הקורס: מקצוע הלימוד עוסק בהיבטים שונים של מנהור בקרקעות רכות ומתרכז ביציבות המנהרה והשפעת תזוזות הקרקע, הנלוות לפעולות המנהור, על מערכות הנדסיות סמוכות כגון צינורות קבורים ומבנים עיליים. הקורס הינו קורס מתקדם המצריך ידע מעמיק בגישות חישוב גיאוטכניות וכן הבנה טובה בהנדסת מבנים. סטודנטים אשר יסיימו את  הקורס בהצלחה יהיו מסוגלים להעריך את הסכנות ההנדסיות השונות הנלוות לפרויקטי מנהור בקרקעות רכות )חרסיות וחולות(, לבחור מערכות ייצוב ולחשב את ההטרחות למבנים סמוכים תוצאות למידה: הקורס עוסק בבעיות מנהור בקרקעות רכות בהקשרים גיאוטכניים ומבניים שונים. בסיום הקורס הסטודנט יהיה מסוגל: 1. להעריך את אגן השקיעות המתפתח בפני השטח עקב מנהור בשיטות שונות. 2. לחשב את יציבות המנהרה והסיכוי לכשל. 3. לבחור מערכת תימוך הולמת ולהעריך את ההטרחות המפתחות בה. 4. לחשב את השפעת המנהרה על תשתיות קבורות ומנהרות קיימות 5. להעריך את הנזק הצפוי למבנים סמוכים עקב",
+        "ZzAcademicLevel": "0003",
+        "ZzAcademicLevelText": "תארים מתקדמים",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00190431',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00190431',Peryr='2025',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

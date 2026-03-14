@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תיאום ובקרה של מערכות רב-סוכניות",
+        "OrgText": "הפקולטה להנדסת אווירונוטיקה וחלל",
+        "Otjid": "SM00860730",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015090',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "דניאל",
+              "LastName": "זלזו",
+              "OrgId": "00002160",
+              "OrgText": "הפקולטה להנדסת אוירונאוטיקה וחלל",
+              "OrgUrl": "",
+              "Otjid": "P 00015090",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015090',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015090',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000015090',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "תורת הגרפים, תורת הגרפים האלגברית והספקטרלית, פרוטוקול הקונצנזוס (מכוון, לא מכוון, מיתוג אקראי), רשתות חישה יחסיים (בקרת מבנה, שערוך מבוזר), ניתוח של מערכות מרושתות (יציבות, קצב התכנסות והערך העצמי של RELDEIF, ביצוע H2 ו-OOH, בקירות, צפיות), מודלים לא לינארים (מודל OTOMARUK, מערכות פסיביות מחוברות), שמירת קשירות ומקסימיזציה, תצורות קשיחות לבקרה ולוקליזציה, תכן גרפי למערכות מרושתות, אפליקציות,שמירת מבנה של קוואדרוטורים, קונצנזוס כיוון עבור מספר רב של לווינים, נחילים של רכבים אוטונומיים. תוצאות למידה: עם סיום הקורס הסטודנטיוכל: 1. להגדיר מהו גרף מתמטי באמצעות תורת הגרפים. 2. להציג גרפים בצורה מטריצית באמצעות תורת הגרפים האלגברית. 3. לקבוע מאפייני גרף ש ונים ובלתי תלויים. 4. לייחס תכונות ספקטרליות של מטריצה למאפיינים קומבנטוריים של הגרף. 5. למדל מערכות מרובות סוכנים באמצעות גרפים. 6. לנתח יציבות של מערכות דינמיות מרושתות לינאריות ולא לינאריות. 7. לתכנן אסטרטגיות בקרה מבוזרות של מערכות דינמיות מרושתות. 8. לתכנן אסטרטגיות שמירת מבנה מבוזרות של מערכות דינמיות מרושתות. 9. לנסח בעיות אופטימיזציה עבור תכן של חילופי מידע ברשת. 01. לנסח SNOITAXALER XEVNOC עבור בעיות אופטימיזציה שאינן קמורות.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00860730',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM00860730',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "אבטחת מחשבים",
+        "OrgText": "הפקולטה למדעי המחשב",
+        "Otjid": "SM02360490",
+        "Points": "3.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004313',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "אלי",
+              "LastName": "ביהם",
+              "OrgId": "50044904",
+              "OrgText": "מרכז המחקר לאבטחת סייבר",
+              "OrgUrl": "",
+              "Otjid": "P 00004313",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004313',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004313',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004313',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "בקורס ילמדו נושאים בהגנה על מערכות מתוכנתות, תוך דגש על אבטחת מערכת ההפעלה, ורכיבי תוכנה.חומרה בסיסיים שמספקים שירותים למערכת ההפעלה, הבנה של נושאי תקיפת מחשבים, ושימוש בתכונות אבטחה מתקדמות של חומרת המעבד והתקנים היקפיים לצורך בנית סביבת ביצוע אמינה. שילוב מנגנוני אבטחה מבוססי חומרה במערכות הפעלה ( ,GNITUPMOC DETSURT ,TSURT FO TOOR XGS ,ENOZTSURT ), מנגנוני אבטחה במ\"ה: בקרת גישה (ובפרט XUNILES ), עליה בטוחה. אבטחת מ\"ה לטלפונים סלולריים (התמקדות באנדרואיד) ואבטחת ווירטואליזציה. תוצאות למידה: בסיום הקורס הסטודנט: 1. ידע מהם חולשות אבטחה, מודל איום וסיכון, ויכיר שיטות לניתוח סיכונים. 2. ידע את נושא האבטחה של מערכות הפעלה, חולשות אבטחה, וכיצד מתבצעת תקיפת  מערכות מחשב. 3. יכיר מנגנוני אבטחה מתקדמים משולבי חומרה ותוכנה, כדוגמת זיכרון מוצפן, סביבת ביצוע מבודדת, ומגוון נושאים עדכניים בסייבר ואבטחת מידע.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02360490',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM02360490',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}

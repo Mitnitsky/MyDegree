@@ -32,3 +32,7 @@ python_scripts/db/venv
 ./.firebase/
 .firebaserc/*
 geckodriver.log
+
+# Rust build artifacts
+/target/
+/frontend/dist/

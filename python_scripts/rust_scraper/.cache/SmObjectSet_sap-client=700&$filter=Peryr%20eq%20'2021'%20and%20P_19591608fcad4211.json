@@ -1,0 +1,65 @@
+{
+  "d": {
+    "__count": "1",
+    "results": [
+      {
+        "Exams": {
+          "results": []
+        },
+        "Name": "תהליכים גרעיניים באסטרופיסיקה",
+        "OrgText": "הפקולטה לפיזיקה",
+        "Otjid": "SM01160033",
+        "Points": "2.00000",
+        "Responsible": {
+          "results": [
+            {
+              "Events": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004102',Peryr='2021',Perid='200',ZzExamFunction='')/Events"
+                }
+              },
+              "FirstName": "נועם",
+              "LastName": "סוקר",
+              "OrgId": "00002370",
+              "OrgText": "המרכז לחינוך קדם אקדמי",
+              "OrgUrl": "",
+              "Otjid": "P 00004102",
+              "Perid": "200",
+              "Peryr": "2021",
+              "Responsible": {
+                "__deferred": {
+                  "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004102',Peryr='2021',Perid='200',ZzExamFunction='')/Responsible"
+                }
+              },
+              "Seark": "",
+              "Title": "פרופ'",
+              "ZzContactUrl": "",
+              "ZzExamFunction": "",
+              "ZzExamFunctionText": "",
+              "__metadata": {
+                "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004102',Peryr='2021',Perid='200',ZzExamFunction='')",
+                "type": "NVIAS_CDIR_DATA_SRV.PObject",
+                "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/PObjectSet(Otjid='P%2000004102',Peryr='2021',Perid='200',ZzExamFunction='')"
+              }
+            }
+          ]
+        },
+        "SmPrereq": {
+          "results": []
+        },
+        "SmRelations": {
+          "results": []
+        },
+        "StudyContentDescription": "תכונות בסיסיות: תכונות גרעיניות, הכוח בין נוקלאונים, מודלים גרעיניים, דעיכה גרעינית ורדיואקטיביות, תגובות גרעיניות, פיסיקה של ניטרונים וביקוע. אסטרופיסיקה גרעינית: חתך פעולה וקצב ריאקציה, בעירת מימן, בעירת הליום, שלבים מתקדמים של בעירה גרעינית, התהליך האיטי, התהליך המהיר, תהליכים גרעיניים בפיצוצי סופרנובות, יצירת יסודות בראשית היקום. תוצאות למידה: בסיום הקורס, הסטודנט ידע: 1. להגדיר מושגים בסיסים הרלבנטיים לתהליכים גרעיניים בכלל וליצירת אנרגיה בכוכבים בפרט. 2. לרשום את המשוואות הבסיסיות לתהליכים גרעיניים, הקבועים המופיעיםבהן והיחסים ביניהן. 3. לרשום ולהצדיק את ההנחות המובילות לכל משוואה ולשחזר את פיתוחה. 4. לפתור תרגילים כלליים ומספריים ע\"י שימוש במשו ואות כפי שניתנו בשעורי הבית ובכיתה. 5. לתאר איכותית את התופעות הנובעות מהמשוואות והתיאוריות שנלמדו.",
+        "ZzAcademicLevel": "0002",
+        "ZzAcademicLevelText": "מקצוע משותף",
+        "ZzSemesterNote": "",
+        "__metadata": {
+          "id": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM01160033',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')",
+          "type": "NVIAS_CDIR_DATA_SRV.SmObject",
+          "uri": "https://portalex.technion.ac.il:443/sap/opu/odata/sap/Z_CM_EV_CDIR_DATA_SRV/SmObjectSet(Otjid='SM01160033',Peryr='2021',Perid='200',ZzCgOtjid='',ZzPoVersion='',ZzScOtjid='')"
+        }
+      }
+    ]
+  }
+}
