@@ -411,10 +411,10 @@ pub fn MobileSemesterSummary() -> impl IntoView {
                                 el::a().attr("href", "#")
                                     .on(ev::click, on_remove)
                                     .attr("style", "color: #dc3545;")
-                                    .child("מחק סמסטר"),
+                                    .child((el::i().class("fas fa-trash").attr("style", "margin-left: 8px;"), "מחק סמסטר")),
                                 el::a().attr("href", "#")
                                     .on(ev::click, on_toggle_type)
-                                    .child(toggle_text),
+                                    .child((el::i().class("fas fa-sun").attr("style", "color: #856404; margin-left: 8px;"), toggle_text)),
                             ))
                         })
                     },
@@ -551,7 +551,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                             if !num.is_empty() { state.show_histogram_modal.set(Some(num)); }
                                             show_menu.set(false);
                                         })
-                                        .child("היסטוגרמות"),
+                                        .child((el::i().class("fas fa-chart-bar").attr("style", "color: dodgerblue; margin-left: 8px;"), "היסטוגרמות")),
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
@@ -561,7 +561,11 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                         })
                                         .child(move || {
                                             let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
-                                            if is_binary { "בטל עובר בינארי" } else { "סמן עובר בינארי" }
+                                            if is_binary {
+                                                (el::i().class("fas fa-ban").attr("style", "color: red; margin-left: 8px;").into_any(), "בטל עובר בינארי".into_any())
+                                            } else {
+                                                (el::i().class("fas fa-check").attr("style", "color: green; margin-left: 8px;").into_any(), "סמן עובר בינארי".into_any())
+                                            }
                                         }),
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
@@ -574,7 +578,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                             state.update_course_field(index, "binary", "false");
                                             show_menu.set(false);
                                         })
-                                        .child("נקה שורה"),
+                                        .child((el::i().class("fas fa-broom").attr("style", "color: burlywood; margin-left: 8px;"), "נקה שורה")),
                                     el::a().attr("href", "#")
                                         .attr("style", "color: #dc3545;")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
@@ -582,7 +586,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                             state.remove_course(index);
                                             show_menu.set(false);
                                         })
-                                        .child("הסר שורה"),
+                                        .child((el::i().class("fas fa-trash").attr("style", "color: darkred; margin-left: 8px;"), "הסר שורה")),
                                 ))
                         })
                     },
