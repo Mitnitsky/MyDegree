@@ -530,9 +530,7 @@ tr.course-row {
         box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         margin: 0 0 12px 0;
         padding: 16px;
-        position: sticky;
-        top: 92px;
-        z-index: 1038;
+        position: relative;
     }
     .mobile-sem-summary-metrics {
         display: flex;
