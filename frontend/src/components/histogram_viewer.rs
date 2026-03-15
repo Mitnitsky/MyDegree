@@ -83,18 +83,6 @@ pub fn HistogramViewer(course_number: String) -> impl IntoView {
                     let all_entries_for_change = all_entries.clone();
 
                     Some(el::div().child((
-                        // Staff info
-                        move || {
-                            selected_entry.get().and_then(|entry| {
-                                entry.staff.map(|s| {
-                                    el::p().class("text-center").child((
-                                        el::strong().child(entry.semester_name.clone()),
-                                        el::br(),
-                                        el::strong().child(s),
-                                    ))
-                                })
-                            })
-                        },
                         // Dropdown
                         el::select()
                             .class("form-select mb-2")
@@ -117,6 +105,16 @@ pub fn HistogramViewer(course_number: String) -> impl IntoView {
                                     el::option().attr("value", i.to_string()).child(label.clone())
                                 }).collect::<Vec<_>>()
                             ),
+                        // Lecturer name
+                        move || {
+                            selected_entry.get().and_then(|entry| {
+                                entry.staff.map(|s| {
+                                    el::p().class("text-center mb-2").child(
+                                        el::strong().child(s),
+                                    )
+                                })
+                            })
+                        },
                         // Stats grid
                         move || {
                             selected_entry.get().map(|entry| {
