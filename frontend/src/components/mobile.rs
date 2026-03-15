@@ -14,6 +14,8 @@ pub fn MobileHeader() -> impl IntoView {
     let show_import_modal = RwSignal::new(false);
     let show_cf_modal = RwSignal::new(false);
     let show_category_modal = RwSignal::new(false);
+    let show_clear_modal = RwSignal::new(false);
+    let clear_input = RwSignal::new(String::new());
     let import_text = RwSignal::new(String::new());
     let cf_text = RwSignal::new(String::new());
     let new_category_name = RwSignal::new(String::new());
@@ -37,16 +39,9 @@ pub fn MobileHeader() -> impl IntoView {
     };
 
     let on_clear = move |_: web_sys::MouseEvent| {
-        if let Some(win) = web_sys::window() {
-            if let Ok(Some(input)) = win.prompt_with_message("למחיקת כל הנתונים הקלד REMOVE") {
-                if input.trim() == "REMOVE" {
-                    state.clear_user_data();
-                    show_menu.set(false);
-                } else {
-                    let _ = win.alert_with_message("הקלד REMOVE בדיוק כדי לאשר מחיקה");
-                }
-            }
-        }
+        clear_input.set(String::new());
+        show_clear_modal.set(true);
+        show_menu.set(false);
     };
 
     let on_import_cf = move |_: web_sys::MouseEvent| {
@@ -299,6 +294,45 @@ pub fn MobileHeader() -> impl IntoView {
                                             .child("הוסף"),
                                     )),
                                 )),
+                            )),
+                    )
+            })
+        },
+
+        // Clear all confirmation modal
+        move || {
+            show_clear_modal.get().then(|| {
+                el::div().class("search-overlay")
+                    .on(ev::click, move |_| show_clear_modal.set(false))
+                    .child(
+                        el::div().class("search-dialog")
+                            .attr("style", "max-width: 380px;")
+                            .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                            .child((
+                                el::div().class("d-flex justify-content-between align-items-center mb-3").child((
+                                    el::h5().class("mb-0").child("מחיקת כל הנתונים"),
+                                    el::button().class("btn btn-sm btn-outline-secondary")
+                                        .on(ev::click, move |_| show_clear_modal.set(false))
+                                        .child(el::i().class("fas fa-times")),
+                                )),
+                                el::p().attr("style", "color: #6c757d; margin-bottom: 12px;")
+                                    .child("הקלד REMOVE כדי לאשר מחיקה"),
+                                el::input()
+                                    .class("form-control mb-3")
+                                    .attr("placeholder", "REMOVE")
+                                    .attr("dir", "ltr")
+                                    .prop("value", move || clear_input.get())
+                                    .on(ev::input, move |e| clear_input.set(event_target_value(&e))),
+                                el::button()
+                                    .class("btn btn-danger w-100")
+                                    .prop("disabled", move || clear_input.get().trim() != "REMOVE")
+                                    .on(ev::click, move |_| {
+                                        if clear_input.get().trim() == "REMOVE" {
+                                            state.clear_user_data();
+                                            show_clear_modal.set(false);
+                                        }
+                                    })
+                                    .child("מחק הכל"),
                             )),
                     )
             })
