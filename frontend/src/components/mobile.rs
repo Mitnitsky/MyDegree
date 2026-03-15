@@ -79,13 +79,17 @@ pub fn MobileHeader() -> impl IntoView {
                 if state.logged.get() {
                     el::div().attr("style", "position: relative;").child((
                         el::button().class("mobile-header-btn")
+                            .attr("style", "color: #4ade80;")
                             .on(ev::click, move |_| show_account_menu.update(|v| *v = !*v))
                             .child(el::i().class("fas fa-user-circle")),
                         move || {
                             show_account_menu.get().then(|| {
                                 el::div().class("mobile-account-menu").child((
                                     el::div().attr("style", "padding: 12px 16px; font-weight: bold; border-bottom: 1px solid #dee2e6; color: #333;")
-                                        .child("חשבון"),
+                                        .child(move || {
+                                            let name = state.user_name.get();
+                                            if name.is_empty() { "שלום".to_string() } else { format!("שלום {}", name) }
+                                        }),
                                     el::a().attr("href", "#")
                                         .attr("style", "display: block; padding: 12px 16px; color: #dc3545; text-decoration: none;")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
