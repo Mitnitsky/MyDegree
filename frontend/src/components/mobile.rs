@@ -497,7 +497,7 @@ fn close_all_mobile_menus() {
     }
 }
 
-fn mobile_course_card(index: usize) -> impl IntoView {
+fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
     let show_menu = RwSignal::new(false);
 
@@ -607,17 +607,23 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                             el::div().class("mobile-card-menu")
                                 .child((
                                     el::a().attr("href", "#")
+                                        .attr("style", if index == 0 { "pointer-events: none; opacity: 0.35;" } else { "" })
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
-                                            state.move_course(index, "up");
-                                            show_menu.set(false);
+                                            if index > 0 {
+                                                state.move_course(index, "up");
+                                                show_menu.set(false);
+                                            }
                                         })
                                         .child((el::i().class("fas fa-arrow-up").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למעלה")),
                                     el::a().attr("href", "#")
+                                        .attr("style", if index >= count - 1 { "pointer-events: none; opacity: 0.35;" } else { "" })
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
-                                            state.move_course(index, "down");
-                                            show_menu.set(false);
+                                            if index < count - 1 {
+                                                state.move_course(index, "down");
+                                                show_menu.set(false);
+                                            }
                                         })
                                         .child((el::i().class("fas fa-arrow-down").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למטה")),
                                     el::div().attr("style", "border-top: 1px solid #dee2e6; margin: 2px 12px;"),
@@ -729,7 +735,7 @@ pub fn MobileCourseList() -> impl IntoView {
             let user = state.user.get();
             let sem_idx = user.active_semester;
             let count = user.semesters.get(sem_idx).map(|s| s.courses.len()).unwrap_or(0);
-            (0..count).map(|i| mobile_course_card(i)).collect::<Vec<_>>()
+            (0..count).map(|i| mobile_course_card(i, count)).collect::<Vec<_>>()
         },
         // Action buttons
         el::div().class("mobile-action-buttons").child((
