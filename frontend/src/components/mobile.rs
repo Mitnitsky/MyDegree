@@ -778,12 +778,8 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                                     .child("פטור מאנגלית"),
                             )),
 
-                            // Close button
-                            el::div().attr("style", "text-align: center; margin-top: 16px;").child(
-                                el::button().class("btn btn-outline-dark")
-                                    .on(ev::click, move |_| show_sheet.set(false))
-                                    .child((el::i().class("fas fa-chevron-up").attr("style", "margin-left: 6px;"), "סגור")),
-                            ),
+                            // Bottom spacer so content doesn't stick to edge
+                            el::div().attr("style", "height: 16px;"),
                         )),
                 )
             })

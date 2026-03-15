@@ -483,6 +483,9 @@ tr.course-row {
         padding: 0 8px;
         gap: 0;
         scrollbar-width: none;
+        position: sticky;
+        top: 48px;
+        z-index: 1039;
     }
     .mobile-tabs::-webkit-scrollbar { display: none; }
     .mobile-tab {
@@ -630,12 +633,16 @@ tr.course-row {
         top: 50%;
         right: 12px;
         transform: translateY(-50%);
-        font-size: 0.9rem;
-        color: #6c757d;
+        font-size: 0.75rem;
+        color: #999;
         pointer-events: none;
         transition: all 0.15s ease;
         background: transparent;
         padding: 0 2px;
+        max-width: calc(100% - 24px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     /* When input has value or is focused, shrink label to top-right */
     .mobile-float-input:focus ~ .mobile-float-label,
