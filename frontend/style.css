@@ -830,9 +830,9 @@ tr.course-row {
     .container-fluid { padding: 0 !important; }
 
     /* Main card removes desktop chrome */
-    .card.shadow { border-radius: 0; box-shadow: none !important; margin: 0 !important; border: none; }
-    .card-header { display: none; }
-    .card-body { padding: 0 !important; }
+    .desktop-only .card.shadow { border-radius: 0; box-shadow: none !important; margin: 0 !important; border: none; }
+    .desktop-only .card-header { display: none; }
+    .desktop-only .card-body { padding: 0 !important; }
 
     /* Hide desktop semester table */
     .semester-fade-in > .row.justify-content-md-center { display: none !important; }
