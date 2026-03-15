@@ -425,9 +425,30 @@ pub fn MobileSemesterSummary() -> impl IntoView {
 }
 
 // ── Mobile Course Card ──────────────────────────────────
+
+/// Close any open mobile card menus by dispatching a custom event
+fn close_all_mobile_menus() {
+    if let Some(win) = web_sys::window() {
+        if let Ok(evt) = web_sys::CustomEvent::new("mobile-menu-close") {
+            let _ = win.dispatch_event(&evt);
+        }
+    }
+}
+
 fn mobile_course_card(index: usize) -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
     let show_menu = RwSignal::new(false);
+
+    // Listen for global close event to close this menu
+    Effect::new(move |_| {
+        if let Some(win) = web_sys::window() {
+            let cb = wasm_bindgen::closure::Closure::<dyn Fn()>::new(move || {
+                show_menu.set(false);
+            });
+            let _ = win.add_event_listener_with_callback("mobile-menu-close", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
 
     let course = Memo::new(move |_| {
         state.user.with(|u| {
@@ -448,71 +469,80 @@ fn mobile_course_card(index: usize) -> impl IntoView {
     el::div()
         .class(type_class)
         .child((
-            // Row 1: Drag handle + Course name
-            el::div().class("mobile-card-row").child((
-                el::div().class("mobile-card-drag").child(
-                    el::i().class("fas fa-grip-lines"),
-                ),
-                el::input()
-                    .attr("type", "text")
-                    .class("form-control mobile-card-name")
-                    .attr("placeholder", "שם קורס")
-                    .prop("value", move || {
-                        course.with(|c| c.as_ref().map(|c| c.name.clone()).unwrap_or_default())
-                    })
-                    .on(ev::change, move |e| {
-                        state.update_course_field(index, "name", &event_target_value(&e));
-                    }),
-            )),
+            // Row 1: Course name (floating label)
+            el::div().class("mobile-card-row").child(
+                el::div().class("mobile-float-field").child((
+                    el::input()
+                        .attr("type", "text")
+                        .class("form-control mobile-float-input")
+                        .attr("placeholder", "שם קורס")
+                        .prop("value", move || {
+                            course.with(|c| c.as_ref().map(|c| c.name.clone()).unwrap_or_default())
+                        })
+                        .on(ev::change, move |e| {
+                            state.update_course_field(index, "name", &event_target_value(&e));
+                        }),
+                    el::label().class("mobile-float-label").child("שם קורס"),
+                )),
+            ),
             // Row 2: Category + Course number
             el::div().class("mobile-card-row").child((
-                el::select()
-                    .class("form-select mobile-card-category")
-                    .on(ev::change, move |e| {
-                        state.update_course_field(index, "type", &event_target_value(&e));
-                    })
-                    .child(move || {
-                        let current_type = course.with(|c| c.as_ref().map(|c| c.course_type).unwrap_or(0));
-                        course_types.get_untracked().into_iter().enumerate().map(|(i, ct)| {
-                            let opt = el::option().attr("value", i.to_string());
-                            if i == current_type {
-                                opt.attr("selected", "").child(ct.name).into_any()
-                            } else {
-                                opt.child(ct.name).into_any()
+                el::div().class("mobile-float-field mobile-card-category").child((
+                    el::select()
+                        .class("form-select mobile-float-input")
+                        .on(ev::change, move |e| {
+                            state.update_course_field(index, "type", &event_target_value(&e));
+                        })
+                        .child(move || {
+                            let current_type = course.with(|c| c.as_ref().map(|c| c.course_type).unwrap_or(0));
+                            course_types.get_untracked().into_iter().enumerate().map(|(i, ct)| {
+                                let opt = el::option().attr("value", i.to_string());
+                                if i == current_type {
+                                    opt.attr("selected", "").child(ct.name).into_any()
+                                } else {
+                                    opt.child(ct.name).into_any()
+                                }
+                            }).collect::<Vec<_>>()
+                        }),
+                    el::label().class("mobile-float-label mobile-float-label-select").child("קטגוריה"),
+                )),
+                el::div().class("mobile-float-field mobile-card-number").child((
+                    el::input()
+                        .attr("type", "text")
+                        .attr("inputmode", "numeric")
+                        .attr("pattern", "[0-9]*")
+                        .class("form-control mobile-float-input text-center")
+                        .attr("placeholder", "מספר קורס")
+                        .attr("style", "direction: ltr;")
+                        .prop("value", move || {
+                            course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default())
+                        })
+                        .on(ev::input, move |e| {
+                            let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
+                            if let Some(input) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+                                input.set_value(&val);
                             }
-                        }).collect::<Vec<_>>()
-                    }),
-                el::input()
-                    .attr("type", "text")
-                    .attr("inputmode", "numeric")
-                    .attr("pattern", "[0-9]*")
-                    .class("form-control mobile-card-number text-center")
-                    .attr("placeholder", "מספר קורס")
-                    .attr("style", "direction: ltr;")
-                    .prop("value", move || {
-                        course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default())
-                    })
-                    .on(ev::input, move |e| {
-                        let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
-                        if let Some(input) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
-                            input.set_value(&val);
-                        }
-                    })
-                    .on(ev::change, move |e| {
-                        let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
-                        state.update_course_field(index, "number", &val);
-                    }),
+                        })
+                        .on(ev::change, move |e| {
+                            let val: String = event_target_value(&e).chars().filter(|c| c.is_ascii_digit()).collect();
+                            state.update_course_field(index, "number", &val);
+                        }),
+                    el::label().class("mobile-float-label").child("מספר קורס"),
+                )),
             )),
             // Row 3: Actions menu + Grade + Points
             el::div().class("mobile-card-row").child((
-                el::div().attr("style", "position: relative;").child((
+                el::div().class("mobile-card-menu-wrap").child((
                     el::button().class("mobile-card-actions-btn")
-                        .on(ev::click, move |_| show_menu.update(|v| *v = !*v))
+                        .on(ev::click, move |_| {
+                            let was_open = show_menu.get_untracked();
+                            close_all_mobile_menus();
+                            if !was_open { show_menu.set(true); }
+                        })
                         .child(el::i().class("fas fa-ellipsis-v")),
                     move || {
                         show_menu.get().then(|| {
-                            el::div().class("mobile-sem-actions-menu")
-                                .attr("style", "top: 100%; right: 0; left: auto;")
+                            el::div().class("mobile-card-menu")
                                 .child((
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
@@ -557,48 +587,55 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                         })
                     },
                 )),
-                move || {
-                    let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
-                    if is_binary {
-                        el::input()
-                            .attr("type", "text")
-                            .class("form-control mobile-card-grade text-center")
-                            .attr("readonly", "")
-                            .attr("style", "color: green; cursor: default;")
-                            .prop("value", "✔")
-                            .into_any()
-                    } else {
-                        el::input()
-                            .attr("type", "number")
-                            .class("form-control mobile-card-grade text-center")
-                            .attr("placeholder", "ציון")
-                            .attr("style", "direction: ltr;")
-                            .attr("min", "0").attr("max", "100")
-                            .prop("value", move || {
-                                course.with(|c| c.as_ref().map(|c| {
-                                    if c.grade == 0.0 { String::new() } else { (c.grade as i64).to_string() }
-                                }).unwrap_or_default())
-                            })
-                            .on(ev::change, move |e| {
-                                state.update_course_field(index, "grade", &event_target_value(&e));
-                            })
-                            .into_any()
-                    }
-                },
-                el::input()
-                    .attr("type", "number")
-                    .class("form-control mobile-card-points text-center")
-                    .attr("placeholder", "נקודות")
-                    .attr("style", "direction: ltr;")
-                    .attr("step", "0.5").attr("min", "0").attr("max", "20")
-                    .prop("value", move || {
-                        course.with(|c| c.as_ref().map(|c| {
-                            if c.points == 0.0 { String::new() } else { c.points.to_string() }
-                        }).unwrap_or_default())
-                    })
-                    .on(ev::change, move |e| {
-                        state.update_course_field(index, "points", &event_target_value(&e));
-                    }),
+                el::div().class("mobile-float-field mobile-card-grade").child((
+                    move || {
+                        let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
+                        if is_binary {
+                            el::input()
+                                .attr("type", "text")
+                                .class("form-control mobile-float-input text-center")
+                                .attr("readonly", "")
+                                .attr("style", "color: green; cursor: default;")
+                                .attr("placeholder", " ")
+                                .prop("value", "✔")
+                                .into_any()
+                        } else {
+                            el::input()
+                                .attr("type", "number")
+                                .class("form-control mobile-float-input text-center")
+                                .attr("placeholder", "ציון")
+                                .attr("style", "direction: ltr;")
+                                .attr("min", "0").attr("max", "100")
+                                .prop("value", move || {
+                                    course.with(|c| c.as_ref().map(|c| {
+                                        if c.grade == 0.0 { String::new() } else { (c.grade as i64).to_string() }
+                                    }).unwrap_or_default())
+                                })
+                                .on(ev::change, move |e| {
+                                    state.update_course_field(index, "grade", &event_target_value(&e));
+                                })
+                                .into_any()
+                        }
+                    },
+                    el::label().class("mobile-float-label").child("ציון"),
+                )),
+                el::div().class("mobile-float-field mobile-card-points").child((
+                    el::input()
+                        .attr("type", "number")
+                        .class("form-control mobile-float-input text-center")
+                        .attr("placeholder", "נקודות")
+                        .attr("style", "direction: ltr;")
+                        .attr("step", "0.5").attr("min", "0").attr("max", "20")
+                        .prop("value", move || {
+                            course.with(|c| c.as_ref().map(|c| {
+                                if c.points == 0.0 { String::new() } else { c.points.to_string() }
+                            }).unwrap_or_default())
+                        })
+                        .on(ev::change, move |e| {
+                            state.update_course_field(index, "points", &event_target_value(&e));
+                        }),
+                    el::label().class("mobile-float-label").child("נקודות"),
+                )),
             )),
         ))
 }
@@ -654,9 +691,17 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                     el::div().class("mobile-bottom-sheet")
                         .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
                         .child((
-                            el::div().class("mobile-bottom-sheet-handle"),
-                            el::h5().attr("style", "text-align: center; margin-bottom: 16px; font-weight: bold;")
-                                .child("סיכום תואר"),
+                            el::div().class("mobile-bottom-sheet-handle")
+                                .on(ev::click, move |_| show_sheet.set(false)),
+                            el::div().class("d-flex justify-content-between align-items-center")
+                                .attr("style", "margin-bottom: 12px;")
+                                .child((
+                                    el::span(),
+                                    el::h5().attr("style", "margin: 0; font-weight: bold;").child("סיכום תואר"),
+                                    el::button().class("btn btn-sm btn-outline-secondary")
+                                        .on(ev::click, move |_| show_sheet.set(false))
+                                        .child(el::i().class("fas fa-times")),
+                                )),
                             // Summary fields
                             mobile_summary_row("נקודות תואר", move || degree_points.get().to_string(), true, Some(move |val: f64| state.set_degree_points(val))),
                             mobile_summary_row_readonly("ממוצע תואר", move || format!("{:.1}", degree_average.get())),

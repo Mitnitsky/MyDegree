@@ -610,15 +610,53 @@ tr.course-row {
     .mobile-card-row .form-control,
     .mobile-card-row .form-select {
         font-size: 0.9rem;
-        min-height: 40px;
+        min-height: 44px;
     }
 
     .mobile-card-drag {
         display: none;
     }
 
-    .mobile-card-name {
+    /* ── Floating label fields ───────────────── */
+    .mobile-float-field {
+        position: relative;
         flex: 1;
+    }
+    .mobile-float-input {
+        padding-top: 14px !important;
+    }
+    .mobile-float-label {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        font-size: 0.9rem;
+        color: #6c757d;
+        pointer-events: none;
+        transition: all 0.15s ease;
+        background: transparent;
+        padding: 0 2px;
+    }
+    /* When input has value or is focused, shrink label to top-right */
+    .mobile-float-input:focus ~ .mobile-float-label,
+    .mobile-float-input:not(:placeholder-shown) ~ .mobile-float-label {
+        top: 4px;
+        transform: translateY(0);
+        font-size: 0.65rem;
+        color: #0d6efd;
+        background: #fff;
+        padding: 0 4px;
+        border-radius: 2px;
+    }
+    /* Select always shows a value, so always float the label */
+    .mobile-float-label-select {
+        top: 4px !important;
+        transform: translateY(0) !important;
+        font-size: 0.65rem !important;
+        color: #6c757d !important;
+        background: #fff;
+        padding: 0 4px;
+        border-radius: 2px;
     }
 
     .mobile-card-category {
@@ -630,6 +668,11 @@ tr.course-row {
         flex-shrink: 0;
     }
 
+    /* ── Card actions menu ───────────────────── */
+    .mobile-card-menu-wrap {
+        position: relative;
+        flex-shrink: 0;
+    }
     .mobile-card-actions-btn {
         background: none;
         border: none;
@@ -638,7 +681,33 @@ tr.course-row {
         cursor: pointer;
         min-width: 36px;
         min-height: 36px;
-        flex-shrink: 0;
+    }
+    .mobile-card-menu {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        z-index: 200;
+        min-width: 180px;
+    }
+    .mobile-card-menu a {
+        display: block;
+        padding: 12px 16px;
+        color: #212529;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+    .mobile-card-menu a:hover {
+        background: #f8f9fa;
+    }
+    .mobile-card-menu a:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+    .mobile-card-menu a:last-child {
+        border-radius: 0 0 8px 8px;
     }
 
     .mobile-card-grade {
@@ -707,7 +776,10 @@ tr.course-row {
         height: 4px;
         background: #dee2e6;
         border-radius: 2px;
-        margin: 0 auto 16px;
+        margin: 0 auto 8px;
+        cursor: pointer;
+        padding: 10px 40px;
+        background-clip: content-box;
     }
 
     /* ── Mobile Modals ───────────────────────── */

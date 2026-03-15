@@ -4,6 +4,14 @@ use leptos::ev;
 use wasm_bindgen::JsCast;
 use crate::state::AppState;
 
+fn close_all_row_menus() {
+    if let Some(win) = web_sys::window() {
+        if let Ok(evt) = web_sys::CustomEvent::new("row-menu-close") {
+            let _ = win.dispatch_event(&evt);
+        }
+    }
+}
+
 fn semester_table_header() -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
 
@@ -341,6 +349,17 @@ fn semester_table_row(index: usize) -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
     let show_menu = RwSignal::new(false);
 
+    // Close this menu when another row's menu opens
+    Effect::new(move |_| {
+        if let Some(win) = web_sys::window() {
+            let cb = wasm_bindgen::closure::Closure::<dyn Fn()>::new(move || {
+                show_menu.set(false);
+            });
+            let _ = win.add_event_listener_with_callback("row-menu-close", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
+
     let course = Memo::new(move |_| {
         state.user.with(|u| {
             let sem_idx = u.active_semester;
@@ -541,7 +560,11 @@ fn semester_table_row(index: usize) -> impl IntoView {
                 el::button()
                     .class("btn btn-outline-secondary")
                     .attr("style", "padding: 4px 10px;")
-                    .on(ev::click, move |_| show_menu.update(|v| *v = !*v))
+                    .on(ev::click, move |_| {
+                        let was_open = show_menu.get_untracked();
+                        close_all_row_menus();
+                        if !was_open { show_menu.set(true); }
+                    })
                     .child(el::i().class("fas fa-ellipsis-v")),
                 move || {
                     show_menu.get().then(|| {
