@@ -39,6 +39,8 @@ pub fn Header() -> impl IntoView {
             if let Ok(Some(input)) = win.prompt_with_message("למחיקת כל הנתונים הקלד REMOVE") {
                 if input.trim() == "REMOVE" {
                     state.clear_user_data();
+                } else {
+                    let _ = win.alert_with_message("הקלד REMOVE בדיוק כדי לאשר מחיקה");
                 }
             }
         }

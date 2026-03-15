@@ -42,6 +42,8 @@ pub fn MobileHeader() -> impl IntoView {
                 if input.trim() == "REMOVE" {
                     state.clear_user_data();
                     show_menu.set(false);
+                } else {
+                    let _ = win.alert_with_message("הקלד REMOVE בדיוק כדי לאשר מחיקה");
                 }
             }
         }
