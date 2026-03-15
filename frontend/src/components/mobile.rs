@@ -18,6 +18,8 @@ pub fn MobileHeader() -> impl IntoView {
     let cf_text = RwSignal::new(String::new());
     let new_category_name = RwSignal::new(String::new());
 
+    let show_account_menu = RwSignal::new(false);
+
     Effect::new(move |_| {
         if state.logged.get() {
             show_auth_modal.set(false);
@@ -74,13 +76,30 @@ pub fn MobileHeader() -> impl IntoView {
                 "My Degree ",
                 el::i().class("fas fa-graduation-cap"),
             )),
-            // Left: auth/user icon
+            // Left: account menu or login
             move || {
                 if state.logged.get() {
-                    el::button().class("mobile-header-btn")
-                        .on(ev::click, move |_| state.sign_out())
-                        .child(el::i().class("fas fa-sign-out-alt"))
-                        .into_any()
+                    el::div().attr("style", "position: relative;").child((
+                        el::button().class("mobile-header-btn")
+                            .on(ev::click, move |_| show_account_menu.update(|v| *v = !*v))
+                            .child(el::i().class("fas fa-user-circle")),
+                        move || {
+                            show_account_menu.get().then(|| {
+                                el::div().class("mobile-account-menu").child((
+                                    el::div().attr("style", "padding: 12px 16px; font-weight: bold; border-bottom: 1px solid #dee2e6; color: #333;")
+                                        .child("חשבון"),
+                                    el::a().attr("href", "#")
+                                        .attr("style", "display: block; padding: 12px 16px; color: #dc3545; text-decoration: none;")
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.prevent_default();
+                                            show_account_menu.set(false);
+                                            state.sign_out();
+                                        })
+                                        .child((el::i().class("fas fa-sign-out-alt").attr("style", "margin-left: 8px;"), "התנתק")),
+                                ))
+                            })
+                        },
+                    )).into_any()
                 } else {
                     el::button().class("mobile-header-btn")
                         .on(ev::click, move |_| show_auth_modal.set(true))
@@ -547,6 +566,21 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            state.move_course(index, "up");
+                                            show_menu.set(false);
+                                        })
+                                        .child((el::i().class("fas fa-arrow-up").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למעלה")),
+                                    el::a().attr("href", "#")
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.prevent_default();
+                                            state.move_course(index, "down");
+                                            show_menu.set(false);
+                                        })
+                                        .child((el::i().class("fas fa-arrow-down").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למטה")),
+                                    el::div().attr("style", "border-top: 1px solid #dee2e6; margin: 2px 12px;"),
+                                    el::a().attr("href", "#")
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.prevent_default();
                                             let num = course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default());
                                             if !num.is_empty() { state.show_histogram_modal.set(Some(num)); }
                                             show_menu.set(false);
@@ -599,7 +633,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                                 .attr("type", "text")
                                 .class("form-control mobile-float-input text-center")
                                 .attr("readonly", "")
-                                .attr("style", "color: green; cursor: default;")
+                                .attr("style", "color: green !important; cursor: default;")
                                 .attr("placeholder", " ")
                                 .prop("value", "✔")
                                 .into_any()

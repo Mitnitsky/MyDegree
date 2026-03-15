@@ -452,6 +452,18 @@ tr.course-row {
         color: #fff;
         padding: 8px 12px;
     }
+    .mobile-account-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1050;
+        min-width: 160px;
+        overflow: hidden;
+    }
     .mobile-header-btn {
         background: none;
         border: none;
