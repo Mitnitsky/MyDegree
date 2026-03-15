@@ -520,6 +520,7 @@ tr.course-row {
     /* ── Mobile Semester Summary Card ─────────── */
     .mobile-sem-summary {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         background: #fff;
         border-radius: 12px;
@@ -613,12 +614,7 @@ tr.course-row {
     }
 
     .mobile-card-drag {
-        color: #adb5bd;
-        cursor: grab;
-        padding: 4px;
-        min-width: 28px;
-        text-align: center;
-        flex-shrink: 0;
+        display: none;
     }
 
     .mobile-card-name {

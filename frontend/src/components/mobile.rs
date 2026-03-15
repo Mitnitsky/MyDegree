@@ -386,6 +386,8 @@ pub fn MobileSemesterSummary() -> impl IntoView {
                 let toggle_text = if is_summer { "הפוך לסמסטר רגיל" } else { "הפוך לסמסטר קיץ" };
 
                 el::div().class("mobile-sem-summary").child((
+                    el::div().attr("style", "text-align: center; font-weight: bold; font-size: 0.9rem; color: #495057; margin-bottom: 8px; width: 100%;")
+                        .child("סיכום סמסטר"),
                     el::div().class("mobile-sem-summary-metrics").child((
                         el::div().class("mobile-sem-metric").child((
                             el::div().class("mobile-sem-metric-value").child(
@@ -619,7 +621,7 @@ pub fn MobileCourseList() -> impl IntoView {
                 .child((el::i().class("fas fa-search").attr("style", "margin-left: 6px;"), "חיפוש קורסים")),
             el::button().class("btn btn-outline-secondary")
                 .on(ev::click, move |_| state.add_empty_course())
-                .child((el::i().class("fas fa-plus").attr("style", "margin-left: 6px;"), "הוספת שורה")),
+                .child((el::i().class("fas fa-plus").attr("style", "margin-left: 6px;"), "הוספת קורס")),
         )),
     ))
 }
@@ -641,11 +643,7 @@ pub fn MobileDegreeSummary() -> impl IntoView {
         // Trigger button at bottom
         el::button().class("mobile-degree-trigger")
             .on(ev::click, move |_| show_sheet.set(true))
-            .child(move || {
-                let avg = degree_average.get();
-                let done = degree_points_done.get();
-                format!("סיכום תואר — ממוצע: {:.1}  נקודות: {:.1} ↑", avg, done)
-            }),
+            .child("הראה סיכום תואר ↑"),
 
         // Bottom sheet
         move || {
