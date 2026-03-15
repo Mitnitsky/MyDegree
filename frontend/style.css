@@ -727,6 +727,13 @@ tr.course-row {
     .mobile-card-grade {
         flex: 1;
     }
+    .mobile-binary-pass,
+    .mobile-binary-pass:read-only,
+    input.mobile-binary-pass {
+        color: green !important;
+        cursor: default;
+        font-size: 1.2rem;
+    }
 
     .mobile-card-points {
         flex: 1;

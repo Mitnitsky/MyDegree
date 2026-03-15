@@ -631,9 +631,8 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                         if is_binary {
                             el::input()
                                 .attr("type", "text")
-                                .class("form-control mobile-float-input text-center")
+                                .class("form-control mobile-float-input text-center mobile-binary-pass")
                                 .attr("readonly", "")
-                                .attr("style", "color: green !important; cursor: default;")
                                 .attr("placeholder", " ")
                                 .prop("value", "✔")
                                 .into_any()
