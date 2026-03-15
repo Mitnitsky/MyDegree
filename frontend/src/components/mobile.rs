@@ -306,34 +306,36 @@ pub fn MobileHeader() -> impl IntoView {
                     .on(ev::click, move |_| show_clear_modal.set(false))
                     .child(
                         el::div().class("search-dialog")
-                            .attr("style", "max-width: 380px;")
+                            .attr("style", "max-width: 380px; min-width: unset;")
                             .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
-                            .child((
-                                el::div().class("d-flex justify-content-between align-items-center mb-3").child((
-                                    el::h5().class("mb-0").child("מחיקת כל הנתונים"),
-                                    el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_clear_modal.set(false))
-                                        .child(el::i().class("fas fa-times")),
+                            .child(
+                                el::div().attr("style", "padding: 20px;").child((
+                                    el::div().class("d-flex justify-content-between align-items-center mb-3").child((
+                                        el::h5().class("mb-0").child("מחיקת כל הנתונים"),
+                                        el::button().class("btn btn-sm btn-outline-secondary")
+                                            .on(ev::click, move |_| show_clear_modal.set(false))
+                                            .child(el::i().class("fas fa-times")),
+                                    )),
+                                    el::p().attr("style", "color: #6c757d; margin-bottom: 12px;")
+                                        .child("הקלד REMOVE כדי לאשר מחיקה"),
+                                    el::input()
+                                        .class("form-control mb-3")
+                                        .attr("placeholder", "REMOVE")
+                                        .attr("dir", "ltr")
+                                        .prop("value", move || clear_input.get())
+                                        .on(ev::input, move |e| clear_input.set(event_target_value(&e))),
+                                    el::button()
+                                        .class(move || if clear_input.get().trim() == "REMOVE" { "btn btn-danger w-100" } else { "btn btn-secondary w-100" })
+                                        .prop("disabled", move || clear_input.get().trim() != "REMOVE")
+                                        .on(ev::click, move |_| {
+                                            if clear_input.get().trim() == "REMOVE" {
+                                                state.clear_user_data();
+                                                show_clear_modal.set(false);
+                                            }
+                                        })
+                                        .child("מחק הכל"),
                                 )),
-                                el::p().attr("style", "color: #6c757d; margin-bottom: 12px;")
-                                    .child("הקלד REMOVE כדי לאשר מחיקה"),
-                                el::input()
-                                    .class("form-control mb-3")
-                                    .attr("placeholder", "REMOVE")
-                                    .attr("dir", "ltr")
-                                    .prop("value", move || clear_input.get())
-                                    .on(ev::input, move |e| clear_input.set(event_target_value(&e))),
-                                el::button()
-                                    .class("btn btn-danger w-100")
-                                    .prop("disabled", move || clear_input.get().trim() != "REMOVE")
-                                    .on(ev::click, move |_| {
-                                        if clear_input.get().trim() == "REMOVE" {
-                                            state.clear_user_data();
-                                            show_clear_modal.set(false);
-                                        }
-                                    })
-                                    .child("מחק הכל"),
-                            )),
+                            ),
                     )
             })
         },
