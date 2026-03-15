@@ -475,7 +475,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                     el::input()
                         .attr("type", "text")
                         .class("form-control mobile-float-input")
-                        .attr("placeholder", "שם קורס")
+                        .attr("placeholder", " ")
                         .prop("value", move || {
                             course.with(|c| c.as_ref().map(|c| c.name.clone()).unwrap_or_default())
                         })
@@ -512,7 +512,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                         .attr("inputmode", "numeric")
                         .attr("pattern", "[0-9]*")
                         .class("form-control mobile-float-input text-center")
-                        .attr("placeholder", "מספר קורס")
+                        .attr("placeholder", " ")
                         .attr("style", "direction: ltr;")
                         .prop("value", move || {
                             course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default())
@@ -603,7 +603,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                             el::input()
                                 .attr("type", "number")
                                 .class("form-control mobile-float-input text-center")
-                                .attr("placeholder", "ציון")
+                                .attr("placeholder", " ")
                                 .attr("style", "direction: ltr;")
                                 .attr("min", "0").attr("max", "100")
                                 .prop("value", move || {
@@ -623,7 +623,7 @@ fn mobile_course_card(index: usize) -> impl IntoView {
                     el::input()
                         .attr("type", "number")
                         .class("form-control mobile-float-input text-center")
-                        .attr("placeholder", "נקודות")
+                        .attr("placeholder", " ")
                         .attr("style", "direction: ltr;")
                         .attr("step", "0.5").attr("min", "0").attr("max", "20")
                         .prop("value", move || {
