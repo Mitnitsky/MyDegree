@@ -386,7 +386,7 @@ pub fn Header() -> impl IntoView {
     ))
 }
 
-fn trigger_download(content: &str, filename: &str) {
+pub fn trigger_download(content: &str, filename: &str) {
     if let Some(window) = web_sys::window() {
         if let Some(document) = window.document() {
             if let Ok(elem) = document.create_element("a") {

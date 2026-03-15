@@ -18,7 +18,23 @@
 }
 
 html {
-    min-width: 965px;
+    /* Desktop min-width; removed on mobile via media query */
+    min-width: 1250px;
+}
+
+/* ── Mobile responsive utilities ─────────────────────── */
+@media (max-width: 768px) {
+    html {
+        min-width: unset !important;
+    }
+    .desktop-only {
+        display: none !important;
+    }
+}
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
 }
 body {
     font-family: Alef, Roboto, Helvetica, Arial, sans-serif;
@@ -418,3 +434,324 @@ tr.course-row {
 .fa-trash { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z'/></svg>"); }
 .fa-user-circle { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512'><path d='M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512'><path d='M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z'/></svg>"); }
 .fa-utensils { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 416 512'><path d='M207.9 15.2c.8 4.7 16.1 94.5 16.1 128.8 0 52.3-27.8 89.6-68.9 104.6L168 486.7c.7 13.7-10.2 25.3-24 25.3H80c-13.7 0-24.7-11.5-24-25.3l12.9-238.1C27.7 233.6 0 196.2 0 144 0 109.6 15.3 19.9 16.1 15.2 19.3-5.1 61.4-5.4 64 16.3v141.2c1.3 3.4 15.1 3.2 16 0 1.4-25.3 7.9-139.2 8-141.8 3.3-20.8 44.7-20.8 47.9 0 .2 2.7 6.6 116.5 8 141.8.9 3.2 14.8 3.4 16 0V16.3c2.6-21.6 44.8-21.4 48-1.1zm119.2 285.7l-15 185.1c-1.2 14 9.9 26 23.9 26h56c13.3 0 24-10.7 24-24V24c0-13.2-10.7-24-24-24-82.5 0-221.4 178.5-64.9 300.9z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 416 512'><path d='M207.9 15.2c.8 4.7 16.1 94.5 16.1 128.8 0 52.3-27.8 89.6-68.9 104.6L168 486.7c.7 13.7-10.2 25.3-24 25.3H80c-13.7 0-24.7-11.5-24-25.3l12.9-238.1C27.7 233.6 0 196.2 0 144 0 109.6 15.3 19.9 16.1 15.2 19.3-5.1 61.4-5.4 64 16.3v141.2c1.3 3.4 15.1 3.2 16 0 1.4-25.3 7.9-139.2 8-141.8 3.3-20.8 44.7-20.8 47.9 0 .2 2.7 6.6 116.5 8 141.8.9 3.2 14.8 3.4 16 0V16.3c2.6-21.6 44.8-21.4 48-1.1zm119.2 285.7l-15 185.1c-1.2 14 9.9 26 23.9 26h56c13.3 0 24-10.7 24-24V24c0-13.2-10.7-24-24-24-82.5 0-221.4 178.5-64.9 300.9z'/></svg>"); }
+.fa-bars { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'/></svg>"); }
+.fa-plus { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'/></svg>"); }
+.fa-search { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z'/></svg>"); }
+.fa-chevron-up { -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z'/></svg>"); mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z'/></svg>"); }
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE STYLES (≤768px)
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* ── Mobile Header ───────────────────────── */
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #343a40;
+        color: #fff;
+        padding: 8px 12px;
+        position: sticky;
+        top: 0;
+        z-index: 1040;
+    }
+    .mobile-header-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        padding: 8px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-header-title {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    /* ── Mobile Semester Tabs ────────────────── */
+    .mobile-tabs {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        background: #fff;
+        border-bottom: 2px solid #dee2e6;
+        padding: 0 8px;
+        gap: 0;
+        scrollbar-width: none;
+    }
+    .mobile-tabs::-webkit-scrollbar { display: none; }
+    .mobile-tab {
+        flex-shrink: 0;
+        padding: 10px 16px;
+        border: none;
+        background: transparent;
+        color: #6c757d;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+        min-height: 44px;
+    }
+    .mobile-tab.active {
+        color: #0d6efd;
+        border-bottom-color: #0d6efd;
+        font-weight: bold;
+    }
+    .mobile-tab.summer { color: #856404; }
+    .mobile-tab-add {
+        flex-shrink: 0;
+        padding: 10px 12px;
+        border: none;
+        background: transparent;
+        color: #0d6efd;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* ── Mobile Semester Summary Card ─────────── */
+    .mobile-sem-summary {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        margin: 12px;
+        padding: 16px;
+        position: relative;
+    }
+    .mobile-sem-summary-metrics {
+        display: flex;
+        flex: 1;
+        gap: 24px;
+        justify-content: center;
+    }
+    .mobile-sem-metric {
+        text-align: center;
+    }
+    .mobile-sem-metric-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #212529;
+        direction: ltr;
+    }
+    .mobile-sem-metric-label {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-top: 2px;
+    }
+    .mobile-sem-actions-btn {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: none;
+        border: none;
+        color: #6c757d;
+        padding: 8px;
+        cursor: pointer;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    .mobile-sem-actions-menu {
+        position: absolute;
+        top: 44px;
+        left: 8px;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 100;
+        min-width: 180px;
+    }
+    .mobile-sem-actions-menu a {
+        display: block;
+        padding: 12px 16px;
+        color: #212529;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+    .mobile-sem-actions-menu a:hover {
+        background: #f8f9fa;
+    }
+
+    /* ── Mobile Course Card ──────────────────── */
+    .mobile-course-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        margin: 0 12px 10px;
+        padding: 12px;
+        border-right: 4px solid #dee2e6;
+    }
+    .mobile-course-card.course-type-0 { border-right-color: #6c757d; }
+    .mobile-course-card.course-type-1 { border-right-color: #28a745; }
+    .mobile-course-card.course-type-2 { border-right-color: #17a2b8; }
+    .mobile-course-card.course-type-3 { border-right-color: #ffc107; }
+    .mobile-course-card.course-type-4 { border-right-color: #6f42c1; }
+    .mobile-course-card.course-type-5 { border-right-color: #dc3545; }
+
+    .mobile-card-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    .mobile-card-row:last-child { margin-bottom: 0; }
+
+    .mobile-card-row .form-control,
+    .mobile-card-row .form-select {
+        font-size: 0.9rem;
+        min-height: 40px;
+    }
+
+    .mobile-card-drag {
+        color: #adb5bd;
+        cursor: grab;
+        padding: 4px;
+        min-width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .mobile-card-name {
+        flex: 1;
+    }
+
+    .mobile-card-category {
+        flex: 1;
+    }
+
+    .mobile-card-number {
+        width: 110px;
+        flex-shrink: 0;
+    }
+
+    .mobile-card-actions-btn {
+        background: none;
+        border: none;
+        color: #6c757d;
+        padding: 4px 8px;
+        cursor: pointer;
+        min-width: 36px;
+        min-height: 36px;
+        flex-shrink: 0;
+    }
+
+    .mobile-card-grade {
+        flex: 1;
+    }
+
+    .mobile-card-points {
+        flex: 1;
+    }
+
+    /* ── Mobile Action Buttons ───────────────── */
+    .mobile-action-buttons {
+        display: flex;
+        gap: 10px;
+        margin: 4px 12px 16px;
+    }
+    .mobile-action-buttons .btn {
+        flex: 1;
+        min-height: 44px;
+        font-size: 0.95rem;
+    }
+
+    /* ── Mobile Degree Summary Bottom Sheet ──── */
+    .mobile-degree-trigger {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #343a40;
+        color: #fff;
+        text-align: center;
+        padding: 12px;
+        cursor: pointer;
+        z-index: 1030;
+        font-weight: 500;
+        border: none;
+        width: 100%;
+        font-size: 0.95rem;
+    }
+    .mobile-bottom-sheet-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1050;
+    }
+    .mobile-bottom-sheet {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-radius: 16px 16px 0 0;
+        max-height: 85vh;
+        overflow-y: auto;
+        z-index: 1060;
+        padding: 16px;
+        padding-bottom: 32px;
+        animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+    .mobile-bottom-sheet-handle {
+        width: 40px;
+        height: 4px;
+        background: #dee2e6;
+        border-radius: 2px;
+        margin: 0 auto 16px;
+    }
+
+    /* ── Mobile Modals ───────────────────────── */
+    .search-dialog {
+        width: 95% !important;
+        min-width: unset !important;
+        max-width: unset !important;
+        max-height: 90vh !important;
+        margin: 0 auto;
+        border-radius: 12px;
+    }
+    .search-overlay {
+        padding-top: 20px !important;
+        align-items: flex-start !important;
+    }
+
+    /* ── Hide desktop layout on mobile ────────── */
+    .app-header { display: none !important; }
+    .app-footer { display: none !important; }
+
+    /* Container fluid tighter padding */
+    .container-fluid { padding: 0 !important; }
+
+    /* Main card removes desktop chrome */
+    .card.shadow { border-radius: 0; box-shadow: none !important; margin: 0 !important; border: none; }
+    .card-header { display: none; }
+    .card-body { padding: 0 !important; }
+
+    /* Hide desktop semester table */
+    .semester-fade-in > .row.justify-content-md-center { display: none !important; }
+    /* Hide desktop semester control buttons row */
+    .semester-fade-in > .row:not(.justify-content-md-center) { display: none !important; }
+
+    /* Hide desktop add-row/search buttons */
+    .semester-fade-in .d-flex.justify-content-center { display: none !important; }
+
+    /* Degree summary section — hide desktop version */
+    .summary-collapse-wrapper { display: none !important; }
+    .justify-content-md-center > button.btn-outline-dark { display: none !important; }
+
+    /* Footer padding for bottom bar */
+    body { padding-bottom: 50px; }
+}

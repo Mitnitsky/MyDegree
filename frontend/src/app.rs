@@ -3,6 +3,7 @@ use leptos::html as el;
 use leptos::ev;
 use crate::state::AppState;
 use crate::components::{Header, SemestersTabView, DegreeSummary, Footer, Toast, SearchCourseDialog};
+use crate::components::{MobileHeader, MobileSemesterTabs, MobileSemesterSummary, MobileCourseList, MobileDegreeSummary};
 use crate::components::histogram_viewer::{HistogramViewer, HistogramViewerProps};
 
 #[component]
@@ -38,14 +39,24 @@ pub fn App() -> impl IntoView {
 fn app_content() -> impl IntoView {
     el::div()
         .id("app")
-        .attr("style", "font-family: Alef, Roboto, Helvetica, Arial, sans-serif; min-width: 1250px !important;")
+        .attr("style", "font-family: Alef, Roboto, Helvetica, Arial, sans-serif;")
         .child((
-            Header(),
-            el::div().class("container-fluid").child((
-                SemestersTabView(),
-                DegreeSummary(),
-                Footer(),
+            // Desktop layout (hidden on mobile via CSS)
+            el::div().class("desktop-only").child((
+                Header(),
+                el::div().class("container-fluid").child((
+                    SemestersTabView(),
+                    DegreeSummary(),
+                    Footer(),
+                )),
             )),
+            // Mobile layout (hidden on desktop via CSS)
+            MobileHeader(),
+            MobileSemesterTabs(),
+            MobileSemesterSummary(),
+            MobileCourseList(),
+            MobileDegreeSummary(),
+            // Shared elements
             Toast(),
             move || {
                 let state = use_context::<AppState>().unwrap();
