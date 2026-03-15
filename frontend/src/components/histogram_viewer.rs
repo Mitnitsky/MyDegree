@@ -117,7 +117,7 @@ pub fn HistogramViewer(course_number: String) -> impl IntoView {
                                     el::option().attr("value", i.to_string()).child(label.clone())
                                 }).collect::<Vec<_>>()
                             ),
-                        // Stats table
+                        // Stats grid
                         move || {
                             selected_entry.get().map(|entry| {
                                 let s = &entry.stats;
@@ -128,32 +128,21 @@ pub fn HistogramViewer(course_number: String) -> impl IntoView {
                                         other => other.to_string(),
                                     }).unwrap_or("-".to_string())
                                 };
-                                el::table()
-                                    .class("table table-bordered table-sm text-center")
-                                    .child((
-                                        el::thead().child(
-                                            el::tr().child((
-                                                el::th().child("סטודנטים"),
-                                                el::th().child("נכשל/עובר"),
-                                                el::th().child("אחוז עוברים"),
-                                                el::th().child("מינימלי"),
-                                                el::th().child("מקסימלי"),
-                                                el::th().child("ממוצע"),
-                                                el::th().child("חציון"),
-                                            )),
-                                        ),
-                                        el::tbody().child(
-                                            el::tr().child((
-                                                el::td().child(fmt(&s.students)),
-                                                el::td().child(s.pass_fail.clone().unwrap_or("-".into())),
-                                                el::td().child(s.pass_percent.clone().unwrap_or("-".into())),
-                                                el::td().child(fmt(&s.min)),
-                                                el::td().child(fmt(&s.max)),
-                                                el::td().child(fmt(&s.average)),
-                                                el::td().child(fmt(&s.median)),
-                                            )),
-                                        ),
+                                let stat = |label: &str, value: String| {
+                                    el::div().class("hist-stat-item").child((
+                                        el::div().class("hist-stat-value").child(value),
+                                        el::div().class("hist-stat-label").child(label.to_string()),
                                     ))
+                                };
+                                el::div().class("hist-stats-grid").child((
+                                    stat("ממוצע", fmt(&s.average)),
+                                    stat("חציון", fmt(&s.median)),
+                                    stat("סטודנטים", fmt(&s.students)),
+                                    stat("אחוז עוברים", s.pass_percent.clone().unwrap_or("-".into())),
+                                    stat("נכשל/עובר", s.pass_fail.clone().unwrap_or("-".into())),
+                                    stat("מינימלי", fmt(&s.min)),
+                                    stat("מקסימלי", fmt(&s.max)),
+                                ))
                             })
                         },
                         // Histogram image

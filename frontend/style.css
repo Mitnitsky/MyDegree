@@ -197,6 +197,35 @@ thead th:hover {
     flex: 1 1 auto;
 }
 
+/* Histogram stats grid */
+.hist-stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+.hist-stat-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px 12px;
+    text-align: center;
+    min-width: 80px;
+    flex: 1 1 auto;
+}
+.hist-stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #212529;
+    direction: ltr;
+}
+.hist-stat-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
 /* Toast notification */
 .toast-notification {
     position: fixed;
