@@ -451,9 +451,6 @@ tr.course-row {
         background-color: #343a40;
         color: #fff;
         padding: 8px 12px;
-        position: sticky;
-        top: 0;
-        z-index: 1040;
     }
     .mobile-header-btn {
         background: none;
