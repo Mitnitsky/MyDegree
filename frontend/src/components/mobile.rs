@@ -476,7 +476,7 @@ pub fn MobileSemesterSummary() -> impl IntoView {
                                     .child((el::i().class("fas fa-trash").attr("style", "margin-left: 8px;"), "מחק סמסטר")),
                                 el::a().attr("href", "#")
                                     .on(ev::click, on_toggle_type)
-                                    .child((el::i().class("fas fa-sun").attr("style", "color: #856404; margin-left: 8px;"), toggle_text)),
+                                    .child((el::i().class("fas fa-sun").attr("style", "color: #ffc107; margin-left: 8px;"), toggle_text)),
                             ))
                         })
                     },
