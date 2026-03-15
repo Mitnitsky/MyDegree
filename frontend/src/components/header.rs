@@ -35,11 +35,12 @@ pub fn Header() -> impl IntoView {
     };
 
     let on_clear = move |_: web_sys::MouseEvent| {
-        if web_sys::window()
-            .and_then(|w| w.confirm_with_message("למחוק את כל הנתונים?").ok())
-            .unwrap_or(false)
-        {
-            state.clear_user_data();
+        if let Some(win) = web_sys::window() {
+            if let Ok(Some(input)) = win.prompt_with_message("למחיקת כל הנתונים הקלד REMOVE") {
+                if input.trim() == "REMOVE" {
+                    state.clear_user_data();
+                }
+            }
         }
     };
 
