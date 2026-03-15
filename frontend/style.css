@@ -531,6 +531,7 @@ tr.course-row {
         margin: 0 0 12px 0;
         padding: 16px;
         position: relative;
+        z-index: 10;
     }
     .mobile-sem-summary-metrics {
         display: flex;
