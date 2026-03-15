@@ -228,7 +228,7 @@ pub fn SearchCourseDialog() -> impl IntoView {
                                         {
                                             let num = course_number_for_hist.clone();
                                             move || show_histogram.get().then(|| {
-                                                HistogramViewer(HistogramViewerProps { course_number: num.clone() })
+                                                HistogramViewer(HistogramViewerProps { course_number: num.clone(), hide_header: false })
                                             })
                                         },
 

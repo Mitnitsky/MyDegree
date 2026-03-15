@@ -6,7 +6,7 @@ use crate::histogram::{self, HistogramData, ExamEntry};
 /// Reusable histogram viewer component.
 /// Call with a course number to fetch and display histograms.
 #[component]
-pub fn HistogramViewer(course_number: String) -> impl IntoView {
+pub fn HistogramViewer(course_number: String, #[prop(optional)] hide_header: bool) -> impl IntoView {
     let loading = RwSignal::new(true);
     let data = RwSignal::new(Option::<HistogramData>::None);
     let selected_entry = RwSignal::new(Option::<ExamEntry>::None);
@@ -34,10 +34,12 @@ pub fn HistogramViewer(course_number: String) -> impl IntoView {
         loading.set(false);
     });
 
+    let header_style = if hide_header { "display: none;" } else { "background-color: #343a40;" };
+
     el::div().class("card mb-2").child((
         el::div()
             .class("card-header text-white")
-            .attr("style", "background-color: #343a40;")
+            .attr("style", header_style)
             .child(el::strong().child("היסטוגרמות")),
         el::div().class("card-body").child((
             // Loading spinner

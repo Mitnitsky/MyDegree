@@ -81,7 +81,7 @@ fn app_content() -> impl IntoView {
                                             .child(el::i().class("fas fa-times")),
                                     )),
                                     el::div().child(
-                                        HistogramViewer(HistogramViewerProps { course_number: num }),
+                                        HistogramViewer(HistogramViewerProps { course_number: num, hide_header: true }),
                                     ),
                                 )),
                         )
