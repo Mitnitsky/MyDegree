@@ -483,9 +483,6 @@ tr.course-row {
         padding: 0 8px;
         gap: 0;
         scrollbar-width: none;
-        position: sticky;
-        top: 48px;
-        z-index: 1039;
     }
     .mobile-tabs::-webkit-scrollbar { display: none; }
     .mobile-tab {
