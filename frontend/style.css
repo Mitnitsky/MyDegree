@@ -269,6 +269,53 @@
     background: var(--accent-blue);
 }
 
+/* Dark mode: Firebase auth UI */
+[data-theme="dark"] .fui-btn {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .fui-btn:hover {
+    background: var(--bg-primary) !important;
+}
+[data-theme="dark"] .fui-btn-primary {
+    background: #539bf5 !important;
+    color: #fff !important;
+    border-color: #539bf5 !important;
+}
+[data-theme="dark"] .fui-btn-primary:hover {
+    background: #4184e4 !important;
+}
+[data-theme="dark"] .fui-btn-secondary {
+    background: var(--bg-secondary) !important;
+    color: #539bf5 !important;
+    border-color: #539bf5 !important;
+}
+[data-theme="dark"] .fui-btn-secondary:hover {
+    background: var(--bg-primary) !important;
+}
+[data-theme="dark"] .fui-input {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .fui-input::placeholder {
+    color: var(--text-muted) !important;
+}
+[data-theme="dark"] .fui-input:focus {
+    border-color: #539bf5 !important;
+}
+[data-theme="dark"] .fui-divider hr {
+    border-top-color: var(--border-color) !important;
+}
+[data-theme="dark"] .fui-divider span {
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .fui-error {
+    background: #3d1e1e !important;
+    color: #f47067 !important;
+}
+
 [data-theme="dark"] .navbar.bg-dark {
     background-color: var(--bg-deepest) !important;
 }
