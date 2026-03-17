@@ -6,6 +6,13 @@
     <title>MyDegree — מעקב תואר</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link data-trunk rel="copy-file" href="favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#343a40" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link data-trunk rel="copy-file" href="manifest.json" />
+    <link data-trunk rel="copy-file" href="service-worker.js" />
 
     <!-- Sentry error tracking -->
     <script
@@ -37,17 +44,21 @@
     <script>
       (function() {
         var saved = localStorage.getItem('theme');
+        var meta = document.querySelector('meta[name="theme-color"]');
         if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.setAttribute('data-theme', 'dark');
+          if (meta) meta.content = '#1c2128';
         }
         window.toggleDarkMode = function() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
           if (isDark) {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
+            if (meta) meta.content = '#343a40';
           } else {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
+            if (meta) meta.content = '#1c2128';
           }
         };
       })();
@@ -69,5 +80,13 @@
     <script data-trunk src="firebase_bridge.js"></script>
     <!-- Bootstrap 5 JS (deferred — modals/dropdowns not needed at first paint) -->
     <script defer data-trunk src="bootstrap.bundle.min.js"></script>
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
 </body>
 </html>

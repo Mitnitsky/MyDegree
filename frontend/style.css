@@ -220,6 +220,11 @@
 [data-theme="dark"] .bg-white {
     background-color: var(--bg-card) !important;
 }
+[data-theme="dark"] .alert-secondary {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
 
 [data-theme="dark"] .navbar.bg-dark {
     background-color: var(--bg-deepest) !important;
