@@ -23,6 +23,24 @@ pub fn MobileHeader() -> impl IntoView {
 
     let show_account_menu = RwSignal::new(false);
 
+    // Close account dropdown on outside click
+    {
+        use wasm_bindgen::closure::Closure;
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            if let Some(target) = e.target() {
+                let el: web_sys::Element = target.unchecked_into();
+                if el.closest(".mobile-account-menu").ok().flatten().is_none()
+                    && el.closest(".mobile-header-btn").ok().flatten().is_none()
+                {
+                    show_account_menu.set(false);
+                }
+            }
+        });
+        let doc = web_sys::window().unwrap().document().unwrap();
+        doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+        cb.forget();
+    }
+
     Effect::new(move |_| {
         if state.logged.get() {
             show_auth_modal.set(false);
@@ -127,45 +145,51 @@ pub fn MobileHeader() -> impl IntoView {
             },
         )),
 
-        // Slide-down menu
+        // Slide-down menu with overlay
         move || {
             show_menu.get().then(|| {
                 el::div()
-                    .class("mobile-slide-menu")
-                    .child((
-                        menu_item("ייבוא מ-JSON", "fas fa-file-import", move |_: web_sys::MouseEvent| {
-                            show_import_modal.set(true);
-                            show_menu.set(false);
-                        }),
-                        menu_item("ייבוא מ-Cheesefork", "fas fa-utensils", move |_: web_sys::MouseEvent| {
-                            show_cf_modal.set(true);
-                            show_menu.set(false);
-                        }),
-                        menu_item("ייצוא עם ציונים", "fas fa-file-export", move |_: web_sys::MouseEvent| {
-                            let json = state.export_json(true);
-                            crate::components::header::trigger_download(&json, "courses_with_grades.json");
-                            show_menu.set(false);
-                        }),
-                        menu_item("ייצוא בלי ציונים", "fas fa-file-export", move |_: web_sys::MouseEvent| {
-                            let json = state.export_json(false);
-                            crate::components::header::trigger_download(&json, "courses.json");
-                            show_menu.set(false);
-                        }),
-                        menu_item("קטגוריות", "fas fa-graduation-cap", move |_: web_sys::MouseEvent| {
-                            show_category_modal.set(true);
-                            show_menu.set(false);
-                        }),
-                        menu_item("מחשבון ציונים", "fas fa-calculator", move |_: web_sys::MouseEvent| {
-                            show_calc.set(true);
-                            show_menu.set(false);
-                        }),
-                        el::div().attr("style", "border-top: 1px solid var(--border-color, #dee2e6); margin: 4px 16px;"),
-                        el::a()
-                            .attr("href", "#")
-                            .attr("style", "display: block; padding: 12px 20px; color: #dc3545; text-decoration: none; font-size: 0.95rem;")
-                            .on(ev::click, on_clear)
-                            .child((el::i().class("fas fa-trash").attr("style", "margin-left: 8px;"), "מחק הכל")),
-                    ))
+                    .class("mobile-menu-overlay")
+                    .on(ev::click, move |_| show_menu.set(false))
+                    .child(
+                        el::div()
+                            .class("mobile-slide-menu")
+                            .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                            .child((
+                                menu_item("ייבוא מ-JSON", "fas fa-file-import", move |_: web_sys::MouseEvent| {
+                                    show_import_modal.set(true);
+                                    show_menu.set(false);
+                                }),
+                                menu_item("ייבוא מ-Cheesefork", "fas fa-utensils", move |_: web_sys::MouseEvent| {
+                                    show_cf_modal.set(true);
+                                    show_menu.set(false);
+                                }),
+                                menu_item("ייצוא עם ציונים", "fas fa-file-export", move |_: web_sys::MouseEvent| {
+                                    let json = state.export_json(true);
+                                    crate::components::header::trigger_download(&json, "courses_with_grades.json");
+                                    show_menu.set(false);
+                                }),
+                                menu_item("ייצוא בלי ציונים", "fas fa-file-export", move |_: web_sys::MouseEvent| {
+                                    let json = state.export_json(false);
+                                    crate::components::header::trigger_download(&json, "courses.json");
+                                    show_menu.set(false);
+                                }),
+                                menu_item("קטגוריות", "fas fa-graduation-cap", move |_: web_sys::MouseEvent| {
+                                    show_category_modal.set(true);
+                                    show_menu.set(false);
+                                }),
+                                menu_item("מחשבון ציונים", "fas fa-calculator", move |_: web_sys::MouseEvent| {
+                                    show_calc.set(true);
+                                    show_menu.set(false);
+                                }),
+                                el::div().attr("style", "border-top: 1px solid var(--border-color, #dee2e6); margin: 4px 16px;"),
+                                el::a()
+                                    .attr("href", "#")
+                                    .attr("style", "display: block; padding: 12px 20px; color: #dc3545; text-decoration: none; font-size: 0.95rem;")
+                                    .on(ev::click, on_clear)
+                                    .child((el::i().class("fas fa-trash").attr("style", "margin-left: 8px;"), "מחק הכל")),
+                            ))
+                    )
             })
         },
 

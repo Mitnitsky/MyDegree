@@ -674,6 +674,15 @@
 }
 
 /* Mobile slide menu */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 56px; /* below mobile header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1040;
+    background: rgba(0,0,0,0.3);
+}
 .mobile-slide-menu {
     background: #fff;
     border-bottom: 1px solid #dee2e6;

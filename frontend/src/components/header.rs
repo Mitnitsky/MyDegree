@@ -16,6 +16,26 @@ pub fn Header() -> impl IntoView {
     let show_clear_modal = RwSignal::new(false);
     let clear_input = RwSignal::new(String::new());
     let show_calc = RwSignal::new(false);
+    let show_account_dd = RwSignal::new(false);
+    let show_io_dd = RwSignal::new(false);
+
+    // Close dropdowns on any outside click
+    {
+        use wasm_bindgen::closure::Closure;
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            if let Some(target) = e.target() {
+                let el: web_sys::Element = target.unchecked_into();
+                if el.closest(".dropdown").ok().flatten().is_none() {
+                    show_account_dd.set(false);
+                    show_io_dd.set(false);
+                }
+            }
+        });
+        let doc = web_sys::window().unwrap().document().unwrap();
+        doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+        cb.forget();
+    }
+
 
     let on_import_json = move |_: web_sys::MouseEvent| {
         let text = import_text.get();
@@ -87,19 +107,23 @@ pub fn Header() -> impl IntoView {
                                         .class("nav-link dropdown-toggle")
                                         .attr("href", "#")
                                         .attr("role", "button")
-                                        .attr("data-bs-toggle", "dropdown")
                                         .attr("aria-expanded", "false")
                                         .attr("style", "color: lightgray;")
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.stop_propagation();
+                                            show_io_dd.set(false);
+                                            show_account_dd.update(|v| *v = !*v);
+                                        })
                                         .child((
                                             el::i().class("fas fa-user-circle").attr("style", "margin-left: 5px;"),
                                             display,
                                         )),
-                                    el::ul().class("dropdown-menu")
+                                    el::ul().class(move || if show_account_dd.get() { "dropdown-menu show" } else { "dropdown-menu" })
                                         .attr("style", "text-align: right;")
                                         .child(
                                             el::li().child(
                                                 el::a().class("dropdown-item").attr("href", "#")
-                                                    .on(ev::click, move |_| state.sign_out())
+                                                    .on(ev::click, move |_| { state.sign_out(); show_account_dd.set(false); })
                                                     .child((
                                                         el::i().class("fas fa-sign-out-alt").attr("style", "margin-left: 5px;"),
                                                         "יציאה",
@@ -128,38 +152,42 @@ pub fn Header() -> impl IntoView {
                                 .class("nav-link dropdown-toggle")
                                 .attr("href", "#")
                                 .attr("role", "button")
-                                .attr("data-bs-toggle", "dropdown")
                                 .attr("aria-expanded", "false")
+                                .on(ev::click, move |e: web_sys::MouseEvent| {
+                                    e.stop_propagation();
+                                    show_account_dd.set(false);
+                                    show_io_dd.update(|v| *v = !*v);
+                                })
                                 .child("ייבוא / ייצוא"),
                             el::ul()
-                                .class("dropdown-menu")
+                                .class(move || if show_io_dd.get() { "dropdown-menu show" } else { "dropdown-menu" })
                                 .attr("style", "text-align: right;")
                                 .child((
                                     el::li().child(
                                         el::a().class("dropdown-item").attr("href", "#")
-                                            .on(ev::click, move |_| show_import_modal.set(true))
+                                            .on(ev::click, move |_| { show_import_modal.set(true); show_io_dd.set(false); })
                                             .child((el::i().class("fas fa-file-import me-2"), "ייבוא מ-JSON")),
                                     ),
                                     el::li().child(
                                         el::a().class("dropdown-item").attr("href", "#")
-                                            .on(ev::click, move |_| show_cf_modal.set(true))
+                                            .on(ev::click, move |_| { show_cf_modal.set(true); show_io_dd.set(false); })
                                             .child((el::i().class("fas fa-utensils me-2"), "ייבוא מ-Cheesefork")),
                                     ),
                                     el::li().child(el::hr().class("dropdown-divider")),
                                     el::li().child(
                                         el::a().class("dropdown-item").attr("href", "#")
-                                            .on(ev::click, on_export_with_grades)
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { (on_export_with_grades)(e); show_io_dd.set(false); })
                                             .child((el::i().class("fas fa-file-export me-2"), "ייצוא עם ציונים")),
                                     ),
                                     el::li().child(
                                         el::a().class("dropdown-item").attr("href", "#")
-                                            .on(ev::click, on_export_without_grades)
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { (on_export_without_grades)(e); show_io_dd.set(false); })
                                             .child((el::i().class("fas fa-file-export me-2"), "ייצוא בלי ציונים")),
                                     ),
                                     el::li().child(el::hr().class("dropdown-divider")),
                                     el::li().child(
                                         el::a().class("dropdown-item text-danger").attr("href", "#")
-                                            .on(ev::click, on_clear)
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { (on_clear)(e); show_io_dd.set(false); })
                                             .child((el::i().class("fas fa-trash me-2"), "מחק הכל")),
                                     ),
                                 )),
