@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyDegree — מעקב תואר</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link data-trunk rel="copy-file" href="favicon.ico" />
+
+    <!-- Sentry error tracking -->
+    <script
+      src="https://browser.sentry-cdn.com/8.53.0/bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      Sentry.init({
+        dsn: "https://05fdeb52acf2bfaaffdb2dca380f0f48@o4511058507202560.ingest.us.sentry.io/4511058523652096",
+        tracesSampleRate: 0.1,
+        integrations: [
+          Sentry.breadcrumbsIntegration({ console: true }),
+        ],
+      });
+      // Capture unhandled errors from WASM
+      window.addEventListener("error", function(e) {
+        Sentry.captureException(e.error || new Error(e.message));
+      });
+      window.addEventListener("unhandledrejection", function(e) {
+        Sentry.captureException(e.reason || new Error("Unhandled promise rejection"));
+      });
+    </script>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init("Hb6ebwRnUN-w-Ux0g");</script>
 
     <!-- Bootstrap 5 RTL (self-hosted, PurgeCSS'd at build time) -->
     <link data-trunk rel="css" href="bootstrap.purged.css" />

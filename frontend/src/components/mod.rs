@@ -11,5 +11,5 @@ pub use header::Header;
 pub use semesters_tab_view::SemestersTabView;
 pub use degree_summary::DegreeSummary;
 pub use search_dialog::SearchCourseDialog;
-pub use footer::{Footer, Toast};
+pub use footer::{Footer, MobileFooter, Toast};
 pub use mobile::{MobileHeader, MobileSemesterTabs, MobileSemesterSummary, MobileCourseList, MobileDegreeSummary};
