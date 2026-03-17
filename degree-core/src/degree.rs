@@ -134,6 +134,15 @@ pub fn sanitize_user_json(json: &str) -> (String, Vec<String>) {
                         format!("שורה {}", course_idx + 1)
                     };
 
+                    let is_binary = course.get("binary")
+                        .map(|v| match v {
+                            Value::Bool(b) => *b,
+                            Value::String(s) => s == "true" || s == "1",
+                            Value::Number(n) => n.as_f64().unwrap_or(0.0) != 0.0,
+                            _ => false,
+                        })
+                        .unwrap_or(false);
+
                     for field in &numeric_course_fields {
                         if let Some(val) = course.get(*field) {
                             let needs_fix = match val {
@@ -142,15 +151,20 @@ pub fn sanitize_user_json(json: &str) -> (String, Vec<String>) {
                                     t.is_empty() || t.parse::<f64>().is_err()
                                 }
                                 Value::Null => true,
-                                Value::Bool(_) => false, // handled by deserializer
+                                Value::Bool(_) => false,
                                 Value::Number(_) => false,
                                 _ => true,
                             };
                             if needs_fix {
-                                warnings.push(format!(
-                                    "{}, {}: {} לא תקין, אופס ל-0",
-                                    sem_label, course_label, field_display_name(field)
-                                ));
+                                // Silent fix: grade field (0 = not yet graded), binary courses, or empty/unnamed courses
+                                let is_empty_course = course_name.is_empty() && course_number.is_empty();
+                                let silent = is_empty_course || *field == "grade";
+                                if !silent {
+                                    warnings.push(format!(
+                                        "{}, {}: {} לא תקין, אופס ל-0",
+                                        sem_label, course_label, field_display_name(field)
+                                    ));
+                                }
                                 course[*field] = Value::Number(serde_json::Number::from(0));
                             }
                         }
@@ -561,8 +575,9 @@ mod tests {
         }"#;
         let (sanitized, warnings) = sanitize_user_json(json);
         assert!(!warnings.is_empty());
-        // Should mention the course name and field
-        assert!(warnings.iter().any(|w| w.contains("חשבון") && w.contains("ציון")));
+        // Grade is silently fixed (empty = not yet graded), no warning for it
+        assert!(!warnings.iter().any(|w| w.contains("חשבון") && w.contains("ציון")));
+        // But points and type for פיזיקה should still warn
         assert!(warnings.iter().any(|w| w.contains("פיזיקה") && w.contains("נקודות")));
         assert!(warnings.iter().any(|w| w.contains("פיזיקה") && w.contains("סוג קורס")));
         // Semester average was empty
@@ -588,7 +603,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sanitize_unnamed_course_shows_row() {
+    fn test_sanitize_unnamed_course_silently_fixed() {
         let json = r#"{
             "semesters": [{
                 "name": "2",
@@ -597,8 +612,12 @@ mod tests {
                 ]
             }]
         }"#;
-        let (_sanitized, warnings) = sanitize_user_json(json);
-        // Should use "שורה 1" when no name/number
-        assert!(warnings.iter().any(|w| w.contains("שורה 1")));
+        let (sanitized, warnings) = sanitize_user_json(json);
+        // Empty/unnamed courses should be fixed silently — no warnings
+        assert!(warnings.is_empty(), "Expected no warnings for unnamed course, got: {:?}", warnings);
+        // But values should still be fixed to 0
+        let root: serde_json::Value = serde_json::from_str(&sanitized).unwrap();
+        let grade = root["semesters"][0]["courses"][0]["grade"].as_i64().unwrap();
+        assert_eq!(grade, 0);
     }
 }

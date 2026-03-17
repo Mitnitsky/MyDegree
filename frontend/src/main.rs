@@ -7,6 +7,7 @@ pub mod histogram;
 use app::App;
 
 fn main() {
+    web_sys::console::log_1(&"MyDegree build: 2026-03-17T16:47".into());
     // Custom panic hook that forwards to Sentry via JS
     std::panic::set_hook(Box::new(|info| {
         let msg = info.to_string();
