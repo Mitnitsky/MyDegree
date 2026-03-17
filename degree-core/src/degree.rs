@@ -380,8 +380,8 @@ impl UserState {
                         }));
 
                 if counts_for_degree {
-                    // Add to weighted average (exclude exemptions and binary)
-                    if course.course_type != EXEMPTION_INDEX && !course.binary {
+                    // Add to weighted average (exclude exemptions, binary, and ungraded)
+                    if course.course_type != EXEMPTION_INDEX && !course.binary && course.grade != 0.0 {
                         self.degree_average += course_points * course.grade;
                         if course.course_type < self.course_types.len() {
                             self.course_types[course.course_type].average +=
