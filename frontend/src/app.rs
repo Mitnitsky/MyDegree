@@ -51,12 +51,14 @@ fn app_content() -> impl IntoView {
                 )),
             )),
             // Mobile layout (hidden on desktop via CSS)
-            MobileHeader(),
-            MobileSemesterTabs(),
-            MobileSemesterSummary(),
-            MobileCourseList(),
-            MobileDegreeSummary(),
-            MobileFooter(),
+            el::div().class("mobile-only mobile-layout").child((
+                MobileHeader(),
+                MobileSemesterTabs(),
+                MobileSemesterSummary(),
+                MobileCourseList(),
+                MobileDegreeSummary(),
+                MobileFooter(),
+            )),
             // Shared elements
             Toast(),
             move || {

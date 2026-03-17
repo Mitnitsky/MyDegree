@@ -23,6 +23,8 @@ pub struct UserState {
     pub degree_points_left: f64,
     #[serde(default, deserialize_with = "f64_from_any")]
     pub degree_points_to_choose: f64,
+    #[serde(default, deserialize_with = "f64_from_any")]
+    pub degree_graded_points: f64,
     #[serde(default, deserialize_with = "bool_from_any")]
     pub english_exemption: bool,
     #[serde(default)]
@@ -41,6 +43,7 @@ impl Default for UserState {
             degree_points_done: 0.0,
             degree_points_left: 0.0,
             degree_points_to_choose: 0.0,
+            degree_graded_points: 0.0,
             english_exemption: false,
             semesters: Vec::new(),
             course_types: default_course_types(),
@@ -314,6 +317,7 @@ impl UserState {
         } else {
             self.degree_average = 0.0;
         }
+        self.degree_graded_points = degree_points_with_grade;
 
         // Per-category averages
         for ct in &mut self.course_types {

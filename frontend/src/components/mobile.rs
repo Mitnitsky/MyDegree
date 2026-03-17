@@ -16,6 +16,7 @@ pub fn MobileHeader() -> impl IntoView {
     let show_category_modal = RwSignal::new(false);
     let show_clear_modal = RwSignal::new(false);
     let clear_input = RwSignal::new(String::new());
+    let show_calc = RwSignal::new(false);
     let import_text = RwSignal::new(String::new());
     let cf_text = RwSignal::new(String::new());
     let new_category_name = RwSignal::new(String::new());
@@ -152,6 +153,10 @@ pub fn MobileHeader() -> impl IntoView {
                         }),
                         menu_item("קטגוריות", "fas fa-graduation-cap", move |_: web_sys::MouseEvent| {
                             show_category_modal.set(true);
+                            show_menu.set(false);
+                        }),
+                        menu_item("מחשבון ציונים", "fas fa-calculator", move |_: web_sys::MouseEvent| {
+                            show_calc.set(true);
                             show_menu.set(false);
                         }),
                         el::div().attr("style", "border-top: 1px solid var(--border-color, #dee2e6); margin: 4px 16px;"),
@@ -358,6 +363,7 @@ pub fn MobileHeader() -> impl IntoView {
                     )
             })
         },
+        move || crate::components::degree_summary::grade_calc_modal(state, show_calc),
     ))
 }
 
@@ -390,6 +396,9 @@ pub fn MobileSemesterTabs() -> impl IntoView {
     el::div().class("mobile-only mobile-tabs").child((
         move || {
             let semesters = state.semesters();
+            if semesters.is_empty() {
+                return vec![];
+            }
             let active = state.active_semester_index();
             semesters.into_iter().enumerate().map(|(i, sem)| {
                 let label = format!("סמסטר {}", sem.name);
@@ -406,9 +415,14 @@ pub fn MobileSemesterTabs() -> impl IntoView {
                     .child(label)
             }).collect::<Vec<_>>()
         },
-        el::button().class("mobile-tab-add")
-            .on(ev::click, on_new_tab)
-            .child("+"),
+        move || {
+            let has_semesters = state.user.with(|u| !u.semesters.is_empty());
+            has_semesters.then(|| {
+                el::button().class("mobile-tab-add")
+                    .on(ev::click, on_new_tab)
+                    .child("+")
+            })
+        },
     ))
 }
 
@@ -752,15 +766,20 @@ pub fn MobileCourseList() -> impl IntoView {
             let count = user.semesters.get(sem_idx).map(|s| s.courses.len()).unwrap_or(0);
             (0..count).map(|i| mobile_course_card(i, count)).collect::<Vec<_>>()
         },
-        // Action buttons
-        el::div().class("mobile-action-buttons").child((
-            el::button().class("btn btn-primary")
-                .on(ev::click, move |_| state.show_search_modal.set(true))
-                .child((el::i().class("fas fa-search").attr("style", "margin-left: 6px;"), "חיפוש קורסים")),
-            el::button().class("btn btn-outline-secondary")
-                .on(ev::click, move |_| state.add_empty_course())
-                .child((el::i().class("fas fa-plus").attr("style", "margin-left: 6px;"), "הוספת קורס")),
-        )),
+        // Action buttons (only when semesters exist)
+        move || {
+            let has_semesters = state.user.with(|u| !u.semesters.is_empty());
+            has_semesters.then(|| {
+                el::div().class("mobile-action-buttons").child((
+                    el::button().class("btn btn-primary")
+                        .on(ev::click, move |_| state.show_search_modal.set(true))
+                        .child((el::i().class("fas fa-search").attr("style", "margin-left: 6px;"), "חיפוש קורסים")),
+                    el::button().class("btn btn-outline-secondary")
+                        .on(ev::click, move |_| state.add_empty_course())
+                        .child((el::i().class("fas fa-plus").attr("style", "margin-left: 6px;"), "הוספת קורס")),
+                ))
+            })
+        },
     ))
 }
 

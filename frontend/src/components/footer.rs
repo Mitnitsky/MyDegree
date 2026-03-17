@@ -32,15 +32,15 @@ pub fn Footer() -> impl IntoView {
 pub fn MobileFooter() -> impl IntoView {
     let show_about = RwSignal::new(false);
 
-    el::div().class("mobile-only").child((
+    el::div().class("mobile-only mobile-footer-credit").child((
         el::div()
-            .attr("style", "text-align: center; padding: 16px; color: #6c757d; font-size: 0.85rem; cursor: pointer;")
+            .attr("style", "cursor: pointer;")
             .on(ev::click, move |_| show_about.set(true))
             .child((
                 "© Created by: ",
                 el::a()
                     .attr("href", "#")
-                    .attr("style", "color: #6c757d;")
+                    .attr("style", "color: inherit;")
                     .on(ev::click, move |e: web_sys::MouseEvent| e.prevent_default())
                     .child("Vladimir Mitnitsky"),
             )),
@@ -52,28 +52,31 @@ pub fn MobileFooter() -> impl IntoView {
 fn AboutModal(on_close: impl Fn() + 'static + Copy) -> impl IntoView {
     let feedback_text = RwSignal::new(String::new());
     let feedback_name = RwSignal::new(String::new());
+    let feedback_email = RwSignal::new(String::new());
     let feedback_sent = RwSignal::new(false);
     let feedback_sending = RwSignal::new(false);
 
     let on_send_feedback = move |_: web_sys::MouseEvent| {
         let msg = feedback_text.get();
         let name = feedback_name.get();
+        let email = feedback_email.get();
         if msg.trim().is_empty() { return; }
         feedback_sending.set(true);
-        // EmailJS send via JS interop
         let name_clone = name.clone();
         let msg_clone = msg.clone();
+        let email_clone = email.clone();
         let js_code = format!(
-            "emailjs.send('service_bzn5iqf','template_99kn4p1',{{from_name:'{}',message:'{}'}}).then(function(){{}})",
+            "emailjs.send('service_bzn5iqf','template_99kn4p1',{{name:'{}',message:'{}',email:'{}'}}).then(function(){{}})",
             name_clone.replace('\'', "\\'").replace('\n', "\\n"),
             msg_clone.replace('\'', "\\'").replace('\n', "\\n"),
+            email_clone.replace('\'', "\\'"),
         );
         let _ = js_sys::eval(&js_code);
-        // Optimistically mark as sent
         feedback_sending.set(false);
         feedback_sent.set(true);
         feedback_text.set(String::new());
         feedback_name.set(String::new());
+        feedback_email.set(String::new());
     };
 
     el::div().class("search-overlay")
@@ -124,6 +127,13 @@ fn AboutModal(on_close: impl Fn() + 'static + Copy) -> impl IntoView {
                                                 .attr("dir", "ltr")
                                                 .prop("value", move || feedback_name.get())
                                                 .on(ev::input, move |e| feedback_name.set(event_target_value(&e))),
+                                            el::input()
+                                                .class("form-control mb-2")
+                                                .attr("type", "email")
+                                                .attr("placeholder", "Your email (optional, for reply)")
+                                                .attr("dir", "ltr")
+                                                .prop("value", move || feedback_email.get())
+                                                .on(ev::input, move |e| feedback_email.set(event_target_value(&e))),
                                             el::textarea()
                                                 .class("form-control mb-2")
                                                 .attr("placeholder", "Your feedback...")

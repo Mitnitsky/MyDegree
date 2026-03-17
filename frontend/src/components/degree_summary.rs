@@ -331,3 +331,130 @@ fn gpa_sparkline(state: AppState, cumulative_avg: Memo<f64>) -> impl IntoView {
             el::div().inner_html(svg).into_any()
         })
 }
+
+pub fn grade_calc_modal(state: AppState, show: RwSignal<bool>) -> impl IntoView {
+    let target_gpa = RwSignal::new(String::from("85"));
+    let future_points = RwSignal::new(String::from("20"));
+
+    move || {
+        show.get().then(|| {
+            let cur_avg = state.user.with(|u| u.degree_average);
+            let graded_pts = state.user.with(|u| u.degree_graded_points);
+
+            el::div().class("search-overlay")
+                .on(ev::click, move |_| show.set(false))
+                .child(
+                    el::div().class("search-dialog")
+                        .attr("style", "max-width: 440px;")
+                        .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                        .child((
+                            // Header
+                            el::div().class("d-flex justify-content-between align-items-center").child((
+                                el::h5().class("mb-0").child((
+                                    el::i().class("fas fa-calculator me-2"),
+                                    "מחשבון ציונים",
+                                )),
+                                el::button().class("btn btn-sm btn-outline-secondary")
+                                    .on(ev::click, move |_| show.set(false))
+                                    .child(el::i().class("fas fa-times")),
+                            )),
+                            // Body
+                            el::div().child((
+                                // Current stats (readonly)
+                                el::div().class("mb-3").child((
+                                    el::label().class("form-label fw-bold").child("מצב נוכחי"),
+                                    el::div().class("d-flex gap-3").child((
+                                        el::div().class("flex-fill").child((
+                                            el::small().class("text-muted").child("ממוצע נוכחי"),
+                                            el::div().class("form-control grade-calc-readonly")
+                                                .child(format!("{:.1}", cur_avg)),
+                                        )),
+                                        el::div().class("flex-fill").child((
+                                            el::small().class("text-muted").child("נ״ז עם ציון"),
+                                            el::div().class("form-control grade-calc-readonly")
+                                                .child(format!("{:.1}", graded_pts)),
+                                        )),
+                                    )),
+                                )),
+                                // Target GPA input
+                                el::div().class("mb-3").child((
+                                    el::label().class("form-label fw-bold")
+                                        .child("ממוצע מטרה"),
+                                    el::input()
+                                        .class("form-control")
+                                        .attr("type", "number")
+                                        .attr("min", "0")
+                                        .attr("max", "100")
+                                        .attr("step", "0.1")
+                                        .prop("value", move || target_gpa.get())
+                                        .on(ev::input, move |e| {
+                                            target_gpa.set(event_target_value(&e));
+                                        }),
+                                    // Slider
+                                    el::input()
+                                        .class("form-range mt-1")
+                                        .attr("type", "range")
+                                        .attr("min", "55")
+                                        .attr("max", "100")
+                                        .attr("step", "0.5")
+                                        .prop("value", move || target_gpa.get())
+                                        .on(ev::input, move |e| {
+                                            target_gpa.set(event_target_value(&e));
+                                        }),
+                                )),
+                                // Future points input
+                                el::div().class("mb-3").child((
+                                    el::label().class("form-label fw-bold")
+                                        .child("נקודות עתידיות (נ״ז)"),
+                                    el::input()
+                                        .class("form-control")
+                                        .attr("type", "number")
+                                        .attr("min", "0.5")
+                                        .attr("max", "200")
+                                        .attr("step", "0.5")
+                                        .prop("value", move || future_points.get())
+                                        .on(ev::input, move |e| {
+                                            future_points.set(event_target_value(&e));
+                                        }),
+                                )),
+                                // Result
+                                move || {
+                                    let target: f64 = target_gpa.get().parse().unwrap_or(0.0);
+                                    let future: f64 = future_points.get().parse().unwrap_or(0.0);
+                                    let cur_avg = state.user.with(|u| u.degree_average);
+                                    let graded_pts = state.user.with(|u| u.degree_graded_points);
+
+                                    if future <= 0.0 {
+                                        return el::div().class("alert grade-calc-result mt-3 text-center")
+                                            .child("הזן נקודות עתידיות")
+                                            .into_any();
+                                    }
+
+                                    let current_sum = cur_avg * graded_pts;
+                                    let total_pts = graded_pts + future;
+                                    let needed_sum = target * total_pts;
+                                    let required = (needed_sum - current_sum) / future;
+
+                                    let (msg, cls) = if required > 100.0 {
+                                        ("לא ניתן להשיג — נדרש ממוצע מעל 100".to_string(), "alert-danger")
+                                    } else if required < 0.0 {
+                                        ("המטרה כבר הושגה! 🎉".to_string(), "alert-success")
+                                    } else {
+                                        (format!("ממוצע נדרש בקורסים עתידיים: {:.1}", required), 
+                                         if required <= 70.0 { "alert-success" } 
+                                         else if required <= 85.0 { "alert-info" } 
+                                         else if required <= 95.0 { "alert-warning" } 
+                                         else { "alert-danger" })
+                                    };
+
+                                    el::div()
+                                        .class(format!("alert {} grade-calc-result mt-3 text-center fw-bold", cls))
+                                        .child(msg)
+                                        .into_any()
+                                },
+                            )),
+                        )),
+                )
+        })
+    }
+}

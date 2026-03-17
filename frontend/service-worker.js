@@ -1,14 +1,6 @@
 const CACHE_NAME = 'mydegree-v1';
 
-const PRECACHE_URLS = [
-  '/',
-  '/courses.json',
-];
-
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-  );
   self.skipWaiting();
 });
 
@@ -28,34 +20,47 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET and cross-origin requests
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // Network-first for HTML (always get fresh app shell)
+  // Network-first for HTML navigation
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request).catch(() => caches.match('/'))
-    );
-    return;
-  }
-
-  // Cache-first for hashed assets (immutable)
-  if (url.pathname.match(/[-\.][0-9a-f]{8,}\.(js|css|wasm|woff2)$/)) {
-    event.respondWith(
-      caches.match(request).then((cached) =>
-        cached || fetch(request).then((resp) => {
+      fetch(request)
+        .then((resp) => {
           const clone = resp.clone();
           caches.open(CACHE_NAME).then((c) => c.put(request, clone));
           return resp;
         })
-      )
+        .catch(() => caches.match(request).then((r) => r || caches.match('/')))
     );
     return;
   }
 
-  // Network-first for everything else, fallback to cache
+  // Cache-first for hashed assets (immutable — hash in filename)
+  if (url.pathname.match(/[-\.][0-9a-f]{8,}\.(js|css|wasm|woff2)$/)) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((resp) => {
+          if (resp.ok) {
+            const clone = resp.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(request, clone));
+          }
+          return resp;
+        });
+      })
+    );
+    return;
+  }
+
+  // Network-first for everything else
   event.respondWith(
-    fetch(request).then((resp) => {
-      const clone = resp.clone();
-      caches.open(CACHE_NAME).then((c) => c.put(request, clone));
-      return resp;
-    }).catch(() => caches.match(request))
+    fetch(request)
+      .then((resp) => {
+        if (resp.ok) {
+          const clone = resp.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(request, clone));
+        }
+        return resp;
+      })
+      .catch(() => caches.match(request).then((r) => r || new Response('', { status: 408 })))
   );
 });

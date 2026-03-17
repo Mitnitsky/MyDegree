@@ -15,6 +15,7 @@ pub fn Header() -> impl IntoView {
     let show_category_modal = RwSignal::new(false);
     let show_clear_modal = RwSignal::new(false);
     let clear_input = RwSignal::new(String::new());
+    let show_calc = RwSignal::new(false);
 
     let on_import_json = move |_: web_sys::MouseEvent| {
         let text = import_text.get();
@@ -170,6 +171,14 @@ pub fn Header() -> impl IntoView {
                             el::a().class("nav-link").attr("href", "#")
                                 .on(ev::click, move |_| show_category_modal.set(true))
                                 .child("קטגוריות"),
+                        ),
+                        // Divider
+                        el::div().class("nav-divider"),
+                        // Grade calculator link
+                        el::div().class("nav-item").child(
+                            el::a().class("nav-link").attr("href", "#")
+                                .on(ev::click, move |_| show_calc.set(true))
+                                .child((el::i().class("fas fa-calculator me-1"), "מחשבון ציונים")),
                         ),
                         // Divider
                         el::div().class("nav-divider"),
@@ -442,6 +451,7 @@ pub fn Header() -> impl IntoView {
                     )
             })
         },
+        move || crate::components::degree_summary::grade_calc_modal(state, show_calc),
     ))
 }
 
