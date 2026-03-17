@@ -19,6 +19,8 @@ pub struct AppState {
     pub show_search_modal: RwSignal<bool>,
     pub show_histogram_modal: RwSignal<Option<String>>,
     pub toast_message: RwSignal<Option<String>>,
+    /// Guard: true while loading from Firestore — prevents auto-save from overwriting cloud data
+    loading_from_cloud: RwSignal<bool>,
 }
 
 impl AppState {
@@ -36,25 +38,46 @@ impl AppState {
             show_search_modal: RwSignal::new(false),
             show_histogram_modal: RwSignal::new(None),
             toast_message: RwSignal::new(None),
+            loading_from_cloud: RwSignal::new(false),
         };
 
-        // Auto-save to localStorage on every change
+        // Auto-save: localStorage is immediate, Firestore is debounced (2s)
         let user_signal = state.user;
         let uid_signal = state.uid;
         let logged_signal = state.logged;
+        let loading_guard = state.loading_from_cloud;
+        let pending_timeout: std::rc::Rc<std::cell::Cell<Option<gloo_timers::callback::Timeout>>> =
+            std::rc::Rc::new(std::cell::Cell::new(None));
+
         Effect::new(move |_| {
             let user = user_signal.get();
+
+            // Always save to localStorage immediately
             if let Ok(json) = serde_json::to_string(&user) {
                 if let Some(window) = web_sys::window() {
                     if let Ok(Some(storage)) = window.local_storage() {
                         let _ = storage.set_item("saved_session_data", &json);
                     }
                 }
-                // Also save to Firestore if authenticated
-                if logged_signal.get_untracked() {
-                    if let Some(uid) = uid_signal.get_untracked() {
-                        let _ = firebase::firestore_set(&uid, &json);
-                    }
+            }
+
+            // Skip Firestore while loading from cloud
+            if loading_guard.get_untracked() {
+                return;
+            }
+
+            // Debounced Firestore write — drop previous pending timeout (cancels it)
+            pending_timeout.set(None);
+
+            if logged_signal.get_untracked() {
+                if let Some(uid) = uid_signal.get_untracked() {
+                    let uid_clone = uid.clone();
+                    let timeout = gloo_timers::callback::Timeout::new(2_000, move || {
+                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                            let _ = firebase::firestore_set(&uid_clone, &json);
+                        }
+                    });
+                    pending_timeout.set(Some(timeout));
                 }
             }
         });
@@ -271,7 +294,7 @@ impl AppState {
                         "name" => course.name = value.to_string(),
                         "number" => course.number = value.to_string(),
                         "points" => course.points = value.parse().unwrap_or(0.0),
-                        "grade" => course.grade = value.parse().unwrap_or(0.0),
+                        "grade" => course.grade = value.parse::<f64>().unwrap_or(0.0).clamp(0.0, 100.0),
                         "type" => course.course_type = value.parse().unwrap_or(0),
                         "binary" => course.binary = value == "true",
                         _ => {}
@@ -393,6 +416,7 @@ impl AppState {
         let user_signal = self.user;
         let course_db = self.course_db;
         let toast = self.toast_message;
+        let loading_guard = self.loading_from_cloud;
 
         let cb = Closure::new(move |json: Option<String>| {
             match json {
@@ -402,6 +426,9 @@ impl AppState {
                         let uid = auth_user.uid.clone();
                         logged.set(true);
                         user_name.set(auth_user.display_name);
+
+                        // Set loading guard BEFORE setting uid to prevent auto-save race
+                        loading_guard.set(true);
                         uid_signal.set(Some(uid.clone()));
 
                         // Store auth flag in localStorage
@@ -410,6 +437,10 @@ impl AppState {
                                 let _ = storage.set_item("authenticated", "true");
                             }
                         }
+
+                        // Capture uid and local state before async to avoid stale reads
+                        let uid_for_async = uid.clone();
+                        let local_has_data = !user_signal.get_untracked().semesters.is_empty();
 
                         // Load user data from Firestore
                         let promise = firebase::firestore_get(&uid);
@@ -436,21 +467,47 @@ impl AppState {
                                                 web_sys::console::warn_1(
                                                     &format!("Failed to parse Firestore data: {}", e).into()
                                                 );
+                                                // Cloud data is corrupt — only overwrite if local has real data
+                                                if local_has_data {
+                                                    if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                                        let _ = firebase::firestore_set(&uid_for_async, &json);
+                                                    }
+                                                    toast.set(Some("⚠️ נתוני ענן פגומים — נשמרים מחדש מהמכשיר".into()));
+                                                } else {
+                                                    toast.set(Some("⚠️ נתוני ענן פגומים — לא ניתן לשחזר".into()));
+                                                }
                                             }
                                         }
                                     } else {
-                                        // No document yet — upload current local state
-                                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
-                                            let _ = firebase::firestore_set(&uid_signal.get_untracked().unwrap_or_default(), &json);
+                                        // No document yet — only upload if local has real data
+                                        if local_has_data {
+                                            if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                                let _ = firebase::firestore_set(&uid_for_async, &json);
+                                            }
                                         }
                                     }
                                 }
                                 Err(e) => {
-                                    web_sys::console::warn_1(
+                                    web_sys::console::error_1(
                                         &format!("Firestore read failed: {:?}", e).into()
                                     );
+                                    // Cloud read failed — only upload if local has real data
+                                    // (prevents empty local state from erasing cloud data)
+                                    if local_has_data {
+                                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                            let _ = firebase::firestore_set(&uid_for_async, &json);
+                                        }
+                                        toast.set(Some("⚠️ טעינה מהענן נכשלה — הנתונים המקומיים נשמרו".into()));
+                                    } else {
+                                        toast.set(Some("⚠️ טעינה מהענן נכשלה — נסה שוב מאוחר יותר".into()));
+                                    }
                                 }
                             }
+                            // Release the guard after effects have processed
+                            // (Leptos batches effects, so a microtask delay is needed)
+                            gloo_timers::callback::Timeout::new(100, move || {
+                                loading_guard.set(false);
+                            }).forget();
                         });
                     }
                 }
@@ -459,6 +516,7 @@ impl AppState {
                     logged.set(false);
                     user_name.set(String::new());
                     uid_signal.set(None);
+                    loading_guard.set(false);
                     if let Some(window) = web_sys::window() {
                         if let Ok(Some(storage)) = window.local_storage() {
                             let _ = storage.set_item("authenticated", "false");
