@@ -27,12 +27,16 @@ pub fn MobileHeader() -> impl IntoView {
     {
         use wasm_bindgen::closure::Closure;
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            if !show_account_menu.get_untracked() {
+                return;
+            }
             if let Some(target) = e.target() {
-                let el: web_sys::Element = target.unchecked_into();
-                if el.closest(".mobile-account-menu").ok().flatten().is_none()
-                    && el.closest(".mobile-header-btn").ok().flatten().is_none()
-                {
-                    show_account_menu.set(false);
+                if let Ok(el) = target.dyn_into::<web_sys::Element>() {
+                    if el.closest(".mobile-account-menu").ok().flatten().is_none()
+                        && el.closest(".mobile-header-btn").ok().flatten().is_none()
+                    {
+                        show_account_menu.set(false);
+                    }
                 }
             }
         });
@@ -178,7 +182,7 @@ pub fn MobileHeader() -> impl IntoView {
                                     show_category_modal.set(true);
                                     show_menu.set(false);
                                 }),
-                                menu_item("מחשבון ציונים", "fas fa-calculator", move |_: web_sys::MouseEvent| {
+                                menu_item("תכנון ממוצע", "", move |_: web_sys::MouseEvent| {
                                     show_calc.set(true);
                                     show_menu.set(false);
                                 }),
@@ -400,10 +404,16 @@ fn menu_item(
         .attr("href", "#")
         .attr("style", "display: block; padding: 12px 20px; color: var(--text-primary); text-decoration: none; font-size: 0.95rem;")
         .on(ev::click, handler)
-        .child((
-            el::i().class(icon_class).attr("style", "margin-left: 8px; width: 1.2em;"),
-            label,
-        ))
+        .child(
+            if icon_class.is_empty() {
+                leptos::either::Either::Left(label)
+            } else {
+                leptos::either::Either::Right((
+                    el::i().class(icon_class).attr("style", "margin-left: 8px; width: 1.2em;"),
+                    label,
+                ))
+            }
+        )
 }
 
 // ── Mobile Semester Tabs ────────────────────────────────

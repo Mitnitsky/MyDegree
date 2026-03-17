@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 use crate::converter::find_course;
 use crate::course::{CourseDB, CourseType, EXEMPTION_INDEX, default_course_types, f64_from_any, usize_from_any, bool_from_any};
@@ -49,6 +50,118 @@ impl Default for UserState {
             course_types: default_course_types(),
         }
     }
+}
+
+fn field_display_name(field: &str) -> &str {
+    match field {
+        "grade" => "ציון",
+        "points" => "נקודות",
+        "type" => "סוג קורס",
+        "binary" => "עובר/נכשל",
+        "existsInDB" => "קיים במאגר",
+        "average" => "ממוצע",
+        "name" | "number" => field,
+        _ => field,
+    }
+}
+
+/// Sanitize raw UserState JSON before deserialization.
+/// Walks the semesters→courses structure, detects invalid values (empty strings,
+/// wrong types in numeric fields), fixes them, and returns human-readable Hebrew warnings.
+/// This ensures deserialization never fails and users know what was auto-fixed.
+pub fn sanitize_user_json(json: &str) -> (String, Vec<String>) {
+    let mut warnings: Vec<String> = Vec::new();
+
+    let mut root: Value = match serde_json::from_str(json) {
+        Ok(v) => v,
+        Err(_) => return (json.to_string(), vec!["לא ניתן לקרוא את הנתונים".into()]),
+    };
+
+    let numeric_course_fields = ["grade", "points", "type"];
+
+    if let Some(semesters) = root.get_mut("semesters").and_then(|s| s.as_array_mut()) {
+        for (sem_idx, sem) in semesters.iter_mut().enumerate() {
+            let sem_name = sem.get("name")
+                .and_then(|n| n.as_str())
+                .unwrap_or("")
+                .to_string();
+            let sem_label = if sem_name.is_empty() {
+                format!("סמסטר {}", sem_idx + 1)
+            } else {
+                format!("סמסטר {}", sem_name)
+            };
+
+            // Check semester-level numeric fields
+            for field in &["average", "points"] {
+                if let Some(val) = sem.get(field) {
+                    if let Value::String(s) = val {
+                        let t = s.trim();
+                        if t.is_empty() || t.parse::<f64>().is_err() {
+                            warnings.push(format!(
+                                "{}: {} לא תקין, אופס ל-0",
+                                sem_label, field_display_name(field)
+                            ));
+                            sem[field] = Value::Number(serde_json::Number::from(0));
+                        }
+                    }
+                }
+            }
+
+            if let Some(courses) = sem.get_mut("courses").and_then(|c| c.as_array_mut()) {
+                for (course_idx, course) in courses.iter_mut().enumerate() {
+                    let course_name = course.get("name")
+                        .and_then(|n| n.as_str())
+                        .unwrap_or("")
+                        .to_string();
+                    let course_number = course.get("number")
+                        .and_then(|n| match n {
+                            Value::String(s) => Some(s.as_str()),
+                            Value::Number(_n) => Some(""),
+                            _ => None,
+                        })
+                        .unwrap_or("")
+                        .to_string();
+
+                    let course_label = if !course_name.is_empty() {
+                        if !course_number.is_empty() {
+                            format!("'{}' ({})", course_name, course_number)
+                        } else {
+                            format!("'{}'", course_name)
+                        }
+                    } else if !course_number.is_empty() {
+                        format!("קורס {}", course_number)
+                    } else {
+                        format!("שורה {}", course_idx + 1)
+                    };
+
+                    for field in &numeric_course_fields {
+                        if let Some(val) = course.get(*field) {
+                            let needs_fix = match val {
+                                Value::String(s) => {
+                                    let t = s.trim();
+                                    t.is_empty() || t.parse::<f64>().is_err()
+                                }
+                                Value::Null => true,
+                                Value::Bool(_) => false, // handled by deserializer
+                                Value::Number(_) => false,
+                                _ => true,
+                            };
+                            if needs_fix {
+                                warnings.push(format!(
+                                    "{}, {}: {} לא תקין, אופס ל-0",
+                                    sem_label, course_label, field_display_name(field)
+                                ));
+                                course[*field] = Value::Number(serde_json::Number::from(0));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    let sanitized = serde_json::to_string(&root).unwrap_or_else(|_| json.to_string());
+    (sanitized, warnings)
 }
 
 impl UserState {
@@ -431,5 +544,61 @@ mod tests {
         assert!(state.semesters[0].is_summer());
         assert_eq!(state.semesters[1].name, "1"); // renumbered
         assert_eq!(state.summer_semesters, 1);
+    }
+
+    #[test]
+    fn test_sanitize_empty_grade_and_points() {
+        let json = r#"{
+            "semesters": [{
+                "name": "1",
+                "average": "",
+                "points": "3",
+                "courses": [
+                    {"name": "חשבון", "number": "104012", "grade": "", "points": "3.5", "type": "0"},
+                    {"name": "פיזיקה", "number": "114071", "grade": "85", "points": "", "type": ""}
+                ]
+            }]
+        }"#;
+        let (sanitized, warnings) = sanitize_user_json(json);
+        assert!(!warnings.is_empty());
+        // Should mention the course name and field
+        assert!(warnings.iter().any(|w| w.contains("חשבון") && w.contains("ציון")));
+        assert!(warnings.iter().any(|w| w.contains("פיזיקה") && w.contains("נקודות")));
+        assert!(warnings.iter().any(|w| w.contains("פיזיקה") && w.contains("סוג קורס")));
+        // Semester average was empty
+        assert!(warnings.iter().any(|w| w.contains("סמסטר 1") && w.contains("ממוצע")));
+        // The sanitized JSON should parse without errors
+        let _user: UserState = serde_json::from_str(&sanitized).unwrap();
+    }
+
+    #[test]
+    fn test_sanitize_clean_data_no_warnings() {
+        let json = r#"{
+            "semesters": [{
+                "name": "1",
+                "average": 90.0,
+                "points": 3.0,
+                "courses": [
+                    {"name": "Math", "number": "12345", "grade": 90, "points": 3.0, "type": 0}
+                ]
+            }]
+        }"#;
+        let (_sanitized, warnings) = sanitize_user_json(json);
+        assert!(warnings.is_empty());
+    }
+
+    #[test]
+    fn test_sanitize_unnamed_course_shows_row() {
+        let json = r#"{
+            "semesters": [{
+                "name": "2",
+                "courses": [
+                    {"name": "", "number": "", "grade": "", "points": "", "type": ""}
+                ]
+            }]
+        }"#;
+        let (_sanitized, warnings) = sanitize_user_json(json);
+        // Should use "שורה 1" when no name/number
+        assert!(warnings.iter().any(|w| w.contains("שורה 1")));
     }
 }

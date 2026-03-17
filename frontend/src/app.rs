@@ -61,6 +61,64 @@ fn app_content() -> impl IntoView {
             )),
             // Shared elements
             Toast(),
+            // Data sanitization warnings modal
+            move || {
+                let state = use_context::<AppState>().unwrap();
+                let warnings = state.data_warnings.get();
+                let dismiss = move || {
+                    // Defer DOM removal to next tick so click event finishes bubbling
+                    gloo_timers::callback::Timeout::new(0, move || {
+                        state.data_warnings.set(Vec::new());
+                    }).forget();
+                };
+                (!warnings.is_empty()).then(|| {
+                    let dismiss_overlay = dismiss.clone();
+                    let dismiss_x = dismiss.clone();
+                    let dismiss_btn = dismiss.clone();
+                    el::div()
+                        .class("search-overlay")
+                        .attr("style", "z-index: 2000;")
+                        .on(ev::click, move |_| dismiss_overlay())
+                        .child(
+                            el::div()
+                                .class("search-dialog")
+                                .attr("style", "max-width: 600px; min-width: unset;")
+                                .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                                .child((
+                                    // First child → gets padding: 16px 24px from .search-dialog > :first-child
+                                    el::div().class("d-flex justify-content-between align-items-center").child((
+                                        el::h5().class("mb-0").attr("style", "color: var(--text-primary); display: flex; align-items: center;").child((
+                                            el::i().class("fas fa-wrench").attr("style", "color: #f0ad4e; margin-left: 8px; font-size: 1rem;"),
+                                            "תיקון נתונים אוטומטי",
+                                        )),
+                                        el::button().class("btn btn-sm btn-outline-secondary")
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss_x(); })
+                                            .child(el::i().class("fas fa-times")),
+                                    )),
+                                    // Second child → gets padding: 24px from .search-dialog > :nth-child(2)
+                                    el::div().child((
+                                        el::p().attr("style", "color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px;")
+                                            .child("נמצאו שדות עם ערכים לא תקינים שאופסו לברירת מחדל (0). אנא בדוק את הקורסים הבאים ועדכן ידנית:"),
+                                        el::ul()
+                                            .attr("style", "max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color, #dee2e6); border-radius: 6px; padding: 12px 24px 12px 32px; background: var(--bg-input, #f8f9fa); margin: 0;")
+                                            .child(
+                                                warnings.into_iter().map(|w| {
+                                                    el::li()
+                                                        .attr("style", "padding: 3px 0; font-size: 0.85rem; color: var(--text-primary);")
+                                                        .child(w)
+                                                }).collect::<Vec<_>>()
+                                            ),
+                                        el::div().class("d-flex justify-content-center").attr("style", "padding-top: 16px; padding-bottom: 10px;").child(
+                                            el::button()
+                                                .class("btn btn-primary")
+                                                .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss_btn(); })
+                                                .child("הבנתי"),
+                                        ),
+                                    )),
+                                ))
+                        )
+                })
+            },
             move || {
                 let state = use_context::<AppState>().unwrap();
                 state.show_search_modal.get().then(SearchCourseDialog)

@@ -350,10 +350,9 @@ pub fn grade_calc_modal(state: AppState, show: RwSignal<bool>) -> impl IntoView 
                         .child((
                             // Header
                             el::div().class("d-flex justify-content-between align-items-center").child((
-                                el::h5().class("mb-0").child((
-                                    el::i().class("fas fa-calculator me-2"),
-                                    "מחשבון ציונים",
-                                )),
+                                el::h5().class("mb-0").child(
+                                    "תכנון ממוצע",
+                                ),
                                 el::button().class("btn btn-sm btn-outline-secondary")
                                     .on(ev::click, move |_| show.set(false))
                                     .child(el::i().class("fas fa-times")),

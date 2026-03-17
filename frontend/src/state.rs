@@ -19,6 +19,7 @@ pub struct AppState {
     pub show_search_modal: RwSignal<bool>,
     pub show_histogram_modal: RwSignal<Option<String>>,
     pub toast_message: RwSignal<Option<String>>,
+    pub data_warnings: RwSignal<Vec<String>>,
     /// Guard: true while loading from Firestore — prevents auto-save from overwriting cloud data
     loading_from_cloud: RwSignal<bool>,
 }
@@ -38,6 +39,7 @@ impl AppState {
             show_search_modal: RwSignal::new(false),
             show_histogram_modal: RwSignal::new(None),
             toast_message: RwSignal::new(None),
+            data_warnings: RwSignal::new(Vec::new()),
             loading_from_cloud: RwSignal::new(false),
         };
 
@@ -423,6 +425,7 @@ impl AppState {
         let user_signal = self.user;
         let course_db = self.course_db;
         let toast = self.toast_message;
+        let warn_signal = self.data_warnings;
         let loading_guard = self.loading_from_cloud;
 
         let cb = Closure::new(move |json: Option<String>| {
@@ -463,12 +466,28 @@ impl AppState {
                                         }
                                     });
                                     if let Some(json) = json_opt {
-                                        match serde_json::from_str::<UserState>(&json) {
+                                        let (sanitized, warnings) = degree_core::sanitize_user_json(&json);
+                                        if !warnings.is_empty() {
+                                            web_sys::console::warn_1(
+                                                &format!("Sanitized user data: {:?}", warnings).into()
+                                            );
+                                        }
+                                        match serde_json::from_str::<UserState>(&sanitized) {
                                             Ok(cloud_user) => {
                                                 user_signal.set(cloud_user);
                                                 user_signal.update(|u| {
                                                     course_db.with_value(|db| u.recalculate(db));
                                                 });
+                                                if !warnings.is_empty() {
+                                                    // Write sanitized data back to Firestore so warnings don't recur
+                                                    if let Ok(clean_json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                                        let _ = firebase::firestore_set(&uid_for_async, &clean_json);
+                                                    }
+                                                    // Delay to avoid reactive conflicts during auth flow
+                                                    gloo_timers::callback::Timeout::new(500, move || {
+                                                        warn_signal.set(warnings);
+                                                    }).forget();
+                                                }
                                             }
                                             Err(e) => {
                                                 web_sys::console::warn_1(

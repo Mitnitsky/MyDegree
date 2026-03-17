@@ -23,11 +23,16 @@ pub fn Header() -> impl IntoView {
     {
         use wasm_bindgen::closure::Closure;
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            // Only act when a dropdown is actually open
+            if !show_account_dd.get_untracked() && !show_io_dd.get_untracked() {
+                return;
+            }
             if let Some(target) = e.target() {
-                let el: web_sys::Element = target.unchecked_into();
-                if el.closest(".dropdown").ok().flatten().is_none() {
-                    show_account_dd.set(false);
-                    show_io_dd.set(false);
+                if let Ok(el) = target.dyn_into::<web_sys::Element>() {
+                    if el.closest(".dropdown").ok().flatten().is_none() {
+                        show_account_dd.set(false);
+                        show_io_dd.set(false);
+                    }
                 }
             }
         });
@@ -202,11 +207,11 @@ pub fn Header() -> impl IntoView {
                         ),
                         // Divider
                         el::div().class("nav-divider"),
-                        // Grade calculator link
+                        // Average planner link
                         el::div().class("nav-item").child(
                             el::a().class("nav-link").attr("href", "#")
                                 .on(ev::click, move |_| show_calc.set(true))
-                                .child((el::i().class("fas fa-calculator me-1"), "מחשבון ציונים")),
+                                .child("תכנון ממוצע"),
                         ),
                         // Divider
                         el::div().class("nav-divider"),

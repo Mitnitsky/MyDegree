@@ -3,52 +3,51 @@ use serde::{Deserialize, Serialize, Deserializer};
 pub const EXEMPTION_INDEX: usize = 1;
 
 /// Deserialize an f64 that may be stored as a string (e.g. "33.0") or a number.
+/// Never fails — returns 0.0 for any unparseable input to prevent user data loss.
 pub fn f64_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<f64, D::Error> {
     let val = serde_json::Value::deserialize(deserializer)?;
-    match &val {
-        serde_json::Value::Number(n) => n.as_f64().ok_or_else(|| serde::de::Error::custom("invalid number")),
-        serde_json::Value::String(s) => s.parse::<f64>().map_err(serde::de::Error::custom),
-        serde_json::Value::Null => Ok(0.0),
-        _ => Err(serde::de::Error::custom("expected number or string")),
-    }
+    Ok(match &val {
+        serde_json::Value::Number(n) => n.as_f64().unwrap_or(0.0),
+        serde_json::Value::String(s) => s.trim().parse::<f64>().unwrap_or(0.0),
+        serde_json::Value::Bool(b) => if *b { 1.0 } else { 0.0 },
+        _ => 0.0,
+    })
 }
 
 /// Deserialize a usize that may be stored as a string (e.g. "2") or a number.
+/// Never fails — returns 0 for any unparseable input to prevent user data loss.
 pub fn usize_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<usize, D::Error> {
     let val = serde_json::Value::deserialize(deserializer)?;
-    match &val {
-        serde_json::Value::Number(n) => n.as_u64().map(|u| u as usize).ok_or_else(|| serde::de::Error::custom("invalid usize")),
-        serde_json::Value::String(s) => s.parse::<usize>().map_err(serde::de::Error::custom),
-        serde_json::Value::Null => Ok(0),
-        _ => Err(serde::de::Error::custom("expected number or string")),
-    }
+    Ok(match &val {
+        serde_json::Value::Number(n) => n.as_u64().unwrap_or(0) as usize,
+        serde_json::Value::String(s) => s.trim().parse::<f64>().unwrap_or(0.0) as usize,
+        serde_json::Value::Bool(b) => if *b { 1 } else { 0 },
+        _ => 0,
+    })
 }
 
 /// Deserialize a bool that may be stored as a string (e.g. "true") or a bool.
+/// Never fails — returns false for any unparseable input to prevent user data loss.
 pub fn bool_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<bool, D::Error> {
     let val = serde_json::Value::deserialize(deserializer)?;
-    match &val {
-        serde_json::Value::Bool(b) => Ok(*b),
-        serde_json::Value::String(s) => match s.as_str() {
-            "true" | "1" => Ok(true),
-            _ => Ok(false),
-        },
-        serde_json::Value::Number(n) => Ok(n.as_i64().unwrap_or(0) != 0),
-        serde_json::Value::Null => Ok(false),
-        _ => Err(serde::de::Error::custom("expected bool or string")),
-    }
+    Ok(match &val {
+        serde_json::Value::Bool(b) => *b,
+        serde_json::Value::String(s) => matches!(s.trim(), "true" | "1" | "yes"),
+        serde_json::Value::Number(n) => n.as_i64().unwrap_or(0) != 0,
+        _ => false,
+    })
 }
 
 /// Deserialize a String that may be stored as a number (e.g. `1` instead of `"1"`).
+/// Never fails — returns empty string for any unparseable input to prevent user data loss.
 pub fn string_from_any<'de, D: Deserializer<'de>>(deserializer: D) -> Result<String, D::Error> {
     let val = serde_json::Value::deserialize(deserializer)?;
-    match &val {
-        serde_json::Value::String(s) => Ok(s.clone()),
-        serde_json::Value::Number(n) => Ok(n.to_string()),
-        serde_json::Value::Bool(b) => Ok(b.to_string()),
-        serde_json::Value::Null => Ok(String::new()),
-        _ => Err(serde::de::Error::custom("expected string or number")),
-    }
+    Ok(match &val {
+        serde_json::Value::String(s) => s.clone(),
+        serde_json::Value::Number(n) => n.to_string(),
+        serde_json::Value::Bool(b) => b.to_string(),
+        _ => String::new(),
+    })
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -233,5 +232,61 @@ mod tests {
     #[test]
     fn test_from_json_garbage_returns_none() {
         assert!(CourseDB::from_json("not json at all").is_none());
+    }
+
+    #[test]
+    fn test_deserialize_empty_string_fields() {
+        // This is the exact bug that caused user data loss — empty strings in numeric fields
+        let json = r#"{"name":"Math","number":"12345","points":"","grade":"","type":"","binary":"","existsInDB":""}"#;
+        let course: Course = serde_json::from_str(json).unwrap();
+        assert_eq!(course.name, "Math");
+        assert_eq!(course.points, 0.0);
+        assert_eq!(course.grade, 0.0);
+        assert_eq!(course.course_type, 0);
+        assert!(!course.binary);
+        assert!(!course.exists_in_db);
+    }
+
+    #[test]
+    fn test_deserialize_null_fields() {
+        let json = r#"{"name":null,"number":null,"points":null,"grade":null,"type":null,"binary":null}"#;
+        let course: Course = serde_json::from_str(json).unwrap();
+        assert_eq!(course.name, "");
+        assert_eq!(course.points, 0.0);
+        assert_eq!(course.grade, 0.0);
+    }
+
+    #[test]
+    fn test_deserialize_mixed_types() {
+        // Number as string, bool as number, string as number
+        let json = r#"{"name":12345,"number":67890,"points":"3.5","grade":"85","type":"2","binary":1,"existsInDB":"true"}"#;
+        let course: Course = serde_json::from_str(json).unwrap();
+        assert_eq!(course.name, "12345");
+        assert_eq!(course.number, "67890");
+        assert_eq!(course.points, 3.5);
+        assert_eq!(course.grade, 85.0);
+        assert_eq!(course.course_type, 2);
+        assert!(course.binary);
+        assert!(course.exists_in_db);
+    }
+
+    #[test]
+    fn test_deserialize_whitespace_strings() {
+        let json = r#"{"name":"test","number":"123","points":" 3.5 ","grade":" ","type":" 1 "}"#;
+        let course: Course = serde_json::from_str(json).unwrap();
+        assert_eq!(course.points, 3.5);
+        assert_eq!(course.grade, 0.0); // whitespace-only parses to 0.0
+        assert_eq!(course.course_type, 1);
+    }
+
+    #[test]
+    fn test_deserialize_missing_fields_use_defaults() {
+        let json = r#"{"name":"Math"}"#;
+        let course: Course = serde_json::from_str(json).unwrap();
+        assert_eq!(course.name, "Math");
+        assert_eq!(course.points, 0.0);
+        assert_eq!(course.grade, 0.0);
+        assert_eq!(course.course_type, 0);
+        assert!(!course.binary);
     }
 }

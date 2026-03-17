@@ -7,4 +7,4 @@ pub mod utils;
 
 pub use course::{Course, CourseDB, CourseDBEntry, CourseType};
 pub use semester::Semester;
-pub use degree::UserState;
+pub use degree::{UserState, sanitize_user_json};
