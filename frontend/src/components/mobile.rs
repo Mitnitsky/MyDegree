@@ -372,7 +372,7 @@ pub fn MobileHeader() -> impl IntoView {
                                             .on(ev::click, move |_| show_clear_modal.set(false))
                                             .child(el::i().class("fas fa-times")),
                                     )),
-                                    el::p().attr("style", "color: #6c757d; margin-bottom: 12px;")
+                                    el::p().attr("style", "color: var(--text-secondary); margin-bottom: 12px;")
                                         .child("הקלד REMOVE כדי לאשר מחיקה"),
                                     el::input()
                                         .class("form-control mb-3")
@@ -499,7 +499,7 @@ pub fn MobileSemesterSummary() -> impl IntoView {
             let semesters = state.semesters();
             if semesters.is_empty() {
                 el::div()
-                    .attr("style", "text-align: center; padding: 32px 16px; color: #6c757d;")
+                    .attr("style", "text-align: center; padding: 32px 16px; color: var(--text-secondary);")
                     .child((
                         el::p().child("עוד לא נוספו סמסטרים"),
                         el::button().class("btn btn-outline-secondary")
@@ -682,7 +682,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                                 show_menu.set(false);
                                             }
                                         })
-                                        .child((el::i().class("fas fa-arrow-up").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למעלה")),
+                                        .child((el::i().class("fas fa-arrow-up").attr("style", "color: var(--text-secondary); margin-left: 8px;"), "הזז למעלה")),
                                     el::a().attr("href", "#")
                                         .attr("style", if index >= count - 1 { "pointer-events: none; opacity: 0.35;" } else { "" })
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
@@ -692,7 +692,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                                 show_menu.set(false);
                                             }
                                         })
-                                        .child((el::i().class("fas fa-arrow-down").attr("style", "color: #6c757d; margin-left: 8px;"), "הזז למטה")),
+                                        .child((el::i().class("fas fa-arrow-down").attr("style", "color: var(--text-secondary); margin-left: 8px;"), "הזז למטה")),
                                     el::div().attr("style", "border-top: 1px solid #dee2e6; margin: 2px 12px;"),
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
@@ -873,6 +873,12 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                             el::hr(),
                             el::h6().attr("style", "text-align: center; margin-bottom: 12px; font-weight: bold;")
                                 .child("ניתוח סוגי קורסים"),
+                            // Column headers
+                            el::div().class("d-flex align-items-center gap-2 mb-2").attr("style", "font-size: 0.8rem; color: var(--accent-blue, #0d6efd); font-weight: 600;").child((
+                                el::span().attr("style", "min-width: 80px;").child(""),
+                                el::span().attr("style", "flex: 1; text-align: center;").child("נותרו"),
+                                el::span().attr("style", "flex: 1; text-align: center;").child("מתוך"),
+                            )),
                             // Course types
                             move || {
                                 state.course_types().into_iter().enumerate()
@@ -882,7 +888,7 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                                         let is_ptor = name.contains("פטור");
                                         let dot_class = format!("ct-dot ct-dot-{}", i.min(5));
                                         el::div().class("d-flex align-items-center gap-2 mb-2").child((
-                                            el::span().attr("style", "min-width: 80px; font-size: 0.85rem; color: #495057; display: flex; align-items: center; gap: 4px;")
+                                            el::span().attr("style", "min-width: 80px; font-size: 0.85rem; color: var(--text-primary); display: flex; align-items: center; gap: 4px;")
                                                 .child((el::span().class(dot_class), name)),
                                             if is_ptor {
                                                 el::input()
@@ -980,7 +986,7 @@ fn mobile_summary_row(
     };
 
     el::div().class("d-flex align-items-center gap-2 mb-2").child((
-        el::span().attr("style", "min-width: 100px; font-size: 0.85rem; color: #495057;").child(label),
+        el::span().attr("style", "min-width: 100px; font-size: 0.85rem; color: var(--text-primary);").child(label),
         input,
     ))
 }
