@@ -41,13 +41,15 @@ impl AppState {
             loading_from_cloud: RwSignal::new(false),
         };
 
-        // Auto-save: localStorage is immediate, Firestore is debounced (2s)
+        // Auto-save: localStorage is immediate, Firestore is debounced (3s) with hash dedup
         let user_signal = state.user;
         let uid_signal = state.uid;
         let logged_signal = state.logged;
         let loading_guard = state.loading_from_cloud;
         let pending_timeout: std::rc::Rc<std::cell::Cell<Option<gloo_timers::callback::Timeout>>> =
             std::rc::Rc::new(std::cell::Cell::new(None));
+        let last_written_hash: std::rc::Rc<std::cell::RefCell<String>> =
+            std::rc::Rc::new(std::cell::RefCell::new(String::new()));
 
         Effect::new(move |_| {
             let user = user_signal.get();
@@ -72,9 +74,14 @@ impl AppState {
             if logged_signal.get_untracked() {
                 if let Some(uid) = uid_signal.get_untracked() {
                     let uid_clone = uid.clone();
-                    let timeout = gloo_timers::callback::Timeout::new(2_000, move || {
+                    let hash_ref = last_written_hash.clone();
+                    let timeout = gloo_timers::callback::Timeout::new(3_000, move || {
                         if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                            if *hash_ref.borrow() == json {
+                                return;
+                            }
                             let _ = firebase::firestore_set(&uid_clone, &json);
+                            *hash_ref.borrow_mut() = json;
                         }
                     });
                     pending_timeout.set(Some(timeout));
