@@ -105,10 +105,10 @@ pub fn SemestersTabView() -> impl IntoView {
                                 el::div().class("col-xl-10"),
                                 el::div().class("col-xl-2").child(
                                     el::div().class("d-flex gap-2 mx-1 mt-2").child((
-                                        el::button().class("btn btn-sm btn-outline-danger")
+                                        el::button().class("btn btn-sm sem-btn sem-btn-delete")
                                             .on(ev::click, on_remove)
                                             .child("מחק סמסטר"),
-                                        el::button().class("btn btn-sm btn-outline-info")
+                                        el::button().class("btn btn-sm sem-btn sem-btn-summer")
                                             .on(ev::click, on_toggle_type)
                                             .child(toggle_text),
                                     )),

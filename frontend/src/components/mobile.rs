@@ -65,10 +65,25 @@ pub fn MobileHeader() -> impl IntoView {
     el::div().class("mobile-only").child((
         // Header bar
         el::div().class("mobile-header").child((
-            // Right: hamburger menu
-            el::button().class("mobile-header-btn")
-                .on(ev::click, move |_| show_menu.update(|v| *v = !*v))
-                .child(el::i().class("fas fa-bars")),
+            // Right: hamburger menu + dark mode toggle
+            el::div().class("mobile-header-right").child((
+                el::button().class("mobile-header-btn")
+                    .on(ev::click, move |_| show_menu.update(|v| *v = !*v))
+                    .child(el::i().class("fas fa-bars")),
+                el::div().class("theme-toggle theme-toggle-mobile")
+                    .attr("title", "מצב כהה / בהיר")
+                    .on(ev::click, move |_| {
+                        let _ = js_sys::eval("window.toggleDarkMode()");
+                    })
+                    .child((
+                        el::span().class("theme-toggle-icon theme-icon-sun").child(
+                            el::i().class("fas fa-sun"),
+                        ),
+                        el::span().class("theme-toggle-icon theme-icon-moon").child(
+                            el::i().class("fas fa-moon"),
+                        ),
+                    )),
+            )),
             // Center: title
             el::span().class("mobile-header-title").child((
                 "My Degree ",
@@ -85,7 +100,7 @@ pub fn MobileHeader() -> impl IntoView {
                         move || {
                             show_account_menu.get().then(|| {
                                 el::div().class("mobile-account-menu").child((
-                                    el::div().attr("style", "padding: 12px 16px; font-weight: bold; border-bottom: 1px solid #dee2e6; color: #333;")
+                                    el::div().class("mobile-menu-header")
                                         .child(move || {
                                             let name = state.user_name.get();
                                             if name.is_empty() { "שלום".to_string() } else { format!("שלום {}", name) }
@@ -115,7 +130,7 @@ pub fn MobileHeader() -> impl IntoView {
         move || {
             show_menu.get().then(|| {
                 el::div()
-                    .attr("style", "background: #fff; border-bottom: 1px solid #dee2e6; padding: 8px 0;")
+                    .class("mobile-slide-menu")
                     .child((
                         menu_item("ייבוא מ-JSON", "fas fa-file-import", move |_: web_sys::MouseEvent| {
                             show_import_modal.set(true);
@@ -139,7 +154,7 @@ pub fn MobileHeader() -> impl IntoView {
                             show_category_modal.set(true);
                             show_menu.set(false);
                         }),
-                        el::div().attr("style", "border-top: 1px solid #dee2e6; margin: 4px 16px;"),
+                        el::div().attr("style", "border-top: 1px solid var(--border-color, #dee2e6); margin: 4px 16px;"),
                         el::a()
                             .attr("href", "#")
                             .attr("style", "display: block; padding: 12px 20px; color: #dc3545; text-decoration: none; font-size: 0.95rem;")
@@ -353,7 +368,7 @@ fn menu_item(
 ) -> impl IntoView {
     el::a()
         .attr("href", "#")
-        .attr("style", "display: block; padding: 12px 20px; color: #212529; text-decoration: none; font-size: 0.95rem;")
+        .attr("style", "display: block; padding: 12px 20px; color: var(--text-primary); text-decoration: none; font-size: 0.95rem;")
         .on(ev::click, handler)
         .child((
             el::i().class(icon_class).attr("style", "margin-left: 8px; width: 1.2em;"),
@@ -448,7 +463,7 @@ pub fn MobileSemesterSummary() -> impl IntoView {
                 let toggle_text = if is_summer { "הפוך לסמסטר רגיל" } else { "הפוך לסמסטר קיץ" };
 
                 el::div().class("mobile-sem-summary").child((
-                    el::div().attr("style", "text-align: center; font-weight: bold; font-size: 0.9rem; color: #495057; margin-bottom: 8px; width: 100%;")
+                    el::div().class("mobile-sem-summary-title")
                         .child("סיכום סמסטר"),
                     el::div().class("mobile-sem-summary-metrics").child((
                         el::div().class("mobile-sem-metric").child((
@@ -788,9 +803,12 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                                         .on(ev::click, move |_| show_sheet.set(false))
                                         .child(el::i().class("fas fa-times")),
                                 )),
+                            // Progress ring
+                            mobile_progress_ring(degree_points_done, degree_points),
                             // Summary fields
                             mobile_summary_row("נקודות תואר", move || degree_points.get().to_string(), true, Some(move |val: f64| state.set_degree_points(val))),
                             mobile_summary_row_readonly("ממוצע תואר", move || format!("{:.1}", degree_average.get())),
+                            mobile_gpa_sparkline(state, degree_average),
                             mobile_summary_row_readonly("נקודות בוצעו", move || format!("{:.1}", degree_points_done.get())),
                             mobile_summary_row_readonly("נקודות נותרו", move || format!("{:.1}", degree_points_left.get())),
                             mobile_summary_row_readonly("נותרו לשבץ", move || format!("{:.1}", degree_points_to_choose.get())),
@@ -805,8 +823,10 @@ pub fn MobileDegreeSummary() -> impl IntoView {
                                     .map(|(i, ct)| {
                                         let name = ct.name.clone();
                                         let is_ptor = name.contains("פטור");
+                                        let dot_class = format!("ct-dot ct-dot-{}", i.min(5));
                                         el::div().class("d-flex align-items-center gap-2 mb-2").child((
-                                            el::span().attr("style", "min-width: 80px; font-size: 0.85rem; color: #495057;").child(name),
+                                            el::span().attr("style", "min-width: 80px; font-size: 0.85rem; color: #495057; display: flex; align-items: center; gap: 4px;")
+                                                .child((el::span().class(dot_class), name)),
                                             if is_ptor {
                                                 el::input()
                                                     .attr("type", "number")
@@ -913,4 +933,105 @@ fn mobile_summary_row_readonly(
     value_fn: impl Fn() -> String + Send + Sync + 'static,
 ) -> impl IntoView {
     mobile_summary_row(label, value_fn, false, None::<fn(f64)>)
+}
+
+fn mobile_progress_ring(
+    done: Memo<f64>,
+    total: Memo<f64>,
+) -> impl IntoView {
+    let radius = 46.0_f64;
+    let circumference = 2.0 * std::f64::consts::PI * radius;
+
+    el::div()
+        .class("progress-ring-wrap")
+        .attr("style", "display: flex; flex-direction: column; align-items: center; margin-bottom: 12px;")
+        .child(move || {
+            let d = done.get();
+            let t = total.get();
+            let pct = if t > 0.0 { (d / t * 100.0).min(100.0) } else { 0.0 };
+            let offset = circumference - (pct / 100.0) * circumference;
+
+            let is_dark = web_sys::window()
+                .and_then(|w| w.document())
+                .and_then(|doc| doc.document_element())
+                .and_then(|el| el.get_attribute("data-theme"))
+                .map(|t| t == "dark").unwrap_or(false);
+
+            let color = if is_dark {
+                if pct >= 100.0 { "#57ab5a" } else if pct >= 66.0 { "#539bf5" } else if pct >= 33.0 { "#c69026" } else { "#e5534b" }
+            } else {
+                if pct >= 100.0 { "#28a745" } else if pct >= 66.0 { "#0d6efd" } else if pct >= 33.0 { "#fd7e14" } else { "#dc3545" }
+            };
+            let track = if is_dark { "#373e47" } else { "#e9ecef" };
+
+            let svg = format!(
+                "<svg width='110' height='110' viewBox='0 0 110 110'>\
+                <circle cx='55' cy='55' r='{radius}' fill='none' stroke='{track}' stroke-width='8'/>\
+                <circle cx='55' cy='55' r='{radius}' fill='none' stroke='{color}' stroke-width='8' \
+                stroke-linecap='round' stroke-dasharray='{circumference}' stroke-dashoffset='{offset}' \
+                transform='rotate(-90 55 55)' style='transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease;'/>\
+                <text x='55' y='50' text-anchor='middle' font-size='20' font-weight='bold' class='ring-text-main'>{pct:.0}%</text>\
+                <text x='55' y='68' text-anchor='middle' font-size='10' class='ring-text-sub'>{d:.1} / {t:.0} נ״ז</text>\
+                </svg>",
+            );
+
+            el::div().inner_html(svg)
+        })
+}
+
+fn mobile_gpa_sparkline(state: AppState, cumulative_avg: Memo<f64>) -> impl IntoView {
+    el::div()
+        .attr("style", "display: flex; justify-content: center; margin-bottom: 8px;")
+        .child(move || {
+            let averages: Vec<f64> = state.user.with(|u| {
+                u.semesters.iter().map(|s| s.average).filter(|&a| a > 0.0).collect()
+            });
+            if averages.len() < 2 { return el::div().into_any(); }
+
+            let cum = cumulative_avg.get();
+            let w = 280.0_f64;
+            let h = 50.0_f64;
+            let pad = 8.0_f64;
+            let min_v = averages.iter().cloned().fold(f64::MAX, f64::min).min(cum) - 5.0;
+            let max_v = averages.iter().cloned().fold(f64::MIN, f64::max).max(cum) + 5.0;
+            let range = (max_v - min_v).max(1.0);
+            let n = averages.len();
+
+            let points: Vec<String> = averages.iter().enumerate().map(|(i, &a)| {
+                let x = pad + (i as f64 / (n - 1) as f64) * (w - 2.0 * pad);
+                let y = pad + (1.0 - (a - min_v) / range) * (h - 2.0 * pad);
+                format!("{x:.1},{y:.1}")
+            }).collect();
+
+            let polyline_pts = points.join(" ");
+            let last = averages.last().unwrap_or(&0.0);
+            let first = averages.first().unwrap_or(&0.0);
+            let color = if last >= first { "#28a745" } else { "#dc3545" };
+            let cum_y = pad + (1.0 - (cum - min_v) / range) * (h - 2.0 * pad);
+            let first_x = pad;
+            let last_x = pad + (w - 2.0 * pad);
+
+            let dots: String = averages.iter().enumerate().map(|(i, &a)| {
+                let x = pad + (i as f64 / (n - 1) as f64) * (w - 2.0 * pad);
+                let y = pad + (1.0 - (a - min_v) / range) * (h - 2.0 * pad);
+                format!("<circle cx='{x:.1}' cy='{y:.1}' r='3' fill='{color}'><title>סמסטר {}: {a:.1}</title></circle>", i + 1)
+            }).collect();
+
+            let area_pts = format!("{first_x:.1},{h:.1} {polyline_pts} {last_x:.1},{h:.1}");
+
+            let svg = format!(
+                "<svg width='100%' height='{h:.0}' viewBox='0 0 {w:.0} {h:.0}' preserveAspectRatio='xMidYMid meet'>\
+                <defs><linearGradient id='m-spark-fill' x1='0' y1='0' x2='0' y2='1'>\
+                <stop offset='0%' stop-color='{color}' stop-opacity='0.2'/>\
+                <stop offset='100%' stop-color='{color}' stop-opacity='0.02'/>\
+                </linearGradient></defs>\
+                <polygon points='{area_pts}' fill='url(#m-spark-fill)'/>\
+                <line x1='{pad:.1}' y1='{cum_y:.1}' x2='{last_x:.1}' y2='{cum_y:.1}' \
+                stroke='#6c757d' stroke-width='1' stroke-dasharray='4,3' opacity='0.6'/>\
+                <polyline points='{polyline_pts}' fill='none' stroke='{color}' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/>\
+                {dots}</svg>",
+            );
+
+            el::div().inner_html(svg).into_any()
+        })
 }

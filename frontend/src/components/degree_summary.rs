@@ -44,13 +44,13 @@ fn degree_summary_card(state: AppState) -> impl IntoView {
     let degree_points_left = Memo::new(move |_| state.user.with(|u| u.degree_points_left));
     let degree_points_to_choose = Memo::new(move |_| state.user.with(|u| u.degree_points_to_choose));
 
-    el::div().class("card shadow bg-white rounded h-100").child((
+    el::div().class("card shadow rounded h-100 summary-card").child((
         el::div()
             .class("card-header summary-card-header text-white")
-            .attr("style", "background-color: #343a40; font-weight: bold;")
             .child("סיכום תואר"),
         el::div().class("card-body").child(
-            el::div().attr("style", "height: 100%; margin-top: 46px;").child((
+            el::div().attr("style", "height: 100%;").child((
+                progress_ring(degree_points_done, degree_points),
                 input_group_row(
                     "נקודות תואר",
                     move || degree_points.get().to_string(),
@@ -58,6 +58,7 @@ fn degree_summary_card(state: AppState) -> impl IntoView {
                     Some(move |val: f64| state.set_degree_points(val)),
                 ),
                 input_group_row_readonly("ממוצע תואר", move || format!("{:.1}", degree_average.get())),
+                gpa_sparkline(state, degree_average),
                 input_group_row_readonly("נקודות בוצעו", move || format!("{:.1}", degree_points_done.get())),
                 input_group_row_readonly("נקודות נותרו", move || format!("{:.1}", degree_points_left.get())),
                 input_group_row_readonly("נותרו לשבץ", move || format!("{:.1}", degree_points_to_choose.get())),
@@ -69,10 +70,9 @@ fn degree_summary_card(state: AppState) -> impl IntoView {
 fn course_types_card(state: AppState) -> impl IntoView {
     let english_exemption = Memo::new(move |_| state.user.with(|u| u.english_exemption));
 
-    el::div().class("card shadow bg-white rounded h-100").child((
+    el::div().class("card shadow rounded h-100 summary-card").child((
         el::div()
             .class("card-header summary-card-header text-white")
-            .attr("style", "background-color: #343a40; font-weight: bold;")
             .child("ניתוח סוגי קורסים"),
         el::div().class("card-body").child((
             // Column headers — spacer + two headers matching the row layout
@@ -87,14 +87,16 @@ fn course_types_card(state: AppState) -> impl IntoView {
                     .attr("disabled", "")
                     .attr("readonly", "")
                     .attr("value", "נותרו")
-                    .attr("style", "background-color: aliceblue; text-align: center;"),
+                    .attr("style", "text-align: center;")
+                    .class("form-control ct-column-header"),
                 el::input()
                     .attr("type", "text")
                     .class("form-control")
                     .attr("disabled", "")
                     .attr("readonly", "")
                     .attr("value", "מתוך")
-                    .attr("style", "background-color: aliceblue; text-align: center;"),
+                    .attr("style", "text-align: center;")
+                    .class("form-control ct-column-header"),
             )),
             // Course type rows
             move || {
@@ -103,11 +105,12 @@ fn course_types_card(state: AppState) -> impl IntoView {
                     .map(|(i, ct)| {
                         let name = ct.name.clone();
                         let is_ptor = name.contains("פטור");
+                        let dot_class = format!("ct-dot ct-dot-{}", i.min(5));
                         el::div().class("input-group mb-2").child((
-                            // Category name label
+                            // Category name label with color dot
                             el::span()
                                 .class("input-group-text category-label")
-                                .child(name),
+                                .child((el::span().class(dot_class), name)),
                             // Points left (or total for פטור)
                             if is_ptor {
                                 el::input()
@@ -222,4 +225,109 @@ fn input_group_row_readonly(
     value_fn: impl Fn() -> String + Send + Sync + 'static,
 ) -> impl IntoView {
     input_group_row(label, value_fn, false, None::<fn(f64)>)
+}
+
+fn progress_ring(
+    done: Memo<f64>,
+    total: Memo<f64>,
+) -> impl IntoView {
+    let radius = 54.0_f64;
+    let circumference = 2.0 * std::f64::consts::PI * radius;
+
+    el::div()
+        .class("progress-ring-wrap")
+        .attr("style", "display: flex; flex-direction: column; align-items: center; margin-bottom: 16px;")
+        .child(move || {
+            let d = done.get();
+            let t = total.get();
+            let pct = if t > 0.0 { (d / t * 100.0).min(100.0) } else { 0.0 };
+            let offset = circumference - (pct / 100.0) * circumference;
+
+            let is_dark = web_sys::window()
+                .and_then(|w| w.document())
+                .and_then(|doc| doc.document_element())
+                .and_then(|el| el.get_attribute("data-theme"))
+                .map(|t| t == "dark").unwrap_or(false);
+
+            let color = if is_dark {
+                if pct >= 100.0 { "#57ab5a" } else if pct >= 66.0 { "#539bf5" } else if pct >= 33.0 { "#c69026" } else { "#e5534b" }
+            } else {
+                if pct >= 100.0 { "#28a745" } else if pct >= 66.0 { "#0d6efd" } else if pct >= 33.0 { "#fd7e14" } else { "#dc3545" }
+            };
+            let track = if is_dark { "#373e47" } else { "#e9ecef" };
+
+            let svg = format!(
+                "<svg width='130' height='130' viewBox='0 0 130 130'>\
+                <circle cx='65' cy='65' r='{radius}' fill='none' stroke='{track}' stroke-width='10'/>\
+                <circle cx='65' cy='65' r='{radius}' fill='none' stroke='{color}' stroke-width='10' \
+                stroke-linecap='round' stroke-dasharray='{circumference}' stroke-dashoffset='{offset}' \
+                transform='rotate(-90 65 65)' style='transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease;'/>\
+                <text x='65' y='60' text-anchor='middle' font-size='24' font-weight='bold' class='ring-text-main'>{pct:.0}%</text>\
+                <text x='65' y='80' text-anchor='middle' font-size='11' class='ring-text-sub'>{d:.1} / {t:.0} נ״ז</text>\
+                </svg>",
+            );
+
+            el::div().inner_html(svg)
+        })
+}
+
+fn gpa_sparkline(state: AppState, cumulative_avg: Memo<f64>) -> impl IntoView {
+    el::div()
+        .attr("style", "display: flex; justify-content: center; margin-bottom: 12px;")
+        .child(move || {
+            let averages: Vec<f64> = state.user.with(|u| {
+                u.semesters.iter().map(|s| s.average).filter(|&a| a > 0.0).collect()
+            });
+            if averages.len() < 2 { return el::div().into_any(); }
+
+            let cum = cumulative_avg.get();
+            let w = 220.0_f64;
+            let h = 50.0_f64;
+            let pad = 8.0_f64;
+            let min_v = averages.iter().cloned().fold(f64::MAX, f64::min).min(cum) - 5.0;
+            let max_v = averages.iter().cloned().fold(f64::MIN, f64::max).max(cum) + 5.0;
+            let range = (max_v - min_v).max(1.0);
+            let n = averages.len();
+
+            let points: Vec<String> = averages.iter().enumerate().map(|(i, &a)| {
+                let x = pad + (i as f64 / (n - 1) as f64) * (w - 2.0 * pad);
+                let y = pad + (1.0 - (a - min_v) / range) * (h - 2.0 * pad);
+                format!("{x:.1},{y:.1}")
+            }).collect();
+
+            let polyline_pts = points.join(" ");
+            let last = averages.last().unwrap_or(&0.0);
+            let first = averages.first().unwrap_or(&0.0);
+            let color = if last >= first { "#28a745" } else { "#dc3545" };
+
+            // Cumulative average dashed line
+            let cum_y = pad + (1.0 - (cum - min_v) / range) * (h - 2.0 * pad);
+
+            // Dots
+            let dots: String = averages.iter().enumerate().map(|(i, &a)| {
+                let x = pad + (i as f64 / (n - 1) as f64) * (w - 2.0 * pad);
+                let y = pad + (1.0 - (a - min_v) / range) * (h - 2.0 * pad);
+                format!("<circle cx='{x:.1}' cy='{y:.1}' r='3' fill='{color}'><title>סמסטר {}: {a:.1}</title></circle>", i + 1)
+            }).collect();
+
+            // Gradient fill area
+            let first_x = pad;
+            let last_x = pad + (w - 2.0 * pad);
+            let area_pts = format!("{first_x:.1},{h:.1} {polyline_pts} {last_x:.1},{h:.1}");
+
+            let svg = format!(
+                "<svg width='{w:.0}' height='{h:.0}' viewBox='0 0 {w:.0} {h:.0}'>\
+                <defs><linearGradient id='spark-fill' x1='0' y1='0' x2='0' y2='1'>\
+                <stop offset='0%' stop-color='{color}' stop-opacity='0.2'/>\
+                <stop offset='100%' stop-color='{color}' stop-opacity='0.02'/>\
+                </linearGradient></defs>\
+                <polygon points='{area_pts}' fill='url(#spark-fill)'/>\
+                <line x1='{pad:.1}' y1='{cum_y:.1}' x2='{last_x:.1}' y2='{cum_y:.1}' \
+                stroke='#6c757d' stroke-width='1' stroke-dasharray='4,3' opacity='0.6'/>\
+                <polyline points='{polyline_pts}' fill='none' stroke='{color}' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/>\
+                {dots}</svg>",
+            );
+
+            el::div().inner_html(svg).into_any()
+        })
 }

@@ -109,7 +109,7 @@ pub fn SearchCourseDialog() -> impl IntoView {
                                 el::div().class("autocomplete-list").child((
                                     fuzzy.then(|| {
                                         el::div()
-                                            .attr("style", "padding: 6px 10px; color: #856404; background: #fff3cd; border-bottom: 1px solid #eee; font-size: 0.9em;")
+                                            .class("fuzzy-banner")
                                             .child("קורס לא נמצא. האם התכוונת ל?")
                                     }),
                                     courses.into_iter().map(|(idx, full_name, points)| {
@@ -166,7 +166,7 @@ pub fn SearchCourseDialog() -> impl IntoView {
                             let has_followed = !followed_by.is_empty();
                             let has_extra = !overlapping.is_empty() || !identical.is_empty() || !inclusive.is_empty() || !including.is_empty();
 
-                            el::div().attr("style", "text-align: right; color: black; margin-top: 7px; min-height: 300px;").child((
+                            el::div().attr("style", "text-align: right; margin-top: 7px; min-height: 300px;").child((
                                 // Course header card
                                 el::div().class("card mb-3").child((
                                     el::div().class("card-header text-white text-center")
@@ -436,15 +436,15 @@ fn diff_highlight(query: &str, target: &str) -> String {
         match op {
             Op::Match(c) => html.push(*c),
             Op::Insert(c) => {
-                html.push_str("<span style='background:#90ee90'>");
+                html.push_str("<span class='diff-insert'>");
                 html.push(*c);
                 html.push_str("</span>");
             }
             Op::Delete => {
-                html.push_str("<span style='background:#f8d7da;text-decoration:line-through'>·</span>");
+                html.push_str("<span class='diff-delete'>·</span>");
             }
             Op::Replace(c) => {
-                html.push_str("<span style='background:#fff3cd'>");
+                html.push_str("<span class='diff-replace'>");
                 html.push(*c);
                 html.push_str("</span>");
             }

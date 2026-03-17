@@ -11,6 +11,7 @@ A web application for Technion students to plan and track their degree progress 
 - **Cloud Sync** — Synchronize your plan across devices with Google sign-in or email authentication (Firebase Auth).
 - **Histogram Viewer** — View grade distribution histograms per course, semester, and lecturer.
 - **Mobile Responsive** — Full-featured mobile layout with card-based courses, floating labels, and bottom sheets.
+- **Dark Mode** — Toggle between light and dark themes (GitHub dark dimmed palette); persisted via localStorage.
 - **Crash Reporting** — Automatic error reporting via Sentry (including WASM panic capture).
 - **Feedback** — Built-in feedback form powered by EmailJS.
 
@@ -48,7 +49,7 @@ frontend/
 │       ├── histogram_viewer.rs # Grade histogram display
 │       ├── footer.rs           # Footer + About modal + Toast
 │       └── mobile.rs           # Full mobile layout (header, tabs, cards, summary)
-├── style.css                   # All styling (icons, mobile responsive, components)
+├── style.css                   # All styling (dark mode, icons, mobile responsive, components)
 └── firebase_bridge_src.mjs     # Firebase v10 modular SDK (bundled by esbuild)
 
 degree-core/                    # Shared Rust library

@@ -15,7 +15,7 @@ fn close_all_row_menus() {
 fn semester_table_header() -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
 
-    el::thead().attr("style", "background-color: rgb(233, 236, 239);").child(
+    el::thead().class("semester-thead").child(
         el::tr().attr("style", "font-family: Alef, serif;").child((
             el::th().attr("scope", "col").attr("style", "width: 30px;"),
             el::th().attr("scope", "col").child("קטגוריה"),
@@ -93,21 +93,27 @@ fn spawn_fade_ghost(e: &web_sys::DragEvent) {
         Err(_) => return,
     };
     let gh: &web_sys::HtmlElement = ghost.unchecked_ref();
+    let is_dark = doc.document_element()
+        .and_then(|el| el.get_attribute("data-theme"))
+        .map(|t| t == "dark").unwrap_or(false);
+    let bg = if is_dark { "#2d333b" } else { "#fff" };
+    let border_col = if is_dark { "#539bf5" } else { "#0d6efd" };
+    let text_col = if is_dark { "#adbac7" } else { "#212529" };
     gh.set_inner_html(&format!(
-        "<span style='margin:0 8px'><i class='fas fa-grip-lines' style='color:#adb5bd;margin-left:8px'></i>{}</span>",
-        label
+        "<span style='margin:0 8px;color:{}'><i class='fas fa-grip-lines' style='color:#adb5bd;margin-left:8px'></i>{}</span>",
+        text_col, label
     ));
     let x = e.client_x() - 60;
     let y = e.client_y() - 18;
     let style = format!(
         "position:fixed;left:{}px;top:{}px;z-index:9999;\
-         background:#fff;border:2px solid #0d6efd;border-radius:6px;\
+         background:{};border:2px solid {};border-radius:6px;\
          padding:6px 16px;font-family:Alef,sans-serif;font-size:14px;\
          box-shadow:0 4px 12px rgba(0,0,0,0.15);direction:rtl;white-space:nowrap;\
          pointer-events:none;opacity:1;transform:scale(1) translateY(0);\
          transition:opacity 0.4s cubic-bezier(.36,.07,.19,.97),\
                     transform 0.4s cubic-bezier(.36,.07,.19,.97);",
-        x, y
+        x, y, bg, border_col
     );
     let _ = gh.set_attribute("style", &style);
     let _ = doc.body().unwrap().append_child(gh);
@@ -383,7 +389,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
         // Drag handle
         el::td()
             .attr("draggable", "true")
-            .attr("style", "width: 30px; cursor: grab; vertical-align: middle; text-align: center;")
+            .attr("style", "width: 30px; cursor: grab; vertical-align: middle; text-align: center; padding-left: 2px;")
             .on(ev::dragstart, move |e: web_sys::DragEvent| {
                 let sem_idx = state.user.with_untracked(|u| u.active_semester);
                 let dt = match e.data_transfer() {
@@ -408,14 +414,20 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                             if c.name.is_empty() { format!("שורה {}", index) } else { c.name.clone() }
                                         }).unwrap_or_else(|| format!("שורה {}", index))
                                     });
+                                    let is_dark = doc.document_element()
+                                        .and_then(|el| el.get_attribute("data-theme"))
+                                        .map(|t| t == "dark").unwrap_or(false);
+                                    let bg = if is_dark { "#2d333b" } else { "#fff" };
+                                    let border_col = if is_dark { "#539bf5" } else { "#0d6efd" };
+                                    let text_col = if is_dark { "#adbac7" } else { "#212529" };
                                     ghost_el.set_inner_html(&format!(
-                                        "<span style='margin: 0 8px;'><i class='fas fa-grip-lines' style='color:#adb5bd;margin-left:8px;'></i>{}</span>",
-                                        course_name
+                                        "<span style='margin: 0 8px; color:{};'><i class='fas fa-grip-lines' style='color:#adb5bd;margin-left:8px;'></i>{}</span>",
+                                        text_col, course_name
                                     ));
                                     let _ = ghost_el.style().set_property("position", "absolute");
                                     let _ = ghost_el.style().set_property("top", "-1000px");
-                                    let _ = ghost_el.style().set_property("background", "#fff");
-                                    let _ = ghost_el.style().set_property("border", "2px solid #0d6efd");
+                                    let _ = ghost_el.style().set_property("background", bg);
+                                    let _ = ghost_el.style().set_property("border", &format!("2px solid {}", border_col));
                                     let _ = ghost_el.style().set_property("border-radius", "6px");
                                     let _ = ghost_el.style().set_property("padding", "6px 16px");
                                     let _ = ghost_el.style().set_property("font-family", "Alef, sans-serif");
@@ -644,8 +656,8 @@ pub fn SemesterTable() -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
 
     el::div().child((
-        el::div().class("row").child(
-            el::table().class("table table-sm table-borderless").attr("style", "margin-right: 5px;").child((
+        el::div().class("semester-table-wrap").child(
+            el::table().class("table table-sm semester-table").child((
                 semester_table_header(),
                 el::tbody().child(
                     move || {
@@ -667,10 +679,10 @@ pub fn SemesterTable() -> impl IntoView {
         ),
         el::div().class("d-flex justify-content-center").child(
             el::div().class("d-flex gap-2 mx-1").child((
-                el::button().class("btn btn-info")
+                el::button().class("btn sem-btn sem-btn-add")
                     .on(ev::click, move |_| state.add_empty_course())
                     .child("הוספת שורה"),
-                el::button().class("btn btn-primary")
+                el::button().class("btn sem-btn sem-btn-search")
                     .on(ev::click, move |_| state.show_search_modal.set(true))
                     .child("חיפוש קורסים"),
             )),
@@ -690,10 +702,9 @@ pub fn SemesterSummary() -> impl IntoView {
     });
 
     el::div().class("container").attr("style", "max-width: 300px;").child(
-        el::div().class("card").child((
-            el::div().class("card-header text-center")
-                .attr("style", "padding: 3px; background-color: #e9ecef !important; color: #495057 !important;")
-                .child(el::p().attr("style", "color: #495057; margin-bottom: 0; font-weight: bold;").child("סיכום סמסטר")),
+        el::div().class("card semester-summary-card").child((
+            el::div().class("card-header text-center semester-summary-header")
+                .child(el::p().attr("style", "margin-bottom: 0; font-weight: bold;").child("סיכום סמסטר")),
             el::div().class("card-body").child((
                 el::div().class("row mb-2").child((
                     el::div().class("col-sm-3 align-self-center").attr("style", "margin: 4px;").child(

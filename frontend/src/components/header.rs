@@ -132,7 +132,7 @@ pub fn Header() -> impl IntoView {
                                 .child("ייבוא / ייצוא"),
                             el::ul()
                                 .class("dropdown-menu")
-                                .attr("style", "text-align: right; background-color: #fff; color: #212529;")
+                                .attr("style", "text-align: right;")
                                 .child((
                                     el::li().child(
                                         el::a().class("dropdown-item").attr("href", "#")
@@ -170,6 +170,24 @@ pub fn Header() -> impl IntoView {
                             el::a().class("nav-link").attr("href", "#")
                                 .on(ev::click, move |_| show_category_modal.set(true))
                                 .child("קטגוריות"),
+                        ),
+                        // Divider
+                        el::div().class("nav-divider"),
+                        // Dark mode toggle (pill with sun/moon)
+                        el::div().class("nav-item d-flex align-items-center").attr("style", "margin-right: 8px;").child(
+                            el::div().class("theme-toggle")
+                                .attr("title", "מצב כהה / בהיר")
+                                .on(ev::click, move |_| {
+                                    let _ = js_sys::eval("window.toggleDarkMode()");
+                                })
+                                .child((
+                                    el::span().class("theme-toggle-icon theme-icon-sun").child(
+                                        el::i().class("fas fa-sun"),
+                                    ),
+                                    el::span().class("theme-toggle-icon theme-icon-moon").child(
+                                        el::i().class("fas fa-moon"),
+                                    ),
+                                )),
                         ),
                     )),
                     el::a().class("navbar-brand")
@@ -391,15 +409,17 @@ pub fn Header() -> impl IntoView {
                         el::div().class("search-dialog")
                             .attr("style", "max-width: 380px; min-width: unset;")
                             .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
-                            .child(
-                                el::div().attr("style", "padding: 20px;").child((
-                                    el::div().class("d-flex justify-content-between align-items-center mb-3").child((
-                                        el::h5().class("mb-0").child("מחיקת כל הנתונים"),
-                                        el::button().class("btn btn-sm btn-outline-secondary")
-                                            .on(ev::click, move |_| show_clear_modal.set(false))
-                                            .child(el::i().class("fas fa-times")),
-                                    )),
-                                    el::p().attr("style", "color: #6c757d; margin-bottom: 12px;")
+                            .child((
+                                // Header
+                                el::div().class("d-flex justify-content-between align-items-center").child((
+                                    el::h5().class("mb-0").child("מחיקת כל הנתונים"),
+                                    el::button().class("btn btn-sm btn-outline-secondary")
+                                        .on(ev::click, move |_| show_clear_modal.set(false))
+                                        .child(el::i().class("fas fa-times")),
+                                )),
+                                // Body
+                                el::div().child((
+                                    el::p().class("text-muted").attr("style", "margin-bottom: 12px;")
                                         .child("הקלד REMOVE כדי לאשר מחיקה"),
                                     el::input()
                                         .class("form-control mb-3")
@@ -418,7 +438,7 @@ pub fn Header() -> impl IntoView {
                                         })
                                         .child("מחק הכל"),
                                 )),
-                            ),
+                            )),
                     )
             })
         },
