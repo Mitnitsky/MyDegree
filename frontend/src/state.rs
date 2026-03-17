@@ -2,7 +2,7 @@ use leptos::prelude::*;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use degree_core::course::{CourseDB, CourseType};
-use degree_core::degree::UserState;
+use degree_core::degree::{UserState, ProfilesData, Profile};
 use degree_core::semester::Semester;
 use crate::firebase;
 
@@ -12,6 +12,8 @@ const COURSES_HASH: &str = env!("COURSES_HASH");
 #[derive(Clone, Copy)]
 pub struct AppState {
     pub user: RwSignal<UserState>,
+    pub profiles: RwSignal<ProfilesData>,
+    pub active_profile: RwSignal<usize>,
     pub logged: RwSignal<bool>,
     pub user_name: RwSignal<String>,
     pub uid: RwSignal<Option<String>>,
@@ -29,10 +31,16 @@ impl AppState {
     /// Load the course DB (from localStorage cache or network), then build the full state.
     pub async fn load() -> Self {
         let course_db = Self::load_course_db().await;
-        let user = Self::load_from_storage().unwrap_or_default();
+        let profiles_data = Self::load_profiles_from_storage().unwrap_or_default();
+        let active = profiles_data.active.min(profiles_data.profiles.len().saturating_sub(1));
+        let user = profiles_data.profiles.get(active)
+            .map(|p| p.data.clone())
+            .unwrap_or_default();
 
         let state = Self {
             user: RwSignal::new(user),
+            profiles: RwSignal::new(profiles_data),
+            active_profile: RwSignal::new(active),
             logged: RwSignal::new(false),
             user_name: RwSignal::new(String::new()),
             uid: RwSignal::new(None),
@@ -47,6 +55,8 @@ impl AppState {
 
         // Auto-save: localStorage is immediate, Firestore is debounced (3s) with hash dedup
         let user_signal = state.user;
+        let profiles_signal = state.profiles;
+        let active_signal = state.active_profile;
         let uid_signal = state.uid;
         let logged_signal = state.logged;
         let loading_guard = state.loading_from_cloud;
@@ -58,8 +68,19 @@ impl AppState {
         Effect::new(move |_| {
             let user = user_signal.get();
 
-            // Always save to localStorage immediately
-            if let Ok(json) = serde_json::to_string(&user) {
+            // Sync user back into profiles
+            profiles_signal.update(|p| {
+                let idx = active_signal.get_untracked();
+                if let Some(profile) = p.profiles.get_mut(idx) {
+                    profile.data = user.clone();
+                }
+                p.active = idx;
+            });
+
+            let profiles = profiles_signal.get_untracked();
+
+            // Always save full profiles to localStorage immediately
+            if let Ok(json) = serde_json::to_string(&profiles) {
                 if let Some(window) = web_sys::window() {
                     if let Ok(Some(storage)) = window.local_storage() {
                         let _ = storage.set_item("saved_session_data", &json);
@@ -80,7 +101,8 @@ impl AppState {
                     let uid_clone = uid.clone();
                     let hash_ref = last_written_hash.clone();
                     let timeout = gloo_timers::callback::Timeout::new(3_000, move || {
-                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                        let profiles_now = profiles_signal.get_untracked();
+                        if let Ok(json) = serde_json::to_string(&profiles_now) {
                             if *hash_ref.borrow() == json {
                                 return;
                             }
@@ -144,17 +166,15 @@ impl AppState {
         resp.text().await.ok()
     }
 
-    fn load_from_storage() -> Option<UserState> {
+    fn load_profiles_from_storage() -> Option<ProfilesData> {
         let window = web_sys::window()?;
         let storage = window.local_storage().ok()??;
         let json = storage.get_item("saved_session_data").ok()??;
-        match serde_json::from_str(&json) {
-            Ok(user) => Some(user),
-            Err(e) => {
-                // Deserialization failed — data is corrupted or schema changed.
-                // Clear it and start fresh.
+        match ProfilesData::from_json(&json) {
+            Some(profiles) => Some(profiles),
+            None => {
                 web_sys::console::warn_1(
-                    &format!("Failed to deserialize saved session, starting fresh: {}", e).into(),
+                    &"Failed to deserialize saved session, starting fresh".into(),
                 );
                 let _ = storage.remove_item("saved_session_data");
                 None
@@ -425,6 +445,8 @@ impl AppState {
         let user_name = self.user_name;
         let uid_signal = self.uid;
         let user_signal = self.user;
+        let profiles_signal = self.profiles;
+        let active_signal = self.active_profile;
         let course_db = self.course_db;
         let toast = self.toast_message;
         let warn_signal = self.data_warnings;
@@ -468,36 +490,39 @@ impl AppState {
                                         }
                                     });
                                     if let Some(json) = json_opt {
-                                        let (sanitized, warnings) = degree_core::sanitize_user_json(&json);
+                                        let (sanitized, warnings) = ProfilesData::sanitize_json(&json);
                                         if !warnings.is_empty() {
                                             web_sys::console::warn_1(
                                                 &format!("Sanitized user data: {:?}", warnings).into()
                                             );
                                         }
-                                        match serde_json::from_str::<UserState>(&sanitized) {
-                                            Ok(cloud_user) => {
-                                                user_signal.set(cloud_user);
-                                                user_signal.update(|u| {
-                                                    course_db.with_value(|db| u.recalculate(db));
-                                                });
+                                        match ProfilesData::from_json(&sanitized) {
+                                            Some(mut cloud_profiles) => {
+                                                let active = cloud_profiles.active.min(cloud_profiles.profiles.len().saturating_sub(1));
+                                                cloud_profiles.active = active;
+                                                // Recalculate all profiles
+                                                for profile in &mut cloud_profiles.profiles {
+                                                    course_db.with_value(|db| profile.data.recalculate(db));
+                                                }
+                                                let active_user = cloud_profiles.profiles[active].data.clone();
+                                                profiles_signal.set(cloud_profiles);
+                                                active_signal.set(active);
+                                                user_signal.set(active_user);
                                                 if !warnings.is_empty() {
-                                                    // Write sanitized data back to Firestore so warnings don't recur
-                                                    if let Ok(clean_json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                                    if let Ok(clean_json) = serde_json::to_string(&profiles_signal.get_untracked()) {
                                                         let _ = firebase::firestore_set(&uid_for_async, &clean_json);
                                                     }
-                                                    // Delay to avoid reactive conflicts during auth flow
                                                     gloo_timers::callback::Timeout::new(500, move || {
                                                         warn_signal.set(warnings);
                                                     }).forget();
                                                 }
                                             }
-                                            Err(e) => {
+                                            None => {
                                                 web_sys::console::warn_1(
-                                                    &format!("Failed to parse Firestore data: {}", e).into()
+                                                    &"Failed to parse Firestore data".into()
                                                 );
-                                                // Cloud data is corrupt — only overwrite if local has real data
                                                 if local_has_data {
-                                                    if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                                    if let Ok(json) = serde_json::to_string(&profiles_signal.get_untracked()) {
                                                         let _ = firebase::firestore_set(&uid_for_async, &json);
                                                     }
                                                     toast.set(Some("⚠️ נתוני ענן פגומים — נשמרים מחדש מהמכשיר".into()));
@@ -509,7 +534,7 @@ impl AppState {
                                     } else {
                                         // No document yet — only upload if local has real data
                                         if local_has_data {
-                                            if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                            if let Ok(json) = serde_json::to_string(&profiles_signal.get_untracked()) {
                                                 let _ = firebase::firestore_set(&uid_for_async, &json);
                                             }
                                         }
@@ -519,10 +544,8 @@ impl AppState {
                                     web_sys::console::error_1(
                                         &format!("Firestore read failed: {:?}", e).into()
                                     );
-                                    // Cloud read failed — only upload if local has real data
-                                    // (prevents empty local state from erasing cloud data)
                                     if local_has_data {
-                                        if let Ok(json) = serde_json::to_string(&user_signal.get_untracked()) {
+                                        if let Ok(json) = serde_json::to_string(&profiles_signal.get_untracked()) {
                                             let _ = firebase::firestore_set(&uid_for_async, &json);
                                         }
                                         toast.set(Some("⚠️ טעינה מהענן נכשלה — הנתונים המקומיים נשמרו".into()));
@@ -564,6 +587,8 @@ impl AppState {
         self.logged.set(false);
         self.user_name.set(String::new());
         self.uid.set(None);
+        self.profiles.set(ProfilesData::default());
+        self.active_profile.set(0);
         self.user.set(UserState::default());
         if let Some(window) = web_sys::window() {
             if let Ok(Some(storage)) = window.local_storage() {
@@ -572,5 +597,72 @@ impl AppState {
             }
         }
         self.show_toast("התנתקת בהצלחה");
+    }
+
+    // --- Profile management ---
+
+    pub fn switch_profile(&self, index: usize) {
+        // Save current user back to profiles
+        self.profiles.update(|p| {
+            let cur = self.active_profile.get_untracked();
+            if let Some(profile) = p.profiles.get_mut(cur) {
+                profile.data = self.user.get_untracked();
+            }
+        });
+        // Switch
+        let profiles = self.profiles.get_untracked();
+        if let Some(profile) = profiles.profiles.get(index) {
+            self.active_profile.set(index);
+            self.user.set(profile.data.clone());
+            self.recalculate();
+        }
+    }
+
+    pub fn add_profile(&self, name: String) {
+        // Save current user first
+        self.profiles.update(|p| {
+            let cur = self.active_profile.get_untracked();
+            if let Some(profile) = p.profiles.get_mut(cur) {
+                profile.data = self.user.get_untracked();
+            }
+            p.profiles.push(Profile {
+                name,
+                data: UserState::default(),
+            });
+        });
+        let new_idx = self.profiles.get_untracked().profiles.len() - 1;
+        self.active_profile.set(new_idx);
+        self.user.set(UserState::default());
+    }
+
+    pub fn rename_profile(&self, index: usize, name: String) {
+        self.profiles.update(|p| {
+            if let Some(profile) = p.profiles.get_mut(index) {
+                profile.name = name;
+            }
+        });
+    }
+
+    pub fn delete_profile(&self, index: usize) {
+        let count = self.profiles.get_untracked().profiles.len();
+        if count <= 1 { return; } // Can't delete last profile
+
+        self.profiles.update(|p| {
+            p.profiles.remove(index);
+        });
+
+        let active = self.active_profile.get_untracked();
+        let new_active = if active >= index && active > 0 { active - 1 } else { active.min(count - 2) };
+        self.active_profile.set(new_active);
+
+        let profiles = self.profiles.get_untracked();
+        if let Some(profile) = profiles.profiles.get(new_active) {
+            self.user.set(profile.data.clone());
+            self.recalculate();
+        }
+    }
+
+    pub fn profile_names(&self) -> Vec<String> {
+        self.profiles.with(|p| p.profiles.iter().map(|pr| pr.name.clone()).collect())
     }
 }

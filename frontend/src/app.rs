@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use leptos::prelude::event_target_value;
 use leptos::html as el;
 use leptos::ev;
 use crate::state::AppState;
@@ -44,6 +45,7 @@ fn app_content() -> impl IntoView {
             // Desktop layout (hidden on mobile via CSS)
             el::div().class("desktop-only").child((
                 Header(),
+                profile_tabs(),
                 el::div().class("container-fluid").child((
                     SemestersTabView(),
                     DegreeSummary(),
@@ -53,6 +55,7 @@ fn app_content() -> impl IntoView {
             // Mobile layout (hidden on desktop via CSS)
             el::div().class("mobile-only mobile-layout").child((
                 MobileHeader(),
+                profile_tabs(),
                 MobileSemesterTabs(),
                 MobileSemesterSummary(),
                 MobileCourseList(),
@@ -153,4 +156,113 @@ fn app_content() -> impl IntoView {
                 })
             },
         ))
+}
+
+fn profile_tabs() -> impl IntoView {
+    let state = use_context::<AppState>().unwrap();
+    let editing = RwSignal::<Option<usize>>::new(None);
+    let edit_name = RwSignal::new(String::new());
+
+    move || {
+        let profiles = state.profiles.get();
+        let active = state.active_profile.get();
+        let count = profiles.profiles.len();
+
+        // Single profile — show compact "add degree" button
+        if count <= 1 && editing.get().is_none() {
+            return el::div()
+                .attr("style", "display: flex; justify-content: center; padding: 4px 12px; background: var(--bg-secondary, #f6f8fa); border-bottom: 1px solid var(--border-color, #d0d7de);")
+                .child(
+                    el::button()
+                        .attr("style", "padding: 3px 12px; border-radius: 6px; border: 1px dashed var(--border-color, #d0d7de); background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.8rem;")
+                        .on(ev::click, move |_| {
+                            state.add_profile("תואר 2".to_string());
+                            // Rename first profile
+                            state.rename_profile(0, "תואר 1".to_string());
+                        })
+                        .child("+ הוסף תואר נוסף"),
+                )
+                .into_any();
+        }
+
+        el::div()
+            .attr("style", "display: flex; align-items: center; gap: 6px; padding: 4px 12px; background: var(--bg-secondary, #f6f8fa); border-bottom: 1px solid var(--border-color, #d0d7de); overflow-x: auto; font-size: 0.85rem;")
+            .child((
+                profiles.profiles.iter().enumerate().map(|(i, profile)| {
+                    let name = profile.name.clone();
+                    let is_active = i == active;
+                    let is_editing = editing.get() == Some(i);
+
+                    if is_editing {
+                        el::input()
+                            .class("form-control form-control-sm")
+                            .attr("style", "width: 140px; font-size: 0.8rem;")
+                            .prop("value", move || edit_name.get())
+                            .on(ev::input, move |e| edit_name.set(event_target_value(&e)))
+                            .on(ev::keydown, move |e: web_sys::KeyboardEvent| {
+                                if e.key() == "Enter" {
+                                    let val = edit_name.get_untracked();
+                                    if !val.trim().is_empty() {
+                                        state.rename_profile(i, val.trim().to_string());
+                                    }
+                                    editing.set(None);
+                                } else if e.key() == "Escape" {
+                                    editing.set(None);
+                                }
+                            })
+                            .on(ev::blur, move |_| {
+                                let val = edit_name.get_untracked();
+                                if !val.trim().is_empty() {
+                                    state.rename_profile(i, val.trim().to_string());
+                                }
+                                editing.set(None);
+                            })
+                            .into_any()
+                    } else {
+                        let name_for_edit = name.clone();
+                        let name_display = name.clone();
+                        el::div()
+                            .attr("style", format!(
+                                "display: flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background 0.15s; {}",
+                                if is_active { "background: var(--accent-blue, #0d6efd); color: white; font-weight: 600;" }
+                                else { "background: var(--bg-primary, #fff); color: var(--text-primary); border: 1px solid var(--border-color, #d0d7de);" }
+                            ))
+                            .on(ev::click, move |_| {
+                                if !is_active { state.switch_profile(i); }
+                            })
+                            .on(ev::dblclick, move |_| {
+                                edit_name.set(name_for_edit.clone());
+                                editing.set(Some(i));
+                            })
+                            .child((
+                                name_display,
+                                // Delete button (only if > 1 profile, and it's active)
+                                (count > 1 && is_active).then(|| {
+                                    el::span()
+                                        .attr("style", format!(
+                                            "margin-right: 4px; font-size: 0.7rem; opacity: 0.7; cursor: pointer; {}",
+                                            if is_active { "color: white;" } else { "color: var(--text-muted);" }
+                                        ))
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.stop_propagation();
+                                            state.delete_profile(i);
+                                        })
+                                        .child("✕")
+                                }),
+                            ))
+                            .into_any()
+                    }
+                }).collect::<Vec<_>>(),
+                // Add profile button
+                el::button()
+                    .attr("style", "padding: 4px 8px; border-radius: 6px; border: 1px dashed var(--border-color, #d0d7de); background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; white-space: nowrap;")
+                    .on(ev::click, move |_| {
+                        let count = state.profiles.get_untracked().profiles.len();
+                        let name = format!("תואר {}", count + 1);
+                        state.add_profile(name);
+                    })
+                    .child("+ תואר חדש"),
+            ))
+            .into_any()
+    }
 }

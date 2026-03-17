@@ -8,6 +8,96 @@ use crate::course::{CourseDB, CourseType, EXEMPTION_INDEX, default_course_types,
 use crate::semester::Semester;
 use crate::utils::math_round_10;
 
+/// A named degree profile containing a full UserState.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Profile {
+    pub name: String,
+    pub data: UserState,
+}
+
+/// Top-level data structure wrapping multiple degree profiles.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProfilesData {
+    #[serde(default)]
+    pub active: usize,
+    pub profiles: Vec<Profile>,
+}
+
+impl Default for ProfilesData {
+    fn default() -> Self {
+        Self {
+            active: 0,
+            profiles: vec![Profile {
+                name: "התואר שלי".into(),
+                data: UserState::default(),
+            }],
+        }
+    }
+}
+
+impl ProfilesData {
+    /// Parse JSON that is either a ProfilesData (has "profiles" key) or a legacy
+    /// bare UserState. Legacy data is auto-migrated into a single-profile wrapper.
+    pub fn from_json(json: &str) -> Option<Self> {
+        let val: Value = serde_json::from_str(json).ok()?;
+
+        if val.get("profiles").is_some() {
+            // New format — parse directly
+            serde_json::from_value(val).ok()
+        } else {
+            // Legacy format — treat as a bare UserState
+            let (sanitized, _warnings) = sanitize_user_json(json);
+            let user: UserState = serde_json::from_str(&sanitized).ok()?;
+            Some(Self {
+                active: 0,
+                profiles: vec![Profile {
+                    name: "התואר שלי".into(),
+                    data: user,
+                }],
+            })
+        }
+    }
+
+    /// Sanitize a ProfilesData JSON string. Runs sanitize_user_json on each profile's data.
+    /// Returns (sanitized_json, all_warnings).
+    pub fn sanitize_json(json: &str) -> (String, Vec<String>) {
+        let val: Value = match serde_json::from_str(json) {
+            Ok(v) => v,
+            Err(_) => return (json.to_string(), vec![]),
+        };
+
+        if val.get("profiles").is_some() {
+            // New format — sanitize each profile's data
+            let mut all_warnings = Vec::new();
+            let mut profiles_val = val.clone();
+            if let Some(arr) = profiles_val.get_mut("profiles").and_then(|p| p.as_array_mut()) {
+                for (i, profile) in arr.iter_mut().enumerate() {
+                    if let Some(data) = profile.get("data") {
+                        let data_json = data.to_string();
+                        let (sanitized, mut warnings) = sanitize_user_json(&data_json);
+                        if !warnings.is_empty() {
+                            let name = profile.get("name")
+                                .and_then(|n| n.as_str())
+                                .unwrap_or("ללא שם");
+                            for w in &mut warnings {
+                                *w = format!("[{}] {}", name, w);
+                            }
+                            all_warnings.extend(warnings);
+                        }
+                        if let Ok(clean_data) = serde_json::from_str::<Value>(&sanitized) {
+                            profile["data"] = clean_data;
+                        }
+                    }
+                }
+            }
+            (profiles_val.to_string(), all_warnings)
+        } else {
+            // Legacy format — sanitize as bare UserState
+            sanitize_user_json(json)
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserState {
     #[serde(default, deserialize_with = "usize_from_any")]
