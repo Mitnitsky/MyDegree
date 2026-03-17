@@ -7,7 +7,6 @@ A web application for Technion students to plan and track their degree progress 
 - **Semester & Degree Averages** — Track per-semester and cumulative GPA in real time.
 - **Course Search** — Search and add courses from an up-to-date UG-based course database.
 - **Pre-requisite & Parallel Course Checks** — Automatically validates course dependencies on addition.
-- **UG Import** — Import courses and grades directly from the Technion UG system.
 - **Course Type Tracking** — Monitor point totals across required, elective, and other course categories.
 - **Cloud Sync** — Synchronize your plan across devices with Google sign-in or email authentication (Firebase Auth).
 - **Histogram Viewer** — View grade distribution histograms per course, semester, and lecturer.
