@@ -2,7 +2,7 @@ use leptos::prelude::*;
 use leptos::html as el;
 use leptos::ev;
 use crate::state::AppState;
-use crate::components::{Header, SemestersTabView, DegreeSummary, Footer, Toast, SearchCourseDialog, MobileFooter};
+use crate::components::{Header, SemestersTabView, DegreeSummary, Footer, Toast, SearchCourseDialog, MobileFooter, CourseMap};
 use crate::components::{MobileHeader, MobileSemesterTabs, MobileSemesterSummary, MobileCourseList, MobileDegreeSummary};
 use crate::components::histogram_viewer::{HistogramViewer, HistogramViewerProps};
 
@@ -122,6 +122,10 @@ fn app_content() -> impl IntoView {
             move || {
                 let state = use_context::<AppState>().unwrap();
                 state.show_search_modal.get().then(SearchCourseDialog)
+            },
+            move || {
+                let state = use_context::<AppState>().unwrap();
+                state.show_course_map.get().then(CourseMap)
             },
             move || {
                 let state = use_context::<AppState>().unwrap();

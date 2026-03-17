@@ -215,6 +215,14 @@ pub fn Header() -> impl IntoView {
                         ),
                         // Divider
                         el::div().class("nav-divider"),
+                        // Course map link
+                        el::div().class("nav-item").child(
+                            el::a().class("nav-link").attr("href", "#")
+                                .on(ev::click, move |_| state.show_course_map.set(true))
+                                .child("מפת קורסים"),
+                        ),
+                        // Divider
+                        el::div().class("nav-divider"),
                         // Dark mode toggle (pill with sun/moon)
                         el::div().class("nav-item d-flex align-items-center").attr("style", "margin-right: 8px;").child(
                             el::div().class("theme-toggle")

@@ -18,6 +18,7 @@ pub struct AppState {
     pub course_db: StoredValue<CourseDB>,
     pub show_search_modal: RwSignal<bool>,
     pub show_histogram_modal: RwSignal<Option<String>>,
+    pub show_course_map: RwSignal<bool>,
     pub toast_message: RwSignal<Option<String>>,
     pub data_warnings: RwSignal<Vec<String>>,
     /// Guard: true while loading from Firestore — prevents auto-save from overwriting cloud data
@@ -38,6 +39,7 @@ impl AppState {
             course_db: StoredValue::new(course_db),
             show_search_modal: RwSignal::new(false),
             show_histogram_modal: RwSignal::new(None),
+            show_course_map: RwSignal::new(false),
             toast_message: RwSignal::new(None),
             data_warnings: RwSignal::new(Vec::new()),
             loading_from_cloud: RwSignal::new(false),

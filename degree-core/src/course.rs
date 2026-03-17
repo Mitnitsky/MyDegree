@@ -158,6 +158,8 @@ pub struct CourseDBEntry {
     pub number: String,
     pub points: f64,
     #[serde(default)]
+    pub faculty: String,
+    #[serde(default)]
     pub prerequisites: Vec<Vec<String>>,
     #[serde(default)]
     pub linked: Vec<String>,

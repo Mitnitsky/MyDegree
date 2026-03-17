@@ -19,6 +19,7 @@ fn main() {
         c["number"].as_str().unwrap_or("").hash(&mut hasher);
         c["name"].as_str().unwrap_or("").hash(&mut hasher);
         c["points"].as_f64().unwrap_or(0.0).to_bits().hash(&mut hasher);
+        c["faculty"].as_str().unwrap_or("").hash(&mut hasher);
     }
     let hash = format!("{:016x}", hasher.finish());
 

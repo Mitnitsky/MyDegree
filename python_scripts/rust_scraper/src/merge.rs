@@ -46,6 +46,8 @@ struct SourceGeneral {
     name: String,
     #[serde(rename = "נקודות", default)]
     points: serde_json::Value,
+    #[serde(rename = "פקולטה", default)]
+    faculty: String,
     #[serde(rename = "מקצועות קדם", default)]
     prerequisites: serde_json::Value,
     #[serde(rename = "מקצועות צמודים", default)]
@@ -110,6 +112,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let name = src.general.name.trim().to_string();
             let points = parse_points(&src.general.points);
+            let faculty = src.general.faculty.trim().to_string();
             let prerequisites = parse_prerequisites(&src.general.prerequisites);
             let linked = parse_course_list(src.general.linked.as_deref());
             let identical = parse_course_list(src.general.identical.as_deref());
@@ -121,6 +124,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 name,
                 number,
                 points,
+                faculty,
                 prerequisites,
                 linked,
                 identical,
