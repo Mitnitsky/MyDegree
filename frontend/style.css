@@ -257,9 +257,15 @@
     font-size: 1.05rem;
 }
 [data-theme="dark"] .form-range::-webkit-slider-runnable-track {
-    background: var(--bg-secondary);
+    background: var(--border-color);
 }
 [data-theme="dark"] .form-range::-webkit-slider-thumb {
+    background: var(--accent-blue);
+}
+[data-theme="dark"] .form-range::-moz-range-track {
+    background: var(--border-color);
+}
+[data-theme="dark"] .form-range::-moz-range-thumb {
     background: var(--accent-blue);
 }
 
