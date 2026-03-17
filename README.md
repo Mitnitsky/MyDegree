@@ -101,6 +101,11 @@ Output goes to `frontend/dist/`.
 firebase deploy --only hosting
 ```
 
+## Acknowledgements
+
+- Grade histograms powered by data from [michael-maltsev/technion-histograms](https://github.com/michael-maltsev/technion-histograms)
+- Course information sourced via [michael-maltsev/technion-sap-info-fetcher](https://github.com/michael-maltsev/technion-sap-info-fetcher)
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
