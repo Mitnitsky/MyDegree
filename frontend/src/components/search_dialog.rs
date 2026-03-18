@@ -67,7 +67,7 @@ pub fn SearchCourseDialog() -> impl IntoView {
     });
 
     let on_close = move |_: web_sys::MouseEvent| {
-        state.show_search_modal.set(false);
+        gloo_timers::callback::Timeout::new(0, move || state.show_search_modal.set(false)).forget();
     };
 
     el::div().class("search-overlay")
@@ -80,7 +80,9 @@ pub fn SearchCourseDialog() -> impl IntoView {
                     el::div().class("d-flex justify-content-between align-items-center").child((
                         el::h5().class("mb-0").child("חיפוש קורסים"),
                         el::button().class("btn btn-sm btn-outline-secondary")
-                            .on(ev::click, move |_| state.show_search_modal.set(false))
+                            .on(ev::click, move |_| {
+                                gloo_timers::callback::Timeout::new(0, move || state.show_search_modal.set(false)).forget();
+                            })
                             .child(el::i().class("fas fa-times")),
                     )),
                     // Scrollable body

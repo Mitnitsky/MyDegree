@@ -580,9 +580,15 @@ fn semester_table_row(index: usize) -> impl IntoView {
                     .child(el::i().class("fas fa-ellipsis-v")),
                 move || {
                     show_menu.get().then(|| {
+                        let dismiss = move || {
+                            gloo_timers::callback::Timeout::new(0, move || show_menu.set(false)).forget();
+                        };
+                        let dismiss2 = dismiss.clone();
+                        let dismiss3 = dismiss.clone();
+                        let dismiss4 = dismiss.clone();
                         el::ul()
                             .class("dropdown-menu show")
-                            .attr("style", "text-align: right; position: absolute; left: 0;")
+                            .attr("style", "text-align: right; position: absolute; left: 0; bottom: 100%; top: auto; z-index: 200;")
                             .child((
                                 // Histogram
                                 el::li().child(
@@ -593,7 +599,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                             if !num.is_empty() {
                                                 state.show_histogram_modal.set(Some(num));
                                             }
-                                            show_menu.set(false);
+                                            dismiss();
                                         })
                                         .child((el::i().class("fas fa-chart-bar").attr("style", "color: dodgerblue; margin-left: 5px;"), " הצג היסטוגרמות")),
                                 ),
@@ -604,7 +610,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                             e.prevent_default();
                                             let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
                                             state.update_course_field(index, "binary", if !is_binary { "true" } else { "false" });
-                                            show_menu.set(false);
+                                            dismiss2();
                                         })
                                         .child(move || {
                                             let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
@@ -627,7 +633,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                             state.update_course_field(index, "grade", "0");
                                             state.update_course_field(index, "type", "0");
                                             state.update_course_field(index, "binary", "false");
-                                            show_menu.set(false);
+                                            dismiss3();
                                         })
                                         .child((el::i().class("fas fa-broom").attr("style", "color: burlywood; margin-left: 5px;"), " נקה שורה")),
                                 ),
@@ -637,7 +643,7 @@ fn semester_table_row(index: usize) -> impl IntoView {
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
                                             state.remove_course(index);
-                                            show_menu.set(false);
+                                            dismiss4();
                                         })
                                         .child((el::i().class("fas fa-trash").attr("style", "color: darkred; margin-left: 10px;"), " הסר שורה")),
                                 ),

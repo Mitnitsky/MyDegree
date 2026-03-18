@@ -162,7 +162,9 @@ pub fn HistogramViewer(course_number: String, #[prop(optional)] hide_header: boo
                                 el::div()
                                     .class("search-overlay")
                                     .attr("style", "z-index: 2000;")
-                                    .on(ev::click, move |_| show_image_modal.set(false))
+                                    .on(ev::click, move |_| {
+                                        gloo_timers::callback::Timeout::new(0, move || show_image_modal.set(false)).forget();
+                                    })
                                     .child(
                                         el::div()
                                             .attr("style", "max-width: 90%; max-height: 90%; margin: auto; margin-top: 5vh;")

@@ -604,7 +604,7 @@
 .semester-table-wrap {
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     margin: 0 5px 10px;
 }
 .semester-table {
@@ -618,6 +618,18 @@
 .semester-thead {
     background-color: rgb(233, 236, 239);
     border-bottom: 2px solid #dee2e6;
+}
+.semester-thead th:first-child {
+    border-top-right-radius: 7px;
+}
+.semester-thead th:last-child {
+    border-top-left-radius: 7px;
+}
+.semester-table tr:last-child td:first-child {
+    border-bottom-right-radius: 7px;
+}
+.semester-table tr:last-child td:last-child {
+    border-bottom-left-radius: 7px;
 }
 [data-theme="dark"] .semester-table-wrap {
     border-color: var(--border-color) !important;
@@ -1535,12 +1547,12 @@ tr.course-row {
     }
     .mobile-sem-actions-menu {
         position: absolute;
-        top: 44px;
+        bottom: calc(100% - 8px);
         left: 8px;
         background: #fff;
         border: 1px solid #dee2e6;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
         z-index: 100;
         min-width: 180px;
         overflow: hidden;

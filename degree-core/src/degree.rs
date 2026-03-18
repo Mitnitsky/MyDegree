@@ -710,4 +710,148 @@ mod tests {
         let grade = root["semesters"][0]["courses"][0]["grade"].as_i64().unwrap();
         assert_eq!(grade, 0);
     }
+
+    // --- ProfilesData backward compatibility ---
+
+    #[test]
+    fn test_profiles_from_legacy_bare_userstate() {
+        // Simulates data saved by old app (no "profiles" key)
+        let legacy = r#"{
+            "summer_semesters": 0,
+            "active_semester": 0,
+            "degree_average": 85.5,
+            "degree_points": 120,
+            "degree_points_done": 30,
+            "degree_points_left": 90,
+            "degree_points_to_choose": 0,
+            "degree_graded_points": 30,
+            "english_exemption": false,
+            "semesters": [{
+                "name": "1",
+                "average": 85.5,
+                "points": 30,
+                "courses": [
+                    {"name": "חשבון", "number": "104012", "grade": 85, "points": 5.0, "type": 0}
+                ]
+            }]
+        }"#;
+        let profiles = ProfilesData::from_json(legacy).expect("Should parse legacy format");
+        assert_eq!(profiles.profiles.len(), 1);
+        assert_eq!(profiles.active, 0);
+        assert_eq!(profiles.profiles[0].name, "התואר שלי");
+        assert!((profiles.profiles[0].data.degree_average - 85.5).abs() < 0.01);
+        assert_eq!(profiles.profiles[0].data.semesters.len(), 1);
+        assert_eq!(profiles.profiles[0].data.semesters[0].courses.len(), 1);
+    }
+
+    #[test]
+    fn test_profiles_from_new_format() {
+        let new_fmt = r#"{
+            "active": 1,
+            "profiles": [
+                {"name": "תואר ראשון", "data": {"semesters": [], "degree_points": 120}},
+                {"name": "תואר שני", "data": {"semesters": [], "degree_points": 40}}
+            ]
+        }"#;
+        let profiles = ProfilesData::from_json(new_fmt).expect("Should parse new format");
+        assert_eq!(profiles.profiles.len(), 2);
+        assert_eq!(profiles.active, 1);
+        assert_eq!(profiles.profiles[0].name, "תואר ראשון");
+        assert_eq!(profiles.profiles[1].name, "תואר שני");
+        assert!((profiles.profiles[0].data.degree_points - 120.0).abs() < 0.01);
+        assert!((profiles.profiles[1].data.degree_points - 40.0).abs() < 0.01);
+    }
+
+    #[test]
+    fn test_profiles_roundtrip() {
+        // Create profiles, serialize, deserialize, verify
+        let mut profiles = ProfilesData::default();
+        profiles.profiles[0].data.degree_points = 160.0;
+        profiles.profiles.push(Profile {
+            name: "מאסטר".into(),
+            data: UserState { degree_points: 40.0, ..Default::default() },
+        });
+        profiles.active = 1;
+
+        let json = serde_json::to_string(&profiles).unwrap();
+        let restored = ProfilesData::from_json(&json).expect("Roundtrip should work");
+        assert_eq!(restored.profiles.len(), 2);
+        assert_eq!(restored.active, 1);
+        assert_eq!(restored.profiles[0].name, "התואר שלי");
+        assert_eq!(restored.profiles[1].name, "מאסטר");
+        assert!((restored.profiles[0].data.degree_points - 160.0).abs() < 0.01);
+        assert!((restored.profiles[1].data.degree_points - 40.0).abs() < 0.01);
+    }
+
+    #[test]
+    fn test_profiles_sanitize_legacy() {
+        // Legacy with bad values should sanitize + produce warnings
+        let legacy = r#"{
+            "semesters": [{
+                "name": "1",
+                "average": "bad",
+                "points": 3.0,
+                "courses": [
+                    {"name": "פיזיקה", "number": "114071", "grade": "bad", "points": 3.0, "type": 0}
+                ]
+            }]
+        }"#;
+        let (sanitized, warnings) = ProfilesData::sanitize_json(legacy);
+        assert!(!warnings.is_empty());
+        // Should still be parseable after sanitization
+        let profiles = ProfilesData::from_json(&sanitized).expect("Sanitized legacy should parse");
+        assert_eq!(profiles.profiles.len(), 1);
+    }
+
+    #[test]
+    fn test_profiles_sanitize_new_format() {
+        // New format with bad values in one profile
+        let new_fmt = r#"{
+            "active": 0,
+            "profiles": [
+                {"name": "תואר א", "data": {"semesters": [{"name": "1", "average": "bad", "courses": [{"name": "מתמט", "number": "1", "grade": "bad", "points": 3.0, "type": 0}]}]}},
+                {"name": "תואר ב", "data": {"semesters": []}}
+            ]
+        }"#;
+        let (sanitized, warnings) = ProfilesData::sanitize_json(new_fmt);
+        // Warnings should be prefixed with profile name
+        assert!(warnings.iter().any(|w| w.contains("[תואר א]")));
+        assert!(!warnings.iter().any(|w| w.contains("[תואר ב]")));
+        let profiles = ProfilesData::from_json(&sanitized).expect("Sanitized new format should parse");
+        assert_eq!(profiles.profiles.len(), 2);
+    }
+
+    #[test]
+    fn test_profiles_legacy_with_string_numbers() {
+        // Old app stored numeric fields as strings
+        let legacy = r#"{
+            "summer_semesters": "0",
+            "active_semester": "1",
+            "degree_average": "82.3",
+            "degree_points": "120",
+            "english_exemption": "true",
+            "semesters": []
+        }"#;
+        let profiles = ProfilesData::from_json(legacy).expect("String numbers should work");
+        assert_eq!(profiles.profiles[0].data.summer_semesters, 0);
+        assert_eq!(profiles.profiles[0].data.active_semester, 1);
+        assert!((profiles.profiles[0].data.degree_average - 82.3).abs() < 0.01);
+        assert!(profiles.profiles[0].data.english_exemption);
+    }
+
+    #[test]
+    fn test_profiles_empty_json_fails_gracefully() {
+        assert!(ProfilesData::from_json("").is_none());
+        assert!(ProfilesData::from_json("null").is_none());
+        assert!(ProfilesData::from_json("garbage").is_none());
+    }
+
+    #[test]
+    fn test_profiles_default_has_one_profile() {
+        let d = ProfilesData::default();
+        assert_eq!(d.profiles.len(), 1);
+        assert_eq!(d.active, 0);
+        assert_eq!(d.profiles[0].name, "התואר שלי");
+        assert_eq!(d.profiles[0].data.semesters.len(), 0);
+    }
 }

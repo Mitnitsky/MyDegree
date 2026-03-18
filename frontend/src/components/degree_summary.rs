@@ -341,8 +341,13 @@ pub fn grade_calc_modal(state: AppState, show: RwSignal<bool>) -> impl IntoView 
             let cur_avg = state.user.with(|u| u.degree_average);
             let graded_pts = state.user.with(|u| u.degree_graded_points);
 
+            let dismiss = move || {
+                gloo_timers::callback::Timeout::new(0, move || show.set(false)).forget();
+            };
+            let dismiss2 = dismiss.clone();
+
             el::div().class("search-overlay")
-                .on(ev::click, move |_| show.set(false))
+                .on(ev::click, move |_| dismiss())
                 .child(
                     el::div().class("search-dialog")
                         .attr("style", "max-width: 440px;")
@@ -354,7 +359,7 @@ pub fn grade_calc_modal(state: AppState, show: RwSignal<bool>) -> impl IntoView 
                                     "תכנון ממוצע",
                                 ),
                                 el::button().class("btn btn-sm btn-outline-secondary")
-                                    .on(ev::click, move |_| show.set(false))
+                                    .on(ev::click, move |_| dismiss2())
                                     .child(el::i().class("fas fa-times")),
                             )),
                             // Body

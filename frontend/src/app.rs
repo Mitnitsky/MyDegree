@@ -133,9 +133,13 @@ fn app_content() -> impl IntoView {
             move || {
                 let state = use_context::<AppState>().unwrap();
                 state.show_histogram_modal.get().map(|num| {
+                    let dismiss = move || {
+                        gloo_timers::callback::Timeout::new(0, move || state.show_histogram_modal.set(None)).forget();
+                    };
+                    let dismiss2 = dismiss.clone();
                     el::div()
                         .class("search-overlay")
-                        .on(ev::click, move |_| state.show_histogram_modal.set(None))
+                        .on(ev::click, move |_| dismiss())
                         .child(
                             el::div()
                                 .class("search-dialog")
@@ -145,7 +149,7 @@ fn app_content() -> impl IntoView {
                                     el::div().class("d-flex justify-content-between align-items-center").child((
                                         el::h5().class("mb-0").child("היסטוגרמות"),
                                         el::button().class("btn btn-sm btn-outline-secondary")
-                                            .on(ev::click, move |_| state.show_histogram_modal.set(None))
+                                            .on(ev::click, move |_| dismiss2())
                                             .child(el::i().class("fas fa-times")),
                                     )),
                                     el::div().child(
@@ -162,8 +166,10 @@ fn profile_tabs() -> impl IntoView {
     let state = use_context::<AppState>().unwrap();
     let editing = RwSignal::<Option<usize>>::new(None);
     let edit_name = RwSignal::new(String::new());
+    let delete_confirm = RwSignal::<Option<(usize, String)>>::new(None); // (index, name)
+    let delete_input = RwSignal::new(String::new());
 
-    move || {
+    (move || {
         let profiles = state.profiles.get();
         let active = state.active_profile.get();
         let count = profiles.profiles.len();
@@ -176,9 +182,10 @@ fn profile_tabs() -> impl IntoView {
                     el::button()
                         .attr("style", "padding: 3px 12px; border-radius: 6px; border: 1px dashed var(--border-color, #d0d7de); background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.8rem;")
                         .on(ev::click, move |_| {
-                            state.add_profile("תואר 2".to_string());
-                            // Rename first profile
-                            state.rename_profile(0, "תואר 1".to_string());
+                            gloo_timers::callback::Timeout::new(0, move || {
+                                state.add_profile("תואר 2".to_string());
+                                state.rename_profile(0, "תואר 1".to_string());
+                            }).forget();
                         })
                         .child("+ הוסף תואר נוסף"),
                 )
@@ -205,9 +212,9 @@ fn profile_tabs() -> impl IntoView {
                                     if !val.trim().is_empty() {
                                         state.rename_profile(i, val.trim().to_string());
                                     }
-                                    editing.set(None);
+                                    gloo_timers::callback::Timeout::new(0, move || editing.set(None)).forget();
                                 } else if e.key() == "Escape" {
-                                    editing.set(None);
+                                    gloo_timers::callback::Timeout::new(0, move || editing.set(None)).forget();
                                 }
                             })
                             .on(ev::blur, move |_| {
@@ -215,7 +222,7 @@ fn profile_tabs() -> impl IntoView {
                                 if !val.trim().is_empty() {
                                     state.rename_profile(i, val.trim().to_string());
                                 }
-                                editing.set(None);
+                                gloo_timers::callback::Timeout::new(0, move || editing.set(None)).forget();
                             })
                             .into_any()
                     } else {
@@ -228,16 +235,19 @@ fn profile_tabs() -> impl IntoView {
                                 else { "background: var(--bg-primary, #fff); color: var(--text-primary); border: 1px solid var(--border-color, #d0d7de);" }
                             ))
                             .on(ev::click, move |_| {
-                                if !is_active { state.switch_profile(i); }
-                            })
-                            .on(ev::dblclick, move |_| {
-                                edit_name.set(name_for_edit.clone());
-                                editing.set(Some(i));
+                                if is_active {
+                                    // Tap active tab to rename (works on mobile too)
+                                    edit_name.set(name_for_edit.clone());
+                                    editing.set(Some(i));
+                                } else {
+                                    gloo_timers::callback::Timeout::new(0, move || state.switch_profile(i)).forget();
+                                }
                             })
                             .child((
                                 name_display,
                                 // Delete button (only if > 1 profile, and it's active)
                                 (count > 1 && is_active).then(|| {
+                                    let del_name = name.clone();
                                     el::span()
                                         .attr("style", format!(
                                             "margin-right: 4px; font-size: 0.7rem; opacity: 0.7; cursor: pointer; {}",
@@ -245,7 +255,8 @@ fn profile_tabs() -> impl IntoView {
                                         ))
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.stop_propagation();
-                                            state.delete_profile(i);
+                                            delete_input.set(String::new());
+                                            delete_confirm.set(Some((i, del_name.clone())));
                                         })
                                         .child("✕")
                                 }),
@@ -257,12 +268,70 @@ fn profile_tabs() -> impl IntoView {
                 el::button()
                     .attr("style", "padding: 4px 8px; border-radius: 6px; border: 1px dashed var(--border-color, #d0d7de); background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; white-space: nowrap;")
                     .on(ev::click, move |_| {
-                        let count = state.profiles.get_untracked().profiles.len();
-                        let name = format!("תואר {}", count + 1);
-                        state.add_profile(name);
+                        gloo_timers::callback::Timeout::new(0, move || {
+                            let count = state.profiles.get_untracked().profiles.len();
+                            let name = format!("תואר {}", count + 1);
+                            state.add_profile(name);
+                        }).forget();
                     })
                     .child("+ תואר חדש"),
             ))
             .into_any()
-    }
+    },
+    // Delete confirmation modal
+    move || {
+        delete_confirm.get().map(|(idx, name)| {
+            let expected = format!("מחק - {}", name);
+            let expected_clone = expected.clone();
+            let dismiss_overlay = move || {
+                gloo_timers::callback::Timeout::new(0, move || delete_confirm.set(None)).forget();
+            };
+            let dismiss_x = dismiss_overlay.clone();
+            el::div().class("search-overlay")
+                .attr("style", "z-index: 2000;")
+                .on(ev::click, move |_| dismiss_overlay())
+                .child(
+                    el::div().class("search-dialog")
+                        .attr("style", "max-width: 400px; min-width: unset; overflow: hidden;")
+                        .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
+                        .child((
+                            el::div().class("d-flex justify-content-between align-items-center").child((
+                                el::h5().class("mb-0").attr("style", "color: var(--text-primary);").child("מחיקת תואר"),
+                                el::button().class("btn btn-sm btn-outline-secondary")
+                                    .on(ev::click, move |_| dismiss_x())
+                                    .child(el::i().class("fas fa-times")),
+                            )),
+                            el::div().child((
+                                el::p().attr("style", "color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9rem;")
+                                    .child(format!("הקלד {} כדי לאשר מחיקה", &expected)),
+                                el::input()
+                                    .class("form-control mb-3")
+                                    .attr("placeholder", expected.clone())
+                                    .attr("dir", "rtl")
+                                    .prop("value", move || delete_input.get())
+                                    .on(ev::input, move |e| delete_input.set(event_target_value(&e))),
+                                el::button()
+                                    .class(move || {
+                                        let expected_inner = expected_clone.clone();
+                                        if delete_input.get().trim() == expected_inner { "btn btn-danger w-100" } else { "btn btn-secondary w-100" }
+                                    })
+                                    .prop("disabled", move || {
+                                        let expected_inner = format!("מחק - {}", delete_confirm.get().map(|(_, n)| n).unwrap_or_default());
+                                        delete_input.get().trim() != expected_inner
+                                    })
+                                    .on(ev::click, move |_| {
+                                        let expected_inner = format!("מחק - {}", delete_confirm.get_untracked().map(|(_, n)| n).unwrap_or_default());
+                                        if delete_input.get().trim() == expected_inner {
+                                            gloo_timers::callback::Timeout::new(0, move || {
+                                                state.delete_profile(idx);
+                                                delete_confirm.set(None);
+                                            }).forget();
+                                        }
+                                    })
+                                    .child("מחק תואר"),
+                            )),
+                        )),
+                )
+        })
+    })
 }

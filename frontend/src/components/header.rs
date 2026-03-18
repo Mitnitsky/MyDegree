@@ -46,7 +46,7 @@ pub fn Header() -> impl IntoView {
         let text = import_text.get();
         if !text.is_empty() {
             state.import_json(&text);
-            show_import_modal.set(false);
+            gloo_timers::callback::Timeout::new(0, move || show_import_modal.set(false)).forget();
             import_text.set(String::new());
             state.show_toast("קורסים יובאו בהצלחה");
         }
@@ -71,7 +71,7 @@ pub fn Header() -> impl IntoView {
         let text = cf_text.get();
         if !text.is_empty() {
             state.import_cheesefork(&text);
-            show_cf_modal.set(false);
+            gloo_timers::callback::Timeout::new(0, move || show_cf_modal.set(false)).forget();
             cf_text.set(String::new());
             state.show_toast("קורסים יובאו מ-Cheesefork בהצלחה");
         }
@@ -253,8 +253,13 @@ pub fn Header() -> impl IntoView {
         // Import JSON modal
         move || {
             show_import_modal.get().then(|| {
+                let dismiss = move || {
+                    gloo_timers::callback::Timeout::new(0, move || show_import_modal.set(false)).forget();
+                };
+                let dismiss2 = dismiss.clone();
+                let dismiss3 = dismiss.clone();
                 el::div().class("search-overlay")
-                    .on(ev::click, move |_| show_import_modal.set(false))
+                    .on(ev::click, move |_| dismiss())
                     .child(
                         el::div().class("search-dialog")
                             .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
@@ -262,7 +267,7 @@ pub fn Header() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ייבוא קורסים מ-JSON"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_import_modal.set(false))
+                                        .on(ev::click, move |_| dismiss2())
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child((
@@ -274,7 +279,7 @@ pub fn Header() -> impl IntoView {
                                         .on(ev::input, move |e| import_text.set(event_target_value(&e))),
                                     el::div().class("d-flex justify-content-end gap-2").child((
                                         el::button().class("btn btn-secondary")
-                                            .on(ev::click, move |_| show_import_modal.set(false))
+                                            .on(ev::click, move |_| dismiss3())
                                             .child("ביטול"),
                                         el::button().class("btn btn-primary")
                                             .on(ev::click, on_import_json)
@@ -289,8 +294,12 @@ pub fn Header() -> impl IntoView {
         // Cheesefork import modal
         move || {
             show_cf_modal.get().then(|| {
+                let dismiss = move || {
+                    gloo_timers::callback::Timeout::new(0, move || show_cf_modal.set(false)).forget();
+                };
+                let dismiss2 = dismiss.clone();
                 el::div().class("search-overlay")
-                    .on(ev::click, move |_| show_cf_modal.set(false))
+                    .on(ev::click, move |_| dismiss())
                     .child(
                         el::div().class("search-dialog")
                             .attr("style", "max-width: 900px; min-width: 700px;")
@@ -299,7 +308,7 @@ pub fn Header() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ייבוא מ-Cheesefork"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_cf_modal.set(false))
+                                        .on(ev::click, move |_| dismiss2())
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child((
@@ -352,8 +361,12 @@ pub fn Header() -> impl IntoView {
         // Category management modal
         move || {
             show_category_modal.get().then(|| {
+                let dismiss = move || {
+                    gloo_timers::callback::Timeout::new(0, move || show_category_modal.set(false)).forget();
+                };
+                let dismiss2 = dismiss.clone();
                 el::div().class("search-overlay")
-                    .on(ev::click, move |_| show_category_modal.set(false))
+                    .on(ev::click, move |_| dismiss())
                     .child(
                         el::div().class("search-dialog")
                             .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
@@ -362,7 +375,7 @@ pub fn Header() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ניהול קטגוריות"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_category_modal.set(false))
+                                        .on(ev::click, move |_| dismiss2())
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 // Scrollable body
@@ -428,9 +441,13 @@ pub fn Header() -> impl IntoView {
                     start_ui.unchecked_ref(),
                     100,
                 );
+                let dismiss_overlay = move || {
+                    gloo_timers::callback::Timeout::new(0, move || show_auth_modal.set(false)).forget();
+                };
+                let dismiss_x = dismiss_overlay.clone();
 
                 el::div().class("search-overlay")
-                    .on(ev::click, move |_| show_auth_modal.set(false))
+                    .on(ev::click, move |_| dismiss_overlay())
                     .child(
                         el::div().class("search-dialog")
                             .attr("style", "max-width: 420px; min-width: 320px;")
@@ -439,7 +456,7 @@ pub fn Header() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("כניסה"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_auth_modal.set(false))
+                                        .on(ev::click, move |_| dismiss_x())
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child(
@@ -453,8 +470,13 @@ pub fn Header() -> impl IntoView {
         // Clear all confirmation modal
         move || {
             show_clear_modal.get().then(|| {
+                let dismiss = move || {
+                    gloo_timers::callback::Timeout::new(0, move || show_clear_modal.set(false)).forget();
+                };
+                let dismiss2 = dismiss.clone();
+                let dismiss3 = dismiss.clone();
                 el::div().class("search-overlay")
-                    .on(ev::click, move |_| show_clear_modal.set(false))
+                    .on(ev::click, move |_| dismiss())
                     .child(
                         el::div().class("search-dialog")
                             .attr("style", "max-width: 380px; min-width: unset;")
@@ -464,7 +486,7 @@ pub fn Header() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("מחיקת כל הנתונים"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_clear_modal.set(false))
+                                        .on(ev::click, move |_| dismiss2())
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 // Body
@@ -483,7 +505,7 @@ pub fn Header() -> impl IntoView {
                                         .on(ev::click, move |_| {
                                             if clear_input.get().trim() == "REMOVE" {
                                                 state.clear_user_data();
-                                                show_clear_modal.set(false);
+                                                dismiss3();
                                             }
                                         })
                                         .child("מחק הכל"),
