@@ -5,17 +5,19 @@ pub struct Achievement {
     pub emoji: &'static str,
     pub name: &'static str,
     pub description: &'static str,
+    pub hidden: bool, // When locked: hidden shows "🔒 הישג נסתר", visible shows name + "???"
     pub check: fn(&UserState) -> bool,
 }
 
 pub fn all_achievements() -> Vec<Achievement> {
     vec![
-        // ── Milestones ──
+        // ── Milestones (visible when locked) ──
         Achievement {
             id: "first_step",
             emoji: "🎓",
             name: "צעד ראשון",
             description: "הוספת קורס ראשון",
+            hidden: false,
             check: |s| s.semesters.iter().any(|sem| sem.courses.iter().any(|c| !c.name.is_empty())),
         },
         Achievement {
@@ -23,6 +25,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "📚",
             name: "סטודנט רשמי",
             description: "השלמת 10 נקודות",
+            hidden: false,
             check: |s| s.degree_points_done >= 10.0,
         },
         Achievement {
@@ -30,6 +33,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🏫",
             name: "באמצע הדרך",
             description: "השלמת 50% מהתואר",
+            hidden: false,
             check: |s| s.degree_points > 0.0 && s.degree_points_done >= s.degree_points / 2.0,
         },
         Achievement {
@@ -37,6 +41,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🎊",
             name: "כמעט שם",
             description: "נותרו פחות מ-20 נקודות",
+            hidden: false,
             check: |s| {
                 s.degree_points > 0.0 && s.degree_points_left > 0.0 && s.degree_points_left <= 20.0
             },
@@ -46,14 +51,16 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🎉",
             name: "סיימתי!",
             description: "השלמת את כל נקודות התואר",
+            hidden: false,
             check: |s| s.degree_points > 0.0 && s.degree_points_left <= 0.0,
         },
-        // ── Grades ──
+        // ── Grades (mostly hidden) ──
         Achievement {
             id: "perfect_100",
             emoji: "💯",
             name: "מאה!",
             description: "קיבלת 100 בקורס",
+            hidden: true,
             check: |s| {
                 s.semesters
                     .iter()
@@ -66,6 +73,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "⭐",
             name: "מצטיין",
             description: "ממוצע כללי מעל 85",
+            hidden: true,
             check: |s| s.degree_graded_points > 0.0 && s.degree_average >= 85.0,
         },
         Achievement {
@@ -73,6 +81,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🏅",
             name: "רשימת דיקן",
             description: "ממוצע סמסטריאלי מעל 90",
+            hidden: true,
             check: |s| {
                 s.semesters.iter().any(|sem| {
                     let has_graded = sem.courses.iter().any(|c| c.grade > 0.0 && !c.binary);
@@ -85,6 +94,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🌟",
             name: "כוכב עולה",
             description: "ממוצע כללי מעל 90",
+            hidden: true,
             check: |s| s.degree_graded_points > 0.0 && s.degree_average >= 90.0,
         },
         Achievement {
@@ -92,13 +102,15 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "👑",
             name: "שליט הציונים",
             description: "ממוצע כללי מעל 95",
+            hidden: true,
             check: |s| s.degree_graded_points > 0.0 && s.degree_average >= 95.0,
         },
         Achievement {
             id: "no_fall",
             emoji: "💪",
             name: "לא נופל",
-            description: "אין ציון מתחת ל-70",
+            description: "אין ציון מתחת ל-70 (מינימום 5 קורסים)",
+            hidden: true,
             check: |s| {
                 let graded: Vec<_> = s
                     .semesters
@@ -113,7 +125,8 @@ pub fn all_achievements() -> Vec<Achievement> {
             id: "sharpshooter",
             emoji: "🎯",
             name: "דייקן",
-            description: "3 קורסים עם ציון בין 90-100",
+            description: "3 קורסים עם ציון מעל 90",
+            hidden: true,
             check: |s| {
                 let count = s
                     .semesters
@@ -124,12 +137,13 @@ pub fn all_achievements() -> Vec<Achievement> {
                 count >= 3
             },
         },
-        // ── Semester related ──
+        // ── Semester related (hidden) ──
         Achievement {
             id: "studious",
             emoji: "📖",
             name: "שקדן",
             description: "סמסטר עם 25+ נקודות",
+            hidden: true,
             check: |s| s.semesters.iter().any(|sem| sem.points >= 25.0),
         },
         Achievement {
@@ -137,6 +151,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "☀️",
             name: "חיית קיץ",
             description: "השלמת סמסטר קיץ",
+            hidden: true,
             check: |s| {
                 s.semesters
                     .iter()
@@ -148,6 +163,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🗓️",
             name: "ותיק",
             description: "6+ סמסטרים",
+            hidden: true,
             check: |s| {
                 let non_empty = s
                     .semesters
@@ -162,14 +178,16 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🏋️",
             name: "עמוס",
             description: "סמסטר עם 30+ נקודות",
+            hidden: true,
             check: |s| s.semesters.iter().any(|sem| sem.points >= 30.0),
         },
-        // ── Category related ──
+        // ── Category related (hidden) ──
         Achievement {
             id: "category_done",
             emoji: "✅",
             name: "סגרתי קטגוריה",
             description: "השלמת את כל הנקודות בקטגוריה",
+            hidden: true,
             check: |s| {
                 s.course_types
                     .iter()
@@ -181,14 +199,16 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "📐",
             name: "מתמטיקאי",
             description: "20+ נקודות בקטגוריה אחת",
+            hidden: true,
             check: |s| s.course_types.iter().any(|ct| ct.points_done >= 20.0),
         },
-        // ── Special ──
+        // ── Special (hidden) ──
         Achievement {
             id: "binary_pass",
             emoji: "🔄",
             name: "עובר בינארי",
             description: "השלמת קורס עובר/נכשל",
+            hidden: true,
             check: |s| {
                 s.semesters
                     .iter()
@@ -201,6 +221,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🌙",
             name: "ינשוף לילה",
             description: "השתמשת באפליקציה בשעות הלילה",
+            hidden: true,
             check: |_| false, // checked at runtime in frontend
         },
         Achievement {
@@ -208,6 +229,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🔓",
             name: "פטור מאנגלית",
             description: "קיבלת פטור מאנגלית",
+            hidden: true,
             check: |s| s.english_exemption,
         },
         Achievement {
@@ -215,6 +237,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "📊",
             name: "עובד קשה",
             description: "40+ קורסים",
+            hidden: true,
             check: |s| {
                 let count = s
                     .semesters
@@ -230,6 +253,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🎓",
             name: "תואר כפול",
             description: "מנהל שני תוארים",
+            hidden: true,
             check: |_| false, // checked at runtime in frontend
         },
         Achievement {
@@ -237,6 +261,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🧮",
             name: "חישובי",
             description: "10+ נקודות בציון מעל 90",
+            hidden: true,
             check: |s| {
                 let sum: f64 = s
                     .semesters
@@ -253,6 +278,7 @@ pub fn all_achievements() -> Vec<Achievement> {
             emoji: "🏆",
             name: "אספן הישגים",
             description: "פתחת 20 הישגים",
+            hidden: true,
             check: |_| false, // checked at runtime in frontend
         },
     ]

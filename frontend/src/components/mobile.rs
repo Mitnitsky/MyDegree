@@ -198,7 +198,7 @@ pub fn MobileHeader() -> impl IntoView {
                                     state.show_course_map.set(true);
                                     show_menu.set(false);
                                 }),
-                                menu_item("🏆 הישגים", "", move |_: web_sys::MouseEvent| {
+                                menu_item("הישגים", "fas fa-trophy", move |_: web_sys::MouseEvent| {
                                     state.show_achievements.set(true);
                                     show_menu.set(false);
                                 }),

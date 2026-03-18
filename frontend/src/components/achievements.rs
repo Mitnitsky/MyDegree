@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use leptos::html as el;
 use leptos::ev;
+use std::collections::HashMap;
 use crate::state::AppState;
 use degree_core::achievements::{all_achievements, evaluate_achievements};
 
@@ -38,7 +39,10 @@ pub fn Achievements() -> impl IntoView {
                             el::h5()
                                 .class("mb-0")
                                 .attr("style", "color: var(--text-primary);")
-                                .child("🏆 הישגים"),
+                                .child((
+                                    el::i().class("fas fa-trophy").attr("style", "margin-left: 6px;"),
+                                    " הישגים",
+                                )),
                             el::button()
                                 .class("btn btn-sm btn-outline-secondary")
                                 .on(ev::click, move |_| dismiss_x())
@@ -73,10 +77,48 @@ pub fn Achievements() -> impl IntoView {
                         // Check confetti
                         let should_confetti = check_and_update_seen_count(total_unlocked);
 
-                        let cards: Vec<_> = achievements
+                        // Load/update timestamps
+                        let mut timestamps = load_timestamps();
+                        let today = today_str();
+                        for (i, &is_u) in unlocked.iter().enumerate() {
+                            let id = achievements[i].id;
+                            if is_u && !timestamps.contains_key(id) {
+                                timestamps.insert(id.to_string(), today.clone());
+                            }
+                        }
+                        save_timestamps(&timestamps);
+
+                        // Build (index, unlocked) pairs and sort: unlocked first (most recent→oldest), then locked
+                        let mut indices: Vec<(usize, bool)> = (0..achievements.len())
+                            .map(|i| (i, unlocked[i]))
+                            .collect();
+                        indices.sort_by(|a, b| {
+                            match (a.1, b.1) {
+                                (true, false) => std::cmp::Ordering::Less,
+                                (false, true) => std::cmp::Ordering::Greater,
+                                (true, true) => {
+                                    // Both unlocked: most recent first (reverse chronological)
+                                    let ta = timestamps.get(achievements[a.0].id).cloned().unwrap_or_default();
+                                    let tb = timestamps.get(achievements[b.0].id).cloned().unwrap_or_default();
+                                    // dd-mm-yyyy → yyyymmdd for sorting
+                                    let ka = date_sort_key(&ta);
+                                    let kb = date_sort_key(&tb);
+                                    kb.cmp(&ka)
+                                }
+                                (false, false) => a.0.cmp(&b.0),
+                            }
+                        });
+
+                        let cards: Vec<_> = indices
                             .iter()
-                            .zip(unlocked.iter())
-                            .map(|(ach, &is_unlocked)| achievement_card(ach, is_unlocked))
+                            .map(|&(i, is_u)| {
+                                let ts = if is_u {
+                                    timestamps.get(achievements[i].id).cloned()
+                                } else {
+                                    None
+                                };
+                                achievement_card(&achievements[i], is_u, ts)
+                            })
                             .collect();
 
                         (
@@ -105,46 +147,97 @@ pub fn Achievements() -> impl IntoView {
 fn achievement_card(
     ach: &degree_core::achievements::Achievement,
     unlocked: bool,
+    timestamp: Option<String>,
 ) -> impl IntoView {
-    let emoji = if unlocked { ach.emoji } else { "🔒" };
-    let desc = if unlocked {
-        ach.description.to_string()
+    if unlocked {
+        // Unlocked: show everything + date
+        el::div()
+            .attr(
+                "style",
+                "border: 1px solid var(--border-color, #d0d7de); border-radius: 10px; padding: 14px 10px; text-align: center; background: var(--bg-card, #fff); transition: transform 0.15s, box-shadow 0.15s;",
+            )
+            .child((
+                el::div()
+                    .attr("style", "font-size: 2rem; margin-bottom: 4px;")
+                    .child(ach.emoji.to_string()),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-weight: 600; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 2px;",
+                    )
+                    .child(ach.name.to_string()),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-size: 0.75rem; color: var(--text-secondary);",
+                    )
+                    .child(ach.description.to_string()),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-size: 0.65rem; color: var(--text-secondary); margin-top: 6px; opacity: 0.7; display: flex; align-items: center; justify-content: center; gap: 4px;",
+                    )
+                    .child(timestamp.map(|t| {
+                        (
+                            el::i()
+                                .class("fas fa-calendar-alt")
+                                .attr("style", "font-size: 0.6rem;"),
+                            t,
+                        )
+                    })),
+            ))
+            .into_any()
+    } else if ach.hidden {
+        // Hidden + locked: mysterious card
+        el::div()
+            .attr(
+                "style",
+                "border: 1px solid var(--border-color, #d0d7de); border-radius: 10px; padding: 14px 10px; text-align: center; opacity: 0.4; background: var(--bg-secondary, #f6f8fa); transition: transform 0.15s;",
+            )
+            .child((
+                el::div()
+                    .attr("style", "font-size: 2rem; margin-bottom: 4px;")
+                    .child("🔒"),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-weight: 600; font-size: 0.85rem; color: var(--text-secondary);",
+                    )
+                    .child("הישג נסתר"),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-size: 0.75rem; color: var(--text-secondary);",
+                    )
+                    .child("???"),
+            ))
+            .into_any()
     } else {
-        "???".to_string()
-    };
-
-    let opacity = if unlocked { "1" } else { "0.45" };
-    let bg = if unlocked {
-        "var(--bg-card, #fff)"
-    } else {
-        "var(--bg-secondary, #f6f8fa)"
-    };
-
-    el::div()
-        .attr(
-            "style",
-            format!(
-                "border: 1px solid var(--border-color, #d0d7de); border-radius: 10px; padding: 14px 10px; text-align: center; opacity: {}; background: {}; transition: transform 0.15s, box-shadow 0.15s;",
-                opacity, bg
-            ),
-        )
-        .child((
-            el::div()
-                .attr("style", "font-size: 2rem; margin-bottom: 4px;")
-                .child(emoji.to_string()),
-            el::div()
-                .attr(
-                    "style",
-                    "font-weight: 600; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 2px;",
-                )
-                .child(ach.name.to_string()),
-            el::div()
-                .attr(
-                    "style",
-                    "font-size: 0.75rem; color: var(--text-secondary);",
-                )
-                .child(desc),
-        ))
+        // Visible + locked: show name but not description
+        el::div()
+            .attr(
+                "style",
+                "border: 1px solid var(--border-color, #d0d7de); border-radius: 10px; padding: 14px 10px; text-align: center; opacity: 0.55; background: var(--bg-secondary, #f6f8fa); transition: transform 0.15s;",
+            )
+            .child((
+                el::div()
+                    .attr("style", "font-size: 2rem; margin-bottom: 4px;")
+                    .child("🔒"),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-weight: 600; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 2px;",
+                    )
+                    .child(ach.name.to_string()),
+                el::div()
+                    .attr(
+                        "style",
+                        "font-size: 0.75rem; color: var(--text-secondary);",
+                    )
+                    .child("???"),
+            ))
+            .into_any()
+    }
 }
 
 fn check_and_update_seen_count(current: usize) -> bool {
@@ -196,4 +289,41 @@ fn confetti_animation() -> impl IntoView {
     );
 
     (style_el, pieces)
+}
+
+fn today_str() -> String {
+    let d = js_sys::Date::new_0();
+    let day = d.get_date();
+    let month = d.get_month() + 1; // 0-indexed
+    let year = d.get_full_year();
+    format!("{:02}-{:02}-{}", day, month, year)
+}
+
+fn date_sort_key(date_str: &str) -> String {
+    // dd-mm-yyyy → yyyymmdd
+    let parts: Vec<&str> = date_str.split('-').collect();
+    if parts.len() == 3 {
+        format!("{}{}{}", parts[2], parts[1], parts[0])
+    } else {
+        String::new()
+    }
+}
+
+fn load_timestamps() -> HashMap<String, String> {
+    let window = web_sys::window().unwrap();
+    let storage = window.local_storage().ok().flatten();
+    storage
+        .as_ref()
+        .and_then(|s| s.get_item("achievement_timestamps").ok().flatten())
+        .and_then(|json| serde_json::from_str(&json).ok())
+        .unwrap_or_default()
+}
+
+fn save_timestamps(ts: &HashMap<String, String>) {
+    let window = web_sys::window().unwrap();
+    if let Some(storage) = window.local_storage().ok().flatten() {
+        if let Ok(json) = serde_json::to_string(ts) {
+            let _ = storage.set_item("achievement_timestamps", &json);
+        }
+    }
 }

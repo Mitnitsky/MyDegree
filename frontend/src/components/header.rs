@@ -227,7 +227,10 @@ pub fn Header() -> impl IntoView {
                         el::div().class("nav-item").child(
                             el::a().class("nav-link").attr("href", "#")
                                 .on(ev::click, move |_| state.show_achievements.set(true))
-                                .child("🏆 הישגים"),
+                                .child((
+                                    el::i().class("fas fa-trophy").attr("style", "margin-left: 6px;"),
+                                    " הישגים",
+                                )),
                         ),
                         // Divider
                         el::div().class("nav-divider"),
