@@ -198,6 +198,10 @@ pub fn MobileHeader() -> impl IntoView {
                                     state.show_course_map.set(true);
                                     show_menu.set(false);
                                 }),
+                                menu_item("🏆 הישגים", "", move |_: web_sys::MouseEvent| {
+                                    state.show_achievements.set(true);
+                                    show_menu.set(false);
+                                }),
                                 el::div().attr("style", "border-top: 1px solid var(--border-color, #dee2e6); margin: 4px 16px;"),
                                 el::a()
                                     .attr("href", "#")

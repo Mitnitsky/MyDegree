@@ -223,6 +223,14 @@ pub fn Header() -> impl IntoView {
                         ),
                         // Divider
                         el::div().class("nav-divider"),
+                        // Achievements link
+                        el::div().class("nav-item").child(
+                            el::a().class("nav-link").attr("href", "#")
+                                .on(ev::click, move |_| state.show_achievements.set(true))
+                                .child("🏆 הישגים"),
+                        ),
+                        // Divider
+                        el::div().class("nav-divider"),
                         // Dark mode toggle (three-state pill: ☀ | auto | 🌙)
                         el::div().class("nav-item d-flex align-items-center").attr("style", "margin-right: 8px;").child(
                             el::div().class("theme-toggle")

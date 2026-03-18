@@ -3,7 +3,7 @@ use leptos::prelude::event_target_value;
 use leptos::html as el;
 use leptos::ev;
 use crate::state::AppState;
-use crate::components::{Header, SemestersTabView, DegreeSummary, Footer, Toast, SearchCourseDialog, MobileFooter, CourseMap};
+use crate::components::{Header, SemestersTabView, DegreeSummary, Footer, Toast, SearchCourseDialog, MobileFooter, CourseMap, Achievements};
 use crate::components::{MobileHeader, MobileSemesterTabs, MobileSemesterSummary, MobileCourseList, MobileDegreeSummary};
 use crate::components::histogram_viewer::{HistogramViewer, HistogramViewerProps};
 
@@ -129,6 +129,10 @@ fn app_content() -> impl IntoView {
             move || {
                 let state = use_context::<AppState>().unwrap();
                 state.show_course_map.get().then(CourseMap)
+            },
+            move || {
+                let state = use_context::<AppState>().unwrap();
+                state.show_achievements.get().then(Achievements)
             },
             move || {
                 let state = use_context::<AppState>().unwrap();

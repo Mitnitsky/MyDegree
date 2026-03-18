@@ -21,6 +21,7 @@ pub struct AppState {
     pub show_search_modal: RwSignal<bool>,
     pub show_histogram_modal: RwSignal<Option<String>>,
     pub show_course_map: RwSignal<bool>,
+    pub show_achievements: RwSignal<bool>,
     pub toast_message: RwSignal<Option<String>>,
     pub data_warnings: RwSignal<Vec<String>>,
     /// Guard: true while loading from Firestore — prevents auto-save from overwriting cloud data
@@ -48,6 +49,7 @@ impl AppState {
             show_search_modal: RwSignal::new(false),
             show_histogram_modal: RwSignal::new(None),
             show_course_map: RwSignal::new(false),
+            show_achievements: RwSignal::new(false),
             toast_message: RwSignal::new(None),
             data_warnings: RwSignal::new(Vec::new()),
             loading_from_cloud: RwSignal::new(false),

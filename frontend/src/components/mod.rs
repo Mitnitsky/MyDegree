@@ -1,3 +1,4 @@
+pub mod achievements;
 pub mod header;
 pub mod semesters_tab_view;
 pub mod semester_table;
@@ -8,6 +9,7 @@ pub mod histogram_viewer;
 pub mod mobile;
 pub mod course_map;
 
+pub use achievements::Achievements;
 pub use header::Header;
 pub use semesters_tab_view::SemestersTabView;
 pub use degree_summary::DegreeSummary;
