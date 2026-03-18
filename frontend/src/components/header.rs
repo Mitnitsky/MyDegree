@@ -223,20 +223,28 @@ pub fn Header() -> impl IntoView {
                         ),
                         // Divider
                         el::div().class("nav-divider"),
-                        // Dark mode toggle (pill with sun/moon)
+                        // Dark mode toggle (three-state pill: ☀ | auto | 🌙)
                         el::div().class("nav-item d-flex align-items-center").attr("style", "margin-right: 8px;").child(
                             el::div().class("theme-toggle")
-                                .attr("title", "מצב כהה / בהיר")
-                                .on(ev::click, move |_| {
-                                    let _ = js_sys::eval("window.toggleDarkMode()");
-                                })
                                 .child((
-                                    el::span().class("theme-toggle-icon theme-icon-sun").child(
-                                        el::i().class("fas fa-sun"),
-                                    ),
-                                    el::span().class("theme-toggle-icon theme-icon-moon").child(
-                                        el::i().class("fas fa-moon"),
-                                    ),
+                                    el::span().class("theme-toggle-icon theme-icon-sun")
+                                        .attr("title", "בהיר")
+                                        .on(ev::click, move |_| {
+                                            let _ = js_sys::eval("window.setThemeMode('light')");
+                                        })
+                                        .child(el::i().class("fas fa-sun")),
+                                    el::span().class("theme-toggle-icon theme-icon-auto")
+                                        .attr("title", "אוטומטי")
+                                        .on(ev::click, move |_| {
+                                            let _ = js_sys::eval("window.setThemeMode('auto')");
+                                        })
+                                        .child(el::i().class("fas fa-desktop")),
+                                    el::span().class("theme-toggle-icon theme-icon-moon")
+                                        .attr("title", "כהה")
+                                        .on(ev::click, move |_| {
+                                            let _ = js_sys::eval("window.setThemeMode('dark')");
+                                        })
+                                        .child(el::i().class("fas fa-moon")),
                                 )),
                         ),
                     )),

@@ -94,17 +94,25 @@ pub fn MobileHeader() -> impl IntoView {
                     .on(ev::click, move |_| show_menu.update(|v| *v = !*v))
                     .child(el::i().class("fas fa-bars")),
                 el::div().class("theme-toggle theme-toggle-mobile")
-                    .attr("title", "מצב כהה / בהיר")
-                    .on(ev::click, move |_| {
-                        let _ = js_sys::eval("window.toggleDarkMode()");
-                    })
                     .child((
-                        el::span().class("theme-toggle-icon theme-icon-sun").child(
-                            el::i().class("fas fa-sun"),
-                        ),
-                        el::span().class("theme-toggle-icon theme-icon-moon").child(
-                            el::i().class("fas fa-moon"),
-                        ),
+                        el::span().class("theme-toggle-icon theme-icon-sun")
+                            .attr("title", "בהיר")
+                            .on(ev::click, move |_| {
+                                let _ = js_sys::eval("window.setThemeMode('light')");
+                            })
+                            .child(el::i().class("fas fa-sun")),
+                        el::span().class("theme-toggle-icon theme-icon-auto")
+                            .attr("title", "אוטומטי")
+                            .on(ev::click, move |_| {
+                                let _ = js_sys::eval("window.setThemeMode('auto')");
+                            })
+                            .child(el::i().class("fas fa-desktop")),
+                        el::span().class("theme-toggle-icon theme-icon-moon")
+                            .attr("title", "כהה")
+                            .on(ev::click, move |_| {
+                                let _ = js_sys::eval("window.setThemeMode('dark')");
+                            })
+                            .child(el::i().class("fas fa-moon")),
                     )),
             )),
             // Center: title
