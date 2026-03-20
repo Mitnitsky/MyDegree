@@ -892,19 +892,26 @@ pub fn MobileDegreeSummary() -> impl IntoView {
             show_sheet.get().then(|| {
                 (
                     el::div().class("mobile-bottom-sheet-overlay")
-                        .on(ev::click, move |_| show_sheet.set(false)),
+                        .on(ev::click, move |_| {
+                            gloo_timers::callback::Timeout::new(0, move || show_sheet.set(false)).forget();
+                        }),
                     el::div().class("mobile-bottom-sheet")
                         .on(ev::click, move |e: web_sys::MouseEvent| e.stop_propagation())
                         .child((
                             el::div().class("mobile-bottom-sheet-handle")
-                                .on(ev::click, move |_| show_sheet.set(false)),
+                                .on(ev::click, move |_| {
+                                    gloo_timers::callback::Timeout::new(0, move || show_sheet.set(false)).forget();
+                                }),
                             el::div().class("d-flex justify-content-between align-items-center")
                                 .attr("style", "margin-bottom: 12px;")
                                 .child((
                                     el::span(),
                                     el::h5().attr("style", "margin: 0; font-weight: bold;").child("סיכום תואר"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| show_sheet.set(false))
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.stop_propagation();
+                                            gloo_timers::callback::Timeout::new(0, move || show_sheet.set(false)).forget();
+                                        })
                                         .child(el::i().class("fas fa-times")),
                                 )),
                             // Progress ring
