@@ -61,7 +61,8 @@ pub fn MobileHeader() -> impl IntoView {
         }
     };
 
-    let on_clear = move |_: web_sys::MouseEvent| {
+    let on_clear = move |e: web_sys::MouseEvent| {
+        e.stop_propagation();
         clear_input.set(String::new());
         show_clear_modal.set(true);
         show_menu.set(false);
@@ -162,7 +163,9 @@ pub fn MobileHeader() -> impl IntoView {
             show_menu.get().then(|| {
                 el::div()
                     .class("mobile-menu-overlay")
-                    .on(ev::click, move |_| show_menu.set(false))
+                    .on(ev::click, move |_| {
+                        gloo_timers::callback::Timeout::new(0, move || show_menu.set(false)).forget();
+                    })
                     .child(
                         el::div()
                             .class("mobile-slide-menu")
@@ -442,7 +445,10 @@ fn menu_item(
     el::a()
         .attr("href", "#")
         .attr("style", "display: block; padding: 12px 20px; color: var(--text-primary); text-decoration: none; font-size: 0.95rem;")
-        .on(ev::click, handler)
+        .on(ev::click, move |e: web_sys::MouseEvent| {
+            e.stop_propagation();
+            handler(e);
+        })
         .child(
             if icon_class.is_empty() {
                 leptos::either::Either::Left(label)
@@ -712,6 +718,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                         .attr("style", if index == 0 { "pointer-events: none; opacity: 0.35;" } else { "" })
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             if index > 0 {
                                                 state.move_course(index, "up");
                                                 show_menu.set(false);
@@ -722,6 +729,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                         .attr("style", if index >= count - 1 { "pointer-events: none; opacity: 0.35;" } else { "" })
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             if index < count - 1 {
                                                 state.move_course(index, "down");
                                                 show_menu.set(false);
@@ -732,6 +740,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             let num = course.with(|c| c.as_ref().map(|c| c.number.clone()).unwrap_or_default());
                                             if !num.is_empty() { state.show_histogram_modal.set(Some(num)); }
                                             show_menu.set(false);
@@ -740,6 +749,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             let is_binary = course.with(|c| c.as_ref().map(|c| c.binary).unwrap_or(false));
                                             state.update_course_field(index, "binary", if !is_binary { "true" } else { "false" });
                                             show_menu.set(false);
@@ -755,6 +765,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                     el::a().attr("href", "#")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             state.update_course_field(index, "name", "");
                                             state.update_course_field(index, "number", "");
                                             state.update_course_field(index, "points", "0");
@@ -768,6 +779,7 @@ fn mobile_course_card(index: usize, count: usize) -> impl IntoView {
                                         .attr("style", "color: #dc3545;")
                                         .on(ev::click, move |e: web_sys::MouseEvent| {
                                             e.prevent_default();
+                                            e.stop_propagation();
                                             state.remove_course(index);
                                             show_menu.set(false);
                                         })
