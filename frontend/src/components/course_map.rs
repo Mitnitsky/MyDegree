@@ -41,7 +41,13 @@ pub fn CourseMap() -> impl IntoView {
         list
     });
 
-    let close = move |_| state.show_course_map.set(false);
+    let close = move |_: web_sys::MouseEvent| {
+        gloo_timers::callback::Timeout::new(0, move || state.show_course_map.set(false)).forget();
+    };
+    let close2 = move |e: web_sys::MouseEvent| {
+        e.stop_propagation();
+        gloo_timers::callback::Timeout::new(0, move || state.show_course_map.set(false)).forget();
+    };
 
     el::div().class("search-overlay")
         .on(ev::click, close)
@@ -54,7 +60,7 @@ pub fn CourseMap() -> impl IntoView {
                     el::div().class("d-flex justify-content-between align-items-center").child((
                         el::h5().class("mb-0").child("מפת קורסים"),
                         el::button().class("btn btn-sm btn-outline-secondary")
-                            .on(ev::click, close)
+                            .on(ev::click, close2)
                             .child(el::i().class("fas fa-times")),
                     )),
                     // Body

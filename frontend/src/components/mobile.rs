@@ -277,10 +277,10 @@ pub fn MobileHeader() -> impl IntoView {
                                         .on(ev::input, move |e| import_text.set(event_target_value(&e))),
                                     el::div().class("d-flex justify-content-end gap-2").child((
                                         el::button().class("btn btn-secondary")
-                                            .on(ev::click, move |_| dismiss3())
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss3(); })
                                             .child("ביטול"),
                                         el::button().class("btn btn-primary")
-                                            .on(ev::click, on_import_json)
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); on_import_json(e); })
                                             .child("ייבוא"),
                                     )),
                                 )),
@@ -317,7 +317,7 @@ pub fn MobileHeader() -> impl IntoView {
                                         .on(ev::input, move |e| cf_text.set(event_target_value(&e))),
                                     el::div().class("d-flex justify-content-center").child(
                                         el::button().class("btn btn-outline-primary")
-                                            .on(ev::click, on_import_cf)
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); on_import_cf(e); })
                                             .child("יבוא קורסים"),
                                     ),
                                 )),
