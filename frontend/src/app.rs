@@ -323,7 +323,8 @@ fn profile_tabs() -> impl IntoView {
                                         let expected_inner = format!("מחק - {}", delete_confirm.get().map(|(_, n)| n).unwrap_or_default());
                                         delete_input.get().trim() != expected_inner
                                     })
-                                    .on(ev::click, move |_| {
+                                    .on(ev::click, move |e: web_sys::MouseEvent| {
+                                        e.stop_propagation();
                                         let expected_inner = format!("מחק - {}", delete_confirm.get_untracked().map(|(_, n)| n).unwrap_or_default());
                                         if delete_input.get().trim() == expected_inner {
                                             gloo_timers::callback::Timeout::new(0, move || {

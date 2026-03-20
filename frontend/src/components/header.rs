@@ -521,7 +521,8 @@ pub fn Header() -> impl IntoView {
                                     el::button()
                                         .class(move || if clear_input.get().trim() == "REMOVE" { "btn btn-danger w-100" } else { "btn btn-secondary w-100" })
                                         .prop("disabled", move || clear_input.get().trim() != "REMOVE")
-                                        .on(ev::click, move |_| {
+                                        .on(ev::click, move |e: web_sys::MouseEvent| {
+                                            e.stop_propagation();
                                             if clear_input.get().trim() == "REMOVE" {
                                                 state.clear_user_data();
                                                 dismiss3();
