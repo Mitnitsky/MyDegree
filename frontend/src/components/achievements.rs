@@ -45,7 +45,10 @@ pub fn Achievements() -> impl IntoView {
                                 )),
                             el::button()
                                 .class("btn btn-sm btn-outline-secondary")
-                                .on(ev::click, move |_| dismiss_x())
+                                .on(ev::click, move |e: web_sys::MouseEvent| {
+                                    e.stop_propagation();
+                                    dismiss_x();
+                                })
                                 .child(el::i().class("fas fa-times")),
                         )),
                     // Body
