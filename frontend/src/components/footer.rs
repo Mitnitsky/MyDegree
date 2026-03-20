@@ -80,7 +80,9 @@ fn AboutModal(on_close: impl Fn() + 'static + Copy) -> impl IntoView {
     };
 
     el::div().class("search-overlay")
-        .on(ev::click, move |_| on_close())
+        .on(ev::click, move |_| {
+            gloo_timers::callback::Timeout::new(0, move || on_close()).forget();
+        })
         .child(
             el::div().class("search-dialog")
                 .attr("style", "max-width: 600px; min-width: unset; overflow: hidden;")
@@ -90,7 +92,10 @@ fn AboutModal(on_close: impl Fn() + 'static + Copy) -> impl IntoView {
                     el::div().attr("style", "display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;").child((
                         el::h5().class("mb-0").child("אודות MyDegree"),
                         el::button().class("btn btn-sm btn-outline-secondary")
-                            .on(ev::click, move |_| on_close())
+                            .on(ev::click, move |e: web_sys::MouseEvent| {
+                                e.stop_propagation();
+                                gloo_timers::callback::Timeout::new(0, move || on_close()).forget();
+                            })
                             .child(el::i().class("fas fa-times")),
                     )),
                     // Modal content
