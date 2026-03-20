@@ -359,7 +359,7 @@ pub fn grade_calc_modal(state: AppState, show: RwSignal<bool>) -> impl IntoView 
                                     "תכנון ממוצע",
                                 ),
                                 el::button().class("btn btn-sm btn-outline-secondary")
-                                    .on(ev::click, move |_| dismiss2())
+                                    .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                     .child(el::i().class("fas fa-times")),
                             )),
                             // Body

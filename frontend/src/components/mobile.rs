@@ -236,7 +236,7 @@ pub fn MobileHeader() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("כניסה"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| dismiss_x())
+                                        .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss_x(); })
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child(el::div().id("mobile-firebaseui-auth")),
@@ -262,7 +262,7 @@ pub fn MobileHeader() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ייבוא קורסים מ-JSON"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| dismiss2())
+                                        .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child((
@@ -302,7 +302,7 @@ pub fn MobileHeader() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ייבוא מ-Cheesefork"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| dismiss2())
+                                        .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child((
@@ -339,7 +339,7 @@ pub fn MobileHeader() -> impl IntoView {
                                 el::div().class("d-flex justify-content-between align-items-center").child((
                                     el::h5().class("mb-0").child("ניהול קטגוריות"),
                                     el::button().class("btn btn-sm btn-outline-secondary")
-                                        .on(ev::click, move |_| dismiss2())
+                                        .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                         .child(el::i().class("fas fa-times")),
                                 )),
                                 el::div().child((
@@ -403,7 +403,7 @@ pub fn MobileHeader() -> impl IntoView {
                                     el::div().class("d-flex justify-content-between align-items-center mb-3").child((
                                         el::h5().class("mb-0").child("מחיקת כל הנתונים"),
                                         el::button().class("btn btn-sm btn-outline-secondary")
-                                            .on(ev::click, move |_| dismiss2())
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                             .child(el::i().class("fas fa-times")),
                                     )),
                                     el::p().attr("style", "color: var(--text-secondary); margin-bottom: 12px;")

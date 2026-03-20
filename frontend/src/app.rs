@@ -153,7 +153,7 @@ fn app_content() -> impl IntoView {
                                     el::div().class("d-flex justify-content-between align-items-center").child((
                                         el::h5().class("mb-0").child("היסטוגרמות"),
                                         el::button().class("btn btn-sm btn-outline-secondary")
-                                            .on(ev::click, move |_| dismiss2())
+                                            .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss2(); })
                                             .child(el::i().class("fas fa-times")),
                                     )),
                                     el::div().child(
@@ -302,7 +302,7 @@ fn profile_tabs() -> impl IntoView {
                             el::div().class("d-flex justify-content-between align-items-center").child((
                                 el::h5().class("mb-0").attr("style", "color: var(--text-primary);").child("מחיקת תואר"),
                                 el::button().class("btn btn-sm btn-outline-secondary")
-                                    .on(ev::click, move |_| dismiss_x())
+                                    .on(ev::click, move |e: web_sys::MouseEvent| { e.stop_propagation(); dismiss_x(); })
                                     .child(el::i().class("fas fa-times")),
                             )),
                             el::div().child((
