@@ -105,6 +105,11 @@
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('/service-worker.js').catch(function() {});
         });
+        navigator.serviceWorker.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'SW_UPDATED') {
+            window.location.reload();
+          }
+        });
       }
     </script>
 </body>
