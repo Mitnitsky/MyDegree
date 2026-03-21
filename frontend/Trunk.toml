@@ -14,3 +14,9 @@ ignore = ["firebase_bridge.js", "bootstrap.purged.css"]
 stage = "pre_build"
 command = "sh"
 command_arguments = ["-c", "npm run build --prefix ."]
+
+# Strip Trunk hot-reload script and bootstrap sourcemap from production output
+[[hooks]]
+stage = "post_build"
+command = "sh"
+command_arguments = ["-c", "sed -i '' '/<script>\"use strict\"/,/<\\/script>/d' dist/index.html && sed -i '' 's|//# sourceMappingURL=bootstrap.bundle.min.js.map||' dist/bootstrap.bundle.min.js 2>/dev/null; true"]

@@ -20,20 +20,22 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      Sentry.init({
-        dsn: "https://05fdeb52acf2bfaaffdb2dca380f0f48@o4511058507202560.ingest.us.sentry.io/4511058523652096",
-        tracesSampleRate: 0.1,
-        integrations: [
-          Sentry.breadcrumbsIntegration({ console: true }),
-        ],
-      });
-      // Capture unhandled errors from WASM
-      window.addEventListener("error", function(e) {
-        Sentry.captureException(e.error || new Error(e.message));
-      });
-      window.addEventListener("unhandledrejection", function(e) {
-        Sentry.captureException(e.reason || new Error("Unhandled promise rejection"));
-      });
+      if (typeof Sentry !== 'undefined') {
+        Sentry.init({
+          dsn: "https://05fdeb52acf2bfaaffdb2dca380f0f48@o4511058507202560.ingest.us.sentry.io/4511058523652096",
+          tracesSampleRate: 0.1,
+          integrations: [
+            Sentry.breadcrumbsIntegration({ console: true }),
+          ],
+        });
+        // Capture unhandled errors from WASM
+        window.addEventListener("error", function(e) {
+          Sentry.captureException(e.error || new Error(e.message));
+        });
+        window.addEventListener("unhandledrejection", function(e) {
+          Sentry.captureException(e.reason || new Error("Unhandled promise rejection"));
+        });
+      }
     </script>
 
     <!-- EmailJS SDK -->
