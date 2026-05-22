@@ -27,6 +27,19 @@
           integrations: [
             Sentry.breadcrumbsIntegration({ console: true }),
           ],
+          ignoreErrors: [
+            // Network-level fetch failures (user offline, content blocker, request
+            // aborted on navigation). Not actionable; surfaced to users via the
+            // WASM-load overlay below.
+            'TypeError: Failed to fetch',
+            'TypeError: NetworkError when attempting to fetch resource.',
+            'TypeError: Load failed',
+            'TypeError: cancelled',
+            'TypeError: The network connection was lost.',
+            'TypeError: The Internet connection appears to be offline.',
+            /Failed to fetch dynamically imported module/i,
+            /AbortError/i,
+          ],
         });
         // Capture unhandled errors from WASM
         window.addEventListener("error", function(e) {
@@ -36,6 +49,34 @@
           Sentry.captureException(e.reason || new Error("Unhandled promise rejection"));
         });
       }
+    </script>
+
+    <!-- Graceful fallback when the WASM bundle fails to load (offline / blocked / aborted). -->
+    <script>
+      (function() {
+        function isNetworkFailure(reason) {
+          var msg = (reason && (reason.message || reason)) + '';
+          return /Failed to fetch|NetworkError|Load failed|connection (was|appears)|dynamically imported module/i.test(msg);
+        }
+        function showWasmLoadError() {
+          if (document.getElementById('wasm-load-error')) return;
+          var host = document.body || document.documentElement;
+          var overlay = document.createElement('div');
+          overlay.id = 'wasm-load-error';
+          overlay.setAttribute('role', 'alert');
+          overlay.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#1c2128;color:#fff;font-family:system-ui,-apple-system,sans-serif;z-index:99999;padding:1rem;text-align:center;direction:rtl;';
+          overlay.innerHTML = '<div style="max-width:24rem"><h2 style="margin:0 0 .75rem;font-size:1.25rem;">לא ניתן לטעון את האפליקציה</h2><p style="margin:0 0 1.25rem;opacity:.85;line-height:1.5;">בדקו את חיבור האינטרנט ונסו לטעון מחדש.</p><button type="button" id="wasm-load-error-reload" style="padding:.6rem 1.4rem;font-size:1rem;border:0;border-radius:.4rem;background:#0d6efd;color:#fff;cursor:pointer;">טען מחדש</button></div>';
+          host.appendChild(overlay);
+          var btn = document.getElementById('wasm-load-error-reload');
+          if (btn) btn.addEventListener('click', function() { location.reload(); });
+        }
+        window.addEventListener('unhandledrejection', function(e) {
+          // Only treat it as fatal if WASM never finished initializing.
+          if (isNetworkFailure(e.reason) && !window.wasmBindings) {
+            showWasmLoadError();
+          }
+        });
+      })();
     </script>
 
     <!-- EmailJS SDK -->
