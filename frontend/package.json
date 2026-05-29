@@ -8,7 +8,7 @@
     "firebase": "^10.14.0"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "purgecss": "^8.0.0"
   }
 }
